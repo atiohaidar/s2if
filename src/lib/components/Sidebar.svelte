@@ -1,40 +1,62 @@
 <script lang="ts">
     import type { Semester } from "$lib/data/curriculum";
     import { curriculum } from "$lib/data/curriculum";
+    import { page } from "$app/state";
+
+    // Check if current path matches
+    function isActive(path: string): boolean {
+        return (
+            page.url.pathname === path ||
+            page.url.pathname.startsWith(path + "/")
+        );
+    }
 </script>
 
 <div class="sidebar-content">
     <!-- Logo/Title -->
     <div class="sidebar-header">
-        <h1 class="title">📓 S2IF</h1>
+        <div class="logo-icon">📓</div>
+        <h1 class="title">S2IF</h1>
         <p class="subtitle">Digital Notebook</p>
     </div>
 
     <!-- Navigation -->
     <nav class="nav">
-        <a href="/" class="nav-item home">
+        <a
+            href="/"
+            class="nav-item home"
+            class:active={page.url.pathname === "/"}
+        >
             <span class="icon">🏠</span>
-            <span>Beranda</span>
+            <span class="label">Beranda</span>
         </a>
 
         {#each curriculum as semester}
             <div class="semester-group">
-                <h3 class="semester-title">
-                    <span class="icon">📅</span>
-                    {semester.name}
-                </h3>
+                <div class="semester-header">
+                    <span class="semester-icon">📚</span>
+                    <h3 class="semester-title">{semester.name}</h3>
+                </div>
 
                 <ul class="subject-list">
                     {#each semester.subjects as subject}
+                        {@const subjectPath = `/${semester.id}/${subject.id}`}
                         <li>
                             <a
-                                href="/{semester.id}/{subject.id}"
-                                class="nav-item"
+                                href={subjectPath}
+                                class="nav-item subject"
+                                class:active={isActive(subjectPath)}
                             >
                                 <span class="icon">{subject.icon}</span>
-                                <span>{subject.name}</span>
+                                <span class="label">{subject.name}</span>
                                 {#if subject.status}
-                                    <span class="status-dot {subject.status}"
+                                    <span
+                                        class="status-indicator {subject.status}"
+                                        title={subject.status === "done"
+                                            ? "Selesai"
+                                            : subject.status === "wip"
+                                              ? "Dalam Progress"
+                                              : "Belum Mulai"}
                                     ></span>
                                 {/if}
                             </a>
@@ -47,7 +69,8 @@
 
     <!-- Footer -->
     <div class="sidebar-footer">
-        <p>Made with ❤️ for learning</p>
+        <div class="footer-divider"></div>
+        <p>Made with <span class="heart">❤️</span> for learning</p>
     </div>
 </div>
 
@@ -56,74 +79,155 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: 1.5rem;
+        padding: 1.25rem;
     }
 
+    /* ===== Header ===== */
     .sidebar-header {
         text-align: center;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 1rem;
+        padding: 1rem 0 1.5rem;
+        margin-bottom: 0.5rem;
+        position: relative;
+    }
+
+    .sidebar-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 20%;
+        right: 20%;
+        height: 2px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(241, 196, 15, 0.5),
+            transparent
+        );
+    }
+
+    .logo-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.25rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     }
 
     .title {
         font-family: var(--font-handwriting);
-        font-size: 2rem;
+        font-size: 2.25rem;
         margin: 0;
-        background: linear-gradient(135deg, #f1c40f 0%, #e74c3c 100%);
+        background: linear-gradient(
+            135deg,
+            #8b4513 0%,
+            #a0522d 50%,
+            #6d4c41 100%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        font-weight: 700;
+        letter-spacing: 0.02em;
     }
 
     .subtitle {
-        font-size: 0.875rem;
-        opacity: 0.7;
-        margin: 0.25rem 0 0;
+        font-size: 0.8rem;
+        color: #6d4c41;
+        margin: 0.375rem 0 0;
+        font-weight: 500;
+        letter-spacing: 0.05em;
     }
 
+    /* ===== Navigation ===== */
     .nav {
         flex: 1;
         overflow-y: auto;
+        padding-right: 0.25rem;
+    }
+
+    .nav::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .nav::-webkit-scrollbar-thumb {
+        background: rgba(139, 69, 19, 0.3);
+        border-radius: 2px;
     }
 
     .nav-item {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        padding: 0.75rem 1rem;
-        color: rgba(255, 255, 255, 0.85);
+        gap: 0.875rem;
+        padding: 0.875rem 1rem;
+        color: #5d4037;
         text-decoration: none;
-        border-radius: 8px;
-        transition: all 0.2s;
-        font-size: 0.9rem;
+        border-radius: 10px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 0.925rem;
+        position: relative;
+        margin-bottom: 0.25rem;
     }
 
     .nav-item:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
+        background: rgba(139, 69, 19, 0.15);
+        color: #3d2b1f;
+        transform: translateX(4px);
+    }
+
+    .nav-item.active {
+        background: rgba(255, 255, 255, 0.5);
+        color: #8b4513;
+        font-weight: 600;
+        box-shadow: inset 0 0 0 2px #8b4513;
+    }
+
+    .nav-item.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 60%;
+        background: linear-gradient(135deg, #8b4513, #a0522d);
+        border-radius: 0 2px 2px 0;
     }
 
     .nav-item.home {
-        background: rgba(255, 255, 255, 0.05);
-        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 1.25rem;
+        border: 1px solid rgba(139, 69, 19, 0.2);
     }
 
+    .nav-item.home:hover {
+        background: rgba(255, 255, 255, 0.5);
+        border-color: rgba(139, 69, 19, 0.3);
+    }
+
+    /* ===== Semester Group ===== */
     .semester-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .semester-header {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.625rem 0.75rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .semester-icon {
+        font-size: 1rem;
+        opacity: 0.7;
     }
 
     .semester-title {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.75rem;
-        font-weight: 600;
+        font-size: 0.7rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: rgba(255, 255, 255, 0.5);
-        padding: 0.5rem 1rem;
+        letter-spacing: 0.1em;
+        color: #8b4513;
         margin: 0;
+        font-family: var(--font-body);
     }
 
     .subject-list {
@@ -133,41 +237,98 @@
     }
 
     .subject-list li {
-        margin: 0.25rem 0;
+        margin: 0.125rem 0;
     }
 
+    /* ===== Icons ===== */
     .icon {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+        width: 1.5rem;
+        text-align: center;
+        flex-shrink: 0;
     }
 
-    .status-dot {
-        width: 8px;
-        height: 8px;
+    .label {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ===== Status Indicator ===== */
+    .status-indicator {
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        margin-left: auto;
+        flex-shrink: 0;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease;
     }
 
-    .status-dot.done {
-        background: #27ae60;
+    .nav-item:hover .status-indicator {
+        transform: scale(1.2);
     }
 
-    .status-dot.wip {
-        background: #f39c12;
+    .status-indicator.done {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        box-shadow: 0 0 6px rgba(39, 174, 96, 0.5);
     }
 
-    .status-dot.todo {
-        background: #95a5a6;
+    .status-indicator.wip {
+        background: linear-gradient(135deg, #e67e22, #f39c12);
+        box-shadow: 0 0 6px rgba(243, 156, 18, 0.5);
+        animation: pulse-wip 2s ease-in-out infinite;
     }
 
+    .status-indicator.todo {
+        background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+    }
+
+    @keyframes pulse-wip {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+    }
+
+    /* ===== Footer ===== */
     .sidebar-footer {
         text-align: center;
         padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 0.75rem;
-        opacity: 0.5;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-divider {
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        margin-bottom: 1rem;
     }
 
     .sidebar-footer p {
         margin: 0;
+    }
+
+    .heart {
+        display: inline-block;
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
     }
 </style>

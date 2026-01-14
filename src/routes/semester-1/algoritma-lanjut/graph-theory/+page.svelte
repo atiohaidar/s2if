@@ -6,7 +6,9 @@
 -->
 <script lang="ts">
     import NoteSection from "$lib/components/NoteSection.svelte";
-    import Sticker from "$lib/components/Sticker.svelte";
+    import NoteHeader from "$lib/components/NoteHeader.svelte";
+    import BackLink from "$lib/components/BackLink.svelte";
+    import Callout from "$lib/components/Callout.svelte";
 
     // State untuk visualisasi Graph
     let nodes = $state([
@@ -62,14 +64,12 @@
 </svelte:head>
 
 <article class="note-article">
-    <header class="note-header">
-        <span class="date">📅 15 Januari 2026</span>
-        <h1>Teori Graf: Representasi Visual</h1>
-        <div class="tags">
-            <Sticker type="wip">Draft</Sticker>
-            <Sticker type="important">Interactive</Sticker>
-        </div>
-    </header>
+    <NoteHeader
+        title="Teori Graf: Representasi Visual"
+        date="15 Januari 2026"
+        status="wip"
+        tags={["Interactive"]}
+    />
 
     <NoteSection title="Konsep Dasar">
         <p>
@@ -79,9 +79,9 @@
             <span class="highlight">Edges (Sisi)</span>. Di bawah ini adalah
             representasi interaktif dari graf sederhana.
         </p>
-        <p class="instruction">
-            👉 <strong>Coba drag (seret) simpul-simpul di bawah ini!</strong>
-        </p>
+        <Callout type="info" title="Interaktif">
+            Coba drag (seret) simpul-simpul di visualisasi di bawah ini!
+        </Callout>
     </NoteSection>
 
     <!-- Visualisasi Interaktif -->
@@ -192,38 +192,15 @@
         </div>
     </NoteSection>
 
-    <footer class="note-footer">
-        <a href="/semester-1/algoritma-lanjut">← Kembali ke Algoritma Lanjut</a>
-    </footer>
+    <BackLink
+        href="/semester-1/algoritma-lanjut"
+        label="Kembali ke Algoritma Lanjut"
+    />
 </article>
 
 <style>
     .note-article {
         max-width: 800px;
-    }
-    .note-header {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px dashed var(--color-line);
-    }
-    .date {
-        font-size: 0.875rem;
-        opacity: 0.6;
-    }
-    .tags {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-    }
-    .note-header h1 {
-        margin: 0.5rem 0;
-    }
-
-    .instruction {
-        background: #e8f4f8;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        display: inline-block;
     }
 
     /* Visualization Styles */
@@ -344,13 +321,5 @@
         background: #e8f6f3;
         color: #27ae60;
         font-weight: bold;
-    }
-
-    .note-footer {
-        margin-top: 2rem;
-    }
-    .note-footer a {
-        color: var(--color-link);
-        text-decoration: none;
     }
 </style>

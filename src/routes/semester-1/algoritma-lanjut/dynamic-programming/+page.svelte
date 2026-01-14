@@ -7,7 +7,9 @@
 <script lang="ts">
     import NoteSection from "$lib/components/NoteSection.svelte";
     import CodeBlock from "$lib/components/CodeBlock.svelte";
-    import Sticker from "$lib/components/Sticker.svelte";
+    import NoteHeader from "$lib/components/NoteHeader.svelte";
+    import BackLink from "$lib/components/BackLink.svelte";
+    import Callout from "$lib/components/Callout.svelte";
 
     // Fibonacci Playground State
     let n = $state(10);
@@ -44,14 +46,12 @@
 </svelte:head>
 
 <article class="note-article">
-    <header class="note-header">
-        <span class="date">📅 16 Januari 2026</span>
-        <h1>Praktek: Dynamic Programming</h1>
-        <div class="tags">
-            <Sticker type="todo">Latihan</Sticker>
-            <Sticker type="wip">Playground</Sticker>
-        </div>
-    </header>
+    <NoteHeader
+        title="Praktek: Dynamic Programming"
+        date="16 Januari 2026"
+        status="todo"
+        tags={["Playground"]}
+    />
 
     <NoteSection title="Tantangan: Fibonacci Sequence">
         <p>
@@ -128,31 +128,23 @@
         />
     </NoteSection>
 
-    <footer class="note-footer">
-        <a href="/semester-1/algoritma-lanjut">← Kembali ke Algoritma Lanjut</a>
-    </footer>
+    <NoteSection title="Catatan">
+        <Callout type="tip">
+            Perhatikan bahwa pendekatan Bottom-Up ini memiliki kompleksitas
+            waktu O(n) dan ruang O(n). Untuk optimisasi ruang, kita hanya perlu
+            menyimpan dua nilai terakhir saja!
+        </Callout>
+    </NoteSection>
+
+    <BackLink
+        href="/semester-1/algoritma-lanjut"
+        label="Kembali ke Algoritma Lanjut"
+    />
 </article>
 
 <style>
     .note-article {
         max-width: 800px;
-    }
-    .note-header {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px dashed var(--color-line);
-    }
-    .date {
-        font-size: 0.875rem;
-        opacity: 0.6;
-    }
-    .tags {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-    }
-    .note-header h1 {
-        margin: 0.5rem 0;
     }
 
     /* Playground Styles */
@@ -173,6 +165,7 @@
         background: rgba(255, 255, 255, 0.1);
         padding: 1rem;
         border-radius: 8px;
+        flex-wrap: wrap;
     }
 
     .number-input {
@@ -183,6 +176,7 @@
         font-family: var(--font-mono);
         font-size: 1.2rem;
         width: 100px;
+        color: #2c3e50;
     }
 
     .run-btn {
@@ -254,13 +248,5 @@
     .empty-log {
         opacity: 0.5;
         font-style: italic;
-    }
-
-    .note-footer {
-        margin-top: 2rem;
-    }
-    .note-footer a {
-        color: var(--color-link);
-        text-decoration: none;
     }
 </style>

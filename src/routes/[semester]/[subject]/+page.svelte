@@ -82,10 +82,6 @@
 {/if}
 
 <style>
-    .subject-page {
-        max-width: 800px;
-    }
-
     .subject-header {
         display: flex;
         align-items: flex-start;

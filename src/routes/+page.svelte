@@ -1,6 +1,7 @@
 <script lang="ts">
     import { curriculum } from "$lib/data/curriculum";
     import Sticker from "$lib/components/Sticker.svelte";
+    import SubjectCard from "$lib/components/SubjectCard.svelte";
 </script>
 
 <svelte:head>
@@ -34,22 +35,7 @@
                 <h3>{semester.name}</h3>
                 <div class="subjects-grid">
                     {#each semester.subjects as subject}
-                        <a
-                            href="/{semester.id}/{subject.id}"
-                            class="subject-card"
-                        >
-                            <span class="icon">{subject.icon}</span>
-                            <span class="name">{subject.name}</span>
-                            {#if subject.status}
-                                <Sticker type={subject.status} small>
-                                    {subject.status === "done"
-                                        ? "Selesai"
-                                        : subject.status === "wip"
-                                          ? "Proses"
-                                          : "Belum"}
-                                </Sticker>
-                            {/if}
-                        </a>
+                        <SubjectCard {subject} semesterId={semester.id} />
                     {/each}
                 </div>
             </div>
@@ -148,35 +134,6 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
-    }
-
-    .subject-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1.25rem;
-        background: white;
-        border-radius: 8px;
-        text-decoration: none;
-        color: var(--color-ink);
-        border: 1px solid var(--color-line);
-        transition: all 0.2s;
-    }
-
-    .subject-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        border-color: var(--color-binder);
-    }
-
-    .subject-card .icon {
-        font-size: 2rem;
-    }
-
-    .subject-card .name {
-        font-weight: 500;
-        text-align: center;
     }
 
     .quick-guide {

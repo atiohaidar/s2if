@@ -13,9 +13,10 @@
     interface Props {
         code: string;
         language?: string;
+        filename?: string;
     }
 
-    let { code, language = "javascript" }: Props = $props();
+    let { code, language = "javascript", filename }: Props = $props();
     let copied = $state(false);
 
     // Get highlighted HTML
@@ -35,67 +36,139 @@
 
 <div class="code-block">
     <div class="code-header">
-        <span class="language-badge">{language}</span>
-        <button class="copy-btn" onclick={copyCode}>
-            {copied ? "✓ Copied!" : "📋 Copy"}
+        <div class="code-meta">
+            <span class="language-badge">{language}</span>
+            {#if filename}
+                <span class="filename">{filename}</span>
+            {/if}
+        </div>
+        <button class="copy-btn" onclick={copyCode} class:copied>
+            <span class="copy-icon">{copied ? "✓" : "📋"}</span>
+            <span class="copy-text">{copied ? "Copied!" : "Copy"}</span>
         </button>
     </div>
-    <pre class="language-{language}"><code class="language-{language}"
-            >{@html highlightedCode()}</code
-        ></pre>
+    <div class="code-wrapper">
+        <pre class="language-{language}"><code class="language-{language}"
+                >{@html highlightedCode()}</code
+            ></pre>
+    </div>
 </div>
 
 <style>
     .code-block {
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
-        margin: 1rem 0;
+        margin: 1.5rem 0;
         border: 2px solid var(--color-binder);
-        box-shadow: 3px 3px 0 rgba(139, 69, 19, 0.2);
+        box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .code-block:hover {
+        box-shadow: 0 6px 16px rgba(139, 69, 19, 0.2);
     }
 
     .code-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: var(--color-binder);
-        padding: 0.5rem 1rem;
+        background: linear-gradient(
+            135deg,
+            var(--color-binder) 0%,
+            #a0522d 100%
+        );
+        padding: 0.625rem 1rem;
+    }
+
+    .code-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
     }
 
     .language-badge {
         font-size: 0.7rem;
         font-weight: 700;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.08em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+    }
+
+    .filename {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-family: var(--font-mono);
     }
 
     .copy-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 4px;
+        padding: 0.375rem 0.75rem;
+        border-radius: 6px;
         font-size: 0.75rem;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.2s ease;
+        font-weight: 500;
     }
 
     .copy-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+        background: rgba(39, 174, 96, 0.3);
+        border-color: rgba(39, 174, 96, 0.5);
+    }
+
+    .copy-icon {
+        font-size: 0.85rem;
+    }
+
+    .code-wrapper {
+        max-height: 500px;
+        overflow: auto;
     }
 
     pre {
         margin: 0;
-        padding: 1rem;
+        padding: 1.25rem;
         overflow-x: auto;
-        background: #2d2d2d !important;
-        line-height: 1.6;
+        background: #1e1e1e !important;
+        line-height: 1.7;
     }
 
     pre code {
         font-family: var(--font-mono);
         font-size: 0.875rem;
         white-space: pre;
+        color: #d4d4d4;
+    }
+
+    /* Custom scrollbar for code */
+    .code-wrapper::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .code-wrapper::-webkit-scrollbar-track {
+        background: #2d2d2d;
+    }
+
+    .code-wrapper::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 4px;
+    }
+
+    .code-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #666;
     }
 </style>
