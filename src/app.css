@@ -1,1 +1,293 @@
-@import "tailwindcss";
+/* Global Imports */
+@import 'tailwindcss';
+
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* CSS Custom Properties (Design Tokens) */
+:root {
+	/* Colors - Notebook Theme */
+	--color-paper: #fdf6e3;
+	--color-paper-dark: #1a1a2e;
+	--color-ink: #2c3e50;
+	--color-ink-light: #e8e8e8;
+	--color-accent: #e74c3c;
+	--color-highlight: #f1c40f;
+	--color-link: #3498db;
+	--color-binder: #8b4513;
+	--color-line: #d4c4a8;
+	--color-line-dark: #3d3d5c;
+
+	/* Typography */
+	--font-handwriting: 'Caveat', 'Patrick Hand', cursive;
+	--font-body: 'Inter', system-ui, sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
+
+	/* Spacing */
+	--line-height: 2rem;
+	--page-padding: 2rem;
+	--binder-width: 3rem;
+
+	/* Status Colors */
+	--color-status-done: #27ae60;
+	--color-status-wip: #f39c12;
+	--color-status-todo: #95a5a6;
+	--color-status-important: var(--color-accent);
+}
+
+/* Base Styles */
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-body);
+	background-color: var(--color-paper);
+	color: var(--color-ink);
+	line-height: var(--line-height);
+	/* Sync with paper lines */
+	min-height: 100vh;
+	font-size: 1rem;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: var(--color-paper-dark);
+		color: var(--color-ink-light);
+	}
+
+	.notebook-page {
+		background-color: #16213e;
+		--color-line: var(--color-line-dark);
+	}
+}
+
+/* Handwriting Headings */
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-handwriting);
+	font-weight: 600;
+	line-height: 1.2;
+	/* Headings can have tighter line-height */
+	margin-bottom: var(--line-height);
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+h2 {
+	font-size: 2.25rem;
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+/* Paragraphs - Sync with paper lines */
+p {
+	margin-bottom: var(--line-height);
+	line-height: var(--line-height);
+}
+
+/* Lists - Better spacing and handwritten markers */
+ul,
+ol {
+	padding-left: 1.5rem;
+	margin-bottom: var(--line-height);
+}
+
+li {
+	margin-bottom: calc(var(--line-height) * 0.5);
+	line-height: var(--line-height);
+	position: relative;
+}
+
+ul li::marker {
+	content: '• ';
+	color: var(--color-binder);
+	font-weight: bold;
+}
+
+ol {
+	list-style: decimal;
+}
+
+ol li::marker {
+	color: var(--color-binder);
+	font-weight: bold;
+}
+
+/* Code - Basic styling, Prism.js handles the rest */
+pre,
+code {
+	font-family: var(--font-mono);
+	font-size: 0.875rem;
+}
+
+code:not(pre code) {
+	background-color: rgba(139, 69, 19, 0.1);
+	/* Warm brown tint */
+	color: #8b4513;
+	padding: 0.125rem 0.5rem;
+	border-radius: 0.25rem;
+	border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+/* Notebook Paper Effect - FORCE High Contrast */
+.notebook-page {
+	background-color: var(--color-paper) !important;
+	/* Force Cream Paper */
+	color: #2c3e50 !important;
+	/* Force Dark Ink */
+	background-image:
+		repeating-linear-gradient(transparent,
+			transparent calc(var(--line-height) - 1px),
+			var(--color-line) calc(var(--line-height) - 1px),
+			var(--color-line) var(--line-height));
+	background-size: 100% var(--line-height);
+	background-position: 0 0.5rem;
+	padding: var(--page-padding);
+	padding-left: calc(var(--binder-width) + var(--page-padding));
+	min-height: 100vh;
+	position: relative;
+}
+
+/* Ensure links and headers inside the page are also dark */
+.notebook-page h1,
+.notebook-page h2,
+.notebook-page h3,
+.notebook-page h4,
+.notebook-page p,
+.notebook-page li,
+.notebook-page span:not(.sticker):not(.badge) {
+	color: #2c3e50 !important;
+}
+
+.notebook-page a {
+	color: var(--color-link);
+}
+
+/* Binder Rings Effect */
+.notebook-page::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: var(--binder-width);
+	background: linear-gradient(to right,
+			var(--color-binder) 0%,
+			#a0522d 50%,
+			var(--color-binder) 100%);
+	border-right: 2px solid rgba(0, 0, 0, 0.2);
+	z-index: 10;
+}
+
+/* Binder Holes */
+.notebook-page::after {
+	content: '';
+	position: absolute;
+	left: calc(var(--binder-width) / 2 - 6px);
+	top: 2rem;
+	width: 12px;
+	height: calc(100% - 4rem);
+	background-image: radial-gradient(circle at center,
+			#333 0%,
+			#333 6px,
+			transparent 6px);
+	background-size: 12px 4rem;
+	background-repeat: repeat-y;
+}
+
+/* Red Margin Line */
+.notebook-page .margin-line {
+	position: absolute;
+	left: calc(var(--binder-width) + 1rem);
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	background-color: var(--color-accent);
+	opacity: 0.5;
+}
+
+/* Utility Classes */
+.text-handwriting {
+	font-family: var(--font-handwriting);
+}
+
+.text-mono {
+	font-family: var(--font-mono);
+}
+
+/* Highlight Effect - Natural Stabilo Look */
+.highlight {
+	background: linear-gradient(104deg,
+			rgba(241, 196, 15, 0) 0.9%,
+			rgba(241, 196, 15, 0.4) 2.4%,
+			rgba(241, 196, 15, 0.35) 87%,
+			rgba(241, 196, 15, 0.1) 95.5%,
+			rgba(241, 196, 15, 0) 100%);
+	padding: 0.1em 0.2em;
+	border-radius: 0.2em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* Sticker/Tag Styles */
+.sticker {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 9999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.sticker-done {
+	background-color: var(--color-status-done);
+	color: white;
+}
+
+.sticker-wip {
+	background-color: var(--color-status-wip);
+	color: white;
+}
+
+.sticker-todo {
+	background-color: var(--color-status-todo);
+	color: white;
+}
+
+.sticker-important {
+	background-color: var(--color-status-important);
+	color: white;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-paper);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-binder);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #6d3710;
+}

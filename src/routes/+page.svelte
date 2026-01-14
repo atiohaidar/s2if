@@ -1,0 +1,226 @@
+<script lang="ts">
+    import { curriculum } from "$lib/data/curriculum";
+    import Sticker from "$lib/components/Sticker.svelte";
+</script>
+
+<svelte:head>
+    <title>S2IF Notebook - Beranda</title>
+</svelte:head>
+
+<div class="home-page">
+    <header class="hero">
+        <h1>📓 S2 Informatika</h1>
+        <p class="subtitle">Digital Notebook untuk Perjalanan Magister</p>
+        <div class="stickers">
+            <Sticker type="wip">Semester 1</Sticker>
+            <Sticker type="important">2024-2026</Sticker>
+        </div>
+    </header>
+
+    <section class="intro">
+        <h2>✏️ Selamat Datang!</h2>
+        <p>
+            Ini adalah <span class="highlight">buku catatan digital</span> untuk
+            semua materi kuliah S2 Informatika. Setiap catatan dibuat dengan Svelte
+            untuk fleksibilitas maksimal dalam visualisasi dan interaktivitas.
+        </p>
+    </section>
+
+    <section class="semester-overview">
+        <h2>📅 Overview Semester</h2>
+
+        {#each curriculum as semester}
+            <div class="semester-card">
+                <h3>{semester.name}</h3>
+                <div class="subjects-grid">
+                    {#each semester.subjects as subject}
+                        <a
+                            href="/{semester.id}/{subject.id}"
+                            class="subject-card"
+                        >
+                            <span class="icon">{subject.icon}</span>
+                            <span class="name">{subject.name}</span>
+                            {#if subject.status}
+                                <Sticker type={subject.status} small>
+                                    {subject.status === "done"
+                                        ? "Selesai"
+                                        : subject.status === "wip"
+                                          ? "Proses"
+                                          : "Belum"}
+                                </Sticker>
+                            {/if}
+                        </a>
+                    {/each}
+                </div>
+            </div>
+        {/each}
+    </section>
+
+    <section class="quick-guide">
+        <h2>📖 Tipe Catatan</h2>
+        <div class="guide-grid">
+            <div class="guide-item">
+                <span class="icon">📝</span>
+                <h4>Catatan Biasa</h4>
+                <p>Penjelasan teori, konsep, dan materi kuliah</p>
+            </div>
+            <div class="guide-item">
+                <span class="icon">📊</span>
+                <h4>Visualisasi</h4>
+                <p>Grafik interaktif, diagram, dan animasi</p>
+            </div>
+            <div class="guide-item">
+                <span class="icon">💻</span>
+                <h4>Praktek</h4>
+                <p>Kode playground, mini-quiz, dan latihan</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .home-page {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 2rem 0 3rem;
+        border-bottom: 2px dashed var(--color-line);
+        margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin: 0;
+        background: linear-gradient(
+            135deg,
+            var(--color-binder) 0%,
+            var(--color-accent) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .subtitle {
+        font-family: var(--font-handwriting);
+        font-size: 1.5rem;
+        color: var(--color-ink);
+        opacity: 0.7;
+        margin: 0.5rem 0 1rem;
+    }
+
+    .stickers {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .intro {
+        margin-bottom: 2rem;
+    }
+
+    .intro p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .semester-overview {
+        margin-bottom: 2rem;
+    }
+
+    .semester-card {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--color-line);
+    }
+
+    .semester-card h3 {
+        margin: 0 0 1rem;
+        font-size: 1.25rem;
+    }
+
+    .subjects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .subject-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.25rem;
+        background: white;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--color-ink);
+        border: 1px solid var(--color-line);
+        transition: all 0.2s;
+    }
+
+    .subject-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: var(--color-binder);
+    }
+
+    .subject-card .icon {
+        font-size: 2rem;
+    }
+
+    .subject-card .name {
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .quick-guide {
+        margin-bottom: 2rem;
+    }
+
+    .guide-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .guide-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--color-line);
+    }
+
+    .guide-item .icon {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .guide-item h4 {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+    }
+
+    .guide-item p {
+        margin: 0;
+        font-size: 0.875rem;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+        .guide-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
