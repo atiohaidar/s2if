@@ -1,0 +1,17 @@
+# Project Rules
+
+## Tech Stack
+- Framework: SvelteKit (Frontend)
+- Styling: Tailwind CSS & Vanilla CSS (app.css)
+- Language: TypeScript
+
+## UX/UI Guidelines
+- **Notebook Theme**: Pertahankan estetik kertas/notebook.
+- **Components**: Gunakan komponen yang sudah ada (`NoteSection`, `CodeBlock`, etc.) daripada membuat markup manual.
+- **Global Styles**: JANGAN nambah block `<style>` di page component kecuali mendesak. Gunakan style global dari `app.css` (e.g. `.note-article`, `.playground`).
+
+## Workflow: Menambah Materi Baru
+Jika User meminta untuk menambah materi/catatan baru, **WAJIB** ikuti panduan di `Tambah-Materi.md`:
+1. Register topic di `src/lib/data/curriculum.ts`
+2. Buat file page di struktur folder yang sesuai.
+3. Gunakan template standar (NoteHeader, BackLink, dll).

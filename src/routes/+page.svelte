@@ -10,12 +10,10 @@
 
 <div class="home-page">
     <header class="hero">
-        <h1>📓 S2 Informatika</h1>
-        <p class="subtitle">Digital Notebook untuk Perjalanan Magister</p>
-        <div class="stickers">
-            <Sticker type="wip">Semester 1</Sticker>
-            <Sticker type="important">2024-2026</Sticker>
-        </div>
+        <h1>📓 Catatan S2 Informatika</h1>
+        <p class="subtitle">
+            Materi untuk menunjang keberlangsungan studi sebagai mahassiswa S2.
+        </p>
     </header>
 
     <section class="intro">

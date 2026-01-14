@@ -1,5 +1,4 @@
 /* Global Imports */
-@import 'tailwindcss';
 
 /* Custom Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -225,9 +224,9 @@ code:not(pre code) {
 	width: 12px;
 	height: calc(100% - 4rem);
 	background-image: radial-gradient(circle at center,
-			#222 0%,
-			#333 4px,
-			#555 5px,
+			#3d2b1f 0%,
+			#5d4037 4px,
+			rgba(93, 64, 55, 0.5) 5px,
 			transparent 6px);
 	background-size: 12px 4rem;
 	background-repeat: repeat-y;

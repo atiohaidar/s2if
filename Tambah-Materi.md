@@ -34,7 +34,28 @@ Path: `src/routes/[semester]/[subject]/[nama-topic]/+page.svelte`
 </article>
 ```
 
+## 4. Tambah Kuis (Opsional)
+```svelte
+<script>
+    import Quiz from "$lib/components/Quiz.svelte";
+    
+    // Taruh ini di dalam <script>
+    const exercises = [
+        {
+            question: "Pertanyaan?",
+            options: ["A", "B", "C"],
+            correctIndex: 0,
+            explanation: "Penjelasan kenapa A benar."
+        }
+    ];
+</script>
 
-Komponen: `NoteHeader`, `NoteSection`, `CodeBlock`, `Callout`, `BackLink`, `Sticker`
+<!-- Taruh ini di dalam <article> -->
+<NoteSection title="Latihan">
+    <Quiz questions={exercises} />
+</NoteSection>
+```
+
+Komponen: `NoteHeader`, `NoteSection`, `CodeBlock`, `Callout`, `BackLink`, `Sticker`, **`Quiz`**
 
 **Note: Style sudah otomatis global (tidak perlu tambah `<style>`).**

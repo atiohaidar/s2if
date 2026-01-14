@@ -10,6 +10,30 @@
     import NoteHeader from "$lib/components/NoteHeader.svelte";
     import BackLink from "$lib/components/BackLink.svelte";
     import Callout from "$lib/components/Callout.svelte";
+    import Quiz from "$lib/components/Quiz.svelte";
+
+    const quizQuestions = [
+        {
+            question:
+                "Berapa kompleksitas waktu Fibonacci rekursif polos (tanpa DP)?",
+            options: ["O(n)", "O(n^2)", "O(2^n)", "O(log n)"],
+            correctIndex: 2,
+            explanation:
+                "Tanpa memoization, banyak sub-masalah dihitung berulang kali secara eksponensial.",
+        },
+        {
+            question: "Manakah ciri utama Dynamic Programming?",
+            options: [
+                "Greedy Choice",
+                "Overlapping Subproblems",
+                "Randomization",
+                "Backtracking",
+            ],
+            correctIndex: 1,
+            explanation:
+                "DP efektif jika masalah memiliki Overlapping Subproblems dan Optimal Substructure.",
+        },
+    ];
 
     // Fibonacci Playground State
     let n = $state(10);
@@ -136,117 +160,12 @@
         </Callout>
     </NoteSection>
 
+    <NoteSection title="Uji Pemahaman">
+        <Quiz title="Kuis Dinamis" questions={quizQuestions} />
+    </NoteSection>
+
     <BackLink
         href="/semester-1/algoritma-lanjut"
         label="Kembali ke Algoritma Lanjut"
     />
 </article>
-
-<style>
-    .note-article {
-        max-width: 800px;
-    }
-
-    /* Playground Styles */
-    .playground {
-        background: #2c3e50;
-        color: #ecf0f1;
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .input-group {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 1rem;
-        border-radius: 8px;
-        flex-wrap: wrap;
-    }
-
-    .number-input {
-        background: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 1.2rem;
-        width: 100px;
-        color: #2c3e50;
-    }
-
-    .run-btn {
-        background: var(--color-highlight);
-        color: #2c3e50;
-        border: none;
-        padding: 0.5rem 1.5rem;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.1s;
-    }
-
-    .run-btn:active {
-        transform: scale(0.95);
-    }
-
-    .results-panel {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        padding: 1rem;
-    }
-
-    .main-result {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 1rem;
-    }
-
-    .value {
-        font-family: var(--font-mono);
-        color: var(--color-highlight);
-    }
-
-    .metrics {
-        font-size: 0.875rem;
-        opacity: 0.8;
-        margin-bottom: 1rem;
-    }
-
-    .steps-log h4 {
-        margin: 0 0 0.5rem;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        opacity: 0.7;
-    }
-
-    .log-content {
-        max-height: 200px;
-        overflow-y: auto;
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        background: rgba(0, 0, 0, 0.3);
-        padding: 0.5rem;
-        border-radius: 4px;
-    }
-
-    .log-item {
-        padding: 0.25rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .line-num {
-        color: #7f8c8d;
-        margin-right: 0.5rem;
-    }
-
-    .empty-log {
-        opacity: 0.5;
-        font-style: italic;
-    }
-</style>

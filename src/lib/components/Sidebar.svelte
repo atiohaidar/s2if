@@ -70,7 +70,7 @@
     <!-- Footer -->
     <div class="sidebar-footer">
         <div class="footer-divider"></div>
-        <p>Made with <span class="heart">❤️</span> for learning</p>
+        <p>Semoga Bermanfaat</p>
     </div>
 </div>
 
