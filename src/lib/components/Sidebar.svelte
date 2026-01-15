@@ -1,13 +1,16 @@
 <script lang="ts">
     import type { Semester } from "$lib/data/curriculum";
     import { curriculum } from "$lib/data/curriculum";
+    import { STATUS_LABELS } from "$lib/data/constants";
     import { page } from "$app/state";
+    import { base } from "$app/paths";
 
     // Check if current path matches
     function isActive(path: string): boolean {
+        const currentPath = page.url.pathname;
+        const fullPath = base + path;
         return (
-            page.url.pathname === path ||
-            page.url.pathname.startsWith(path + "/")
+            currentPath === fullPath || currentPath.startsWith(fullPath + "/")
         );
     }
 </script>
@@ -23,9 +26,10 @@
     <!-- Navigation -->
     <nav class="nav">
         <a
-            href="/"
+            href="{base}/"
             class="nav-item home"
-            class:active={page.url.pathname === "/"}
+            class:active={page.url.pathname === base + "/" ||
+                page.url.pathname === base}
         >
             <span class="icon">🏠</span>
             <span class="label">Beranda</span>
@@ -43,7 +47,7 @@
                         {@const subjectPath = `/${semester.id}/${subject.id}`}
                         <li>
                             <a
-                                href={subjectPath}
+                                href="{base}{subjectPath}"
                                 class="nav-item subject"
                                 class:active={isActive(subjectPath)}
                             >
@@ -52,11 +56,8 @@
                                 {#if subject.status}
                                     <span
                                         class="status-indicator {subject.status}"
-                                        title={subject.status === "done"
-                                            ? "Selesai"
-                                            : subject.status === "wip"
-                                              ? "Dalam Progress"
-                                              : "Belum Mulai"}
+                                        title={STATUS_LABELS[subject.status] ||
+                                            "Belum Mulai"}
                                     ></span>
                                 {/if}
                             </a>

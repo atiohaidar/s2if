@@ -90,12 +90,15 @@
             <button
                 class="btn"
                 onclick={() => {
-                    nodes.push({
-                        id: nodes.length + 1,
-                        x: Math.random() * 400 + 50,
-                        y: Math.random() * 300 + 50,
-                        label: String.fromCharCode(65 + nodes.length),
-                    });
+                    nodes = [
+                        ...nodes,
+                        {
+                            id: nodes.length + 1,
+                            x: Math.random() * 400 + 50,
+                            y: Math.random() * 300 + 50,
+                            label: String.fromCharCode(65 + nodes.length),
+                        },
+                    ];
                 }}>+ Tambah Node</button
             >
 

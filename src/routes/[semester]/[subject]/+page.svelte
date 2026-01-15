@@ -1,6 +1,8 @@
 <script lang="ts">
     import { page } from "$app/state";
+    import { base } from "$app/paths";
     import { findSubject } from "$lib/data/curriculum";
+    import { STATUS_LABELS } from "$lib/data/constants";
     import TopicCard from "$lib/components/TopicCard.svelte";
     import Sticker from "$lib/components/Sticker.svelte";
 
@@ -11,6 +13,11 @@
 
 <svelte:head>
     <title>{subject?.name ?? "Subject"} - S2IF Notebook</title>
+    <meta
+        name="description"
+        content="Materi {subject?.name ??
+            'Subject'} untuk S2 Informatika. Catatan, visualisasi, dan latihan praktek."
+    />
 </svelte:head>
 
 {#if subject}
@@ -20,17 +27,13 @@
             <div>
                 <h1>{subject.name}</h1>
                 <p class="breadcrumb">
-                    <a href="/">Beranda</a> /
+                    <a href="{base}/">Beranda</a> /
                     <span class="current">{semesterId.replace("-", " ")}</span>
                 </p>
             </div>
             {#if subject.status}
                 <Sticker type={subject.status}>
-                    {subject.status === "done"
-                        ? "Selesai"
-                        : subject.status === "wip"
-                          ? "Dalam Proses"
-                          : "Belum Mulai"}
+                    {STATUS_LABELS[subject.status] || "Belum Mulai"}
                 </Sticker>
             {/if}
         </header>
@@ -77,7 +80,7 @@
     <div class="not-found">
         <h1>404</h1>
         <p>Mata kuliah tidak ditemukan</p>
-        <a href="/">← Kembali ke Beranda</a>
+        <a href="{base}/">← Kembali ke Beranda</a>
     </div>
 {/if}
 

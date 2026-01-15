@@ -1,14 +1,19 @@
 <script lang="ts">
+    import { base } from "$app/paths";
+
     interface Props {
         href: string;
         label?: string;
     }
 
     let { href, label = "Kembali" }: Props = $props();
+
+    // Prepend base path if href starts with /
+    const fullHref = $derived(href.startsWith("/") ? `${base}${href}` : href);
 </script>
 
 <footer class="back-link">
-    <a {href}>← {label}</a>
+    <a href={fullHref}>← {label}</a>
 </footer>
 
 <style>

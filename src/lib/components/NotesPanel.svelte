@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/state";
     import { onMount, onDestroy } from "svelte";
+    import { browser } from "$app/environment";
 
     interface Props {
         isOpen?: boolean;
@@ -18,6 +19,7 @@
 
     // Load notes from localStorage on mount and when page changes
     $effect(() => {
+        if (!browser) return;
         const key = storageKey;
         const saved = localStorage.getItem(key);
         notes = saved ?? "";
@@ -28,6 +30,7 @@
     let saveTimeout: ReturnType<typeof setTimeout>;
 
     function handleInput() {
+        if (!browser) return;
         isSaving = true;
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {

@@ -24,3 +24,9 @@ jadi ini bukan aplikai prioritas, tapi ini selingan aja
 
 cumam kan engga semuanya, jadfi mungkin perlu bikin guidelinennya juga
 
+
+
+tiba tiba kepikiran untuk nambah fitur catetan lain, catetan perkuliahanlain. misal kuliah aku pingin nyatet apa, atau todo tugas di simpen di situ. 
+
+cuman buat aapa ya v:. 
+

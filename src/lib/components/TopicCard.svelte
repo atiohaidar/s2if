@@ -1,5 +1,7 @@
 <script lang="ts">
     import type { Topic } from "$lib/data/curriculum";
+    import { TOPIC_TYPE_ICONS, TOPIC_TYPE_LABELS } from "$lib/data/constants";
+    import { base } from "$app/paths";
 
     interface Props {
         topic: Topic;
@@ -8,25 +10,13 @@
     }
 
     let { topic, semesterId, subjectId }: Props = $props();
-
-    const typeIcons: Record<string, string> = {
-        catatan: "📝",
-        visual: "📊",
-        praktek: "💻",
-    };
-
-    const typeLabels: Record<string, string> = {
-        catatan: "Catatan",
-        visual: "Visualisasi",
-        praktek: "Praktek",
-    };
 </script>
 
-<a href="/{semesterId}/{subjectId}/{topic.id}" class="topic-card">
-    <div class="topic-icon">{typeIcons[topic.type]}</div>
+<a href="{base}/{semesterId}/{subjectId}/{topic.id}" class="topic-card">
+    <div class="topic-icon">{TOPIC_TYPE_ICONS[topic.type]}</div>
     <div class="topic-info">
         <h4 class="topic-name">{topic.name}</h4>
-        <span class="topic-type">{typeLabels[topic.type]}</span>
+        <span class="topic-type">{TOPIC_TYPE_LABELS[topic.type]}</span>
     </div>
     {#if topic.status}
         <span class="status-dot {topic.status}"></span>

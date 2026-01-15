@@ -2,14 +2,20 @@
     import "../app.css";
     import Sidebar from "$lib/components/Sidebar.svelte";
     import NotesPanel from "$lib/components/NotesPanel.svelte";
+    import { onMount } from "svelte";
 
     let { children } = $props();
 
-    // Default to closed on mobile, open on desktop
-    let sidebarOpen = $state(
-        typeof window !== "undefined" ? window.innerWidth > 768 : false,
-    );
+    // Start closed to avoid hydration mismatch, then check on mount
+    let sidebarOpen = $state(false);
     let notesOpen = $state(false);
+    let mounted = $state(false);
+
+    onMount(() => {
+        // Only check window size after mount (client-side only)
+        sidebarOpen = window.innerWidth > 768;
+        mounted = true;
+    });
 
     function toggleSidebar() {
         sidebarOpen = !sidebarOpen;

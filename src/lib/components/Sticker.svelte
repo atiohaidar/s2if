@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { STICKER_ICONS } from "$lib/data/constants";
+
     interface Props {
         type?: "done" | "wip" | "todo" | "important";
         small?: boolean;
@@ -6,17 +8,10 @@
     }
 
     let { type = "todo", small = false, children }: Props = $props();
-
-    const icons = {
-        done: "✓",
-        wip: "⏳",
-        todo: "○",
-        important: "⚡",
-    };
 </script>
 
 <span class="sticker sticker-{type}" class:small>
-    <span class="sticker-icon">{icons[type]}</span>
+    <span class="sticker-icon">{STICKER_ICONS[type]}</span>
     <span class="sticker-text">
         {#if children}
             {@render children()}

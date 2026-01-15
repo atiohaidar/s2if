@@ -1,5 +1,6 @@
 <script lang="ts">
     import Sticker from "./Sticker.svelte";
+    import { STATUS_LABELS } from "$lib/data/constants";
 
     interface Props {
         title: string;
@@ -9,12 +10,6 @@
     }
 
     let { title, date, status, tags = [] }: Props = $props();
-
-    const statusLabels: Record<string, string> = {
-        done: "Selesai",
-        wip: "Proses",
-        todo: "Belum",
-    };
 </script>
 
 <header class="note-header">
@@ -25,7 +20,7 @@
     {#if status || tags.length > 0}
         <div class="tags">
             {#if status}
-                <Sticker type={status}>{statusLabels[status]}</Sticker>
+                <Sticker type={status}>{STATUS_LABELS[status]}</Sticker>
             {/if}
             {#each tags as tag}
                 <Sticker type="important">{tag}</Sticker>

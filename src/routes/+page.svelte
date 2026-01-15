@@ -6,13 +6,17 @@
 
 <svelte:head>
     <title>S2IF Notebook - Beranda</title>
+    <meta
+        name="description"
+        content="Buku catatan digital untuk materi kuliah S2 Informatika. Berisi catatan, visualisasi interaktif, dan latihan praktek."
+    />
 </svelte:head>
 
 <div class="home-page">
     <header class="hero">
         <h1>📓 Catatan S2 Informatika</h1>
         <p class="subtitle">
-            Materi untuk menunjang keberlangsungan studi sebagai mahassiswa S2.
+            Materi untuk menunjang keberlangsungan studi sebagai mahasiswa S2.
         </p>
     </header>
 
@@ -94,12 +98,6 @@
         color: var(--color-ink);
         opacity: 0.7;
         margin: 0.5rem 0 1rem;
-    }
-
-    .stickers {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
     }
 
     .intro {

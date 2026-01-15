@@ -1,6 +1,8 @@
 <script lang="ts">
     import Sticker from "./Sticker.svelte";
     import type { Subject } from "$lib/data/curriculum";
+    import { STATUS_LABELS } from "$lib/data/constants";
+    import { base } from "$app/paths";
 
     interface Props {
         subject: Subject;
@@ -8,20 +10,14 @@
     }
 
     let { subject, semesterId }: Props = $props();
-
-    const statusLabels: Record<string, string> = {
-        done: "Selesai",
-        wip: "Proses",
-        todo: "Belum",
-    };
 </script>
 
-<a href="/{semesterId}/{subject.id}" class="subject-card">
+<a href="{base}/{semesterId}/{subject.id}" class="subject-card">
     <span class="icon">{subject.icon}</span>
     <span class="name">{subject.name}</span>
     {#if subject.status}
         <Sticker type={subject.status} small>
-            {statusLabels[subject.status]}
+            {STATUS_LABELS[subject.status]}
         </Sticker>
     {/if}
 </a>

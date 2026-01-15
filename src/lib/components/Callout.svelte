@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { CALLOUT_ICONS, CALLOUT_TITLES } from "$lib/data/constants";
+
     interface Props {
         type?: "tip" | "warning" | "info" | "danger";
         title?: string;
@@ -6,26 +8,12 @@
     }
 
     let { type = "tip", title, children }: Props = $props();
-
-    const icons: Record<string, string> = {
-        tip: "💡",
-        warning: "⚠️",
-        info: "ℹ️",
-        danger: "🚨",
-    };
-
-    const defaultTitles: Record<string, string> = {
-        tip: "Tips",
-        warning: "Peringatan",
-        info: "Info",
-        danger: "Penting",
-    };
 </script>
 
 <blockquote class="callout callout-{type}">
-    <span class="callout-icon">{icons[type]}</span>
+    <span class="callout-icon">{CALLOUT_ICONS[type]}</span>
     <div class="callout-content">
-        <strong class="callout-title">{title ?? defaultTitles[type]}</strong>
+        <strong class="callout-title">{title ?? CALLOUT_TITLES[type]}</strong>
         {#if children}
             <div class="callout-body">
                 {@render children()}
