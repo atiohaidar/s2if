@@ -19,6 +19,9 @@ const config = {
       precompress: false,
       strict: true
     }),
+    prerender: {
+      handleHttpError: 'warn'
+    },
     paths: {
       base: dev ? '' : basePath
     }

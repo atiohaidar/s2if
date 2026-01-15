@@ -116,8 +116,12 @@ Catatan ini hanya tersimpan di browser kamu dan tidak akan hilang saat refresh h
 
 <!-- Backdrop for mobile -->
 {#if isOpen}
-    <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-    <div class="notes-backdrop" onclick={togglePanel}></div>
+    <button
+        class="notes-backdrop"
+        onclick={togglePanel}
+        aria-label="Tutup panel catatan"
+        tabindex="-1"
+    ></button>
 {/if}
 
 <style>
@@ -274,6 +278,8 @@ Catatan ini hanya tersimpan di browser kamu dan tidak akan hilang saat refresh h
     /* Backdrop */
     .notes-backdrop {
         display: none;
+        border: none;
+        cursor: pointer;
     }
 
     /* Mobile */
@@ -293,6 +299,7 @@ Catatan ini hanya tersimpan di browser kamu dan tidak akan hilang saat refresh h
             inset: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 99;
+            border: none;
         }
     }
 </style>

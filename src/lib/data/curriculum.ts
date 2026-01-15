@@ -57,10 +57,7 @@ export const curriculum: Semester[] = [
                 name: 'Machine Learning',
                 icon: '🤖',
                 status: 'todo',
-                topics: [
-                    { id: 'intro', name: 'Pengantar ML', type: 'catatan' },
-                    { id: 'regression', name: 'Regresi Linear', type: 'visual' },
-                ]
+                topics: []
             },
             {
                 id: 'sistem-terdistribusi',
