@@ -2,6 +2,7 @@
     import type { Topic } from "$lib/data/curriculum";
     import { TOPIC_TYPE_ICONS, TOPIC_TYPE_LABELS } from "$lib/data/constants";
     import { base } from "$app/paths";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Props {
         topic: Topic;
@@ -13,7 +14,9 @@
 </script>
 
 <a href="{base}/{semesterId}/{subjectId}/{topic.id}" class="topic-card">
-    <div class="topic-icon">{TOPIC_TYPE_ICONS[topic.type]}</div>
+    <div class="topic-icon">
+        <ThemeIcon name={TOPIC_TYPE_ICONS[topic.type]} size={20} />
+    </div>
     <div class="topic-info">
         <h4 class="topic-name">{topic.name}</h4>
         <span class="topic-type">{TOPIC_TYPE_LABELS[topic.type]}</span>

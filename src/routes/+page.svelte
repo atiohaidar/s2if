@@ -2,6 +2,7 @@
     import { curriculum } from "$lib/data/curriculum";
     import Sticker from "$lib/components/Sticker.svelte";
     import SubjectCard from "$lib/components/SubjectCard.svelte";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 </script>
 
 <svelte:head>
@@ -14,14 +15,14 @@
 
 <div class="home-page">
     <header class="hero">
-        <h1>📓 Catatan S2 Informatika</h1>
+        <h1><ThemeIcon name="notebook" size={34} /> Catatan S2 Informatika</h1>
         <p class="subtitle">
             Materi untuk menunjang keberlangsungan studi sebagai mahasiswa S2.
         </p>
     </header>
 
     <section class="intro">
-        <h2>✏️ Selamat Datang!</h2>
+        <h2><ThemeIcon name="edit" size={22} /> Selamat Datang!</h2>
         <p>
             Ini adalah <span class="highlight">buku catatan digital</span> untuk
             semua materi kuliah S2 Informatika. Setiap catatan dibuat dengan Svelte
@@ -30,7 +31,7 @@
     </section>
 
     <section class="semester-overview">
-        <h2>📅 Overview Semester</h2>
+        <h2><ThemeIcon name="overview" size={22} /> Overview Semester</h2>
 
         {#each curriculum as semester}
             <div class="semester-card">
@@ -45,20 +46,20 @@
     </section>
 
     <section class="quick-guide">
-        <h2>📖 Tipe Catatan</h2>
+        <h2><ThemeIcon name="topics" size={22} /> Tipe Catatan</h2>
         <div class="guide-grid">
             <div class="guide-item">
-                <span class="icon">📝</span>
+                <span class="icon"><ThemeIcon name="topic-catatan" size={26} /></span>
                 <h4>Catatan Biasa</h4>
                 <p>Penjelasan teori, konsep, dan materi kuliah</p>
             </div>
             <div class="guide-item">
-                <span class="icon">📊</span>
+                <span class="icon"><ThemeIcon name="topic-visual" size={26} /></span>
                 <h4>Visualisasi</h4>
                 <p>Grafik interaktif, diagram, dan animasi</p>
             </div>
             <div class="guide-item">
-                <span class="icon">💻</span>
+                <span class="icon"><ThemeIcon name="topic-praktek" size={26} /></span>
                 <h4>Praktek</h4>
                 <p>Kode playground, mini-quiz, dan latihan</p>
             </div>

@@ -17,9 +17,9 @@ export const STATUS_LABELS: Record<string, string> = {
  * Topic type icons
  */
 export const TOPIC_TYPE_ICONS: Record<string, string> = {
-    catatan: "📝",
-    visual: "📊",
-    praktek: "💻",
+    catatan: "topic-catatan",
+    visual: "topic-visual",
+    praktek: "topic-praktek",
 };
 
 /**
@@ -35,10 +35,10 @@ export const TOPIC_TYPE_LABELS: Record<string, string> = {
  * Callout type icons
  */
 export const CALLOUT_ICONS: Record<string, string> = {
-    tip: "💡",
-    warning: "⚠️",
-    info: "ℹ️",
-    danger: "🚨",
+    tip: "callout-tip",
+    warning: "callout-warning",
+    info: "callout-info",
+    danger: "callout-danger",
 };
 
 /**

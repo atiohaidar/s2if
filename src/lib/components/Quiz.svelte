@@ -1,5 +1,6 @@
 <script lang="ts">
     import Sticker from "./Sticker.svelte";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Question {
         question: string;
@@ -59,7 +60,7 @@
     <div class="tape"></div>
 
     <header class="quiz-header">
-        <h3>✏️ {title}</h3>
+        <h3><ThemeIcon name="edit" size={18} /> {title}</h3>
         {#if !showResult}
             <span class="progress"
                 >Soal {currentQuestion + 1} / {questions.length}</span
@@ -79,11 +80,11 @@
 
                 <p class="feedback">
                     {#if score === questions.length}
-                        🎉 Sempurna! Kamu menguasai materi ini.
+                        <ThemeIcon name="check" size={16} /> Sempurna! Kamu menguasai materi ini.
                     {:else if score > questions.length / 2}
-                        👍 Bagus! Coba lagi untuk nilai sempurna.
+                        Bagus! Coba lagi untuk nilai sempurna.
                     {:else}
-                        📚 Perlu belajar lagi sepertinya.
+                        <ThemeIcon name="topics" size={16} /> Perlu belajar lagi sepertinya.
                     {/if}
                 </p>
 
@@ -92,7 +93,7 @@
                 </div>
 
                 <button class="action-btn restart" onclick={resetQuiz}>
-                    Ulangi Kuis ↺
+                    <ThemeIcon name="close" size={14} /> Ulangi Kuis
                 </button>
             </div>
         {:else}
@@ -122,9 +123,9 @@
 
                             {#if isSubmitted}
                                 {#if i === questions[currentQuestion].correctIndex}
-                                    <span class="status-icon">✓</span>
+                                    <span class="status-icon"><ThemeIcon name="check" size={14} /></span>
                                 {:else if selectedOption === i}
-                                    <span class="status-icon">✗</span>
+                                    <span class="status-icon"><ThemeIcon name="close" size={14} /></span>
                                 {/if}
                             {/if}
                         </button>
@@ -154,7 +155,7 @@
                     <button class="action-btn next" onclick={nextQuestion}>
                         {currentQuestion < questions.length - 1
                             ? "Soal Selanjutnya →"
-                            : "Lihat Hasil 📊"}
+                            : "Lihat Hasil"}
                     </button>
                 </div>
             {:else}

@@ -178,8 +178,7 @@ code:not(pre code) {
 .notebook-page h3,
 .notebook-page h4,
 .notebook-page p,
-.notebook-page li,
-.notebook-page span:not(.sticker):not(.badge) {
+.notebook-page li {
 	color: var(--color-ink) !important;
 }
 

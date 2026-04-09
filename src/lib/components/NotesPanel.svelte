@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import { onMount, onDestroy } from "svelte";
     import { browser } from "$app/environment";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Props {
         isOpen?: boolean;
@@ -69,13 +70,13 @@
     aria-label={isOpen ? "Tutup catatan" : "Buka catatan"}
     title="Catatan Pribadi"
 >
-    {isOpen ? "✕" : "📝"}
+    <ThemeIcon name={isOpen ? "close" : "note"} size={20} />
 </button>
 
 <!-- Notes Panel -->
 <aside class="notes-panel" class:open={isOpen}>
     <div class="notes-header">
-        <h3>📝 Catatan Pribadi</h3>
+        <h3><ThemeIcon name="note" size={18} /> Catatan Pribadi</h3>
         <span class="page-indicator" title={page.url.pathname}>
             {page.url.pathname.split("/").pop() || "Beranda"}
         </span>
@@ -95,9 +96,9 @@ Catatan ini hanya tersimpan di browser kamu dan tidak akan hilang saat refresh h
     <div class="notes-footer">
         <div class="save-status">
             {#if isSaving}
-                <span class="saving">💾 Menyimpan...</span>
+                <span class="saving"><ThemeIcon name="save" size={14} /> Menyimpan...</span>
             {:else if lastSaved}
-                <span class="saved">✓ Tersimpan</span>
+                <span class="saved"><ThemeIcon name="check" size={14} /> Tersimpan</span>
             {:else if notes.length === 0}
                 <span class="empty">Belum ada catatan</span>
             {/if}
@@ -108,7 +109,7 @@ Catatan ini hanya tersimpan di browser kamu dan tidak akan hilang saat refresh h
                 onclick={clearNotes}
                 title="Hapus catatan"
             >
-                🗑️
+                <ThemeIcon name="trash" size={16} />
             </button>
         {/if}
     </div>

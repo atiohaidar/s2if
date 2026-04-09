@@ -5,10 +5,19 @@
     import { STATUS_LABELS } from "$lib/data/constants";
     import TopicCard from "$lib/components/TopicCard.svelte";
     import Sticker from "$lib/components/Sticker.svelte";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     const semesterId = $derived(page.params.semester ?? "");
     const subjectId = $derived(page.params.subject ?? "");
     const subject = $derived(findSubject(semesterId, subjectId));
+    const materiTopics = $derived(
+        (subject?.topics ?? []).filter(
+            (topic) => (topic.track ?? "materi") === "materi",
+        ),
+    );
+    const bedahSoalTopics = $derived(
+        (subject?.topics ?? []).filter((topic) => topic.track === "bedah-soal"),
+    );
 </script>
 
 <svelte:head>
@@ -23,7 +32,7 @@
 {#if subject}
     <div class="subject-page">
         <header class="subject-header">
-            <span class="subject-icon">{subject.icon}</span>
+            <span class="subject-icon"><ThemeIcon name={subject.icon} size={36} /></span>
             <div>
                 <h1>{subject.name}</h1>
                 <p class="breadcrumb">
@@ -39,17 +48,17 @@
         </header>
 
         <section class="topics-section">
-            <h2>📚 Materi</h2>
+            <h2><ThemeIcon name="topics" size={22} /> Materi</h2>
 
-            {#if subject.topics && subject.topics.length > 0}
+            {#if materiTopics.length > 0}
                 <div class="topics-list">
-                    {#each subject.topics as topic}
+                    {#each materiTopics as topic}
                         <TopicCard {topic} {semesterId} {subjectId} />
                     {/each}
                 </div>
             {:else}
                 <div class="empty-state">
-                    <p>📝 Belum ada materi untuk mata kuliah ini.</p>
+                    <p><ThemeIcon name="note" size={16} /> Belum ada materi untuk mata kuliah ini.</p>
                     <p class="hint">
                         Tambahkan topic di <code
                             >src/lib/data/curriculum.ts</code
@@ -59,8 +68,28 @@
             {/if}
         </section>
 
+        <section class="topics-section bedah-soal-section">
+            <h2><ThemeIcon name="edit" size={22} /> Bedah Soal</h2>
+
+            {#if bedahSoalTopics.length > 0}
+                <div class="topics-list">
+                    {#each bedahSoalTopics as topic}
+                        <TopicCard {topic} {semesterId} {subjectId} />
+                    {/each}
+                </div>
+            {:else}
+                <div class="empty-state">
+                    <p><ThemeIcon name="note" size={16} /> Belum ada bedah soal untuk mata kuliah ini.</p>
+                    <p class="hint">
+                        Tambahkan topic dengan <code>track: "bedah-soal"</code>
+                        di <code>src/lib/data/curriculum.ts</code>
+                    </p>
+                </div>
+            {/if}
+        </section>
+
         <section class="add-note-section">
-            <h2>➕ Cara Menambah Catatan Baru</h2>
+            <h2><ThemeIcon name="edit" size={22} /> Cara Menambah Catatan Baru</h2>
             <ol class="steps">
                 <li>
                     Buat folder baru di <code
@@ -122,6 +151,10 @@
 
     .topics-section {
         margin-bottom: 2rem;
+    }
+
+    .bedah-soal-section {
+        margin-top: -0.5rem;
     }
 
     .topics-section h2 {

@@ -4,6 +4,7 @@
     import { STATUS_LABELS } from "$lib/data/constants";
     import { page } from "$app/state";
     import { base } from "$app/paths";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     // Check if current path matches
     function isActive(path: string): boolean {
@@ -18,7 +19,7 @@
 <div class="sidebar-content">
     <!-- Logo/Title -->
     <div class="sidebar-header">
-        <div class="logo-icon">📓</div>
+        <div class="logo-icon"><ThemeIcon name="notebook" size={28} /></div>
         <h1 class="title">S2IF</h1>
         <p class="subtitle">Digital Notebook</p>
     </div>
@@ -31,14 +32,14 @@
             class:active={page.url.pathname === base + "/" ||
                 page.url.pathname === base}
         >
-            <span class="icon">🏠</span>
+            <span class="icon"><ThemeIcon name="home" size={18} /></span>
             <span class="label">Beranda</span>
         </a>
 
         {#each curriculum as semester}
             <div class="semester-group">
                 <div class="semester-header">
-                    <span class="semester-icon">📚</span>
+                    <span class="semester-icon"><ThemeIcon name="semester" size={16} /></span>
                     <h3 class="semester-title">{semester.name}</h3>
                 </div>
 
@@ -51,7 +52,9 @@
                                 class="nav-item subject"
                                 class:active={isActive(subjectPath)}
                             >
-                                <span class="icon">{subject.icon}</span>
+                                <span class="icon">
+                                    <ThemeIcon name={subject.icon} size={18} />
+                                </span>
                                 <span class="label">{subject.name}</span>
                                 {#if subject.status}
                                     <span
@@ -243,7 +246,9 @@
 
     /* ===== Icons ===== */
     .icon {
-        font-size: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 1.5rem;
         text-align: center;
         flex-shrink: 0;

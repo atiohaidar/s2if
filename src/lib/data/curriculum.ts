@@ -15,6 +15,7 @@ export interface Topic {
     id: string;
     name: string;
     type: 'catatan' | 'visual' | 'praktek';
+    track?: 'materi' | 'bedah-soal';
     status?: 'done' | 'wip' | 'todo';
 }
 
@@ -43,45 +44,20 @@ export const curriculum: Semester[] = [
         subjects: [
             {
                 id: 'algoritma-lanjut',
-                name: 'Algoritma Lanjut',
-                icon: '🧮',
+                name: 'Desain Algoritma Lanjut',
+                icon: 'subject-algoritma',
                 status: 'wip',
                 topics: [
-                    { id: 'intro', name: 'Pengantar', type: 'catatan', status: 'done' },
-                    { id: 'graph-theory', name: 'Teori Graf', type: 'visual', status: 'wip' },
-                    { id: 'dynamic-programming', name: 'Dynamic Programming', type: 'praktek' },
+                    { id: 'konsep', name: 'Konsep Dasar', type: 'catatan', status: 'done' },
+                    { id: 'week-5-dnc-pruning', name: 'DnC dan Pemangkasan', type: 'catatan', status: 'todo' },
+                    {
+                        id: 'bedah-soal-pabrik-mesin-1',
+                        name: 'Bedah Soal: Pabrik Mesin (Waktu Produksi Minimum)',
+                        type: 'praktek',
+                        track: 'bedah-soal',
+                        status: 'done'
+                    },
                 ]
-            },
-            {
-                id: 'machine-learning',
-                name: 'Machine Learning',
-                icon: '🤖',
-                status: 'todo',
-                topics: []
-            },
-            {
-                id: 'sistem-terdistribusi',
-                name: 'Sistem Terdistribusi',
-                icon: '🌐',
-                status: 'todo'
-            }
-        ]
-    },
-    {
-        id: 'semester-2',
-        name: 'Semester 2',
-        subjects: [
-            {
-                id: 'data-mining',
-                name: 'Data Mining',
-                icon: '⛏️',
-                status: 'todo'
-            },
-            {
-                id: 'keamanan-informasi',
-                name: 'Keamanan Informasi',
-                icon: '🔐',
-                status: 'todo'
             }
         ]
     },

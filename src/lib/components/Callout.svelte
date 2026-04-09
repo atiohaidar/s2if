@@ -1,5 +1,6 @@
 <script lang="ts">
     import { CALLOUT_ICONS, CALLOUT_TITLES } from "$lib/data/constants";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Props {
         type?: "tip" | "warning" | "info" | "danger";
@@ -11,7 +12,9 @@
 </script>
 
 <blockquote class="callout callout-{type}">
-    <span class="callout-icon">{CALLOUT_ICONS[type]}</span>
+    <span class="callout-icon">
+        <ThemeIcon name={CALLOUT_ICONS[type]} size={20} />
+    </span>
     <div class="callout-content">
         <strong class="callout-title">{title ?? CALLOUT_TITLES[type]}</strong>
         {#if children}

@@ -3,6 +3,7 @@
     import type { Subject } from "$lib/data/curriculum";
     import { STATUS_LABELS } from "$lib/data/constants";
     import { base } from "$app/paths";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Props {
         subject: Subject;
@@ -13,7 +14,7 @@
 </script>
 
 <a href="{base}/{semesterId}/{subject.id}" class="subject-card">
-    <span class="icon">{subject.icon}</span>
+    <span class="icon"><ThemeIcon name={subject.icon} size={28} /></span>
     <span class="name">{subject.name}</span>
     {#if subject.status}
         <Sticker type={subject.status} small>

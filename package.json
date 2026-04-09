@@ -22,7 +22,10 @@
   "dependencies": {
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.49.4",
+    "@types/katex": "^0.16.8",
     "@types/prismjs": "^1.26.5",
+    "katex": "^0.16.45",
+    "lucide-svelte": "^1.0.1",
     "prismjs": "^1.30.0"
   }
 }

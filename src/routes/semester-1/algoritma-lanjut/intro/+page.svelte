@@ -18,18 +18,18 @@
 </script>
 
 <svelte:head>
-    <title>Pengantar Algoritma Lanjut - S2IF Notebook</title>
+    <title>Pengantar Desain Algoritma Lanjut - S2IF Notebook</title>
 </svelte:head>
 
 <article class="note-article">
     <NoteHeader
-        title="Pengantar Algoritma Lanjut"
+        title="Pengantar Desain Algoritma Lanjut"
         date="14 Januari 2026"
         status="done"
         tags={["Penting"]}
     />
 
-    <NoteSection title="Apa itu Algoritma Lanjut?">
+    <NoteSection title="Apa itu Desain Algoritma Lanjut?">
         <p>
             Algoritma lanjut adalah studi mendalam tentang <span
                 class="highlight">teknik-teknik algoritmik</span
@@ -100,6 +100,6 @@ print(fibonacci_dp(10))  # Output: 55`}
 
     <BackLink
         href="/semester-1/algoritma-lanjut"
-        label="Kembali ke Algoritma Lanjut"
+        label="Kembali ke Desain Algoritma Lanjut"
     />
 </article>

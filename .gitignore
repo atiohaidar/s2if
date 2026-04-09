@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 .svelte-kit
-
+sumber-referensi/
 node_modules
 dist
 build
@@ -16,7 +16,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
+!.vscode/extensions.json    
 .idea
 .DS_Store
 *.suo

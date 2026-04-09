@@ -1,6 +1,7 @@
 <script lang="ts">
     import Sticker from "./Sticker.svelte";
     import { STATUS_LABELS } from "$lib/data/constants";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     interface Props {
         title: string;
@@ -14,7 +15,7 @@
 
 <header class="note-header">
     {#if date}
-        <span class="date">📅 {date}</span>
+        <span class="date"><ThemeIcon name="overview" size={14} /> {date}</span>
     {/if}
     <h1>{title}</h1>
     {#if status || tags.length > 0}

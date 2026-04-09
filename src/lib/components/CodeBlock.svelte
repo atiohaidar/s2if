@@ -1,6 +1,7 @@
 <script lang="ts">
     import Prism from "prismjs";
     import "prismjs/themes/prism-tomorrow.css";
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
     // Import languages
     import "prismjs/components/prism-python";
     import "prismjs/components/prism-javascript";
@@ -43,7 +44,9 @@
             {/if}
         </div>
         <button class="copy-btn" onclick={copyCode} class:copied>
-            <span class="copy-icon">{copied ? "✓" : "📋"}</span>
+            <span class="copy-icon">
+                <ThemeIcon name={copied ? "check" : "copy"} size={14} />
+            </span>
             <span class="copy-text">{copied ? "Copied!" : "Copy"}</span>
         </button>
     </div>

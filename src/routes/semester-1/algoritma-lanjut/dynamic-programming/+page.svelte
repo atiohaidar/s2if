@@ -166,6 +166,6 @@
 
     <BackLink
         href="/semester-1/algoritma-lanjut"
-        label="Kembali ke Algoritma Lanjut"
+        label="Kembali ke Desain Algoritma Lanjut"
     />
 </article>
