@@ -1,4 +1,4 @@
-import { curriculum } from '$lib/data/curriculum';
+import { curriculum } from '$lib/data/content';
 
 // Generate entries for prerendering all subject pages
 export function entries() {

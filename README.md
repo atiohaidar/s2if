@@ -1,32 +1,65 @@
-jadi sebenrnya project ini tuh untuk mengisi "kekosongan" project. sebenrnnya aku pinginnytuh nge pahamin struktur kode project yang udah ada, jadi emmahami kode yan gudah ada. 
+# S2IF Notebook
 
-cuman ini project sebenrnnya untuk mengisi waktu kalau misal lagi nyambi ngapain, lanjutin project ini
+S2IF Notebook adalah web catatan pembelajaran untuk materi S2 Informatika berbasis SvelteKit.
 
-sebenrnnya ini harunya ngapain aja?
-1. nentuin design dari project ini, terus di bikin bentuknya jadi json
-2. bikin komponen komponennya dulu
-3. bikin arsitektur sistemnya gimana, misal kaalu mau nambah course gimana. jadi dibuat gampang kalau misal mau nge update project ini
-   
+Fokus project:
+- catatan materi yang bisa dibaca cepat
+- visualisasi interaktif untuk konsep algoritma dan AI
+- struktur konten scalable lewat manifest per topic
 
+## Menjalankan Project
 
-aku sih kebaynagnnya nanti per folder ya, nanti kalau msal aku bikin folder, bearti aku bikin materi baru, dan lagnsung bisa di akses gitu. 
+Prerequisite:
+- Node.js 20+
 
-jadi kalau orang oran gmau bikin catetan itii make gambar, atau coret coretqan, kalau aku make nya kode. gitu aja sebenrnya bedannya
+Install dependencies:
+```bash
+npm install
+```
 
-designnya juga engga
+Run development server:
+```bash
+npm run dev
+```
 
-jadi ini bukan aplikai prioritas, tapi ini selingan aja
- utamannya memahami kode dan bikin kodentna
- 
- oh iya catetan juga harus diksik juga bagusnya untuk pembelajara itu akyak gimana
+Build production:
+```bash
+npm run build
+```
 
- mungkin nanti konsepnya ada yang penjelasan biasa, tertus ada yang story, terus ada yang praktek
+## Quality Gates
 
-cumam kan engga semuanya, jadfi mungkin perlu bikin guidelinennya juga
+- Lint: `npm run lint`
+- Format check: `npm run format:check`
+- Script tests: `npm run test:tools`
+- Content validation: `npm run validate:content`
+- Full check: `npm run check`
 
+## Struktur Konten
 
+- Global index semester/subject: `src/lib/data/content/indexes.ts`
+- Detail tiap topic: `src/routes/[semester]/[subject]/[topic]/topic.manifest.ts`
+- Discovery metadata otomatis: `src/lib/data/content/discovery.ts`
+- Aggregation untuk UI: `src/lib/data/content/index.ts`
 
-tiba tiba kepikiran untuk nambah fitur catetan lain, catetan perkuliahanlain. misal kuliah aku pingin nyatet apa, atau todo tugas di simpen di situ. 
+## Menambah Materi
 
-cuman buat aapa ya v:. 
+Gunakan scaffolder:
+```bash
+npm run create:topic -- --semester=semester-1 --subject=algoritma-lanjut --slug=contoh-topik --title="Contoh Topik" --summary="Ringkasan singkat" --order=99 --type=catatan --track=materi --status=todo --renderMode=note
+```
+
+Dokumentasi:
+- Quick start: [Tambah-Materi.md](Tambah-Materi.md)
+- Reference lengkap: [Tambah-Materi-Reference.md](Tambah-Materi-Reference.md)
+
+## CI
+
+Workflow CI ada di `.github/workflows/ci.yml` dan menjalankan:
+1. lint
+2. tests (tools scripts)
+3. check
+4. build
+
+Deploy ke GitHub Pages tetap menggunakan `.github/workflows/deploy.yml`.
 

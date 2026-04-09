@@ -1,7 +1,7 @@
 <script lang="ts">
     import { page } from "$app/state";
     import { base } from "$app/paths";
-    import { findSubject } from "$lib/data/curriculum";
+    import { findSubject } from "$lib/data/content";
     import { STATUS_LABELS } from "$lib/data/constants";
     import TopicCard from "$lib/components/TopicCard.svelte";
     import Sticker from "$lib/components/Sticker.svelte";
@@ -60,9 +60,8 @@
                 <div class="empty-state">
                     <p><ThemeIcon name="note" size={16} /> Belum ada materi untuk mata kuliah ini.</p>
                     <p class="hint">
-                        Tambahkan topic di <code
-                            >src/lib/data/curriculum.ts</code
-                        >
+                        Tambahkan <code>topic.manifest.ts</code> di folder topic,
+                        misalnya <code>src/routes/{semesterId}/{subjectId}/[nama-topic]/topic.manifest.ts</code>
                     </p>
                 </div>
             {/if}
@@ -82,7 +81,7 @@
                     <p><ThemeIcon name="note" size={16} /> Belum ada bedah soal untuk mata kuliah ini.</p>
                     <p class="hint">
                         Tambahkan topic dengan <code>track: "bedah-soal"</code>
-                        di <code>src/lib/data/curriculum.ts</code>
+                        pada file <code>topic.manifest.ts</code>
                     </p>
                 </div>
             {/if}
@@ -92,15 +91,14 @@
             <h2><ThemeIcon name="edit" size={22} /> Cara Menambah Catatan Baru</h2>
             <ol class="steps">
                 <li>
-                    Buat folder baru di <code
-                        >src/routes/{semesterId}/{subjectId}/[nama-topic]</code
-                    >
+                    Buat folder baru di <code>src/routes/{semesterId}/{subjectId}/[nama-topic]</code>
                 </li>
                 <li>
                     Buat file <code>+page.svelte</code> di dalam folder tersebut
                 </li>
                 <li>
-                    Tambahkan topic di <code>src/lib/data/curriculum.ts</code>
+                    Buat file <code>topic.manifest.ts</code> dengan metadata
+                    lengkap (id/slug/title/type/status/order/tags/prereq/renderMode)
                 </li>
             </ol>
         </section>

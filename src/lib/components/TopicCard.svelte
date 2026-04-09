@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Topic } from "$lib/data/curriculum";
+    import type { Topic } from "$lib/data/content";
     import { TOPIC_TYPE_ICONS, TOPIC_TYPE_LABELS } from "$lib/data/constants";
     import { base } from "$app/paths";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
@@ -19,6 +19,9 @@
     </div>
     <div class="topic-info">
         <h4 class="topic-name">{topic.name}</h4>
+        {#if topic.summary}
+            <p class="topic-summary">{topic.summary}</p>
+        {/if}
         <span class="topic-type">{TOPIC_TYPE_LABELS[topic.type]}</span>
     </div>
     {#if topic.status}
@@ -63,6 +66,13 @@
     .topic-type {
         font-size: 0.75rem;
         opacity: 0.6;
+    }
+
+    .topic-summary {
+        margin: 0.25rem 0;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        opacity: 0.72;
     }
 
     .status-dot {

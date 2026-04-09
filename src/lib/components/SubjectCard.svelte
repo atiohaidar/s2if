@@ -1,6 +1,6 @@
 <script lang="ts">
     import Sticker from "./Sticker.svelte";
-    import type { Subject } from "$lib/data/curriculum";
+    import type { Subject } from "$lib/data/content";
     import { STATUS_LABELS } from "$lib/data/constants";
     import { base } from "$app/paths";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
@@ -16,6 +16,9 @@
 <a href="{base}/{semesterId}/{subject.id}" class="subject-card">
     <span class="icon"><ThemeIcon name={subject.icon} size={28} /></span>
     <span class="name">{subject.name}</span>
+    {#if subject.summary}
+        <span class="summary">{subject.summary}</span>
+    {/if}
     {#if subject.status}
         <Sticker type={subject.status} small>
             {STATUS_LABELS[subject.status]}
@@ -51,5 +54,12 @@
     .name {
         font-weight: 500;
         text-align: center;
+    }
+
+    .summary {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        text-align: center;
+        opacity: 0.72;
     }
 </style>

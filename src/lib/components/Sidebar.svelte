@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { Semester } from "$lib/data/curriculum";
-    import { curriculum } from "$lib/data/curriculum";
+    import type { Semester } from "$lib/data/content";
+    import { curriculum } from "$lib/data/content";
     import { STATUS_LABELS } from "$lib/data/constants";
     import { page } from "$app/state";
     import { base } from "$app/paths";
@@ -34,6 +34,15 @@
         >
             <span class="icon"><ThemeIcon name="home" size={18} /></span>
             <span class="label">Beranda</span>
+        </a>
+
+        <a
+            href="{base}/catalog"
+            class="nav-item"
+            class:active={isActive("/catalog")}
+        >
+            <span class="icon"><ThemeIcon name="topics" size={18} /></span>
+            <span class="label">Katalog Konten</span>
         </a>
 
         {#each curriculum as semester}
