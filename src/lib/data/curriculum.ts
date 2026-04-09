@@ -58,6 +58,25 @@ export const curriculum: Semester[] = [
                         status: 'done'
                     },
                 ]
+            },
+            {
+                id: 'kecerdasan-buatan-lanjut',
+                name: 'Kecerdasan Buatan Lanjut',
+                icon: 'subject-ai-lanjut',
+                status: 'wip',
+                topics: [
+                    { id: 'pengantar-ai', name: 'Pengantar AI', type: 'catatan', status: 'done' },
+                    {
+                        id: 'ai-searching-dan-visualisasi-tree',
+                        name: 'AI Searching dan Visualisasi Tree',
+                        type: 'visual',
+                        status: 'done'
+                    },
+                    { id: 'blind-search', name: 'Blind Search', type: 'catatan', status: 'done' },
+                    { id: 'informed-search', name: 'Informed Search', type: 'catatan', status: 'done' },
+                    { id: 'adversarial-search', name: 'Adversarial Search', type: 'catatan', status: 'done' },
+                    { id: 'metaheuristic-search', name: 'Metaheuristic Search', type: 'catatan', status: 'done' }
+                ]
             }
         ]
     },
