@@ -33,7 +33,7 @@
         align-items: center;
         gap: 0.5rem;
         padding: 1.25rem;
-        background: white;
+        background: var(--color-surface-elevated);
         border-radius: 8px;
         text-decoration: none;
         color: var(--color-ink);

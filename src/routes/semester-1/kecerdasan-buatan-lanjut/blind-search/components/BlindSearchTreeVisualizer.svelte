@@ -2,6 +2,23 @@
     import { onDestroy } from "svelte";
 
     type Algo = "BFS" | "DFS" | "UCS";
+    type NodeId = keyof typeof nodePositions;
+
+    type QueueEntry = {
+        node: NodeId;
+        cost: number;
+        depth: number;
+    };
+
+    type Snapshot = {
+        node: NodeId | "-";
+        action: string;
+        frontier: string[];
+        visited: NodeId[];
+        currentPath: NodeId[];
+        expandedEdges?: [NodeId, NodeId][];
+        goalReached: boolean;
+    };
 
     const edgeCosts: Record<string, number> = {
         "S-A": 1,
@@ -16,16 +33,16 @@
     };
 
     const nodePositions = {
-        S: { x: 320, y: 40 },
-        A: { x: 160, y: 130 },
-        B: { x: 320, y: 130 },
-        C: { x: 480, y: 130 },
-        D: { x: 80, y: 230 },
-        E: { x: 160, y: 230 },
-        F: { x: 280, y: 230 },
-        G: { x: 360, y: 230 },
-        H: { x: 480, y: 230 },
-        I: { x: 560, y: 230 },
+        S: { x: 320, y: 35 },
+        A: { x: 200, y: 125 },
+        B: { x: 320, y: 125 },
+        C: { x: 440, y: 125 },
+        D: { x: 120, y: 245 },
+        E: { x: 200, y: 245 },
+        F: { x: 280, y: 245 },
+        G: { x: 360, y: 245 },
+        H: { x: 440, y: 245 },
+        I: { x: 520, y: 245 },
     } as const;
 
     const treeEdges = [
@@ -41,46 +58,261 @@
     ] as const;
 
     const allNodes = Object.entries(nodePositions) as [
-        keyof typeof nodePositions,
+        NodeId,
         (typeof nodePositions)[keyof typeof nodePositions],
     ][];
 
-    const traversals: Record<Algo, string[]> = {
-        BFS: ["S", "A", "B", "C", "D", "E", "F", "G", "H"],
-        DFS: ["S", "A", "D", "E", "B", "F", "G", "C", "H"],
-        UCS: ["S", "A", "C", "E", "H"],
+    const adjacency: Record<NodeId, NodeId[]> = {
+        S: ["A", "B", "C"],
+        A: ["D", "E"],
+        B: ["F", "G"],
+        C: ["H", "I"],
+        D: [],
+        E: [],
+        F: [],
+        G: [],
+        H: [],
+        I: [],
     };
 
-    const pseudoAction: Record<Algo, string[]> = {
-        BFS: [
-            "Start dari root S, masukkan ke queue.",
-            "Pop S, enqueue semua child: A, B, C.",
-            "Pop A, enqueue child A: D, E.",
-            "Pop B, enqueue child B: F, G.",
-            "Pop C, enqueue child C: H, I.",
-            "Pop D, belum goal.",
-            "Pop E, belum goal.",
-            "Pop F lalu G, belum goal.",
-            "Pop H, goal ditemukan.",
-        ],
-        DFS: [
-            "Start dari root S, push ke stack.",
-            "Kunjungi A (cabang kiri dulu).",
-            "Turun ke D (paling dalam pada cabang A).",
-            "Backtrack ke E.",
-            "Backtrack ke B.",
-            "Turun ke F.",
-            "Lanjut ke G.",
-            "Backtrack ke C.",
-            "Turun ke H, goal ditemukan.",
-        ],
-        UCS: [
-            "Start dari S dengan biaya 0 di priority queue.",
-            "Pilih A (biaya 1) karena paling kecil.",
-            "Pilih C (biaya 2) lebih kecil dari kandidat lain.",
-            "Pilih E (biaya 2) dari jalur S-A-E.",
-            "Pilih H (biaya 3), goal ditemukan paling murah.",
-        ],
+    const goalNode: NodeId = "H";
+
+    function buildPath(
+        parents: Partial<Record<NodeId, NodeId | null>>,
+        node: NodeId,
+    ): NodeId[] {
+        const path: NodeId[] = [node];
+        let cursor = parents[node] ?? null;
+
+        while (cursor) {
+            path.unshift(cursor);
+            cursor = parents[cursor] ?? null;
+        }
+
+        return path;
+    }
+
+    function formatFrontier(entries: QueueEntry[]): string[] {
+        return entries.map((entry) => `${entry.node}${entry.cost > 0 ? `(${entry.cost})` : ""}`);
+    }
+
+    function snapshotGoal(
+        node: NodeId,
+        action: string,
+        frontier: QueueEntry[],
+        visited: NodeId[],
+        parents: Partial<Record<NodeId, NodeId | null>>,
+        expandedEdges?: [NodeId, NodeId][],
+    ): Snapshot {
+        return {
+            node,
+            action,
+            frontier: formatFrontier(frontier),
+            visited: [...visited],
+            currentPath: buildPath(parents, node),
+            expandedEdges,
+            goalReached: node === goalNode,
+        };
+    }
+
+    function simulateBfs(): Snapshot[] {
+        const snapshots: Snapshot[] = [];
+        const queue: QueueEntry[] = [{ node: "S", cost: 0, depth: 0 }];
+        const visited = new Set<NodeId>();
+        const discovered = new Set<NodeId>(["S"]);
+        const parents: Partial<Record<NodeId, NodeId | null>> = { S: null };
+
+        snapshots.push({
+            node: "-",
+            action: "Start dari root S dan masukkan ke queue.",
+            frontier: ["S"],
+            visited: [],
+            currentPath: ["S"],
+            goalReached: false,
+        });
+
+        while (queue.length > 0) {
+            const current = queue.shift();
+            if (!current) break;
+
+            visited.add(current.node);
+            const currentPath = buildPath(parents, current.node);
+
+            if (current.node === goalNode) {
+                snapshots.push({
+                    node: current.node,
+                    action: `Pop ${current.node}, goal ditemukan.`,
+                    frontier: formatFrontier(queue),
+                    visited: [...visited],
+                    currentPath,
+                    expandedEdges: [],
+                    goalReached: true,
+                });
+                break;
+            }
+
+            const children = adjacency[current.node].filter((child) => !discovered.has(child));
+            const expandedEdges: [NodeId, NodeId][] = [];
+            children.forEach((child) => {
+                discovered.add(child);
+                parents[child] = current.node;
+                queue.push({ node: child, cost: 0, depth: current.depth + 1 });
+                expandedEdges.push([current.node, child]);
+            });
+
+            snapshots.push({
+                node: current.node,
+                action:
+                    children.length > 0
+                        ? `Pop ${current.node}, enqueue child: ${children.join(", ")}.`
+                        : `Pop ${current.node}, tidak ada child baru.`,
+                frontier: formatFrontier(queue),
+                visited: [...visited],
+                currentPath,
+                expandedEdges,
+                goalReached: false,
+            });
+        }
+
+        return snapshots;
+    }
+
+    function simulateDfs(): Snapshot[] {
+        const snapshots: Snapshot[] = [];
+        const stack: QueueEntry[] = [{ node: "S", cost: 0, depth: 0 }];
+        const visited = new Set<NodeId>();
+        const discovered = new Set<NodeId>(["S"]);
+        const parents: Partial<Record<NodeId, NodeId | null>> = { S: null };
+
+        snapshots.push({
+            node: "-",
+            action: "Start dari root S dan push ke stack.",
+            frontier: ["S"],
+            visited: [],
+            currentPath: ["S"],
+            goalReached: false,
+        });
+
+        while (stack.length > 0) {
+            const current = stack.pop();
+            if (!current) break;
+
+            if (visited.has(current.node)) {
+                continue;
+            }
+
+            visited.add(current.node);
+            const currentPath = buildPath(parents, current.node);
+
+            if (current.node === goalNode) {
+                snapshots.push({
+                    node: current.node,
+                    action: `Pop ${current.node}, goal ditemukan.`,
+                    frontier: formatFrontier(stack),
+                    visited: [...visited],
+                    currentPath,
+                    expandedEdges: [],
+                    goalReached: true,
+                });
+                break;
+            }
+
+            const children = [...adjacency[current.node]].reverse().filter((child) => !discovered.has(child));
+            const expandedEdges: [NodeId, NodeId][] = [];
+            children.forEach((child) => {
+                discovered.add(child);
+                parents[child] = current.node;
+                stack.push({ node: child, cost: 0, depth: current.depth + 1 });
+                expandedEdges.push([current.node, child]);
+            });
+
+            snapshots.push({
+                node: current.node,
+                action:
+                    children.length > 0
+                        ? `Pop ${current.node}, push child: ${children.slice().reverse().join(", ")}.`
+                        : `Pop ${current.node}, tidak ada child baru.`,
+                frontier: formatFrontier(stack),
+                visited: [...visited],
+                currentPath,
+                expandedEdges,
+                goalReached: false,
+            });
+        }
+
+        return snapshots;
+    }
+
+    function simulateUcs(): Snapshot[] {
+        const snapshots: Snapshot[] = [];
+        const frontier: QueueEntry[] = [{ node: "S", cost: 0, depth: 0 }];
+        const visited = new Set<NodeId>();
+        const bestCost: Partial<Record<NodeId, number>> = { S: 0 };
+        const parents: Partial<Record<NodeId, NodeId | null>> = { S: null };
+
+        snapshots.push({
+            node: "-",
+            action: "Start dari S dengan biaya 0 di priority queue.",
+            frontier: ["S(0)"],
+            visited: [],
+            currentPath: ["S"],
+            goalReached: false,
+        });
+
+        while (frontier.length > 0) {
+            frontier.sort((left, right) => left.cost - right.cost || left.depth - right.depth || left.node.localeCompare(right.node));
+            const current = frontier.shift();
+            if (!current) break;
+
+            if (visited.has(current.node)) {
+                continue;
+            }
+
+            visited.add(current.node);
+            const currentPath = buildPath(parents, current.node);
+
+            if (current.node === goalNode) {
+                snapshots.push({
+                    node: current.node,
+                    action: `Pop ${current.node}, goal ditemukan dengan biaya total ${current.cost}.`,
+                    frontier: formatFrontier(frontier),
+                    visited: [...visited],
+                    currentPath,
+                    expandedEdges: [],
+                    goalReached: true,
+                });
+                break;
+            }
+
+            const expandedEdges: [NodeId, NodeId][] = [];
+            adjacency[current.node].forEach((child) => {
+                const totalCost = current.cost + (edgeCosts[`${current.node}-${child}`] ?? 0);
+                if (bestCost[child] === undefined || totalCost < bestCost[child]!) {
+                    bestCost[child] = totalCost;
+                    parents[child] = current.node;
+                    frontier.push({ node: child, cost: totalCost, depth: current.depth + 1 });
+                    expandedEdges.push([current.node, child]);
+                }
+            });
+
+            snapshots.push({
+                node: current.node,
+                action: `Pop ${current.node}, update kandidat berdasarkan biaya total.`,
+                frontier: formatFrontier(frontier),
+                visited: [...visited],
+                currentPath,
+                expandedEdges,
+                goalReached: false,
+            });
+        }
+
+        return snapshots;
+    }
+
+    const snapshotsByAlgo: Record<Algo, Snapshot[]> = {
+        BFS: simulateBfs(),
+        DFS: simulateDfs(),
+        UCS: simulateUcs(),
     };
 
     let algorithm = $state<Algo>("BFS");
@@ -88,21 +320,50 @@
     let isPlaying = $state(false);
     let timer: ReturnType<typeof setInterval> | null = null;
 
-    const order = $derived(traversals[algorithm]);
-    const visitedNow = $derived(order.slice(0, step));
-    const currentNode = $derived(step > 0 ? order[step - 1] : "-");
-    const goalReached = $derived(visitedNow.includes("H"));
-    const action = $derived(step > 0 ? pseudoAction[algorithm][step - 1] : "Tekan Play untuk mulai animasi.");
+    const snapshots = $derived(snapshotsByAlgo[algorithm]);
+    const currentSnapshot = $derived(snapshots[Math.min(step, snapshots.length - 1)] ?? snapshots[0]);
+    const visitedNow = $derived(currentSnapshot?.visited ?? []);
+    const currentNode = $derived(currentSnapshot?.node ?? "-");
+    const goalReached = $derived(Boolean(currentSnapshot?.goalReached));
+    const action = $derived(currentSnapshot?.action ?? "Tekan Play untuk mulai animasi.");
+    const frontier = $derived(currentSnapshot?.frontier ?? []);
+    const currentPath = $derived(currentSnapshot?.currentPath ?? []);
+    const expansionEdges = $derived(currentSnapshot?.expandedEdges ?? []);
+    const solutionEdgeKeys = $derived(getPathEdgeKeys(currentPath));
 
-    function isEdgeVisited(from: string, to: string) {
-        return visitedNow.includes(from) && visitedNow.includes(to);
+    function getPathEdgeKeys(path: NodeId[]) {
+        const keys = new Set<string>();
+
+        for (let index = 0; index < path.length - 1; index += 1) {
+            keys.add(`${path[index]}|${path[index + 1]}`);
+        }
+
+        return keys;
     }
 
-    function getEdgeCost(from: keyof typeof nodePositions, to: keyof typeof nodePositions) {
+    function getEdgeState(from: NodeId, to: NodeId) {
+        const edgeKey = `${from}|${to}`;
+
+        if (solutionEdgeKeys.has(edgeKey)) {
+            return "solution";
+        }
+
+        if (expansionEdges.some(([edgeFrom, edgeTo]) => edgeFrom === from && edgeTo === to)) {
+            return "expansion";
+        }
+
+        if (visitedNow.includes(from) && visitedNow.includes(to)) {
+            return "visited";
+        }
+
+        return "";
+    }
+
+    function getEdgeCost(from: NodeId, to: NodeId) {
         return edgeCosts[`${from}-${to}`];
     }
 
-    function getEdgeLabelPosition(from: keyof typeof nodePositions, to: keyof typeof nodePositions) {
+    function getEdgeLabelPosition(from: NodeId, to: NodeId) {
         const fromPos = nodePositions[from];
         const toPos = nodePositions[to];
 
@@ -152,7 +413,7 @@
     }
 
     function nextStep() {
-        if (step < order.length) {
+        if (step < snapshots.length - 1) {
             step += 1;
         } else {
             stopPlayback();
@@ -167,7 +428,7 @@
 
         isPlaying = true;
         timer = setInterval(() => {
-            if (step >= order.length) {
+            if (step >= snapshots.length - 1) {
                 stopPlayback();
                 return;
             }
@@ -200,54 +461,72 @@
             <button class="action-btn" onclick={togglePlay}>
                 {isPlaying ? "Pause" : "Play"}
             </button>
-            <button class="action-btn" onclick={nextStep} disabled={step >= order.length}>Step</button>
+            <button class="action-btn" onclick={nextStep} disabled={step >= snapshots.length - 1}>Step</button>
             <button class="action-btn" onclick={reset}>Reset</button>
         </div>
     </div>
 
     <div class="status-panel">
         <p><strong>Node saat ini:</strong> {currentNode}</p>
-        <p><strong>Langkah:</strong> {step}/{order.length}</p>
+        <p><strong>Langkah:</strong> {step}/{Math.max(snapshots.length - 1, 0)}</p>
         <p><strong>Aksi:</strong> {action}</p>
         <p><strong>Status goal H:</strong> {goalReached ? "Ditemukan" : "Belum"}</p>
     </div>
 
-    <div class="tree-wrap">
-        <div class="tree-canvas" role="img" aria-label="Tree pencarian blind search">
-            <svg class="tree-lines" viewBox="0 0 640 270" preserveAspectRatio="xMidYMid meet">
-                {#each treeEdges as [from, to]}
-                    <line
-                        x1={nodePositions[from].x}
-                        y1={nodePositions[from].y + 24}
-                        x2={nodePositions[to].x}
-                        y2={nodePositions[to].y - 24}
-                        class:edge-visited={isEdgeVisited(from, to)}
-                    />
+    <div class="frontier-panel">
+        <p><strong>{algorithm === "BFS" ? "Queue" : algorithm === "DFS" ? "Stack" : "Priority queue"}:</strong></p>
+        {#if frontier.length > 0}
+            <div class="frontier-list">
+                {#each frontier as item}
+                    <span class="frontier-item">{item}</span>
                 {/each}
+            </div>
+        {:else}
+            <p class="frontier-empty">Kosong</p>
+        {/if}
+        <p class="frontier-note">Hijau = edge ekspansi aktif, emas = jalur solusi saat goal ditemukan.</p>
+        {#if currentPath.length > 0}
+            <p class="path-line"><strong>Jalur aktif:</strong> {currentPath.join(" → ")}</p>
+        {/if}
+    </div>
 
-                <g class="edge-labels" class:show-costs={algorithm === "UCS"}>
-                    {#each treeEdges as [from, to]}
-                        {@const labelPos = getEdgeLabelPosition(from, to)}
-                        <g class="edge-weight" transform={`translate(${labelPos.x}, ${labelPos.y})`}>
-                            <circle r="11"></circle>
-                            <text x="0" y="1">{getEdgeCost(from, to)}</text>
-                        </g>
-                    {/each}
-                </g>
-            </svg>
+    <div class="tree-wrap" role="img" aria-label="Tree pencarian blind search">
+        <svg class="tree-svg" viewBox="0 0 640 310" preserveAspectRatio="xMidYMid meet">
+            {#each treeEdges as [from, to]}
+                <line
+                    x1={nodePositions[from].x}
+                    y1={nodePositions[from].y + 24}
+                    x2={nodePositions[to].x}
+                    y2={nodePositions[to].y - 24}
+                    class:edge-visited={getEdgeState(from, to) === "visited"}
+                    class:edge-expansion={getEdgeState(from, to) === "expansion"}
+                    class:edge-solution={getEdgeState(from, to) === "solution"}
+                />
+            {/each}
+
+            <g class="edge-labels" class:show-costs={algorithm === "UCS"}>
+                {#each treeEdges as [from, to]}
+                    {@const labelPos = getEdgeLabelPosition(from, to)}
+                    <g class="edge-weight" transform={`translate(${labelPos.x}, ${labelPos.y})`}>
+                        <circle r="11"></circle>
+                        <text x="0" y="1">{getEdgeCost(from, to)}</text>
+                    </g>
+                {/each}
+            </g>
 
             {#each allNodes as [node, pos]}
-                <div
+                <g
                     class="node"
                     class:visited={visitedNow.includes(node)}
                     class:current={currentNode === node}
                     class:goal={node === "H"}
-                    style={`left: ${pos.x}px; top: ${pos.y}px;`}
+                    transform={`translate(${pos.x}, ${pos.y})`}
                 >
-                    {node}
-                </div>
+                    <circle r="24"></circle>
+                    <text>{node}</text>
+                </g>
             {/each}
-        </div>
+        </svg>
     </div>
 
     <div class="legend">
@@ -255,6 +534,12 @@
         <span><i class="dot visited"></i> Sudah dikunjungi</span>
         <span><i class="dot current"></i> Sedang dieksekusi</span>
         <span><i class="dot goal"></i> Goal</span>
+    </div>
+
+    <div class="legend edge-legend">
+        <span><i class="dot edge-edge"></i> Edge visited</span>
+        <span><i class="dot edge-expansion"></i> Edge ekspansi aktif</span>
+        <span><i class="dot edge-solution"></i> Jalur solusi</span>
     </div>
 
     <details class="costs">
@@ -265,12 +550,12 @@
 
 <style>
     .visualizer-card {
-        background: #fff;
+        background: var(--color-surface-elevated);
         border: 1px solid var(--color-line);
         border-radius: 12px;
         padding: 1rem;
         margin: 1rem 0;
-        box-shadow: 0 6px 18px rgba(60, 45, 30, 0.08);
+        box-shadow: var(--shadow-md);
     }
 
     .top-controls {
@@ -290,7 +575,7 @@
     .algo-btn,
     .action-btn {
         border: 1px solid var(--color-line);
-        background: #fff;
+        background: var(--color-surface-elevated);
         color: var(--color-ink);
         border-radius: 8px;
         padding: 0.45rem 0.75rem;
@@ -299,9 +584,9 @@
     }
 
     .algo-btn.active {
-        background: #f4e5d5;
-        border-color: #bb8a56;
-        color: #5a3c1d;
+        background: var(--color-surface-soft);
+        border-color: var(--color-binder);
+        color: var(--color-ink-strong);
     }
 
     .action-btn:disabled {
@@ -312,9 +597,50 @@
     .status-panel {
         margin: 0.95rem 0;
         padding: 0.8rem;
-        background: #fbf7f1;
+        background: var(--color-surface-soft);
         border-radius: 8px;
-        border-left: 4px solid #c5863f;
+        border-left: 4px solid var(--color-binder);
+    }
+
+    .frontier-panel {
+        margin: 0.95rem 0 1rem;
+        padding: 0.8rem;
+        background: var(--color-surface-soft);
+        border-radius: 8px;
+        border: 1px dashed var(--color-line);
+    }
+
+    .frontier-panel p {
+        margin: 0.15rem 0;
+    }
+
+    .frontier-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.45rem;
+    }
+
+    .frontier-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.55rem;
+        border-radius: 9999px;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-line);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .frontier-empty,
+    .path-line {
+        color: var(--color-ink-soft);
+    }
+
+    .frontier-note {
+        margin-top: 0.35rem;
+        color: var(--color-ink-soft);
+        font-size: 0.85rem;
     }
 
     .status-panel p {
@@ -323,35 +649,40 @@
     }
 
     .tree-wrap {
-        overflow-x: auto;
         padding: 0.8rem 0.2rem;
     }
 
-    .tree-canvas {
-        width: 640px;
-        min-width: 640px;
-        height: 270px;
-        position: relative;
-        margin: 0 auto;
-    }
-
-    .tree-lines {
-        position: absolute;
-        inset: 0;
+    .tree-svg {
         width: 100%;
-        height: 100%;
-        pointer-events: none;
+        max-width: 640px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        overflow: visible;
     }
 
-    .tree-lines line {
-        stroke: #b9a690;
+    .tree-svg line {
+        stroke: var(--color-line-dark);
         stroke-width: 3;
         stroke-linecap: round;
         transition: stroke 0.25s ease;
     }
 
-    .tree-lines line.edge-visited {
-        stroke: #6da070;
+    .tree-svg line.edge-visited {
+        stroke: var(--color-ink-soft);
+        opacity: 0.55;
+    }
+
+    .tree-svg line.edge-expansion {
+        stroke: var(--color-status-success-start);
+        stroke-width: 4.5;
+        opacity: 1;
+    }
+
+    .tree-svg line.edge-solution {
+        stroke: var(--color-callout-warning-border);
+        stroke-width: 4.5;
+        opacity: 1;
     }
 
     .edge-labels {
@@ -364,14 +695,14 @@
     }
 
     .edge-weight circle {
-        fill: #fff;
-        stroke: #b9a690;
+        fill: var(--color-surface-elevated);
+        stroke: var(--color-line-dark);
         stroke-width: 1.2;
     }
 
     .edge-labels.show-costs .edge-weight circle {
-        fill: #fff7e8;
-        stroke: #b47d33;
+        fill: var(--color-surface-muted);
+        stroke: var(--color-binder);
     }
 
     .edge-weight text {
@@ -379,42 +710,64 @@
         dominant-baseline: middle;
         font-size: 11px;
         font-weight: 700;
-        fill: #5b4634;
+        fill: var(--color-ink-strong);
         user-select: none;
     }
 
     .node {
-        width: 48px;
-        height: 48px;
-        border-radius: 999px;
-        border: 2px solid #c8b29a;
-        background: #fff;
-        color: #5b4634;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-        position: absolute;
-        transform: translate(-50%, -50%);
-        transition: transform 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease;
+        transition: transform 0.28s ease;
     }
 
-    .node.visited {
-        background: #e8f5e9;
-        border-color: #5f9a62;
-        color: #1f5a23;
+    .node circle {
+        fill: var(--color-surface-elevated);
+        stroke: var(--color-line);
+        stroke-width: 2;
+        transition: fill 0.28s ease, stroke 0.28s ease, filter 0.28s ease;
+    }
+
+    .node text {
+        fill: var(--color-ink-strong);
+        font-size: 26px;
+        font-family: var(--font-handwriting);
+        font-weight: 700;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        user-select: none;
+    }
+
+    .node.visited circle {
+        fill: var(--color-status-success-soft);
+        stroke: var(--color-status-success-border);
+    }
+
+    .node.visited text {
+        fill: var(--color-status-success-text);
         animation: pop 0.3s ease;
     }
 
-    .node.current {
-        background: #fff3cd;
-        border-color: #d29b31;
-        color: #704a00;
-        box-shadow: 0 0 0 4px rgba(210, 155, 49, 0.2);
-        transform: translate(-50%, -50%) scale(1.08);
+    .node.current circle {
+        r: 26;
+        fill: var(--color-highlight);
+        stroke: var(--color-callout-warning-border);
+        stroke-width: 2.5;
+        filter: drop-shadow(0 0 0.35rem color-mix(in srgb, var(--color-callout-warning-border) 35%, transparent));
     }
 
-    .node.goal {
-        border-style: dashed;
+    .node.current text {
+        fill: var(--color-callout-warning-text);
+    }
+
+    .node.goal circle {
+        stroke-dasharray: 5 4;
+    }
+
+    .node.current.goal circle {
+        fill: var(--color-highlight);
+        stroke: var(--color-callout-warning-border);
+    }
+
+    .node.current.goal text {
+        fill: var(--color-callout-warning-text);
     }
 
     .legend {
@@ -435,30 +788,50 @@
         width: 11px;
         height: 11px;
         border-radius: 999px;
-        background: #fff;
-        border: 1px solid #c8b29a;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-line);
         display: inline-block;
     }
 
     .dot.visited {
-        background: #e8f5e9;
-        border-color: #5f9a62;
+        background: var(--color-status-success-soft);
+        border-color: var(--color-status-success-border);
     }
 
     .dot.current {
-        background: #fff3cd;
-        border-color: #d29b31;
+        background: var(--color-highlight);
+        border-color: var(--color-callout-warning-border);
     }
 
     .dot.goal {
-        background: #fff;
-        border: 1px dashed #6b8f3b;
+        background: var(--color-surface-elevated);
+        border: 1px dashed var(--color-status-done-start);
+    }
+
+    .edge-legend {
+        margin-top: 0.5rem;
+        color: var(--color-ink-soft);
+    }
+
+    .dot.edge-edge {
+        background: var(--color-ink-soft);
+        border-color: var(--color-ink-soft);
+    }
+
+    .dot.edge-expansion {
+        background: var(--color-status-success-start);
+        border-color: var(--color-status-success-start);
+    }
+
+    .dot.edge-solution {
+        background: var(--color-callout-warning-border);
+        border-color: var(--color-callout-warning-border);
     }
 
     .costs {
         margin-top: 0.8rem;
         font-size: 0.9rem;
-        color: #5b4634;
+        color: var(--color-ink-strong);
     }
 
     .costs summary {
@@ -477,16 +850,12 @@
     }
 
     @media (max-width: 768px) {
-        .node {
-            width: 42px;
-            height: 42px;
-            font-size: 0.92rem;
+        .node circle {
+            r: 21;
         }
 
-        .tree-canvas {
-            width: 600px;
-            min-width: 600px;
-            height: 270px;
+        .node text {
+            font-size: 23px;
         }
 
         .status-panel p {
@@ -495,16 +864,12 @@
     }
 
     @media (max-width: 480px) {
-        .node {
-            width: 36px;
-            height: 36px;
-            font-size: 0.85rem;
+        .node circle {
+            r: 19;
         }
 
-        .tree-canvas {
-            width: 560px;
-            min-width: 560px;
-            height: 255px;
+        .node text {
+            font-size: 20px;
         }
     }
 </style>

@@ -10,12 +10,56 @@
 	--color-paper-dark: #1a1a2e;
 	--color-ink: #2c3e50;
 	--color-ink-light: #e8e8e8;
+	--color-ink-strong: #3d2b1f;
+	--color-ink-muted: #6d4c41;
+	--color-ink-soft: #7f8c8d;
 	--color-accent: #e74c3c;
 	--color-highlight: #f1c40f;
 	--color-link: #2980b9;
 	--color-binder: #8b4513;
 	--color-line: #e8dcc8;
 	--color-line-dark: #3d3d5c;
+	--color-surface: #fffdf5;
+	--color-surface-elevated: #ffffff;
+	--color-surface-muted: #f5e6c8;
+	--color-surface-soft: #faf7f0;
+	--color-surface-alt: #fdf6e3;
+	--color-note-lines: #d4c4a8;
+	--color-status-done-start: #27ae60;
+	--color-status-done-end: #2ecc71;
+	--color-status-wip-start: #e67e22;
+	--color-status-wip-end: #f39c12;
+	--color-status-todo-start: #7f8c8d;
+	--color-status-todo-end: #95a5a6;
+	--color-status-important-start: #c0392b;
+	--color-status-important-end: #e74c3c;
+	--color-text-on-accent: #ffffff;
+	--color-callout-tip-start: #fff9e6;
+	--color-callout-tip-end: #fff3cd;
+	--color-callout-tip-border: #f39c12;
+	--color-callout-tip-text: #856404;
+	--color-status-info-soft: #ebf5fb;
+	--color-status-info-border: #3498db;
+	--color-status-success-soft: #eafaf1;
+	--color-status-success-border: #a9dfbf;
+	--color-status-success-text: #1e8449;
+	--color-status-warning-soft: #fdedec;
+	--color-status-warning-border: #e74c3c;
+	--color-status-warning-text: #721c24;
+	--color-status-neutral-soft: #f0f0f0;
+	--color-status-neutral-border: #bdc3c7;
+	--color-callout-warning-start: #fff3e0;
+	--color-callout-warning-end: #ffe0b2;
+	--color-callout-warning-border: #e67e22;
+	--color-callout-warning-text: #8a4500;
+	--color-callout-info-start: #e3f2fd;
+	--color-callout-info-end: #bbdefb;
+	--color-callout-info-border: #3498db;
+	--color-callout-info-text: #0c5460;
+	--color-callout-danger-start: #ffebee;
+	--color-callout-danger-end: #ffcdd2;
+	--color-callout-danger-border: #e74c3c;
+	--color-callout-danger-text: #721c24;
 
 	/* Typography - Improved Scale */
 	--font-handwriting: 'Caveat', 'Patrick Hand', cursive;
@@ -57,16 +101,83 @@ body {
 }
 
 /* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-	body {
-		background-color: var(--color-paper-dark);
-		color: var(--color-ink-light);
-	}
+:root[data-theme='dark'] {
+	--color-ink-strong: #f3e4d8;
+	--color-ink-muted: #dbc8b6;
+	--color-ink-soft: #b9a690;
+	--color-surface: #16213e;
+	--color-surface-elevated: #1c2847;
+	--color-surface-muted: #22304e;
+	--color-surface-soft: #1f2a44;
+	--color-surface-alt: #18233e;
+	--color-note-lines: #4f4f70;
+	--color-callout-tip-start: #3d3418;
+	--color-callout-tip-end: #4a3f1d;
+	--color-callout-tip-border: #d29b31;
+	--color-callout-tip-text: #f4ddb0;
+	--color-callout-warning-start: #4a2e12;
+	--color-callout-warning-end: #5c3816;
+	--color-callout-warning-border: #e67e22;
+	--color-callout-warning-text: #f4c79a;
+	--color-callout-info-start: #10253c;
+	--color-callout-info-end: #17314f;
+	--color-callout-info-border: #5dade2;
+	--color-callout-info-text: #cfe8ff;
+	--color-callout-danger-start: #3f1720;
+	--color-callout-danger-end: #531b28;
+	--color-callout-danger-border: #ef6f6c;
+	--color-callout-danger-text: #f5d0d0;
+	--color-status-info-soft: #10253c;
+	--color-status-info-border: #5dade2;
+	--color-status-success-soft: #163725;
+	--color-status-success-border: #5dbb86;
+	--color-status-success-text: #8fe0b0;
+	--color-status-warning-soft: #3f1720;
+	--color-status-warning-border: #ef6f6c;
+	--color-status-warning-text: #f5d0d0;
+	--color-status-neutral-soft: #22304e;
+	--color-status-neutral-border: #4f5f7a;
+}
 
-	.notebook-page {
-		background-color: #16213e;
-		--color-line: var(--color-line-dark);
-	}
+:root[data-theme='dark'] body {
+	background-color: var(--color-paper-dark);
+	color: var(--color-ink-light);
+}
+
+:root[data-theme='dark'] .notebook-page {
+	background-color: var(--color-surface);
+	color: var(--color-ink-light);
+	--color-line: var(--color-line-dark);
+}
+
+:root[data-theme='dark'] h2,
+:root[data-theme='dark'] h3,
+:root[data-theme='dark'] h4 {
+	color: var(--color-ink-muted);
+}
+
+:root[data-theme='dark'] li strong {
+	color: var(--color-ink-strong);
+}
+
+:root[data-theme='dark'] code:not(pre code) {
+	background-color: rgba(127, 199, 255, 0.12);
+	color: var(--color-callout-info-text);
+	border-color: rgba(127, 199, 255, 0.25);
+}
+
+:root[data-theme='dark'] .notebook-page h1,
+:root[data-theme='dark'] .notebook-page h2,
+:root[data-theme='dark'] .notebook-page h3,
+:root[data-theme='dark'] .notebook-page h4,
+:root[data-theme='dark'] .notebook-page p,
+:root[data-theme='dark'] .notebook-page li {
+	color: var(--color-ink-light);
+}
+
+:root[data-theme='dark'] .notebook-page a {
+	color: #7fc7ff;
+	text-decoration-color: rgba(127, 199, 255, 0.45);
 }
 
 /* ===== Typography Hierarchy ===== */
@@ -94,12 +205,12 @@ h2 {
 
 h3 {
 	font-size: 1.875rem;
-	color: #5d4037;
+	color: var(--color-ink-strong);
 }
 
 h4 {
 	font-size: 1.5rem;
-	color: #6d4c41;
+	color: var(--color-ink-muted);
 }
 
 /* Paragraphs - Better Readability */
@@ -162,8 +273,8 @@ code:not(pre code) {
 
 /* ===== Notebook Paper Effect ===== */
 .notebook-page {
-	background-color: var(--color-paper) !important;
-	color: var(--color-ink) !important;
+	background-color: var(--color-surface-alt);
+	color: var(--color-ink);
 	/* Lines removed for better readability - keeping clean paper look */
 	padding: var(--page-padding);
 	padding-left: calc(var(--binder-width) + var(--page-padding) + 0.5rem);
@@ -179,7 +290,7 @@ code:not(pre code) {
 .notebook-page h4,
 .notebook-page p,
 .notebook-page li {
-	color: var(--color-ink) !important;
+	color: var(--color-ink);
 }
 
 .notebook-page a {
@@ -292,22 +403,22 @@ code:not(pre code) {
 
 .sticker-done {
 	background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-	color: white;
+	color: var(--color-text-on-accent);
 }
 
 .sticker-wip {
 	background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-	color: white;
+	color: var(--color-text-on-accent);
 }
 
 .sticker-todo {
 	background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
-	color: white;
+	color: var(--color-text-on-accent);
 }
 
 .sticker-important {
 	background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
-	color: white;
+	color: var(--color-text-on-accent);
 	animation: pulse-important 2s ease-in-out infinite;
 }
 
@@ -386,7 +497,7 @@ code:not(pre code) {
 
 .note-header .date {
 	font-size: 0.9rem;
-	color: #7f8c8d;
+	color: var(--color-ink-soft);
 	font-weight: 500;
 	display: inline-block;
 	margin-bottom: 0.5rem;
@@ -432,7 +543,7 @@ code:not(pre code) {
 /* Important Note / Callout */
 .important-note,
 .callout {
-	background: linear-gradient(135deg, #fffdf5 0%, #fff8e1 100%);
+	background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
 	border-left: 5px solid var(--color-highlight);
 	padding: 1.25rem 1.75rem;
 	margin: 1.5rem 0;
@@ -443,8 +554,8 @@ code:not(pre code) {
 
 /* Playground (for interactive demos) */
 .playground {
-	background: #2c3e50;
-	color: #ecf0f1;
+	background: var(--color-ink);
+	color: var(--color-ink-light);
 	padding: 1.5rem;
 	border-radius: 12px;
 	margin-bottom: 2rem;
@@ -463,7 +574,7 @@ code:not(pre code) {
 }
 
 .playground .number-input {
-	background: white;
+	background: var(--color-surface-elevated);
 	border: none;
 	padding: 0.5rem 1rem;
 	border-radius: 4px;
@@ -486,4 +597,29 @@ code:not(pre code) {
 
 .playground .run-btn:active {
 	transform: scale(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.sticker:hover,
+	.note-footer a:hover,
+	.playground .run-btn:active,
+	.catalog-link:hover,
+	.topic-card:hover,
+	.entry-card:hover,
+	.nav-item:hover,
+	.sidebar-toggle:hover,
+	.notes-toggle:hover {
+		transform: none !important;
+	}
 }

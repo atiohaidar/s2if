@@ -2,27 +2,91 @@
     import "../app.css";
     import Sidebar from "$lib/components/Sidebar.svelte";
     import NotesPanel from "$lib/components/NotesPanel.svelte";
-    import { onMount } from "svelte";
+    import { browser } from "$app/environment";
+    import { onDestroy, onMount } from "svelte";
 
     let { children } = $props();
 
     // Start closed to avoid hydration mismatch, then check on mount
     let sidebarOpen = $state(false);
     let notesOpen = $state(false);
+    let theme = $state<"light" | "dark">("light");
     let mounted = $state(false);
+    let previousSidebarOpen = false;
+    let sidebarToggleEl: HTMLButtonElement | null = null;
+    let sidebarEl: HTMLElement | null = null;
+    let detachKeydownListener: (() => void) | null = null;
 
     onMount(() => {
+        const storedTheme = browser ? localStorage.getItem("s2if-theme") : null;
+        theme = storedTheme === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+
         // Only check window size after mount (client-side only)
         sidebarOpen = window.innerWidth > 768;
         mounted = true;
+
+        const handleKeydown = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") {
+                return;
+            }
+
+            if (notesOpen) {
+                notesOpen = false;
+            }
+
+            if (sidebarOpen) {
+                sidebarOpen = false;
+            }
+        };
+
+        document.addEventListener("keydown", handleKeydown);
+        detachKeydownListener = () => {
+            document.removeEventListener("keydown", handleKeydown);
+        };
+    });
+
+    onDestroy(() => {
+        detachKeydownListener?.();
+    });
+
+    $effect(() => {
+        if (!mounted || previousSidebarOpen === sidebarOpen) {
+            return;
+        }
+
+        if (sidebarOpen) {
+            queueMicrotask(() => {
+                const focusTarget = sidebarEl?.querySelector(
+                    "a, button, [tabindex]:not([tabindex='-1'])",
+                ) as HTMLElement | null;
+                focusTarget?.focus();
+            });
+        } else {
+            queueMicrotask(() => {
+                sidebarToggleEl?.focus();
+            });
+        }
+
+        previousSidebarOpen = sidebarOpen;
     });
 
     function toggleSidebar() {
         sidebarOpen = !sidebarOpen;
     }
 
+    function closeSidebar() {
+        sidebarOpen = false;
+    }
+
     function toggleNotes() {
         notesOpen = !notesOpen;
+    }
+
+    function toggleTheme() {
+        theme = theme === "light" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("s2if-theme", theme);
     }
 </script>
 
@@ -33,15 +97,44 @@
 >
     <!-- Sidebar Toggle Button -->
     <button
+        bind:this={sidebarToggleEl}
         class="sidebar-toggle"
         onclick={toggleSidebar}
         aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+        aria-expanded={sidebarOpen}
+        aria-controls="primary-sidebar"
     >
         {sidebarOpen ? "◀" : "▶"}
     </button>
 
+    <button
+        class="theme-toggle"
+        onclick={toggleTheme}
+        aria-label={theme === "light" ? "Pindah ke mode gelap" : "Pindah ke mode terang"}
+        aria-pressed={theme === "dark"}
+        title={theme === "light" ? "Mode terang" : "Mode gelap"}
+    >
+        {theme === "light" ? "☾" : "☀"}
+    </button>
+
+    {#if sidebarOpen}
+        <button
+            class="sidebar-backdrop"
+            onclick={closeSidebar}
+            aria-label="Tutup sidebar"
+            tabindex="-1"
+        ></button>
+    {/if}
+
     <!-- Sidebar Navigation -->
-    <aside class="sidebar" class:open={sidebarOpen}>
+    <aside
+        bind:this={sidebarEl}
+        id="primary-sidebar"
+        class="sidebar"
+        class:open={sidebarOpen}
+        aria-hidden={!sidebarOpen}
+        aria-label="Navigasi utama"
+    >
         <Sidebar />
     </aside>
 
@@ -71,17 +164,23 @@
         width: 280px;
         background: linear-gradient(
             180deg,
-            #d4b896 0%,
-            #c4a882 50%,
-            #b89b6a 100%
+            var(--color-surface-muted) 0%,
+            var(--color-surface-elevated) 50%,
+            var(--color-surface-soft) 100%
         );
-        color: #3d2b1f;
+        color: var(--color-ink-strong);
         overflow-y: auto;
         transform: translateX(-100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 100;
         box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
-        border-right: 3px solid #8b4513;
+        border-right: 3px solid var(--color-binder);
+    }
+
+    .sidebar-backdrop {
+        display: none;
+        border: none;
+        cursor: pointer;
     }
 
     .sidebar.open {
@@ -115,8 +214,8 @@
         top: 1.5rem;
         left: 0;
         z-index: 101;
-        background: #8b4513;
-        color: white;
+        background: var(--color-binder);
+        color: var(--color-text-on-accent);
         border: none;
         width: 48px;
         height: 48px;
@@ -132,7 +231,32 @@
 
     .sidebar-toggle:hover {
         width: 56px;
-        background: #6d3710;
+        background: var(--color-binder);
+    }
+
+    .theme-toggle {
+        position: fixed;
+        top: 1.5rem;
+        right: 3.6rem;
+        z-index: 101;
+        width: 48px;
+        height: 48px;
+        border: none;
+        border-radius: 9999px;
+        background: var(--color-surface-elevated);
+        color: var(--color-ink-strong);
+        box-shadow: var(--shadow-md);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-lg);
     }
 
     /* Move toggle button when sidebar is open */
@@ -144,7 +268,7 @@
     }
 
     .sidebar-open .sidebar-toggle:hover {
-        background: #8b4513;
+        background: var(--color-binder);
         opacity: 1;
     }
 
@@ -164,18 +288,22 @@
             margin-right: 0;
         }
 
-        /* Dim background when sidebar is open on mobile */
-        .sidebar-open::after {
-            content: "";
+        .sidebar-backdrop {
+            display: block;
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 99;
+            border: none;
         }
 
         /* Toggle button stays visible or moves */
         .sidebar-open .sidebar-toggle {
             left: 240px;
+        }
+
+        .theme-toggle {
+            right: 3.1rem;
         }
     }
 </style>

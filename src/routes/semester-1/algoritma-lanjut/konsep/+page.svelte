@@ -443,20 +443,20 @@ while k > 1:
         width: 100%;
         min-width: 640px;
         border-collapse: collapse;
-        background: #fff;
-        border: 1px solid #ddd;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-line);
     }
 
     .trace-table th,
     .trace-table td {
-        border: 1px solid #ddd;
+        border: 1px solid var(--color-line);
         padding: 0.55rem 0.65rem;
         text-align: left;
         vertical-align: top;
     }
 
     .trace-table th {
-        background: #f5f5f5;
+        background: var(--color-surface-soft);
         font-weight: 700;
     }
 </style>

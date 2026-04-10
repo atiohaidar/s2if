@@ -3,6 +3,7 @@
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     let searchQuery = $state("");
+    let showAdvancedFilters = $state(false);
     let semesterFilter = $state("all");
     let kindFilter = $state("all");
     let statusFilter = $state("all");
@@ -15,6 +16,21 @@
     const statusOptions = ["all", "done", "wip", "todo"] as const;
     const trackOptions = ["all", "materi", "bedah-soal"] as const;
     const typeOptions = ["all", "catatan", "visual", "praktek"] as const;
+    const hasAdvancedFilterActive = $derived(
+        semesterFilter !== "all" ||
+            kindFilter !== "all" ||
+            statusFilter !== "all" ||
+            trackFilter !== "all" ||
+            typeFilter !== "all",
+    );
+
+    function resetAdvancedFilters() {
+        semesterFilter = "all";
+        kindFilter = "all";
+        statusFilter = "all";
+        trackFilter = "all";
+        typeFilter = "all";
+    }
 
     const searchResults = $derived(
         catalog.filter((entry) => {
@@ -102,53 +118,71 @@
             placeholder="Cari berdasarkan nama, jenis, atau status"
         />
 
-        <div class="filter-grid">
-            <label>
-                <span>Semester</span>
-                <select bind:value={semesterFilter}>
-                    <option value="all">Semua semester</option>
-                    {#each semesters as semester}
-                        <option value={semester.semesterId}>{semester.semesterName}</option>
-                    {/each}
-                </select>
-            </label>
-
-            <label>
-                <span>Jenis item</span>
-                <select bind:value={kindFilter}>
-                    {#each kindOptions as option}
-                        <option value={option}>{option === "all" ? "Semua jenis" : option}</option>
-                    {/each}
-                </select>
-            </label>
-
-            <label>
-                <span>Status</span>
-                <select bind:value={statusFilter}>
-                    {#each statusOptions as option}
-                        <option value={option}>{option === "all" ? "Semua status" : option}</option>
-                    {/each}
-                </select>
-            </label>
-
-            <label>
-                <span>Track</span>
-                <select bind:value={trackFilter}>
-                    {#each trackOptions as option}
-                        <option value={option}>{option === "all" ? "Semua track" : option}</option>
-                    {/each}
-                </select>
-            </label>
-
-            <label>
-                <span>Tipe</span>
-                <select bind:value={typeFilter}>
-                    {#each typeOptions as option}
-                        <option value={option}>{option === "all" ? "Semua tipe" : option}</option>
-                    {/each}
-                </select>
-            </label>
+        <div class="filter-actions">
+            <button
+                class="advanced-toggle"
+                onclick={() => (showAdvancedFilters = !showAdvancedFilters)}
+                aria-expanded={showAdvancedFilters}
+                aria-controls="advanced-filters"
+            >
+                {showAdvancedFilters ? "Sembunyikan filter lanjutan" : "Tampilkan filter lanjutan"}
+            </button>
+            {#if hasAdvancedFilterActive}
+                <button class="reset-filters" onclick={resetAdvancedFilters}>
+                    Reset filter
+                </button>
+            {/if}
         </div>
+
+        {#if showAdvancedFilters}
+            <div id="advanced-filters" class="filter-grid">
+                <label>
+                    <span>Semester</span>
+                    <select bind:value={semesterFilter}>
+                        <option value="all">Semua semester</option>
+                        {#each semesters as semester}
+                            <option value={semester.semesterId}>{semester.semesterName}</option>
+                        {/each}
+                    </select>
+                </label>
+
+                <label>
+                    <span>Jenis item</span>
+                    <select bind:value={kindFilter}>
+                        {#each kindOptions as option}
+                            <option value={option}>{option === "all" ? "Semua jenis" : option}</option>
+                        {/each}
+                    </select>
+                </label>
+
+                <label>
+                    <span>Status</span>
+                    <select bind:value={statusFilter}>
+                        {#each statusOptions as option}
+                            <option value={option}>{option === "all" ? "Semua status" : option}</option>
+                        {/each}
+                    </select>
+                </label>
+
+                <label>
+                    <span>Track</span>
+                    <select bind:value={trackFilter}>
+                        {#each trackOptions as option}
+                            <option value={option}>{option === "all" ? "Semua track" : option}</option>
+                        {/each}
+                    </select>
+                </label>
+
+                <label>
+                    <span>Tipe</span>
+                    <select bind:value={typeFilter}>
+                        {#each typeOptions as option}
+                            <option value={option}>{option === "all" ? "Semua tipe" : option}</option>
+                        {/each}
+                    </select>
+                </label>
+            </div>
+        {/if}
 
         <div class="stats">
             <span>{searchResults.length} item ditemukan</span>
@@ -217,7 +251,7 @@
         padding: 1.25rem;
         border: 1px solid var(--color-line);
         border-radius: 14px;
-        background: rgba(255, 255, 255, 0.55);
+        background: var(--color-surface-elevated);
     }
 
     .search-label {
@@ -232,7 +266,7 @@
         padding: 0.9rem 1rem;
         border-radius: 10px;
         border: 1px solid var(--color-line);
-        background: white;
+        background: var(--color-surface-elevated);
         font: inherit;
     }
 
@@ -241,6 +275,36 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 0.75rem;
         margin-top: 1rem;
+    }
+
+    .filter-actions {
+        margin-top: 0.85rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .advanced-toggle,
+    .reset-filters {
+        border: 1px solid var(--color-line);
+        background: var(--color-surface-elevated);
+        border-radius: 8px;
+        padding: 0.45rem 0.7rem;
+        font: inherit;
+        font-size: 0.85rem;
+        cursor: pointer;
+        color: var(--color-ink);
+    }
+
+    .advanced-toggle {
+        border-color: rgba(139, 69, 19, 0.35);
+        color: var(--color-binder);
+        font-weight: 600;
+    }
+
+    .advanced-toggle:hover,
+    .reset-filters:hover {
+        border-color: var(--color-binder);
     }
 
     .filter-grid label {
@@ -256,7 +320,7 @@
         padding: 0.75rem 0.8rem;
         border-radius: 10px;
         border: 1px solid var(--color-line);
-        background: white;
+        background: var(--color-surface-elevated);
         color: var(--color-ink);
         font: inherit;
     }
@@ -288,7 +352,7 @@
         padding: 1rem 1.1rem;
         border-radius: 12px;
         border: 1px solid var(--color-line);
-        background: white;
+        background: var(--color-surface-elevated);
         color: var(--color-ink);
         text-decoration: none;
         transition:
@@ -330,7 +394,7 @@
         padding: 1rem;
         border-radius: 12px;
         border: 1px dashed var(--color-line);
-        background: rgba(0, 0, 0, 0.03);
+        background: var(--color-surface-soft);
     }
 
     @media (max-width: 768px) {

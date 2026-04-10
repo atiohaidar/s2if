@@ -175,8 +175,8 @@
 
 <style>
     .quiz-container {
-        background: #fffdf5; /* Sticky note yellow-ish tint */
-        border: 1px solid #e8dcc8;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line);
         border-radius: 4px; /* Slightly ragged feel but simpler with radius */
         padding: 1.5rem;
         margin: 2rem 0;
@@ -206,7 +206,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 2px dashed #d4b896;
+        border-bottom: 2px dashed var(--color-line);
         padding-bottom: 0.75rem;
         margin-bottom: 1rem;
     }
@@ -214,14 +214,14 @@
     .quiz-header h3 {
         margin: 0;
         font-family: var(--font-handwriting);
-        color: #8b4513;
+        color: var(--color-binder);
         font-size: 1.5rem;
     }
 
     .progress {
         font-size: 0.8rem;
         font-weight: 600;
-        color: #a67c52;
+        color: var(--color-ink-muted);
         background: rgba(139, 69, 19, 0.1);
         padding: 0.2rem 0.5rem;
         border-radius: 12px;
@@ -231,7 +231,7 @@
         font-size: 1.1rem;
         font-weight: 500;
         margin-bottom: 1.5rem;
-        color: #3d2b1f;
+        color: var(--color-ink-strong);
     }
 
     .options-list {
@@ -245,36 +245,36 @@
         align-items: center;
         gap: 0.75rem;
         padding: 0.75rem 1rem;
-        background: white;
-        border: 2px solid #e8dcc8;
+        background: var(--color-surface-elevated);
+        border: 2px solid var(--color-line);
         border-radius: 8px;
         text-align: left;
         cursor: pointer;
         transition: all 0.2s;
         font-family: var(--font-body);
         font-size: 0.95rem;
-        color: #5d4037;
+        color: var(--color-ink);
     }
 
     .option-btn:hover:not(:disabled) {
-        border-color: #d4b896;
-        background: #faf7f0;
+        border-color: var(--color-binder);
+        background: var(--color-surface-soft);
     }
 
     .option-btn.selected {
-        border-color: #3498db;
-        background: #ebf5fb;
+        border-color: var(--color-callout-info-border);
+        background: var(--color-status-info-soft);
     }
 
     .option-btn.correct {
-        border-color: #27ae60;
-        background: #eafaf1;
-        color: #1e8449;
+        border-color: var(--color-status-done-start);
+        background: var(--color-status-success-soft);
+        color: var(--color-status-success-text);
     }
 
     .option-btn.wrong {
-        border-color: #e74c3c;
-        background: #fdedec;
+        border-color: var(--color-status-warning-border);
+        background: var(--color-status-warning-soft);
         opacity: 0.7;
     }
 
@@ -286,7 +286,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(139, 69, 19, 0.08);
         border-radius: 50%;
         flex-shrink: 0;
     }
@@ -315,38 +315,38 @@
     }
 
     .action-btn.submit {
-        background: #3498db;
-        color: white;
+        background: var(--color-callout-info-border);
+        color: var(--color-text-on-accent);
     }
 
     .action-btn.submit:disabled {
-        background: #bdc3c7;
+        background: var(--color-status-neutral-border);
         cursor: not-allowed;
     }
 
     .action-btn.next {
-        background: #2c3e50;
-        color: white;
+        background: var(--color-ink);
+        color: var(--color-text-on-accent);
     }
 
     .action-btn.restart {
-        background: #95a5a6;
-        color: white;
+        background: var(--color-ink-soft);
+        color: var(--color-text-on-accent);
         margin-top: 1rem;
     }
 
     .explanation {
         margin-top: 1rem;
         padding: 1rem;
-        background: #f0f0f0;
+        background: var(--color-status-neutral-soft);
         border-radius: 8px;
         font-size: 0.9rem;
         animation: fadeIn 0.3s ease;
     }
 
     .explanation.correct {
-        background: #eafaf1;
-        border: 1px solid #a9dfbf;
+        background: var(--color-status-success-soft);
+        border: 1px solid var(--color-status-success-border);
     }
 
     /* Result State */
@@ -359,8 +359,8 @@
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        background: white;
-        border: 4px solid #8b4513;
+        background: var(--color-surface-elevated);
+        border: 4px solid var(--color-binder);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -373,13 +373,13 @@
         font-size: 2.5rem;
         font-weight: 700;
         line-height: 1;
-        color: #2c3e50;
+        color: var(--color-ink);
     }
 
     .score-label {
         font-size: 0.7rem;
         text-transform: uppercase;
-        color: #7f8c8d;
+        color: var(--color-ink-soft);
         margin-top: 0.2rem;
     }
 
@@ -387,10 +387,10 @@
         font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
-        color: #3d2b1f;
+        color: var(--color-ink-strong);
     }
 
     .result-stats {
-        color: #7f8c8d;
+        color: var(--color-ink-soft);
     }
 </style>

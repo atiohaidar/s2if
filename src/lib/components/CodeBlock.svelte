@@ -58,6 +58,16 @@
 </div>
 
 <style>
+    :global(:root) {
+        --code-bg: #1e1e1e;
+        --code-fg: #d4d4d4;
+    }
+
+    :global(:root[data-theme="dark"]) {
+        --code-bg: #0f172a;
+        --code-fg: #e2e8f0;
+    }
+
     .code-block {
         border-radius: 12px;
         overflow: hidden;
@@ -78,7 +88,7 @@
         background: linear-gradient(
             135deg,
             var(--color-binder) 0%,
-            #a0522d 100%
+            var(--color-ink-muted) 100%
         );
         padding: 0.625rem 1rem;
     }
@@ -110,9 +120,9 @@
         display: flex;
         align-items: center;
         gap: 0.375rem;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: var(--color-surface-elevated);
         padding: 0.375rem 0.75rem;
         border-radius: 6px;
         font-size: 0.75rem;
@@ -122,14 +132,14 @@
     }
 
     .copy-btn:hover {
-        background: rgba(255, 255, 255, 0.25);
-        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.28);
         transform: translateY(-1px);
     }
 
     .copy-btn.copied {
-        background: rgba(39, 174, 96, 0.3);
-        border-color: rgba(39, 174, 96, 0.5);
+        background: rgba(39, 174, 96, 0.25);
+        border-color: rgba(39, 174, 96, 0.45);
     }
 
     .copy-icon {
@@ -145,7 +155,7 @@
         margin: 0;
         padding: 1.25rem;
         overflow-x: auto;
-        background: #1e1e1e !important;
+        background: var(--code-bg);
         line-height: 1.7;
     }
 
@@ -153,7 +163,7 @@
         font-family: var(--font-mono);
         font-size: 0.875rem;
         white-space: pre;
-        color: #d4d4d4;
+        color: var(--code-fg);
     }
 
     /* Custom scrollbar for code */
@@ -163,15 +173,15 @@
     }
 
     .code-wrapper::-webkit-scrollbar-track {
-        background: #2d2d2d;
+        background: var(--color-surface-soft);
     }
 
     .code-wrapper::-webkit-scrollbar-thumb {
-        background: #555;
+        background: var(--color-ink-soft);
         border-radius: 4px;
     }
 
     .code-wrapper::-webkit-scrollbar-thumb:hover {
-        background: #666;
+        background: var(--color-ink-muted);
     }
 </style>

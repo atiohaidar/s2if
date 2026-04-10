@@ -97,7 +97,7 @@
     .tree-wrap {
         margin: 1rem 0 1.5rem;
         padding: 1rem;
-        background: #fff;
+        background: var(--color-surface-elevated);
         border: 1px solid var(--color-line);
         border-radius: 10px;
     }
@@ -124,20 +124,20 @@
         display: grid;
         place-items: center;
         font-weight: 700;
-        background: #f8efe4;
-        border: 1px solid #c9a67a;
-        color: #5a4331;
+        background: var(--color-surface-soft);
+        border: 1px solid var(--color-line);
+        color: var(--color-ink-strong);
     }
 
     .node.root {
-        background: #ffe8cc;
-        border-color: #b7772f;
+        background: var(--color-highlight);
+        border-color: var(--color-callout-warning-border);
     }
 
     .node.goal {
-        background: #dff2bf;
-        border-color: #6b9b37;
-        color: #2f5d12;
+        background: var(--color-status-success-soft);
+        border-color: var(--color-status-success-border);
+        color: var(--color-status-success-text);
     }
 
     .tree-lines {
@@ -150,7 +150,7 @@
         display: block;
         width: 2px;
         height: 16px;
-        background: #b8a08b;
+        background: var(--color-line-dark);
     }
 
     .tree-lines.triple {

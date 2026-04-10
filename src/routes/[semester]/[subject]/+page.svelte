@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { dev } from "$app/environment";
     import { page } from "$app/state";
     import { base } from "$app/paths";
     import { findSubject } from "$lib/data/content";
@@ -59,10 +60,12 @@
             {:else}
                 <div class="empty-state">
                     <p><ThemeIcon name="note" size={16} /> Belum ada materi untuk mata kuliah ini.</p>
-                    <p class="hint">
-                        Tambahkan <code>topic.manifest.ts</code> di folder topic,
-                        misalnya <code>src/routes/{semesterId}/{subjectId}/[nama-topic]/topic.manifest.ts</code>
-                    </p>
+                    {#if dev}
+                        <p class="hint">
+                            Tambahkan <code>topic.manifest.ts</code> di folder topic,
+                            misalnya <code>src/routes/{semesterId}/{subjectId}/[nama-topic]/topic.manifest.ts</code>
+                        </p>
+                    {/if}
                 </div>
             {/if}
         </section>
@@ -79,29 +82,33 @@
             {:else}
                 <div class="empty-state">
                     <p><ThemeIcon name="note" size={16} /> Belum ada bedah soal untuk mata kuliah ini.</p>
-                    <p class="hint">
-                        Tambahkan topic dengan <code>track: "bedah-soal"</code>
-                        pada file <code>topic.manifest.ts</code>
-                    </p>
+                    {#if dev}
+                        <p class="hint">
+                            Tambahkan topic dengan <code>track: "bedah-soal"</code>
+                            pada file <code>topic.manifest.ts</code>
+                        </p>
+                    {/if}
                 </div>
             {/if}
         </section>
 
-        <section class="add-note-section">
-            <h2><ThemeIcon name="edit" size={22} /> Cara Menambah Catatan Baru</h2>
-            <ol class="steps">
-                <li>
-                    Buat folder baru di <code>src/routes/{semesterId}/{subjectId}/[nama-topic]</code>
-                </li>
-                <li>
-                    Buat file <code>+page.svelte</code> di dalam folder tersebut
-                </li>
-                <li>
-                    Buat file <code>topic.manifest.ts</code> dengan metadata
-                    lengkap (id/slug/title/type/status/order/tags/prereq/renderMode)
-                </li>
-            </ol>
-        </section>
+        {#if dev}
+            <section class="add-note-section">
+                <h2><ThemeIcon name="edit" size={22} /> Cara Menambah Catatan Baru</h2>
+                <ol class="steps">
+                    <li>
+                        Buat folder baru di <code>src/routes/{semesterId}/{subjectId}/[nama-topic]</code>
+                    </li>
+                    <li>
+                        Buat file <code>+page.svelte</code> di dalam folder tersebut
+                    </li>
+                    <li>
+                        Buat file <code>topic.manifest.ts</code> dengan metadata
+                        lengkap (id/slug/title/type/status/order/tags/prereq/renderMode)
+                    </li>
+                </ol>
+            </section>
+        {/if}
     </div>
 {:else}
     <div class="not-found">
@@ -168,7 +175,7 @@
     .empty-state {
         text-align: center;
         padding: 3rem;
-        background: rgba(0, 0, 0, 0.02);
+        background: var(--color-surface-soft);
         border-radius: 8px;
         border: 2px dashed var(--color-line);
     }
@@ -183,7 +190,7 @@
     }
 
     .add-note-section {
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--color-surface-elevated);
         padding: 1.5rem;
         border-radius: 8px;
         border: 1px solid var(--color-line);

@@ -10,7 +10,7 @@ const manifest: TopicManifest = {
     status: 'done',
     order: 2,
     tags: ['konsep', 'kompleksitas', 'rekursi'],
-    prereq: ['intro'],
+    prereq: [],
     renderMode: 'note',
 };
 

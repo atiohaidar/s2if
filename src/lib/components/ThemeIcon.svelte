@@ -1,5 +1,7 @@
 <script lang="ts">
     import {
+        ArrowLeft,
+        ArrowRight,
         BookOpen,
         BookOpenText,
         BrainCircuit,
@@ -85,6 +87,10 @@
     <CalendarDays size={size} strokeWidth={2} />
 {:else if name === "topics"}
     <BookOpenText size={size} strokeWidth={2} />
+{:else if name === "arrow-left"}
+    <ArrowLeft size={size} strokeWidth={2} />
+{:else if name === "arrow-right"}
+    <ArrowRight size={size} strokeWidth={2} />
 {/if}
 
 <style>

@@ -35,7 +35,7 @@
         align-items: center;
         gap: 1rem;
         padding: 1rem;
-        background: white;
+        background: var(--color-surface-elevated);
         border: 1px solid var(--color-line);
         border-radius: 8px;
         text-decoration: none;

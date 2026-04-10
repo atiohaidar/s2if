@@ -25,7 +25,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" aria-label="Daftar semester dan mata kuliah">
         <a
             href="{base}/"
             class="nav-item home"
@@ -113,7 +113,7 @@
         background: linear-gradient(
             90deg,
             transparent,
-            rgba(241, 196, 15, 0.5),
+            rgba(241, 196, 15, 0.45),
             transparent
         );
     }
@@ -130,9 +130,9 @@
         margin: 0;
         background: linear-gradient(
             135deg,
-            #8b4513 0%,
+            var(--color-binder) 0%,
             #a0522d 50%,
-            #6d4c41 100%
+            var(--color-ink-muted) 100%
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -143,7 +143,7 @@
 
     .subtitle {
         font-size: 0.8rem;
-        color: #6d4c41;
+        color: var(--color-ink-muted);
         margin: 0.375rem 0 0;
         font-weight: 500;
         letter-spacing: 0.05em;
@@ -170,7 +170,7 @@
         align-items: center;
         gap: 0.875rem;
         padding: 0.875rem 1rem;
-        color: #5d4037;
+        color: var(--color-ink-strong);
         text-decoration: none;
         border-radius: 10px;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -181,15 +181,15 @@
 
     .nav-item:hover {
         background: rgba(139, 69, 19, 0.15);
-        color: #3d2b1f;
+        color: var(--color-ink-strong);
         transform: translateX(4px);
     }
 
     .nav-item.active {
-        background: rgba(255, 255, 255, 0.5);
-        color: #8b4513;
+        background: var(--color-surface-elevated);
+        color: var(--color-binder);
         font-weight: 600;
-        box-shadow: inset 0 0 0 2px #8b4513;
+        box-shadow: inset 0 0 0 2px var(--color-binder);
     }
 
     .nav-item.active::before {
@@ -205,13 +205,13 @@
     }
 
     .nav-item.home {
-        background: rgba(255, 255, 255, 0.3);
+        background: var(--color-surface-soft);
         margin-bottom: 1.25rem;
         border: 1px solid rgba(139, 69, 19, 0.2);
     }
 
     .nav-item.home:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--color-surface-elevated);
         border-color: rgba(139, 69, 19, 0.3);
     }
 
@@ -238,7 +238,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: #8b4513;
+        color: var(--color-binder);
         margin: 0;
         font-family: var(--font-body);
     }
@@ -314,7 +314,7 @@
         text-align: center;
         padding-top: 1rem;
         font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--color-ink-soft);
     }
 
     .footer-divider {
@@ -322,7 +322,7 @@
         background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.1),
+            rgba(139, 69, 19, 0.12),
             transparent
         );
         margin-bottom: 1rem;

@@ -181,7 +181,7 @@
         padding: 0.75rem 1rem;
         border-radius: 9999px;
         background: var(--color-binder);
-        color: white;
+        color: var(--color-text-on-accent);
         text-decoration: none;
         font-weight: 600;
         box-shadow: var(--shadow-sm);
@@ -200,7 +200,7 @@
         padding: 1.5rem;
         border: 1px solid var(--color-line);
         border-radius: 14px;
-        background: rgba(255, 255, 255, 0.55);
+        background: var(--color-surface-elevated);
         box-shadow: var(--shadow-sm);
     }
 
@@ -221,7 +221,7 @@
         padding: 0.9rem 1rem;
         border-radius: 10px;
         border: 1px solid var(--color-line);
-        background: white;
+        background: var(--color-surface-elevated);
         color: var(--color-ink);
         font: inherit;
         outline: none;
@@ -253,7 +253,7 @@
         padding: 0.9rem 1rem;
         border-radius: 10px;
         border: 1px solid var(--color-line);
-        background: white;
+        background: var(--color-surface-elevated);
         text-decoration: none;
         color: var(--color-ink);
         transition:
@@ -299,7 +299,7 @@
     .catalog-empty {
         padding: 1rem;
         border-radius: 10px;
-        background: rgba(0, 0, 0, 0.03);
+        background: var(--color-surface-soft);
         border: 1px dashed var(--color-line);
         color: var(--color-ink);
     }
@@ -314,7 +314,7 @@
     }
 
     .semester-card {
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--color-surface-elevated);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
@@ -345,7 +345,7 @@
     .guide-item {
         text-align: center;
         padding: 1.5rem;
-        background: white;
+        background: var(--color-surface-elevated);
         border-radius: 8px;
         border: 1px solid var(--color-line);
     }

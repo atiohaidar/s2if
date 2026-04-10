@@ -28,7 +28,7 @@
         font-family: var(--font-handwriting);
         font-size: 2rem;
         font-weight: 700;
-        color: #5d4037;
+        color: var(--color-ink-strong);
         margin-bottom: 1.25rem;
         position: relative;
         display: flex;

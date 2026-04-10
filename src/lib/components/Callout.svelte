@@ -60,29 +60,45 @@
 
     /* Tip - Yellow */
     .callout-tip {
-        background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
-        border-color: #f39c12;
-        color: #856404;
+        background: linear-gradient(
+            135deg,
+            var(--color-callout-tip-start) 0%,
+            var(--color-callout-tip-end) 100%
+        );
+        border-color: var(--color-callout-tip-border);
+        color: var(--color-callout-tip-text);
     }
 
     /* Warning - Orange */
     .callout-warning {
-        background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-        border-color: #e67e22;
-        color: #8a4500;
+        background: linear-gradient(
+            135deg,
+            var(--color-callout-warning-start) 0%,
+            var(--color-callout-warning-end) 100%
+        );
+        border-color: var(--color-callout-warning-border);
+        color: var(--color-callout-warning-text);
     }
 
     /* Info - Blue */
     .callout-info {
-        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-        border-color: #3498db;
-        color: #0c5460;
+        background: linear-gradient(
+            135deg,
+            var(--color-callout-info-start) 0%,
+            var(--color-callout-info-end) 100%
+        );
+        border-color: var(--color-callout-info-border);
+        color: var(--color-callout-info-text);
     }
 
     /* Danger - Red */
     .callout-danger {
-        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-        border-color: #e74c3c;
-        color: #721c24;
+        background: linear-gradient(
+            135deg,
+            var(--color-callout-danger-start) 0%,
+            var(--color-callout-danger-end) 100%
+        );
+        border-color: var(--color-callout-danger-border);
+        color: var(--color-callout-danger-text);
     }
 </style>

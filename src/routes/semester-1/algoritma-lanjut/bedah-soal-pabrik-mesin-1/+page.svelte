@@ -369,7 +369,7 @@ if __name__ == "__main__":
     .problem-sheet {
         border: 1px solid var(--color-line);
         border-radius: 10px;
-        background: #fff;
+        background: var(--color-surface-elevated);
         padding: 1rem;
     }
 
@@ -409,7 +409,7 @@ if __name__ == "__main__":
     }
 
     .example-table th {
-        background: #f9f4ea;
+        background: var(--color-surface-soft);
         font-weight: 700;
     }
 

@@ -65,26 +65,42 @@
     }
 
     .sticker-done {
-        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-        color: white;
+        background: linear-gradient(
+            135deg,
+            var(--color-status-done-start) 0%,
+            var(--color-status-done-end) 100%
+        );
+        color: var(--color-text-on-accent);
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     }
 
     .sticker-wip {
-        background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-        color: white;
+        background: linear-gradient(
+            135deg,
+            var(--color-status-wip-start) 0%,
+            var(--color-status-wip-end) 100%
+        );
+        color: var(--color-text-on-accent);
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     }
 
     .sticker-todo {
-        background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
-        color: white;
+        background: linear-gradient(
+            135deg,
+            var(--color-status-todo-start) 0%,
+            var(--color-status-todo-end) 100%
+        );
+        color: var(--color-text-on-accent);
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     }
 
     .sticker-important {
-        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
-        color: white;
+        background: linear-gradient(
+            135deg,
+            var(--color-status-important-start) 0%,
+            var(--color-status-important-end) 100%
+        );
+        color: var(--color-text-on-accent);
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         animation: glow-important 2s ease-in-out infinite;
     }
@@ -101,7 +117,7 @@
             box-shadow:
                 0 2px 4px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 12px 2px rgba(231, 76, 60, 0.3);
+                    0 0 12px 2px rgba(231, 76, 60, 0.3);
         }
     }
 </style>
