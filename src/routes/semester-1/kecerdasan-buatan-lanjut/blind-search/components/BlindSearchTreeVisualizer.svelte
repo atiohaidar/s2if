@@ -17,6 +17,8 @@
         visited: NodeId[];
         currentPath: NodeId[];
         expandedEdges?: [NodeId, NodeId][];
+        ucsDecision?: string;
+        ucsUpdates?: string[];
         goalReached: boolean;
     };
 
@@ -261,12 +263,21 @@
 
         while (frontier.length > 0) {
             frontier.sort((left, right) => left.cost - right.cost || left.depth - right.depth || left.node.localeCompare(right.node));
+            const rankedFrontier = frontier.map((entry) => `${entry.node}(${entry.cost})`);
+            const bestCandidate = frontier[0];
+            const sameCostCandidates = frontier.filter((entry) => entry.cost === (bestCandidate?.cost ?? 0));
             const current = frontier.shift();
             if (!current) break;
 
             if (visited.has(current.node)) {
                 continue;
             }
+
+            const tieBreakReason =
+                sameCostCandidates.length > 1
+                    ? `Ada biaya sama (${current.cost}), dipilih berdasarkan depth lalu urutan alfabet.`
+                    : `Memiliki biaya total paling kecil (${current.cost}).`;
+            const decisionText = `Pilih ${current.node}(${current.cost}) dari kandidat [${rankedFrontier.join(", ")}]. ${tieBreakReason}`;
 
             visited.add(current.node);
             const currentPath = buildPath(parents, current.node);
@@ -279,12 +290,15 @@
                     visited: [...visited],
                     currentPath,
                     expandedEdges: [],
+                    ucsDecision: decisionText,
+                    ucsUpdates: [],
                     goalReached: true,
                 });
                 break;
             }
 
             const expandedEdges: [NodeId, NodeId][] = [];
+            const ucsUpdates: string[] = [];
             adjacency[current.node].forEach((child) => {
                 const totalCost = current.cost + (edgeCosts[`${current.node}-${child}`] ?? 0);
                 if (bestCost[child] === undefined || totalCost < bestCost[child]!) {
@@ -292,6 +306,9 @@
                     parents[child] = current.node;
                     frontier.push({ node: child, cost: totalCost, depth: current.depth + 1 });
                     expandedEdges.push([current.node, child]);
+                    ucsUpdates.push(`${child}: update ke biaya ${totalCost} (via ${current.node}).`);
+                } else {
+                    ucsUpdates.push(`${child}: abaikan biaya ${totalCost} (best ${bestCost[child]}).`);
                 }
             });
 
@@ -302,6 +319,8 @@
                 visited: [...visited],
                 currentPath,
                 expandedEdges,
+                ucsDecision: decisionText,
+                ucsUpdates,
                 goalReached: false,
             });
         }
@@ -329,6 +348,8 @@
     const frontier = $derived(currentSnapshot?.frontier ?? []);
     const currentPath = $derived(currentSnapshot?.currentPath ?? []);
     const expansionEdges = $derived(currentSnapshot?.expandedEdges ?? []);
+    const ucsDecision = $derived(currentSnapshot?.ucsDecision ?? "");
+    const ucsUpdates = $derived(currentSnapshot?.ucsUpdates ?? []);
     const solutionEdgeKeys = $derived(getPathEdgeKeys(currentPath));
 
     function getPathEdgeKeys(path: NodeId[]) {
@@ -471,6 +492,18 @@
         <p><strong>Langkah:</strong> {step}/{Math.max(snapshots.length - 1, 0)}</p>
         <p><strong>Aksi:</strong> {action}</p>
         <p><strong>Status goal H:</strong> {goalReached ? "Ditemukan" : "Belum"}</p>
+        {#if algorithm === "UCS" && ucsDecision}
+            <div class="ucs-explain">
+                <p><strong>Alasan pilih node:</strong> {ucsDecision}</p>
+                {#if ucsUpdates.length > 0}
+                    <ul>
+                        {#each ucsUpdates as update}
+                            <li>{update}</li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+        {/if}
     </div>
 
     <div class="frontier-panel">
@@ -646,6 +679,29 @@
     .status-panel p {
         margin: 0.2rem 0;
         font-size: 0.93rem;
+    }
+
+    .ucs-explain {
+        margin-top: 0.55rem;
+        padding: 0.5rem 0.6rem;
+        border: 1px dashed var(--color-line);
+        border-radius: 8px;
+        background: var(--color-surface-elevated);
+    }
+
+    .ucs-explain p {
+        margin: 0;
+        color: var(--color-ink-strong);
+    }
+
+    .ucs-explain ul {
+        margin: 0.35rem 0 0;
+        padding-left: 1.1rem;
+    }
+
+    .ucs-explain li {
+        margin-bottom: 0.2rem;
+        color: var(--color-ink-soft);
     }
 
     .tree-wrap {
