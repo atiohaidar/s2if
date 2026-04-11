@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from '$app/paths';
     import BackLink from '$lib/components/BackLink.svelte';
     import Callout from '$lib/components/Callout.svelte';
     import MathBlock from '$lib/components/MathBlock.svelte';
@@ -671,7 +672,7 @@
             Perbandingan detail Mamdani vs Sugeno — termasuk implication method
             (Min vs Larsen), contoh step-by-step, penjelasan centroid, dan
             diagram alur — dibahas tuntas di halaman
-            <a href="/semester-1/kecerdasan-buatan-lanjut/mamdani-vs-sugeno">
+            <a href="{base}/semester-1/kecerdasan-buatan-lanjut/mamdani-vs-sugeno">
                 <strong>Mamdani vs Sugeno</strong>
             </a>.
         </Callout>

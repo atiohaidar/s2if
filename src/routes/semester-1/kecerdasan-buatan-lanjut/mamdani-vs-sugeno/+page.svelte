@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from '$app/paths';
     import BackLink from '$lib/components/BackLink.svelte';
     import Callout from '$lib/components/Callout.svelte';
     import MathBlock from '$lib/components/MathBlock.svelte';
@@ -82,7 +83,7 @@
             Halaman ini fokus pada perbandingan dua metode inferensi. Untuk konsep
             dasar (fuzzy set, membership function, operasi AND/OR/NOT, dan alur
             kerja fuzzy secara umum), lihat halaman
-            <a href="/semester-1/kecerdasan-buatan-lanjut/logika-fuzzy">
+            <a href="{base}/semester-1/kecerdasan-buatan-lanjut/logika-fuzzy">
                 <strong>Logika Fuzzy</strong>
             </a>.
         </Callout>

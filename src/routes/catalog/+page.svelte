@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from "$app/paths";
     import { catalog, curriculum } from "$lib/data/content";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
@@ -197,7 +198,7 @@
             {#if group.subjects.length > 0}
                 <div class="subject-list">
                     {#each group.subjects as subject}
-                        <a class="entry-card subject" href={`/${group.semester.id}/${subject.subjectId}`}>
+                        <a class="entry-card subject" href={`${base}/${group.semester.id}/${subject.subjectId}`}>
                             <span class="entry-kind">subject</span>
                             <div>
                                 <strong>{subject.subjectName}</strong>
@@ -213,7 +214,7 @@
                     {#each group.topics as topic}
                         <a
                             class="entry-card topic"
-                            href={`/${group.semester.id}/${topic.subjectId}/${topic.topicId}`}
+                            href={`${base}/${group.semester.id}/${topic.subjectId}/${topic.topicId}`}
                         >
                             <span class="entry-kind">topic</span>
                             <div>

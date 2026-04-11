@@ -1,10 +1,38 @@
 <script lang="ts">
-    import type { Semester } from "$lib/data/content";
     import { curriculum } from "$lib/data/content";
     import { STATUS_LABELS } from "$lib/data/constants";
     import { page } from "$app/state";
     import { base } from "$app/paths";
+    import { browser } from "$app/environment";
+    import { onDestroy, tick } from "svelte";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
+
+    interface OutlineItem {
+        id: string;
+        text: string;
+        level: 2 | 3;
+    }
+
+    const semesterStorageKey = "s2if-sidebar-semester-open";
+
+    let semesterOpenMap = $state<Record<string, boolean>>({});
+    let outlineItems = $state<OutlineItem[]>([]);
+    let activeOutlineId = $state("");
+    let outlineCollapsed = $state(false);
+    let outlineObserver: IntersectionObserver | null = null;
+
+    const pathSegments = $derived.by(() => {
+        const withoutBase = base && page.url.pathname.startsWith(base)
+            ? page.url.pathname.slice(base.length)
+            : page.url.pathname;
+
+        return withoutBase
+            .split("/")
+            .map((segment) => segment.trim())
+            .filter(Boolean);
+    });
+
+    const showOutline = $derived(pathSegments.length >= 3 && outlineItems.length > 0);
 
     // Check if current path matches
     function isActive(path: string): boolean {
@@ -14,6 +42,212 @@
             currentPath === fullPath || currentPath.startsWith(fullPath + "/")
         );
     }
+
+    function isSemesterOpen(semesterId: string): boolean {
+        if (semesterId in semesterOpenMap) {
+            return semesterOpenMap[semesterId];
+        }
+
+        const currentSemesterId = pathSegments[0] ?? "";
+        return semesterId === currentSemesterId;
+    }
+
+    function toggleSemester(semesterId: string): void {
+        semesterOpenMap = {
+            ...semesterOpenMap,
+            [semesterId]: !isSemesterOpen(semesterId),
+        };
+
+        if (browser) {
+            localStorage.setItem(semesterStorageKey, JSON.stringify(semesterOpenMap));
+        }
+    }
+
+    function getDefaultSemesterOpenMap(): Record<string, boolean> {
+        const currentSemesterId = pathSegments[0] ?? "";
+        const nextState: Record<string, boolean> = {};
+
+        for (const semester of curriculum) {
+            nextState[semester.id] = semester.id === currentSemesterId;
+        }
+
+        return nextState;
+    }
+
+    function sanitizeSemesterOpenMap(raw: unknown): Record<string, boolean> {
+        const defaults = getDefaultSemesterOpenMap();
+        if (!raw || typeof raw !== "object") {
+            return defaults;
+        }
+
+        const candidate = raw as Record<string, unknown>;
+        const nextState: Record<string, boolean> = { ...defaults };
+
+        for (const semester of curriculum) {
+            const value = candidate[semester.id];
+            if (typeof value === "boolean") {
+                nextState[semester.id] = value;
+            }
+        }
+
+        return nextState;
+    }
+
+    function slugify(value: string): string {
+        return value
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-") || "section";
+    }
+
+    function assignUniqueId(el: HTMLElement, text: string, usedIds: Set<string>): string {
+        const preferred = el.id || slugify(text);
+        let candidate = preferred;
+        let suffix = 2;
+
+        while (true) {
+            const existing = document.getElementById(candidate);
+            if (!usedIds.has(candidate) && (!existing || existing === el)) {
+                break;
+            }
+
+            candidate = `${preferred}-${suffix}`;
+            suffix += 1;
+        }
+
+        el.id = candidate;
+        usedIds.add(candidate);
+        return candidate;
+    }
+
+    function updateActiveFromScroll(): void {
+        if (!browser || outlineItems.length === 0) {
+            return;
+        }
+
+        let currentId = outlineItems[0]?.id ?? "";
+
+        for (const item of outlineItems) {
+            const heading = document.getElementById(item.id);
+            if (!heading) {
+                continue;
+            }
+
+            if (heading.getBoundingClientRect().top <= 140) {
+                currentId = item.id;
+            }
+        }
+
+        activeOutlineId = currentId;
+    }
+
+    function setupOutlineObserver(): void {
+        outlineObserver?.disconnect();
+        outlineObserver = null;
+
+        if (!browser || outlineItems.length === 0) {
+            return;
+        }
+
+        outlineObserver = new IntersectionObserver(
+            () => {
+                updateActiveFromScroll();
+            },
+            {
+                root: null,
+                rootMargin: "-90px 0px -60% 0px",
+                threshold: [0, 1],
+            },
+        );
+
+        for (const item of outlineItems) {
+            const heading = document.getElementById(item.id);
+            if (heading) {
+                outlineObserver.observe(heading);
+            }
+        }
+
+        updateActiveFromScroll();
+    }
+
+    async function rebuildOutline(): Promise<void> {
+        if (!browser || pathSegments.length < 3) {
+            outlineItems = [];
+            activeOutlineId = "";
+            outlineObserver?.disconnect();
+            outlineObserver = null;
+            return;
+        }
+
+        await tick();
+
+        const contentRoot = document.querySelector(".main-content .notebook-page");
+        if (!contentRoot) {
+            outlineItems = [];
+            activeOutlineId = "";
+            return;
+        }
+
+        const headings = Array.from(
+            contentRoot.querySelectorAll<HTMLElement>("h2.section-title, .note-section h3"),
+        );
+
+        const usedIds = new Set<string>();
+        const nextItems: OutlineItem[] = [];
+
+        for (const heading of headings) {
+            const text = heading.textContent?.trim() ?? "";
+            if (!text) {
+                continue;
+            }
+
+            const id = assignUniqueId(heading, text, usedIds);
+            const level = heading.matches("h2.section-title") ? 2 : 3;
+
+            nextItems.push({ id, text, level });
+        }
+
+        outlineItems = nextItems;
+        const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+        activeOutlineId = nextItems.some((item) => item.id === hashId)
+            ? hashId
+            : nextItems[0]?.id ?? "";
+        setupOutlineObserver();
+    }
+
+    $effect(() => {
+        if (!browser) {
+            return;
+        }
+
+        const stored = localStorage.getItem(semesterStorageKey);
+        if (!stored) {
+            semesterOpenMap = getDefaultSemesterOpenMap();
+            return;
+        }
+
+        try {
+            const parsed = JSON.parse(stored) as Record<string, boolean>;
+            semesterOpenMap = sanitizeSemesterOpenMap(parsed);
+        } catch {
+            semesterOpenMap = getDefaultSemesterOpenMap();
+        }
+    });
+
+    $effect(() => {
+        page.url.pathname;
+        if (!browser) {
+            return;
+        }
+
+        void rebuildOutline();
+    });
+
+    onDestroy(() => {
+        outlineObserver?.disconnect();
+    });
 </script>
 
 <div class="sidebar-content">
@@ -21,7 +255,7 @@
     <div class="sidebar-header">
         <div class="logo-icon"><ThemeIcon name="notebook" size={28} /></div>
         <h1 class="title">S2IF</h1>
-        <p class="subtitle">Digital Notebook</p>
+        <p class="subtitle">My Catatan Ku</p>
     </div>
 
     <!-- Navigation -->
@@ -31,51 +265,88 @@
             class="nav-item home"
             class:active={page.url.pathname === base + "/" ||
                 page.url.pathname === base}
+            title="Beranda"
         >
             <span class="icon"><ThemeIcon name="home" size={18} /></span>
-            <span class="label">Beranda</span>
+            <span class="label" title="Beranda">Beranda</span>
         </a>
 
-        <a
-            href="{base}/catalog"
-            class="nav-item"
-            class:active={isActive("/catalog")}
-        >
-            <span class="icon"><ThemeIcon name="topics" size={18} /></span>
-            <span class="label">Katalog Konten</span>
-        </a>
+        {#if showOutline}
+            <div class="outline-group">
+                <button
+                    type="button"
+                    class="outline-toggle"
+                    onclick={() => (outlineCollapsed = !outlineCollapsed)}
+                    aria-expanded={!outlineCollapsed}
+                >
+                    <span class="outline-chevron">{outlineCollapsed ? "▸" : "▾"}</span>
+                    <span class="outline-title">Outline Materi</span>
+                </button>
+
+                {#if !outlineCollapsed}
+                    <ul class="outline-list">
+                        {#each outlineItems as item}
+                            <li>
+                                <a
+                                    href={`#${item.id}`}
+                                    class="outline-item"
+                                    class:subheading={item.level === 3}
+                                    class:active={activeOutlineId === item.id}
+                                    title={item.text}
+                                    onclick={() => {
+                                        activeOutlineId = item.id;
+                                    }}
+                                >
+                                    {item.text}
+                                </a>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+        {/if}
 
         {#each curriculum as semester}
             <div class="semester-group">
-                <div class="semester-header">
+                <button
+                    type="button"
+                    class="semester-header"
+                    onclick={() => toggleSemester(semester.id)}
+                    aria-expanded={isSemesterOpen(semester.id)}
+                    title={semester.name}
+                >
+                    <span class="semester-chevron">{isSemesterOpen(semester.id) ? "▾" : "▸"}</span>
                     <span class="semester-icon"><ThemeIcon name="semester" size={16} /></span>
                     <h3 class="semester-title">{semester.name}</h3>
-                </div>
+                </button>
 
-                <ul class="subject-list">
-                    {#each semester.subjects as subject}
-                        {@const subjectPath = `/${semester.id}/${subject.id}`}
-                        <li>
-                            <a
-                                href="{base}{subjectPath}"
-                                class="nav-item subject"
-                                class:active={isActive(subjectPath)}
-                            >
-                                <span class="icon">
-                                    <ThemeIcon name={subject.icon} size={18} />
-                                </span>
-                                <span class="label">{subject.name}</span>
-                                {#if subject.status}
-                                    <span
-                                        class="status-indicator {subject.status}"
-                                        title={STATUS_LABELS[subject.status] ||
-                                            "Belum Mulai"}
-                                    ></span>
-                                {/if}
-                            </a>
-                        </li>
-                    {/each}
-                </ul>
+                {#if isSemesterOpen(semester.id)}
+                    <ul class="subject-list">
+                        {#each semester.subjects as subject}
+                            {@const subjectPath = `/${semester.id}/${subject.id}`}
+                            <li>
+                                <a
+                                    href="{base}{subjectPath}"
+                                    class="nav-item subject"
+                                    class:active={isActive(subjectPath)}
+                                    title={subject.name}
+                                >
+                                    <span class="icon">
+                                        <ThemeIcon name={subject.icon} size={18} />
+                                    </span>
+                                    <span class="label" title={subject.name}>{subject.name}</span>
+                                    {#if subject.status}
+                                        <span
+                                            class="status-indicator {subject.status}"
+                                            title={STATUS_LABELS[subject.status] ||
+                                                "Belum Mulai"}
+                                        ></span>
+                                    {/if}
+                                </a>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
             </div>
         {/each}
     </nav>
@@ -220,12 +491,102 @@
         margin-bottom: 1.25rem;
     }
 
+    .outline-group {
+        margin-bottom: 1.25rem;
+        padding: 0.5rem 0.5rem 0.375rem;
+        border: 1px solid rgba(139, 69, 19, 0.2);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    .outline-toggle {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: var(--color-binder);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        padding: 0.35rem 0.25rem 0.5rem;
+        text-align: left;
+    }
+
+
+    .outline-chevron,
+    .semester-chevron {
+        width: 0.9rem;
+        text-align: center;
+        color: var(--color-ink-muted);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .outline-list {
+        list-style: none;
+        margin: 0;
+        padding: 0.125rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .outline-list li {
+        margin: 0;
+    }
+
+    .outline-item {
+        display: block;
+        color: var(--color-ink-strong);
+        text-decoration: none;
+        font-size: 0.84rem;
+        line-height: 1.35;
+        padding: 0.38rem 0.55rem;
+        border-radius: 8px;
+        border-left: 2px solid transparent;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .outline-item:hover {
+        background: rgba(139, 69, 19, 0.12);
+    }
+
+    .outline-item.active {
+        background: var(--color-surface-elevated);
+        border-left-color: var(--color-binder);
+        color: var(--color-binder);
+        font-weight: 600;
+    }
+
+    .outline-item.subheading {
+        margin-left: 0.75rem;
+        font-size: 0.79rem;
+        opacity: 0.9;
+    }
+
     .semester-header {
         display: flex;
         align-items: center;
         gap: 0.625rem;
         padding: 0.625rem 0.75rem;
         margin-bottom: 0.375rem;
+        width: 100%;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        text-align: left;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+    }
+
+    .semester-header:hover {
+        background: rgba(139, 69, 19, 0.08);
     }
 
     .semester-icon {

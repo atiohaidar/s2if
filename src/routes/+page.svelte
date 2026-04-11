@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from "$app/paths";
     import { catalog, curriculum } from "$lib/data/content";
     import Sticker from "$lib/components/Sticker.svelte";
     import SubjectCard from "$lib/components/SubjectCard.svelte";
@@ -52,7 +53,7 @@
             semua materi kuliah S2 Informatika. Setiap catatan dibuat dengan Svelte
             untuk fleksibilitas maksimal dalam visualisasi dan interaktivitas.
         </p>
-        <a class="catalog-link" href="/catalog">Buka katalog konten lengkap</a>
+        <a class="catalog-link" href="{base}/catalog">Buka katalog konten lengkap</a>
     </section>
 
     <section class="catalog-search">
@@ -78,8 +79,8 @@
                     <a
                         class="catalog-item"
                         href={entry.topicId
-                            ? `/${entry.semesterId}/${entry.subjectId}/${entry.topicId}`
-                            : `/${entry.semesterId}/${entry.subjectId}`}
+                            ? `${base}/${entry.semesterId}/${entry.subjectId}/${entry.topicId}`
+                            : `${base}/${entry.semesterId}/${entry.subjectId}`}
                     >
                         <span class="catalog-kind">{entry.kind}</span>
                         <div class="catalog-copy">
