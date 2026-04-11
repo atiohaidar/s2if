@@ -32,4 +32,15 @@ export const subjectIndexes: SubjectIndex[] = [
         order: 2,
         tags: ['ai', 'search', 'heuristic'],
     },
+    {
+        semesterId: 'semester-1',
+        id: 'pemodelan-dan-optimasi-lanjut',
+        slug: 'pemodelan-dan-optimasi-lanjut',
+        title: 'Pemodelan dan Optimasi Lanjut',
+        icon: 'subject-optimasi',
+        summary: 'Pemodelan matematis, fungsi biaya, dan teknik optimasi untuk analisis data.',
+        status: 'wip',
+        order: 3,
+        tags: ['regresi', 'optimasi', 'pemodelan'],
+    },
 ];

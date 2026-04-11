@@ -17,9 +17,9 @@
     );
 </script>
 
-<div class="math-block" class:inline={!displayMode}>
+<svelte:element this={displayMode ? "div" : "span"} class="math-block" class:inline={!displayMode}>
     {@html renderedMath()}
-</div>
+</svelte:element>
 
 <style>
     .math-block {

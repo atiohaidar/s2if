@@ -53,6 +53,8 @@
     <BrainCircuit size={size} strokeWidth={2} />
 {:else if name === "subject-ai-lanjut"}
     <BrainCircuit size={size} strokeWidth={2} />
+{:else if name === "subject-optimasi"}
+    <ChartColumn size={size} strokeWidth={2} />
 {:else if name === "subject-sistem-terdistribusi"}
     <Globe size={size} strokeWidth={2} />
 {:else if name === "subject-data-mining"}
