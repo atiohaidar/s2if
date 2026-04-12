@@ -5,6 +5,7 @@
         BookOpen,
         BookOpenText,
         BrainCircuit,
+        Car,
         CalendarDays,
         ChartColumn,
         Check,
@@ -59,6 +60,8 @@
     <BookOpenText size={size} strokeWidth={2} />
 {:else if name === "subject-toefl-preparation"}
     <NotebookPen size={size} strokeWidth={2} />
+{:else if name === "subject-permobilan"}
+    <Car size={size} strokeWidth={2} />
 {:else if name === "subject-sistem-terdistribusi"}
     <Globe size={size} strokeWidth={2} />
 {:else if name === "subject-data-mining"}

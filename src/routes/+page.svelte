@@ -56,7 +56,23 @@
         <a class="catalog-link" href="{base}/catalog">Buka katalog konten lengkap</a>
     </section>
 
-    <section class="catalog-search">
+   
+
+    <section class="semester-overview">
+        <h2><ThemeIcon name="overview" size={22} /> Overview Semester</h2>
+
+        {#each curriculum as semester}
+            <div class="semester-card">
+                <h3>{semester.name}</h3>
+                <div class="subjects-grid">
+                    {#each semester.subjects as subject}
+                        <SubjectCard {subject} semesterId={semester.id} />
+                    {/each}
+                </div>
+            </div>
+        {/each}
+    </section>
+     <section class="catalog-search">
         <h2><ThemeIcon name="topics" size={22} /> Katalog Konten</h2>
         <label class="search-field" for="catalog-search-input">
             <span class="search-label">Cari materi</span>
@@ -97,21 +113,6 @@
                 </div>
             {/if}
         </div>
-    </section>
-
-    <section class="semester-overview">
-        <h2><ThemeIcon name="overview" size={22} /> Overview Semester</h2>
-
-        {#each curriculum as semester}
-            <div class="semester-card">
-                <h3>{semester.name}</h3>
-                <div class="subjects-grid">
-                    {#each semester.subjects as subject}
-                        <SubjectCard {subject} semesterId={semester.id} />
-                    {/each}
-                </div>
-            </div>
-        {/each}
     </section>
 
     <section class="quick-guide">

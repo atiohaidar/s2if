@@ -71,4 +71,15 @@ export const subjectIndexes: SubjectIndex[] = [
         order: 2,
         tags: ['toefl', 'english', 'test-prep'],
     },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'permobilan',
+        slug: 'permobilan',
+        title: 'Permobilan',
+        icon: 'subject-permobilan',
+        summary: 'Pengantar komponen dasar mobil dan cara kerja sistem utama dengan contoh Avanza generasi pertama.',
+        status: 'wip',
+        order: 3,
+        tags: ['otomotif', 'mobil', 'avanza'],
+    },
 ];
