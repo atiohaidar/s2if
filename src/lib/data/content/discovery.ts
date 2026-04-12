@@ -10,7 +10,7 @@ interface TopicManifestModule {
 }
 
 const topicManifestModules = import.meta.glob(
-    '../../../routes/semester-*/*/*/topic.manifest.ts',
+    '../../../routes/*/*/*/topic.manifest.ts',
     { eager: true },
 ) as Record<string, TopicManifestModule>;
 

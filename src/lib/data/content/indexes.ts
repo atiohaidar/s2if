@@ -7,6 +7,12 @@ export const semesterIndexes: SemesterIndex[] = [
         title: 'Semester 1',
         order: 1,
     },
+    {
+        id: 'luar-perkuliahan',
+        slug: 'luar-perkuliahan',
+        title: 'Luar Perkuliahan',
+        order: 2,
+    },
 ];
 
 export const subjectIndexes: SubjectIndex[] = [
@@ -42,5 +48,27 @@ export const subjectIndexes: SubjectIndex[] = [
         status: 'wip',
         order: 3,
         tags: ['regresi', 'optimasi', 'pemodelan'],
+    },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'bahasa-inggris',
+        slug: 'bahasa-inggris',
+        title: 'Bahasa Inggris',
+        icon: 'subject-bahasa-inggris',
+        summary: 'Dasar grammar, tenses, dan praktik bahasa Inggris untuk kebutuhan di luar perkuliahan.',
+        status: 'wip',
+        order: 1,
+        tags: ['english', 'grammar', 'tenses'],
+    },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'toefl-preparation',
+        slug: 'toefl-preparation',
+        title: 'Persiapan TOEFL',
+        icon: 'subject-toefl-preparation',
+        summary: 'Materi inti yang perlu dipahami untuk persiapan TOEFL, terutama reading, listening, dan grammar.',
+        status: 'wip',
+        order: 2,
+        tags: ['toefl', 'english', 'test-prep'],
     },
 ];
