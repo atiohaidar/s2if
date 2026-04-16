@@ -5,6 +5,8 @@
     import CodeBlock from "$lib/components/CodeBlock.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
     import BackLink from "$lib/components/BackLink.svelte";
+    import BinarySearchVisualizer from "./components/BinarySearchVisualizer.svelte";
+    import PartitionVisualizer from "./components/PartitionVisualizer.svelte";
 
     const dncQuiz = [
         {
@@ -27,7 +29,7 @@
             ],
             correctIndex: 0,
             explanation:
-                "Pivot yang dipakai bernilai 5. Setelah pivot dipindah ke posisi low, array dipindai dari kiri ke kanan. Setiap elemen yang lebih kecil dari 5 ditukar ke sisi kiri boundary, lalu pivot diletakkan tepat di batas akhir elemen yang lebih kecil. Hasil akhirnya adalah [1,1,3,4,1,5,9,5,5]."
+                "Karena pivot bernilai 5 dan setelah pemindaian elemen < 5 dikumpulkan ke kiri, lalu pivot diletakkan di batasnya, hasilnya menjadi [1,1,3,4,1,5,9,5,5]."
         }
     ];
 </script>
@@ -76,9 +78,44 @@ stop karena low == high
 `}
         />
 
-        <Callout type="tip" title="Jawaban Soal 1">
+        <Callout type="success" title="Jawaban Soal 1">
             Jawaban yang sesuai opsi adalah <strong>3</strong>.
         </Callout>
+
+        <Callout type="tip" title="Coba visualisasi langkahnya">
+            Jalankan tombol <code>Next</code> untuk melihat jejak komparasi sampai kondisi
+            <code>low == high</code>.
+        </Callout>
+
+        <BinarySearchVisualizer />
+
+        <p>Versi kode Python untuk menghitung jumlah komparasi (sesuai varian soal):</p>
+        <CodeBlock
+            language="python"
+            filename="binary_search_komparasi.py"
+            code={`def binary_search_count(arr, target):
+    low, high = 0, len(arr) - 1
+    comparisons = 0
+
+    # Varian sesuai bedah: loop berjalan selama low < high
+    while low < high:
+        mid = (low + high) // 2
+        comparisons += 1
+
+        if target <= arr[mid]:
+            high = mid
+        else:
+            low = mid + 1
+
+    return low, comparisons
+
+
+A = [1, 1, 1, 3, 4, 5, 5, 5, 9]
+target = 7
+idx, comps = binary_search_count(A, target)
+print("index akhir:", idx)         # 8
+print("jumlah komparasi:", comps)  # 3`}
+        />
     </NoteSection>
 
     <NoteSection title="Soal 2 (Partisi QuickSort)">
@@ -96,65 +133,6 @@ stop karena low == high
             digeser ke sisi kiri, lalu pivot diposisikan pada batas kiri-kanan.
         </Callout>
 
-        <p>
-            Di soal ini, partisi yang dipakai adalah gaya <strong>Lomuto</strong> dengan
-            asumsi pivot sempat dipindah ke posisi <code>low</code> lebih dulu. Artinya,
-            kita hanya perlu satu kali pemindaian dari kiri ke kanan untuk memastikan
-            semua elemen <code>&lt; pivot</code> berada di kiri, dan elemen <code>&gt;= pivot</code>
-            tetap di kanan.
-        </p>
-
-        <Callout type="warning" title="Invariant yang dijaga">
-            Selama pemindaian berjalan, bagian kiri boundary selalu berisi elemen
-            yang sudah pasti lebih kecil dari pivot. Bagian tengah masih belum diputuskan,
-            dan bagian kanan belum disentuh.
-        </Callout>
-
-        <CodeBlock
-            language="python"
-            filename="partition_lomuto.py"
-            code={`def partition(arr, low, high, px):
-    pivot = arr[px]
-    arr[px], arr[low] = arr[low], arr[px]
-    boundary = low
-
-    for i in range(low + 1, high + 1):
-        if arr[i] < pivot:
-            boundary += 1
-            arr[i], arr[boundary] = arr[boundary], arr[i]
-
-    arr[low], arr[boundary] = arr[boundary], arr[low]
-    return boundary`}
-        />
-
-        <CodeBlock
-            language="text"
-            filename="langkah_partisi_soal_2.txt"
-            code={`Pivot = 5
-Array awal = [5,1,3,4,5,1,9,5,1]
-
-Langkah ringkas:
-1) Pivot dipindah ke low, lalu boundary kecil dimulai dari kiri.
-2) Baca 1 -> lebih kecil dari pivot, masuk ke sisi kiri.
-3) Baca 3 -> lebih kecil dari pivot, tetap di sisi kiri.
-4) Baca 4 -> lebih kecil dari pivot, tetap di sisi kiri.
-5) Baca 5 -> tidak lebih kecil dari pivot, tetap di kanan.
-6) Baca 1 -> lebih kecil dari pivot, ikut digeser ke kiri.
-7) Baca 9 -> tetap di kanan.
-8) Baca 5 -> tetap di kanan.
-9) Baca 1 -> lebih kecil dari pivot, ikut ke kiri.
-
-Setelah scan selesai, pivot ditukar ke posisi boundary.
-Hasil akhir = [1,1,3,4,1,5,9,5,5]`}
-        />
-
-        <p>
-            Kalau dilihat urutannya, sebenarnya yang penting bukan hanya hasil akhir,
-            tetapi juga pola pemindahan elemen: setiap angka kecil selalu “menyusul” ke
-            kiri boundary, sedangkan angka yang tidak lebih kecil dari pivot dibiarkan
-            tetap di bagian kanan sampai scan selesai.
-        </p>
-
         <CodeBlock
             language="text"
             filename="trace_soal_2.txt"
@@ -163,9 +141,44 @@ setelah partisi: [1,1,3,4,1,5,9,5,5]
 `}
         />
 
-        <Callout type="tip" title="Jawaban Soal 2">
+        <Callout type="success" title="Jawaban Soal 2">
             Jawaban yang benar: <code>A = [1,1,3,4,1,5,9,5,5]</code>.
         </Callout>
+
+        <Callout type="tip" title="Coba visualisasi partisi">
+            Tekan <code>Next</code> untuk melihat proses swap saat scanning dan swap pivot
+            terakhir sampai hasil akhir array terbentuk.
+        </Callout>
+
+        <PartitionVisualizer />
+
+        <p>Versi kode Python partisi (pivot dari <code>px</code>, lalu dipindah ke <code>low</code>):</p>
+        <CodeBlock
+            language="python"
+            filename="partition_dengan_px.py"
+            code={`def partition_with_px(arr, low, high, px):
+    # 1) Pindahkan pivot terpilih ke posisi low
+    arr[low], arr[px] = arr[px], arr[low]
+    pivot = arr[low]
+
+    # 2) Partisi elemen < pivot ke sisi kiri
+    i = low + 1
+    for j in range(low + 1, high + 1):
+        if arr[j] < pivot:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+
+    # 3) Letakkan pivot di posisi final
+    pivot_index = i - 1
+    arr[low], arr[pivot_index] = arr[pivot_index], arr[low]
+    return pivot_index
+
+
+A = [5, 1, 3, 4, 5, 1, 9, 5, 1]
+pi = partition_with_px(A, low=0, high=len(A) - 1, px=4)
+print("pivot index:", pi)
+print("hasil partisi:", A)  # [1, 1, 3, 4, 1, 5, 9, 5, 5]`}
+        />
     </NoteSection>
 
     <NoteSection title="Latihan Interaktif">
