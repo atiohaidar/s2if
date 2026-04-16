@@ -5,13 +5,14 @@
     interface Props {
         type?: "tip" | "warning" | "info" | "danger";
         title?: string;
+        scrollX?: boolean;
         children?: import("svelte").Snippet;
     }
 
-    let { type = "tip", title, children }: Props = $props();
+    let { type = "tip", title, scrollX = false, children }: Props = $props();
 </script>
 
-<blockquote class="callout callout-{type}">
+    <blockquote class="callout callout-{type}" class:scroll-x={scrollX}>
     <span class="callout-icon">
         <ThemeIcon name={CALLOUT_ICONS[type]} size={20} />
     </span>
@@ -43,6 +44,11 @@
 
     .callout-content {
         flex: 1;
+    }
+
+    .callout.scroll-x .callout-content {
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
     .callout-title {
