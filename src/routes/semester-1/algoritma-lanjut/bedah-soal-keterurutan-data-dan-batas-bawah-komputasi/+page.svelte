@@ -125,7 +125,7 @@
     </NoteSection>
 
     <NoteSection title="Jawaban yang Benar">
-        <Callout type="success" title="Pilihan benar">
+        <Callout type="tip" title="Pilihan benar">
             <p>
                 <strong>Kompleksitas solusi X <code>O(N log N)</code> dan kompleksitas problem Y <code>Ω(N log N)</code></strong>.
             </p>
@@ -265,7 +265,7 @@ print(merge_and(A, B))  # [1, 1, 1, 3, 4, 5, 5, 5, 9]`}
             <li>Loop <strong>Z</strong> dilewati karena B sudah habis.</li>
         </ul>
 
-        <Callout type="success" title="Jawaban Soal 2">
+        <Callout type="tip" title="Jawaban Soal 2">
             <p>
                 Loop yang masuk: <strong>X dan Y</strong>, loop yang dilewati: <strong>Z</strong>.
             </p>
@@ -359,7 +359,7 @@ print(solve(n, x, arr))  # Salah satu output valid: 2 4`}
             Ini memenuhi batasan input besar pada soal.
         </p>
 
-        <Callout type="success" title="Hal penting dari output">
+        <Callout type="tip" title="Hal penting dari output">
             <p>
                 Posisi yang dicetak harus <strong>berbeda</strong>. Kode di atas otomatis menjamin ini
                 karena pasangan ditemukan dari elemen sebelumnya dan elemen saat ini.
