@@ -78,7 +78,7 @@ stop karena low == high
 `}
         />
 
-        <Callout type="success" title="Jawaban Soal 1">
+        <Callout type="info" title="Jawaban Soal 1">
             Jawaban yang sesuai opsi adalah <strong>3</strong>.
         </Callout>
 
@@ -141,7 +141,7 @@ setelah partisi: [1,1,3,4,1,5,9,5,5]
 `}
         />
 
-        <Callout type="success" title="Jawaban Soal 2">
+        <Callout type="info" title="Jawaban Soal 2">
             Jawaban yang benar: <code>A = [1,1,3,4,1,5,9,5,5]</code>.
         </Callout>
 
