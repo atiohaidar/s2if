@@ -56,6 +56,8 @@
     <BrainCircuit size={size} strokeWidth={2} />
 {:else if name === "subject-optimasi"}
     <ChartColumn size={size} strokeWidth={2} />
+{:else if name === "subject-tren-perangkat-lunak"}
+    <Globe size={size} strokeWidth={2} />
 {:else if name === "subject-bahasa-inggris"}
     <BookOpenText size={size} strokeWidth={2} />
 {:else if name === "subject-toefl-preparation"}
