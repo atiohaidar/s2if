@@ -9,7 +9,7 @@
     import PartitionVisualizer from "./components/PartitionVisualizer.svelte";
 
     const dncQuiz = [
-        {
+   {
             question:
                 "Soal 1: Untuk A = [1,1,1,3,4,5,5,5,9], target = 7, berapa jumlah komparasi data pada binary search (varian while low < high)?",
             options: ["2", "3", "4", "5", "8"],
