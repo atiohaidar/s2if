@@ -9,23 +9,119 @@
 
     const conceptQuiz = [
         {
-            question: "Jika ada dua loop berurutan masing-masing O(n), kompleksitas totalnya apa?",
-            options: ["O(n^2)", "O(2n)", "O(n)", "O(log n)"],
-            correctIndex: 2,
-            explanation:
-                "Dua loop berurutan dijumlahkan: O(n) + O(n) = O(2n), lalu konstanta diabaikan menjadi O(n)."
-        },
-        {
-            question: "Kapan sebuah loop biasanya menghasilkan O(log n)?",
+            question:
+                "Soal 1: Pada fungsi find_max, pernyataan invariant yang paling tepat adalah...",
             options: [
-                "Saat nilai bertambah 1 tiap iterasi",
-                "Saat ukuran masalah dibagi faktor tetap (misal n/2) tiap iterasi",
-                "Saat ada nested loop",
-                "Saat ada operasi swap"
+                "Sebelum loop, max_now pasti elemen terbesar global",
+                "Setelah memproses elemen ke-i, max_now adalah maksimum dari elemen 0..i",
+                "max_now selalu sama dengan elemen terakhir array",
+                "Invariant hanya berlaku jika data terurut"
             ],
             correctIndex: 1,
             explanation:
-                "Jika ruang pencarian dipangkas dengan rasio tetap, jumlah langkah tumbuh logaritmik terhadap n."
+                "Invariant yang benar untuk find_max adalah maksimum sementara pada prefix yang sudah diproses."
+        },
+        {
+            question:
+                "Soal 2: Untuk linear_search pada arr=[4,1,7,3], target=7, kapan algoritma berhenti?",
+            options: [
+                "Saat i=0",
+                "Saat i=1",
+                "Saat i=2",
+                "Saat i=3"
+            ],
+            correctIndex: 2,
+            explanation:
+                "Cek berurutan: 4 (false), 1 (false), 7 (true), lalu return 2 dan berhenti."
+        },
+        {
+            question:
+                "Soal 3: Pada factorial rekursif, pasangan syarat agar rekursi pasti terminasi adalah...",
+            options: [
+                "Ada base case, dan tiap langkah input bergerak menuju base case",
+                "Hanya perlu base case",
+                "Hanya perlu pemanggilan diri sendiri",
+                "Tidak perlu kondisi apa pun jika bahasa mendukung rekursi"
+            ],
+            correctIndex: 0,
+            explanation:
+                "Base case tanpa progress bisa tetap infinite recursion. Keduanya wajib ada."
+        },
+        {
+            question:
+                "Soal 4: Jika ada dua loop berurutan masing-masing O(n), kompleksitas total paling tepat adalah...",
+            options: ["O(n^2)", "O(2n)", "O(n)", "O(log n)"],
+            correctIndex: 2,
+            explanation:
+                "Secara penjumlahan O(n)+O(n)=O(2n), lalu disederhanakan jadi O(n)."
+        },
+        {
+            question:
+                "Soal 5: Potongan berikut: for i in range(n): while k > 1: k //= 2. Jika k di-reset ke n untuk setiap i, maka kompleksitasnya...",
+            options: ["O(log n)", "O(n)", "O(n log n)", "O(n^2)"],
+            correctIndex: 2,
+            explanation:
+                "Loop luar O(n), loop dalam O(log n) tiap iterasi, total O(n log n)."
+        },
+        {
+            question:
+                "Soal 6: Dari opsi berikut, mana yang BUKAN edge case untuk fungsi berbasis array?",
+            options: [
+                "Array kosong []",
+                "Array satu elemen [x]",
+                "Ukuran input sangat besar",
+                "Array ukuran sedang dengan pola acak biasa"
+            ],
+            correctIndex: 3,
+            explanation:
+                "Kasus acak normal biasanya bukan edge case; edge case berada di kondisi batas atau khusus."
+        },
+        {
+            question:
+                "Soal 7: Pada debugging algoritma, gejala paling kuat bahwa progres state salah adalah...",
+            options: [
+                "Waktu eksekusi sedikit lebih lambat",
+                "Nilai variabel tidak berubah menuju kondisi berhenti",
+                "Output kadang tampil lebih cepat",
+                "Kode menggunakan banyak komentar"
+            ],
+            correctIndex: 1,
+            explanation:
+                "Jika state tidak bergerak ke kondisi berhenti, loop/rekursi berisiko tidak selesai."
+        },
+        {
+            question:
+                "Soal 8: Pada workflow soal cerita, langkah yang paling tepat dilakukan SEBELUM coding adalah...",
+            options: [
+                "Langsung implementasi lalu perbaiki sambil jalan",
+                "Definisikan input-output-constraint dan susun pseudocode",
+                "Cari library dulu tanpa model masalah",
+                "Mengoptimasi micro-performance dari awal"
+            ],
+            correctIndex: 1,
+            explanation:
+                "Model masalah yang jelas + pseudocode mengurangi bug desain sebelum implementasi detail."
+        },
+        {
+            question:
+                "Soal 9: Fungsi count_positive memeriksa setiap elemen sekali. Kompleksitas waktunya adalah...",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+            correctIndex: 2,
+            explanation:
+                "Satu loop linear yang mengakses seluruh elemen satu kali memberi O(n)."
+        },
+        {
+            question:
+                "Soal 10: Mengapa tracing tabel efektif saat belajar algoritma?",
+            options: [
+                "Karena membuat kode otomatis lebih cepat",
+                "Karena menunjukkan bukti perubahan state langkah demi langkah",
+                "Karena menghilangkan kebutuhan edge case",
+                "Karena selalu menurunkan kompleksitas"
+            ],
+            correctIndex: 1,
+            explanation:
+                "Tracing tabel membantu verifikasi logika secara konkret, bukan menebak jalannya algoritma."
         }
     ];
 </script>
@@ -412,8 +508,12 @@ while k > 1:
         </Callout>
     </NoteSection>
 
-    <NoteSection title="Latihan Singkat">
-        <Quiz questions={conceptQuiz} />
+    <NoteSection title="Latihan Singkat (Inti Konsep - Level Lanjut)">
+        <p>
+            Fokus latihan ini adalah fondasi paling penting: invariant, tracing, rekursif,
+            kompleksitas, edge case, debugging, dan workflow menyusun algoritma dari soal cerita.
+        </p>
+        <Quiz title="Quiz Inti Konsep DAL" questions={conceptQuiz} />
     </NoteSection>
 
     <BackLink

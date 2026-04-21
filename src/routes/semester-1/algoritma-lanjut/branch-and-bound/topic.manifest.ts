@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'wip',
-    order: 8,
+    order: 9,
     tags: ['sorting', 'lower-bound', 'merge-sort', 'reduksi'],
     prereq: ['konsep'],
     renderMode: 'mixed',

@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'todo',
-    order: 5,
+    order: 6,
     tags: ['dnc', 'pruning', 'quicksort'],
     prereq: ['konsep'],
     renderMode: 'mixed',

@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'praktek',
     track: 'bedah-soal',
     status: 'done',
-    order: 9,
+    order: 10,
     tags: ['bedah-soal', 'sorting', 'lower-bound', 'kompleksitas'],
     prereq: ['branch-and-bound'],
     renderMode: 'note',

@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'praktek',
     track: 'bedah-soal',
     status: 'wip',
-    order: 7,
+    order: 8,
     tags: ['bedah-soal', 'dsu', 'union-find', 'rank'],
     prereq: ['struktur-gabungan-himpunan-disjoin'],
     renderMode: 'note',

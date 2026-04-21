@@ -11,25 +11,79 @@
     const dncQuiz = [
         {
             question:
-                "Soal 1: Untuk A = [1,1,1,3,4,5,5,5,9], target = 7, berapa jumlah komparasi data pada binary search (versi loop low < high)?",
-            options: ["2 * log 8 = 6", "3", "c * log N", "5", "O(log N)"],
+                "Soal 1: Untuk A = [1,1,1,3,4,5,5,5,9], target = 7, berapa jumlah komparasi data pada binary search (varian while low < high)?",
+            options: ["2", "3", "4", "5", "8"],
             correctIndex: 1,
             explanation:
-                "Jejak komparasi: A[4]=4 (kurang), A[6]=5 (kurang), A[7]=5 (kurang), lalu loop berhenti saat low=high=8. Jadi jumlah komparasi data yang terjadi adalah 3."
+                "Jejak komparasi: A[4]=4, A[6]=5, A[7]=5. Setelah itu low=high=8 sehingga loop berhenti. Total komparasi data = 3."
         },
         {
             question:
-                "Soal 2: Untuk A = [5,1,3,4,5,1,9,5,1] dengan px = 4, hasil array setelah partisi (varian pivot dipindah ke low lalu skema Lomuto < pivot) adalah...",
+                "Soal 2: Untuk array yang sama, jika target = 5, indeks akhir yang dikembalikan varian lower_bound (if target <= A[mid] then high = mid) adalah...",
+            options: ["3", "4", "5", "6", "7"],
+            correctIndex: 2,
+            explanation:
+                "Varian ini mencari posisi pertama dengan nilai >= target. Untuk target 5, indeks pertama bernilai 5 adalah 5."
+        },
+        {
+            question:
+                "Soal 3: Untuk A = [5,1,3,4,5,1,9,5,1] dengan px = 4, hasil array setelah partisi (pivot dipindah ke low, lalu skema < pivot) adalah...",
             options: [
-                "A = [1,1,3,4,1,5,9,5,5]",
-                "A = [5,1,3,4,1,1,9,5,5]",
-                "A = [1,1,1,3,4,5,5,5,9]",
-                "A = [1,1,3,1,4,5,9,5,5]",
-                "A = [1,1,3,4,1,5,9,5,5]"
+                "[1,1,3,4,1,5,9,5,5]",
+                "[5,1,3,4,1,1,9,5,5]",
+                "[1,1,1,3,4,5,5,5,9]",
+                "[1,1,3,1,4,5,9,5,5]",
+                "[1,1,3,4,1,9,5,5,5]"
             ],
             correctIndex: 0,
             explanation:
-                "Karena pivot bernilai 5 dan setelah pemindaian elemen < 5 dikumpulkan ke kiri, lalu pivot diletakkan di batasnya, hasilnya menjadi [1,1,3,4,1,5,9,5,5]."
+                "Pivot = 5. Semua elemen < 5 dipindah ke kiri saat scanning, lalu pivot ditempatkan di batas akhirnya."
+        },
+        {
+            question:
+                "Soal 4: Pada proses partisi Soal 3, berapakah pivot_index final yang dikembalikan fungsi?",
+            options: ["4", "5", "6", "7", "8"],
+            correctIndex: 1,
+            explanation:
+                "Ada 5 elemen yang < 5, maka pivot ditempatkan di indeks 5 (0-based)."
+        },
+        {
+            question:
+                "Soal 5: Invariant yang benar untuk skema partisi ini saat iterasi j berjalan adalah...",
+            options: [
+                "A[low+1..i-1] < pivot dan A[i..j] >= pivot",
+                "A[low+1..i-1] <= pivot dan A[i..j] > pivot",
+                "A[low..i] selalu terurut naik",
+                "A[j..high] semuanya < pivot",
+                "Tidak ada invariant yang stabil"
+            ],
+            correctIndex: 0,
+            explanation:
+                "Pointer i menandai batas area elemen < pivot. Sementara area yang sudah discan tetapi belum dipindah (i..j) berisi elemen >= pivot."
+        },
+        {
+            question:
+                "Soal 6: Jika A = [5,5,5,5], low=0, high=3, px=2 dan kondisi partisi adalah arr[j] < pivot, maka pivot_index akhir adalah...",
+            options: ["0", "1", "2", "3", "tidak terdefinisi"],
+            correctIndex: 0,
+            explanation:
+                "Tidak ada elemen yang < pivot (semua sama dengan pivot), sehingga i tetap low+1 dan pivot_index = i-1 = low = 0."
+        },
+        {
+            question:
+                "Soal 7: Untuk N = 1.048.576 (2^20), jumlah komparasi maksimum binary search klasik (orde) mendekati...",
+            options: ["20", "1.024", "1.048.576", "(1.048.576)^2", "2^40"],
+            correctIndex: 0,
+            explanation:
+                "Karena kedalaman pencarian biner sekitar log2(N), maka log2(2^20)=20."
+        },
+        {
+            question:
+                "Soal 8: Dalam Quickselect, setelah partisi didapat pivot_index = 5. Untuk mencari elemen ke-kecil ke-3 (k=3, 0-based), rekursi berikutnya harus ke...",
+            options: ["subarray kiri (low..4)", "subarray kanan (6..high)", "kedua sisi sekaligus", "berhenti karena selalu ketemu", "ulang partisi seluruh array dari awal"],
+            correctIndex: 0,
+            explanation:
+                "Karena k=3 < pivot_index=5, elemen target pasti berada di sisi kiri partisi."
         }
     ];
 </script>
@@ -181,8 +235,12 @@ print("hasil partisi:", A)  # [1, 1, 3, 4, 1, 5, 9, 5, 5]`}
         />
     </NoteSection>
 
-    <NoteSection title="Latihan Interaktif">
-        <Quiz title="Mini Quiz Bedah Soal DnC" questions={dncQuiz} />
+    <NoteSection title="Latihan Singkat (Level Lanjut)">
+        <p>
+            Paket soal ini dibuat lebih menantang: mencakup trace langkah, invariant,
+            analisis kasus duplikasi, kompleksitas, dan keputusan rekursi setelah partisi.
+        </p>
+        <Quiz title="Quiz DnC: Binary Search + Partisi" questions={dncQuiz} />
     </NoteSection>
 
     <BackLink href="/semester-1/algoritma-lanjut" label="Kembali" />
