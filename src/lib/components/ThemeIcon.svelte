@@ -17,12 +17,16 @@
         Home,
         Info,
         Lightbulb,
+        Maximize2,
+        Minimize2,
+        Moon,
         NotebookPen,
         PenLine,
         Pickaxe,
         Save,
         Shield,
         ShieldAlert,
+        SunMedium,
         Trash2,
         TriangleAlert,
         X,
@@ -86,6 +90,14 @@
     <X size={size} strokeWidth={2} />
 {:else if name === "save"}
     <Save size={size} strokeWidth={2} />
+{:else if name === "maximize"}
+    <Maximize2 size={size} strokeWidth={2} />
+{:else if name === "minimize"}
+    <Minimize2 size={size} strokeWidth={2} />
+{:else if name === "theme-light"}
+    <SunMedium size={size} strokeWidth={2} />
+{:else if name === "theme-dark"}
+    <Moon size={size} strokeWidth={2} />
 {:else if name === "trash"}
     <Trash2 size={size} strokeWidth={2} />
 {:else if name === "page"}

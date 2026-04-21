@@ -241,16 +241,6 @@
         <span class="sidebar-toggle-label">{sidebarOpen ? "Tutup" : "Navigasi"}</span>
     </button>
 
-    <button
-        class="theme-toggle"
-        onclick={toggleTheme}
-        aria-label={theme === "light" ? "Pindah ke mode gelap" : "Pindah ke mode terang"}
-        aria-pressed={theme === "dark"}
-        title={theme === "light" ? "Mode terang" : "Mode gelap"}
-    >
-        {theme === "light" ? "☾" : "☀"}
-    </button>
-
     {#if sidebarOpen}
         <button
             class="sidebar-backdrop"
@@ -271,7 +261,7 @@
         aria-label="Navigasi utama"
         onclick={handleSidebarClick}
     >
-        <Sidebar />
+        <Sidebar theme={theme} onToggleTheme={toggleTheme} />
     </aside>
 
     <!-- Main Content Area -->
@@ -395,31 +385,6 @@
         opacity: 1;
     }
 
-    .theme-toggle {
-        position: fixed;
-        top: 1.5rem;
-        right: 3.6rem;
-        z-index: 101;
-        width: 48px;
-        height: 48px;
-        border: none;
-        border-radius: 9999px;
-        background: var(--color-surface-elevated);
-        color: var(--color-ink-strong);
-        box-shadow: var(--shadow-md);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .theme-toggle:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-lg);
-    }
-
     /* Move toggle button when sidebar is open */
     .sidebar-open .sidebar-toggle {
         left: 280px;
@@ -471,10 +436,6 @@
 
         .sidebar-toggle-label {
             display: none;
-        }
-
-        .theme-toggle {
-            right: 3.1rem;
         }
     }
 </style>

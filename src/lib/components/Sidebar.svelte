@@ -13,6 +13,13 @@
         level: 2 | 3;
     }
 
+    interface Props {
+        theme: "light" | "dark";
+        onToggleTheme?: () => void;
+    }
+
+    let { theme, onToggleTheme }: Props = $props();
+
     const semesterStorageKey = "s2if-sidebar-semester-open";
 
     let semesterOpenMap = $state<Record<string, boolean>>({});
@@ -351,6 +358,25 @@
         {/each}
     </nav>
 
+    <div class="sidebar-theme-card">
+        <div class="theme-card-text">
+            <span class="theme-card-label">Tema Tampilan</span>
+            <span class="theme-card-value">{theme === "light" ? "Terang" : "Gelap"}</span>
+        </div>
+
+        <button
+            type="button"
+            class="theme-card-toggle"
+            onclick={onToggleTheme}
+            aria-label={theme === "light" ? "Pindah ke mode gelap" : "Pindah ke mode terang"}
+            aria-pressed={theme === "dark"}
+            title={theme === "light" ? "Mode terang" : "Mode gelap"}
+        >
+            <ThemeIcon name={theme === "light" ? "theme-light" : "theme-dark"} size={18} />
+            <span>{theme === "light" ? "Gelap" : "Terang"}</span>
+        </button>
+    </div>
+
     <!-- Footer -->
     <div class="sidebar-footer">
         <div class="footer-divider"></div>
@@ -676,6 +702,61 @@
         padding-top: 1rem;
         font-size: 0.75rem;
         color: var(--color-ink-soft);
+    }
+
+    .sidebar-theme-card {
+        margin: 0.5rem 0 0.85rem;
+        padding: 0.85rem 0.9rem;
+        border: 1px solid rgba(139, 69, 19, 0.16);
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.2));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .theme-card-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        min-width: 0;
+    }
+
+    .theme-card-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-ink-soft);
+    }
+
+    .theme-card-value {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--color-ink-strong);
+    }
+
+    .theme-card-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(139, 69, 19, 0.2);
+        background: var(--color-surface-elevated);
+        color: var(--color-binder);
+        border-radius: 999px;
+        padding: 0.55rem 0.8rem;
+        cursor: pointer;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .theme-card-toggle:hover,
+    .theme-card-toggle:focus-visible {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+        background: var(--color-surface-soft);
     }
 
     .footer-divider {
