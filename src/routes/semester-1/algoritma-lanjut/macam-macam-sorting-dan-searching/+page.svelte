@@ -5,6 +5,11 @@
     import BackLink from "$lib/components/BackLink.svelte";
     import Callout from "$lib/components/Callout.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
+    import InsertionSortAnimation from "./components/InsertionSortAnimation.svelte";
+    import MergeSortAnimation from "./components/MergeSortAnimation.svelte";
+    import QuickSortAnimation from "./components/QuickSortAnimation.svelte";
+    import HeapSortAnimation from "./components/HeapSortAnimation.svelte";
+    import CountingSortAnimation from "./components/CountingSortAnimation.svelte";
 
     const materiQuiz = [
         {
@@ -166,18 +171,7 @@ dst.`}
                 swapped = True
         if not swapped:
             break
-    return a
-
-
-def insertion_sort(arr):
-    a = arr[:]
-    for i in range(1, len(a)):
-        key = a[i]
-        j = i - 1
-        while j >= 0 and a[j] > key:
-            a[j + 1] = a[j]
-            j -= 1
-`}
+    return a`}
         />
 
         <CodeBlock
@@ -194,7 +188,7 @@ Output: [1, 2, 4, 5]`}
             <li>Space: <code>O(1)</code>.</li>
         </ul>
     </NoteSection>
-        a[j + 1] = key
+
     <NoteSection title="3) Insertion Sort">
         <p>
             <strong>Konsep:</strong> anggap bagian kiri sudah terurut, lalu sisipkan elemen
@@ -202,6 +196,9 @@ Output: [1, 2, 4, 5]`}
         </p>
         <p><strong>Kelebihan:</strong> bagus untuk data kecil dan hampir terurut, stabil.</p>
         <p><strong>Kekurangan:</strong> pada data acak besar tetap kuadratik.</p>
+
+        <p><strong>Simulasi Visual:</strong></p>
+        <InsertionSortAnimation />
 
         <CodeBlock
             language="python"
@@ -240,6 +237,9 @@ Output: [5, 6, 11, 12, 13]`}
         </p>
         <p><strong>Kelebihan:</strong> performa konsisten <code>O(n log n)</code>, stabil.</p>
         <p><strong>Kekurangan:</strong> butuh memori tambahan untuk proses merge.</p>
+
+        <p><strong>Simulasi Visual:</strong></p>
+        <MergeSortAnimation />
 
         <CodeBlock
             language="python"
@@ -294,6 +294,9 @@ Output: [3, 9, 10, 27, 38, 43, 82]`}
         <p><strong>Kelebihan:</strong> sangat cepat di praktik rata-rata, in-place.</p>
         <p><strong>Kekurangan:</strong> jika pivot buruk berulang, bisa turun ke <code>O(n^2)</code>.</p>
 
+        <p><strong>Simulasi Visual:</strong></p>
+        <QuickSortAnimation />
+
         <CodeBlock
             language="python"
             filename="quick_sort.py"
@@ -343,6 +346,9 @@ Output: [1, 5, 7, 8, 9, 10]`}
         </p>
         <p><strong>Kelebihan:</strong> worst case tetap <code>O(n log n)</code> dan in-place.</p>
         <p><strong>Kekurangan:</strong> tidak stabil, dan biasanya lebih sulit dipahami dari merge sort.</p>
+
+        <p><strong>Simulasi Visual:</strong></p>
+        <HeapSortAnimation />
 
         <CodeBlock
             language="python"
@@ -399,6 +405,9 @@ Output: [5, 6, 7, 11, 12, 13]`}
         </p>
         <p><strong>Kelebihan:</strong> sangat cepat jika rentang nilai kecil dan diskrit.</p>
         <p><strong>Kekurangan:</strong> kurang cocok jika rentang nilai sangat besar.</p>
+
+        <p><strong>Simulasi Visual:</strong></p>
+        <CountingSortAnimation />
 
         <CodeBlock
             language="python"

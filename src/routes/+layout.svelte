@@ -110,6 +110,20 @@
                 return;
             }
 
+            // Shortcut Buka/Tutup Sidebar (Ctrl + B)
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "b") {
+                event.preventDefault();
+                toggleSidebar();
+                return;
+            }
+
+            // Shortcut Buka/Tutup Catatan Pribadi (Ctrl + .)
+            if ((event.ctrlKey || event.metaKey) && event.key === ".") {
+                event.preventDefault();
+                toggleNotes();
+                return;
+            }
+
             if (event.key !== "Escape" || event.defaultPrevented) {
                 return;
             }

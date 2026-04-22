@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import { onDestroy, onMount } from "svelte";
+    import { onDestroy, onMount, untrack } from "svelte";
     import { browser } from "$app/environment";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
     import { EditorState, Compartment } from "@codemirror/state";
@@ -46,6 +46,7 @@
     let prefsLoaded = $state(false);
     let typingStamps = $state<number[]>([]);
     let typingMeterTick = $state(0);
+    let isSyncing = false;
 
     const languageCompartment = new Compartment();
 
@@ -108,6 +109,7 @@
             return;
         }
 
+        isSyncing = true;
         editorView.dispatch({
             changes: {
                 from: 0,
@@ -115,6 +117,7 @@
                 insert: nextNotes,
             },
         });
+        isSyncing = false;
     }
 
     function reconfigureLanguage() {
@@ -186,12 +189,22 @@
     // Load notes from localStorage on mount and when page changes
     $effect(() => {
         if (!browser) return;
+        
+        // This makes the effect react ONLY to storageKey changes
         const key = storageKey;
-        const saved = localStorage.getItem(key);
-        notes = saved ?? "";
-        lastSaved = null;
-        setFeedback("Catatan tersimpan lokal di browser ini.");
-        loadPreferences();
+        
+        untrack(() => {
+            const saved = localStorage.getItem(key);
+            notes = saved ?? "";
+            lastSaved = null;
+            setFeedback("Catatan tersimpan lokal di browser ini.", "info");
+            loadPreferences();
+            
+            // Explicitly sync editor if it exists
+            if (editorView) {
+                syncEditorContent(notes);
+            }
+        });
     });
 
     $effect(() => {
@@ -210,14 +223,6 @@
         }
 
         previousOpen = isOpen;
-    });
-
-    $effect(() => {
-        if (!editorView) {
-            return;
-        }
-
-        syncEditorContent(notes);
     });
 
     $effect(() => {
@@ -253,21 +258,39 @@
     // Auto-save with debounce
     let saveTimeout: ReturnType<typeof setTimeout>;
 
+    function saveToStorage(key: string, value: string): boolean {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function handleInput() {
         if (!browser) return;
         isSaving = true;
         registerTypingPulse();
         clearTimeout(saveTimeout);
+        
+        // Tangkap key dan value saat ini, agar tidak salah simpan jika pindah halaman cepat
+        const keyToSave = storageKey;
+        const valueToSave = notes;
+
         saveTimeout = setTimeout(() => {
-            localStorage.setItem(storageKey, notes);
+            const success = saveToStorage(keyToSave, valueToSave);
             isSaving = false;
-            lastSaved = new Date();
-            setFeedback("Perubahan tersimpan otomatis.", "success");
+            if (success) {
+                lastSaved = new Date();
+                setFeedback("Perubahan tersimpan otomatis.", "success");
+            } else {
+                setFeedback("Memori browser penuh. Harap export & hapus catatan lama.", "error");
+            }
         }, 500);
     }
 
     function handleEditorUpdate(update: ViewUpdate) {
-        if (!update.docChanged) {
+        if (!update.docChanged || isSyncing) {
             return;
         }
 
@@ -294,7 +317,44 @@
                     highlightActiveLine(),
                     indentOnInput(),
                     syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-                    keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
+                    keymap.of([
+                        {
+                            key: "Alt-z",
+                            run: () => {
+                                toggleFullscreen();
+                                return true;
+                            }
+                        },
+                        {
+                            key: "Mod-Shift-f",
+                            run: () => {
+                                toggleFullscreen();
+                                return true;
+                            }
+                        },
+                        {
+                            key: "Escape",
+                            run: () => {
+                                if (isFullscreen) {
+                                    isFullscreen = false;
+                                    focusEditor();
+                                    return true;
+                                }
+                                closePanel();
+                                return true;
+                            }
+                        },
+                        {
+                            key: "Mod-m",
+                            run: () => {
+                                toggleEditorMode();
+                                return true;
+                            }
+                        },
+                        ...defaultKeymap, 
+                        ...historyKeymap, 
+                        indentWithTab
+                    ]),
                     EditorView.lineWrapping,
                     EditorView.contentAttributes.of({
                         spellcheck: "true",
@@ -321,9 +381,23 @@
             drainTypingStamps();
         }, 350);
 
+        function handleStorageEvent(event: StorageEvent) {
+            if (event.key === storageKey) {
+                const newVal = event.newValue ?? "";
+                if (newVal !== notes) {
+                    notes = newVal;
+                    syncEditorContent(notes);
+                    setFeedback("Catatan disinkronkan dari tab lain.", "info");
+                }
+            }
+        }
+
+        window.addEventListener("storage", handleStorageEvent);
+
         return () => {
             clearInterval(activityInterval);
             destroyEditor();
+            window.removeEventListener("storage", handleStorageEvent);
         };
     });
 
@@ -425,12 +499,16 @@
             }
 
             notes = parsed.notes;
-            localStorage.setItem(storageKey, notes);
-            lastSaved = new Date();
-            typingStamps = [];
-            typingMeterTick += 1;
-            setFeedback("Catatan berhasil diimport.", "success");
-            syncEditorContent(notes);
+            const success = saveToStorage(storageKey, notes);
+            if (success) {
+                lastSaved = new Date();
+                typingStamps = [];
+                typingMeterTick += 1;
+                setFeedback("Catatan berhasil diimport.", "success");
+                syncEditorContent(notes);
+            } else {
+                setFeedback("Memori browser penuh. Harap hapus catatan lama dulu.", "error");
+            }
 
             if (
                 typeof parsed.pagePath === "string" &&
@@ -456,7 +534,38 @@
     onDestroy(() => {
         clearTimeout(saveTimeout);
     });
+
+    function handleGlobalKeydown(event: KeyboardEvent) {
+        if (!isOpen) return;
+
+        // Shortcut Fullscreen: Alt + Z ATAU Ctrl + Shift + F
+        const isAltZ = event.altKey && event.key.toLowerCase() === 'z';
+        const isCtrlShiftF = (event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'f';
+        
+        if (isAltZ || isCtrlShiftF) {
+            event.preventDefault();
+            toggleFullscreen();
+            return;
+        }
+
+        // Shortcut Mode Kode/Catatan: Ctrl + M
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'm') {
+            event.preventDefault();
+            toggleEditorMode();
+            return;
+        }
+
+        // Shortcut Keluar Fullscreen: ESC
+        if (event.key === 'Escape' && isFullscreen) {
+            event.preventDefault();
+            event.stopPropagation();
+            isFullscreen = false;
+            focusEditor();
+        }
+    }
 </script>
+
+<svelte:window onkeydown={handleGlobalKeydown} />
 
 <!-- Toggle Button (Right side) -->
 <button
@@ -467,7 +576,7 @@
     aria-label={isOpen ? "Tutup catatan" : "Buka catatan"}
     aria-expanded={isOpen}
     aria-controls={panelId}
-    title="Catatan Pribadi"
+    title="Catatan Pribadi (Ctrl+.)"
 >
     <ThemeIcon name={isOpen ? "close" : "note"} size={20} />
 </button>
@@ -494,7 +603,7 @@
                 class="icon-btn mode-btn"
                 onclick={toggleEditorMode}
                 aria-pressed={editorMode === "code"}
-                title={editorMode === "notes" ? "Pindah ke mode kode" : "Pindah ke mode catatan"}
+                title={editorMode === "notes" ? "Pindah ke mode kode (Ctrl+M)" : "Pindah ke mode catatan (Ctrl+M)"}
             >
                 <ThemeIcon name={editorMode === "notes" ? "edit" : "topic-praktek"} size={16} />
             </button>
@@ -503,7 +612,7 @@
                 class="icon-btn fullscreen-btn"
                 onclick={toggleFullscreen}
                 aria-pressed={isFullscreen}
-                title={isFullscreen ? "Keluar fullscreen" : "Fullscreen"}
+                title={isFullscreen ? "Keluar fullscreen (Alt+Z)" : "Fullscreen (Alt+Z)"}
             >
                 <ThemeIcon name={isFullscreen ? "minimize" : "maximize"} size={16} />
             </button>
@@ -551,7 +660,7 @@
         {/if}
 
         <span class="editor-hint">
-            Tab untuk indent, {isFullscreen ? "ESC untuk keluar fullscreen" : "editor siap dipakai"}
+            Tab untuk indent, {isFullscreen ? "ESC untuk keluar fullscreen" : "Alt+Z untuk Fullscreen"}
         </span>
     </div>
 
@@ -697,6 +806,7 @@
         border-radius: 20px;
         box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
         z-index: 200;
+        bottom: env(safe-area-inset-bottom, 0.75rem);
     }
 
     .notes-panel.fullscreen .notes-body {
@@ -952,7 +1062,7 @@
 
     .notes-editor :global(.cm-content) {
         min-height: 100%;
-        padding: 1rem 1rem 1.25rem;
+        padding: 1rem 1rem 25vh;
         caret-color: var(--color-ink-strong);
     }
 
