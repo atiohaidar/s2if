@@ -42,6 +42,12 @@
     let editorView: EditorView | null = null;
     let isFullscreen = $state(false);
     let editorMode = $state<"notes" | "code">("notes");
+    
+    // Resize states
+    let panelWidth = $state(320);
+    const MIN_WIDTH = 250;
+    const MAX_WIDTH = 800;
+    let isResizing = $state(false);
     let codeLanguage = $state<"markdown" | "javascript" | "typescript" | "python" | "json">("javascript");
     let prefsLoaded = $state(false);
     let typingStamps = $state<number[]>([]);
@@ -254,6 +260,48 @@
             isFullscreen = false;
         }
     });
+
+    $effect(() => {
+        if (!browser) return;
+        const savedWidth = localStorage.getItem("s2if-notes-width");
+        if (savedWidth) {
+            const parsed = parseInt(savedWidth, 10);
+            if (!isNaN(parsed) && parsed >= MIN_WIDTH && parsed <= MAX_WIDTH) {
+                panelWidth = parsed;
+            }
+        }
+    });
+
+    $effect(() => {
+        if (browser) {
+            document.documentElement.style.setProperty('--notes-width', `${panelWidth}px`);
+        }
+    });
+
+    function startResize(e: MouseEvent) {
+        if (isFullscreen) return;
+        isResizing = true;
+        e.preventDefault();
+        
+        function onMouseMove(e: MouseEvent) {
+            if (!isResizing) return;
+            let newWidth = window.innerWidth - e.clientX;
+            newWidth = Math.max(MIN_WIDTH, Math.min(newWidth, MAX_WIDTH));
+            panelWidth = newWidth;
+        }
+
+        function onMouseUp() {
+            isResizing = false;
+            if (browser) {
+                localStorage.setItem("s2if-notes-width", panelWidth.toString());
+            }
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("mouseup", onMouseUp);
+        }
+
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+    }
 
     // Auto-save with debounce
     let saveTimeout: ReturnType<typeof setTimeout>;
@@ -587,9 +635,20 @@
     class="notes-panel"
     class:open={isOpen}
     class:fullscreen={isFullscreen}
+    class:is-resizing={isResizing}
+    style="--panel-width: {panelWidth}px;"
     aria-label="Panel catatan pribadi"
     aria-hidden={!isOpen}
 >
+    {#if !isFullscreen}
+        <div 
+            class="resize-handle" 
+            onmousedown={startResize} 
+            role="separator" 
+            aria-orientation="vertical" 
+            aria-label="Geser untuk mengubah ukuran panel catatan">
+        </div>
+    {/if}
     <div class="notes-header">
         <div class="notes-header-main">
             <h3 id="notes-panel-title"><ThemeIcon name="note" size={18} /> Catatan Pribadi</h3>
@@ -760,7 +819,7 @@
     }
 
     .notes-toggle.open {
-        right: 320px;
+        right: var(--notes-width, 320px);
         background: var(--color-ink);
     }
 
@@ -779,7 +838,7 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: 320px;
+        width: var(--panel-width, 320px);
         background: linear-gradient(
             180deg,
             var(--color-surface-alt) 0%,
@@ -796,6 +855,23 @@
 
     .notes-panel.open {
         transform: translateX(0);
+    }
+
+    .resize-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -4px;
+        width: 8px;
+        cursor: ew-resize;
+        z-index: 200;
+        background: transparent;
+        transition: background 0.2s ease;
+    }
+    
+    .resize-handle:hover,
+    .notes-panel.is-resizing .resize-handle {
+        background: rgba(139, 69, 19, 0.4);
     }
 
     .notes-panel.fullscreen {

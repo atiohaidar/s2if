@@ -344,7 +344,7 @@
         }
 
         .notes-open .main-content {
-            margin-right: 320px;
+            margin-right: var(--notes-width, 320px);
         }
     }
 

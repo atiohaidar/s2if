@@ -257,6 +257,7 @@ Output: [5, 6, 11, 12, 13]`}
 def merge(left, right):
     result = []
     i = j = 0
+    # Looping utama berhenti jika SALAH SATU array habis duluan.
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
             result.append(left[i])
@@ -265,10 +266,26 @@ def merge(left, right):
             result.append(right[j])
             j += 1
 
-    result.extend(left[i:])
-    result.extend(right[j:])
+    # Tim penyapu bersih: Memasukkan sisa elemen yang belum terambil
+    # (Hanya salah satu dari while ini yang akan berjalan)
+    while i < len(left):
+        result.append(left[i])
+        i += 1
+
+    while j < len(right):
+        result.append(right[j])
+        j += 1
+
     return result`}
         />
+
+        <Callout type="info" title="Kenapa ada dua while tambahan di akhir?">
+            Looping utama <code>while i &lt; len(left) and j &lt; len(right)</code> akan langsung berhenti ketika salah satu blok (Kiri atau Kanan) habis dimasukkan ke <code>result</code>. Ini menyebabkan blok lawannya mungkin masih memiliki sisa elemen yang <strong>tertinggal</strong>. Dua looping tambahan di bagian akhir bertugas menyapu bersih sisa elemen tersebut agar tidak ada data yang hilang!
+        </Callout>
+
+        <Callout type="tip" title="Bagaimana array Kiri dan Kanan dipastikan selalu terurut?">
+            Fungsi <code>merge</code> mensyaratkan kedua array input sudah terurut. Lalu bagaimana cara memastikannya? Algoritma ini membelah array terus-menerus sampai ukurannya tersisa <strong>1 elemen</strong> (<code>if len(arr) &lt;= 1</code>). Secara logika, array berisi 1 elemen sudah pasti terurut sempurna! Dari kepingan-kepingan terkecil inilah proses penggabungan bergerak mundur perlahan ke atas menjadi ukuran 2, 4, 8, dan seterusnya.
+        </Callout>
 
         <CodeBlock
             language="text"
