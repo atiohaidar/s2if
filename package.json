@@ -20,6 +20,7 @@
     "@eslint/js": "^9.39.1",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@tsconfig/svelte": "^5.0.6",
+    "@types/d3": "^7.4.3",
     "@types/node": "^24.10.1",
     "eslint": "^9.39.1",
     "eslint-plugin-svelte": "^3.12.4",
@@ -46,6 +47,7 @@
     "@types/katex": "^0.16.8",
     "@types/prismjs": "^1.26.5",
     "codemirror": "^6.0.2",
+    "d3": "^7.9.0",
     "katex": "^0.16.45",
     "lucide-svelte": "^1.0.1",
     "prismjs": "^1.30.0"

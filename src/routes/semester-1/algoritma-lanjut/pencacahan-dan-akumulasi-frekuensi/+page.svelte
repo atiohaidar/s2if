@@ -80,11 +80,6 @@
         />
 
 
-        <Callout type="tip" title="Visualisasi Interaktif">
-            Pakai visualizer di bawah untuk lihat step-by-step alur counting sort itu ngapain:
-        </Callout>
-
-        <CountingSortVisualizer />
         <CodeBlock
             language="text"
             filename="contoh_array_frekuensi.txt"
@@ -210,6 +205,12 @@ A[1..3] = [1, 3, 2], jumlah = 6 (sama)`}
             <li>Tempatkan elemen ke array hasil <code>B</code>.</li>
             <li>Iterasi mundur untuk menjaga stabilitas.</li>
         </ol>
+
+        <Callout type="tip" title="Visualisasi Interaktif">
+            Pakai visualizer di bawah untuk lihat step-by-step alur counting sort itu ngapain:
+        </Callout>
+
+        <CountingSortVisualizer />
 
         <CodeBlock
             language="python"

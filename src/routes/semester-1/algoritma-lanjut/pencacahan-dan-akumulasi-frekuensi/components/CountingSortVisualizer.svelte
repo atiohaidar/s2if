@@ -233,12 +233,12 @@
 
 <style>
     .visualizer-box {
-        border: 2px solid #007acc;
+        border: 2px solid var(--color-link);
         border-radius: 8px;
         padding: 20px;
-        background-color: #f5f5f5;
+        background-color: var(--color-surface-alt);
         margin: 20px 0;
-        font-family: 'Courier New', monospace;
+        font-family: var(--font-mono);
     }
 
     .controls {
@@ -251,37 +251,40 @@
     button {
         padding: 8px 16px;
         font-size: 14px;
-        border: 1px solid #007acc;
-        background-color: #007acc;
-        color: white;
+        border: 1px solid var(--color-link);
+        background-color: var(--color-link);
+        color: var(--color-surface);
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: background-color 0.2s, opacity 0.2s;
     }
 
     button:hover:not(:disabled) {
-        background-color: #005a9e;
+        opacity: 0.9;
     }
 
     button:disabled {
-        background-color: #ccc;
+        background-color: var(--color-status-neutral-border);
+        border-color: var(--color-status-neutral-border);
         cursor: not-allowed;
+        opacity: 0.7;
     }
 
     .step-info {
         padding: 8px 16px;
-        background-color: #e0e0e0;
+        background-color: var(--color-status-neutral-soft);
+        color: var(--color-ink);
         border-radius: 4px;
         font-weight: bold;
     }
 
     .message-box {
-        background-color: #fff3cd;
-        border-left: 4px solid #ffc107;
+        background-color: var(--color-callout-warning-start);
+        border-left: 4px solid var(--color-callout-warning-border);
         padding: 12px;
         margin-bottom: 15px;
         border-radius: 4px;
-        color: #333;
+        color: var(--color-callout-warning-text);
     }
 
     .arrays-section {
@@ -291,15 +294,15 @@
     }
 
     .array-group {
-        background-color: white;
+        background-color: var(--color-surface-elevated);
         padding: 15px;
         border-radius: 4px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--color-line);
     }
 
     .array-group h4 {
         margin: 0 0 10px 0;
-        color: #333;
+        color: var(--color-ink-strong);
         font-size: 14px;
     }
 
@@ -316,25 +319,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 2px solid #ccc;
+        border: 2px solid var(--color-line);
         border-radius: 4px;
-        background-color: #f9f9f9;
+        background-color: var(--color-surface);
+        color: var(--color-ink);
         font-weight: bold;
         font-size: 14px;
         transition: all 0.3s ease;
     }
 
     .cell.highlight {
-        background-color: #4caf50;
-        color: white;
-        border-color: #2e7d32;
+        background-color: var(--color-status-success-border);
+        color: var(--color-surface-elevated);
+        border-color: var(--color-status-success-text);
         transform: scale(1.1);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .cell.filled {
-        background-color: #e8f5e9;
-        border-color: #4caf50;
+        background-color: var(--color-status-success-soft);
+        border-color: var(--color-status-success-border);
     }
 
     .label-row {
@@ -349,7 +353,7 @@
         width: 45px;
         text-align: center;
         font-size: 12px;
-        color: #666;
+        color: var(--color-ink-soft);
         font-weight: bold;
     }
 </style>

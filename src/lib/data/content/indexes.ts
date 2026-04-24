@@ -7,12 +7,6 @@ export const semesterIndexes: SemesterIndex[] = [
         title: 'Semester 1',
         order: 1,
     },
-    {
-        id: 'luar-perkuliahan',
-        slug: 'luar-perkuliahan',
-        title: 'Luar Perkuliahan',
-        order: 99,
-    },
 ];
 
 export const subjectIndexes: SubjectIndex[] = [
@@ -59,38 +53,5 @@ export const subjectIndexes: SubjectIndex[] = [
         status: 'wip',
         order: 4,
         tags: ['software-engineering', 'paper', 'critical-thinking'],
-    },
-    {
-        semesterId: 'luar-perkuliahan',
-        id: 'bahasa-inggris',
-        slug: 'bahasa-inggris',
-        title: 'Bahasa Inggris',
-        icon: 'subject-bahasa-inggris',
-        summary: 'Grammar, tenses, dan struktur kalimat untuk latihan komunikasi akademik.',
-        status: 'wip',
-        order: 1,
-        tags: ['english', 'grammar', 'language'],
-    },
-    {
-        semesterId: 'luar-perkuliahan',
-        id: 'permobilan',
-        slug: 'permobilan',
-        title: 'Permobilan',
-        icon: 'subject-permobilan',
-        summary: 'Dasar komponen kendaraan, sistem pendukung mesin, dan diagnosis ringan.',
-        status: 'wip',
-        order: 2,
-        tags: ['otomotif', 'engine', 'maintenance'],
-    },
-    {
-        semesterId: 'luar-perkuliahan',
-        id: 'toefl-preparation',
-        slug: 'toefl-preparation',
-        title: 'Persiapan TOEFL',
-        icon: 'subject-toefl-preparation',
-        summary: 'Strategi belajar dan ringkasan materi untuk persiapan tes TOEFL.',
-        status: 'wip',
-        order: 3,
-        tags: ['toefl', 'english-test', 'preparation'],
     },
 ];

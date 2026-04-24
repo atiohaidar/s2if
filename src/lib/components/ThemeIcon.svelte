@@ -4,6 +4,8 @@
         ArrowRight,
         BookOpen,
         BookOpenText,
+        Bot,
+        Brain,
         BrainCircuit,
         Car,
         CalendarDays,
@@ -24,11 +26,13 @@
         PenLine,
         Pickaxe,
         Save,
+        Scale,
         Shield,
         ShieldAlert,
         SunMedium,
         Trash2,
         TriangleAlert,
+        User,
         X,
     } from "lucide-svelte";
 
@@ -114,6 +118,14 @@
     <ArrowLeft size={size} strokeWidth={2} />
 {:else if name === "arrow-right"}
     <ArrowRight size={size} strokeWidth={2} />
+{:else if name === "ai-brain"}
+    <Brain size={size} strokeWidth={2} />
+{:else if name === "ai-scale"}
+    <Scale size={size} strokeWidth={2} />
+{:else if name === "ai-user"}
+    <User size={size} strokeWidth={2} />
+{:else if name === "ai-bot"}
+    <Bot size={size} strokeWidth={2} />
 {/if}
 
 <style>

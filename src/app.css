@@ -42,6 +42,8 @@
 	--color-status-info-border: #3498db;
 	--color-status-success-soft: #eafaf1;
 	--color-status-success-border: #a9dfbf;
+	--color-status-success-start: #4ade80;
+	--color-status-success-end: #2ecc71;
 	--color-status-success-text: #1e8449;
 	--color-status-warning-soft: #fdedec;
 	--color-status-warning-border: #e74c3c;
@@ -131,6 +133,8 @@ body {
 	--color-status-info-border: #5dade2;
 	--color-status-success-soft: #163725;
 	--color-status-success-border: #5dbb86;
+	--color-status-success-start: #27ae60;
+	--color-status-success-end: #2ecc71;
 	--color-status-success-text: #8fe0b0;
 	--color-status-warning-soft: #3f1720;
 	--color-status-warning-border: #ef6f6c;
