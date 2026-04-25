@@ -420,7 +420,7 @@
     .node-label { fill: var(--color-ink-strong); font-size: 13px; text-anchor: middle; font-family: var(--font-handwriting); font-weight: bold; }
 
     .value-badge rect { fill: var(--color-status-success-start); stroke: none; }
-    .value-badge text { fill: white; font-size: 11px; text-anchor: middle; font-weight: 700; font-family: var(--font-mono); }
+    .value-badge text { fill: #1a1a1a; font-size: 11px; text-anchor: middle; font-weight: 800; font-family: var(--font-mono); }
 
     .leaf-value { fill: var(--color-binder); font-size: 12px; text-anchor: middle; font-weight: 700; font-family: var(--font-mono); }
 

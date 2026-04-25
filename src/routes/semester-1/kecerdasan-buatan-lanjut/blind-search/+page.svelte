@@ -109,119 +109,227 @@
 
     <NoteSection title="1. Breadth-First Search (BFS)">
         <p>Eksplorasi menyebar level demi level. Menggunakan struktur data <strong>Queue (FIFO)</strong>.</p>
-        <div class="method-box">
-            <h4>Langkah-langkah:</h4>
-            <ol>
-                <li>Masukkan node awal ke <code>queue</code>.</li>
-                <li>Ambil node paling depan queue.</li>
-                <li>Jika node adalah goal, berhenti.</li>
-                <li>Masukkan semua tetangga yang belum dikunjungi ke belakang queue.</li>
-                <li>Ulangi sampai goal ketemu atau queue kosong.</li>
-            </ol>
+        
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Masukkan node awal ke <strong>Queue</strong>.</li>
+                    <li>Ambil node terdepan, cek apakah Goal.</li>
+                    <li>Jika bukan, masukkan semua tetangganya ke belakang Queue.</li>
+                    <li>Ulangi sampai Goal ketemu atau Queue kosong.</li>
+                </ol>
+            </div>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Complete:</strong> Pasti ketemu solusinya kalau ada.</li>
+                    <li><strong>Optimal:</strong> Menemukan jalur terpendek (step terkecil).</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Memori Boros:</strong> Harus simpan semua node di setiap level (Eksponensial).</li>
+                    <li>Penggunaan memori bisa <strong>melebihi kapasitas</strong> jika state space terlalu luas.</li>
+                </ul>
+            </div>
         </div>
-        <CodeBlock
-            language="python"
-            code={`from collections import deque
 
-def bfs(graph, start, goal):
-    queue = deque([start])
-    visited = {start}
-    parent = {start: None}
-
-    while queue:
-        node = queue.popleft()
-        if node == goal: break
-
-        for nxt in graph.get(node, []):
-            if nxt not in visited:
-                visited.add(nxt)
-                parent[nxt] = node
-                queue.append(nxt)
-    
-    return trace_path(parent, goal)`}
-        />
+        <div class="memory-note">
+            <h4>💡 Kenapa Memorinya bᵈ?</h4>
+            <p>
+                Banyak yang bingung: <em>"Kalau level 1 ada 2 node, kenapa parent-nya nggak ikut dihitung?"</em>
+            </p>
+            <p>
+                Karena BFS pakai sistem <strong>Antrean (Queue)</strong>. Sebelum anak-anak dimasukkan, si Parent sudah <strong>dikeluarkan (pop)</strong> dari antrean untuk diproses. Jadi, memori BFS itu sebenarnya menghitung <strong>jumlah node terbanyak yang sedang 'antre' di saat bersamaan</strong>, yaitu node-node di level paling bawah.
+            </p>
+        </div>
     </NoteSection>
 
     <NoteSection title="2. Depth-First Search (DFS)">
         <p>Menelusuri satu cabang sampai mentok sebelum pindah ke cabang lain. Menggunakan <strong>Stack (LIFO)</strong>.</p>
-        <div class="method-box">
-            <h4>Langkah-langkah:</h4>
-            <ol>
-                <li>Masukkan node awal ke <code>stack</code>.</li>
-                <li>Ambil node paling atas stack.</li>
-                <li>Jika node adalah goal, berhenti.</li>
-                <li>Push tetangga (biasanya urutan dibalik agar kunjungan konsisten dari kiri).</li>
-                <li>Jika buntu, backtrack otomatis lewat stack.</li>
-            </ol>
+        
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Masukkan node awal ke <strong>Stack</strong>.</li>
+                    <li>Ambil node teratas, cek apakah Goal.</li>
+                    <li>Jika bukan, masukkan tetangganya ke Stack.</li>
+                    <li>Jika buntu, <strong>Backtrack</strong> ke node sebelumnya di Stack.</li>
+                </ol>
+            </div>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Irit Memori:</strong> Cuma simpan node di jalur yang sedang dilewati (Linear).</li>
+                    <li>Cepat nemu solusi kalau solusinya ada di cabang yang dalam.</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Tidak Complete:</strong> Bisa nyasar selamanya di cabang tak terhingga (Infinite Path).</li>
+                    <li><strong>Tidak Optimal:</strong> Belum tentu jalur yang ketemu itu yang terpendek.</li>
+                </ul>
+            </div>
         </div>
-        <CodeBlock
-            language="python"
-            code={`def dfs(graph, start, goal):
-    stack = [start]
-    visited = set()
-    parent = {start: None}
 
-    while stack:
-        node = stack.pop()
-        if node in visited: continue
-        visited.add(node)
-        if node == goal: break
-
-        for nxt in reversed(graph.get(node, [])):
-            if nxt not in visited:
-                parent[nxt] = node
-                stack.append(nxt)
-    
-    return trace_path(parent, goal)`}
-        />
+        <div class="memory-note">
+            <h4>💡 Kenapa DFS Irit Memori?</h4>
+            <p>
+                Berbeda dengan BFS yang "nyapu rata", DFS cuma perlu ingat <strong>jalur yang lagi dia lewatin</strong> sekarang (dari Root sampai ke node saat ini). Dia nggak perlu simpan tetangga-tetangganya di level yang sama. Itulah kenapa memorinya cuma <strong>Linear O(bm)</strong>, bukan eksponensial.
+            </p>
+        </div>
     </NoteSection>
 
     <NoteSection title="3. Uniform Cost Search (UCS)">
         <p>Digunakan jika setiap jalur memiliki biaya berbeda. Menggunakan <strong>Priority Queue</strong> berdasarkan total cost terkecil.</p>
-        <CodeBlock
-            language="python"
-            code={`import heapq
-
-def ucs(graph, start, goal):
-    pq = [(0, start)] # (cost, node)
-    dist = {start: 0}
-    parent = {start: None}
-
-    while pq:
-        cost, node = heapq.heappop(pq)
-        if cost > dist[node]: continue
-        if node == goal: break
-
-        for nxt, weight in graph.get(node, []):
-            new_cost = cost + weight
-            if nxt not in dist or new_cost < dist[nxt]:
-                dist[nxt] = new_cost
-                parent[nxt] = node
-                heapq.heappush(pq, (new_cost, nxt))
-    
-    return trace_path(parent, goal), dist[goal]`}
-        />
-    </NoteSection>
-
-    <NoteSection title="4. Iterative Deepening Search (IDS)">
-        <p>
-            <strong>IDS</strong> menggabungkan kelebihan BFS (optimal) dan DFS (hemat memori). 
-            Ia menjalankan DFS berulang kali dengan limit kedalaman (L) yang meningkat.
-        </p>
-        <div class="combo-box">
-            <div class="combo-part">
-                <strong>BFS Property</strong>
-                <span>Complete & Optimal</span>
+        
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Gunakan <strong>Priority Queue</strong>, urutkan berdasarkan biaya terkecil (g).</li>
+                    <li>Selalu ambil node dengan total biaya paling murah dari start.</li>
+                    <li>Update biaya tetangga kalau ketemu jalur yang lebih murah.</li>
+                    <li>Goal dicek saat node <strong>dihapus</strong> dari queue, bukan saat dimasukkan.</li>
+                </ol>
             </div>
-            <div class="plus">+</div>
-            <div class="combo-part">
-                <strong>DFS Property</strong>
-                <span>Memory O(bd)</span>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Pasti Optimal:</strong> Menemukan jalur dengan biaya termurah (bukan cuma step tersedikit).</li>
+                    <li>Complete jika biaya tiap step > 0.</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Eksponensial:</strong> Masih makan banyak memori dan waktu kalau solusinya jauh.</li>
+                    <li>Bisa terjebak loop kalau ada biaya nol/negatif.</li>
+                </ul>
             </div>
         </div>
+    </NoteSection>
+
+    <NoteSection title="4. Depth-Limited Search (DLS)">
+        <p>Sama seperti DFS, tapi diberikan batas kedalaman (Limit) agar tidak nyasar terlalu jauh.</p>
+        
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Jalankan DFS seperti biasa.</li>
+                    <li>Tentukan <strong>Limit = L</strong>.</li>
+                    <li>Jika sudah sampai kedalaman <strong>L</strong>, jangan buka node di bawahnya lagi.</li>
+                    <li>Anggap jalan buntu dan lakukan backtrack.</li>
+                </ol>
+            </div>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Irit Memori:</strong> Sama iritnya dengan DFS.</li>
+                    <li>Menghindari masalah <em>Infinite Path</em> (jalur tak terhingga).</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Tidak Complete:</strong> Jika goal ada di kedalaman d > L, maka goal nggak akan pernah ketemu.</li>
+                    <li>Butuh pengetahuan awal soal berapa kedalaman solusinya.</li>
+                </ul>
+            </div>
+        </div>
+    </NoteSection>
+
+    <NoteSection title="5. Iterative Deepening Search (IDS)">
+        <p>
+            <strong>IDS</strong> adalah solusi kalau kita mau se-optimal BFS tapi mau se-irit DFS. 
+        </p>
+
         <Callout type="tip">
-            Gunakan <strong>IDS</strong> jika search space luas dan kedalaman solusi belum diketahui.
+            <strong>Analogi Detektif di Gedung 10 Lantai:</strong>
+            <ul>
+                <li><strong>Gaya BFS:</strong> Kamu kerahkan 100 polisi buat ngecek semua ruangan di Lantai 1 barengan. (Butuh banyak pasukan = <strong>RAM Penuh</strong>).</li>
+                <li><strong>Gaya DFS:</strong> Kamu suruh 1 polisi lari kenceng langsung ke Lantai 10. (Cuma butuh 1 orang, tapi <strong>Bisa Nyasar/Lama</strong>).</li>
+                <li><strong>Gaya IDS:</strong> Kamu suruh 1 polisi cek Lantai 1. Nggak ada? Suruh dia balik, lalu cek sampai Lantai 2. Nggak ada? Balik lagi, cek sampai Lantai 3.</li>
+            </ul>
         </Callout>
+
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Jalankan DLS dengan <strong>Limit = 0</strong>.</li>
+                    <li>Kalau belum ketemu, jalankan lagi DLS dengan <strong>Limit = 1</strong>.</li>
+                    <li>Naikkan limit terus sampai Goal ditemukan.</li>
+                    <li>Setiap ganti limit, pencarian diulang dari Root.</li>
+                </ol>
+            </div>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Irit & Optimal:</strong> Cuma butuh 1 jalur memori (kayak DFS) tapi dapet jalur terpendek (kayak BFS).</li>
+                    <li>Paling stabil buat pohon yang cabangnya banyak banget.</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Waktu:</strong> Ada waktu yang terbuang buat ngecek ulang node yang sama.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ids-why">
+            <h4>💡 Kenapa Harus Ngulang dari Root?</h4>
+            <p>
+                Mungkin kamu mikir: <em>"Kenapa nggak lanjutin aja dari level terakhir? Kok harus repot-repot ngulang dari atas lagi pas limitnya naik?"</em>
+            </p>
+            <div class="logic-box">
+                <p><strong>Jawabannya: Memori.</strong></p>
+                <p>
+                    Kalau kamu mau "melanjutkan" tanpa mengulang, kamu harus <strong>mengingat (menyimpan di RAM)</strong> semua node yang ada di level sebelumnya supaya tahu mana yang harus dilanjutin. Kalau kamu simpan semuanya, selamat... kamu baru saja mengubah IDS menjadi <strong>BFS</strong> (yang boros memori itu).
+                </p>
+                <p>
+                    Dengan cara <strong>ngulang dari awal</strong>, komputer cuma perlu nginget jalur yang lagi dia lewatin doang (kayak DFS). Memori tetap irit, tapi kita tetep dapet hasil yang optimal. 
+                </p>
+                <p class="highlight-text">
+                    <strong>Prinsipnya:</strong> Lebih baik komputer "kerja lembur" buat ngulang jalan (CPU) daripada programnya "mati" karena kehabisan tempat penyimpanan (RAM).
+                </p>
+            </div>
+        </div>
+    </NoteSection>
+
+    <NoteSection title="6. Bi-Directional Search (BDS)">
+        <p>Mencari dari dua sisi sekaligus: dari <strong>Start</strong> maju ke depan, dan dari <strong>Goal</strong> mundur ke belakang.</p>
+        
+        <div class="algo-detail-grid">
+            <div class="detail-box flow">
+                <h4>Alur Kerja (Flow):</h4>
+                <ol>
+                    <li>Jalankan dua pencarian (biasanya BFS) secara bersamaan.</li>
+                    <li>Pencarian 1: Mulai dari <strong>Start</strong>.</li>
+                    <li>Pencarian 2: Mulai dari <strong>Goal</strong>.</li>
+                    <li>Berhenti saat kedua pencarian <strong>bertemu di tengah</strong>.</li>
+                </ol>
+            </div>
+            <div class="detail-box pros">
+                <h4>Keuntungan:</h4>
+                <ul>
+                    <li><strong>Sangat Cepat:</strong> Mengurangi kompleksitas waktu secara drastis (dari bᵈ jadi bᵈ/²).</li>
+                </ul>
+            </div>
+            <div class="detail-box cons">
+                <h4>Kerugian:</h4>
+                <ul>
+                    <li><strong>Syarat Berat:</strong> Goal harus spesifik dan aksi harus bisa dibalik (reversible).</li>
+                    <li>Butuh memori buat simpan kedua frontier.</li>
+                </ul>
+            </div>
+        </div>
     </NoteSection>
 
     <NoteSection title="Tabel Perbandingan Performa">
@@ -311,7 +419,7 @@ def ucs(graph, start, goal):
                     question: "Manakah alasan utama BFS hampir tidak pernah digunakan untuk masalah dunia nyata dengan ruang keadaan (state space) yang sangat besar?",
                     options: [
                         "Waktu pencarian yang sangat lambat dibanding DFS.",
-                        "Konsumsi memori O(bᵈ) yang meledak jauh sebelum waktu pencarian habis.",
+                        "Konsumsi memori O(bᵈ) yang melebihi kapasitas jauh sebelum waktu pencarian habis.",
                         "Ketidakmampuan BFS dalam menjamin solusi optimal.",
                         "BFS sering terjebak dalam loop tak terbatas pada graph dengan cycle."
                     ],
@@ -500,6 +608,54 @@ def ucs(graph, start, goal):
     .method-box h4 { margin-top: 0; color: var(--color-binder); }
     .method-box ol { margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6; }
 
+    .algo-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    .detail-box {
+        padding: 1.25rem;
+        border-radius: 12px;
+        border: 1px solid var(--color-line);
+        background: var(--color-surface-soft);
+    }
+    .detail-box h4 {
+        margin-top: 0;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+    }
+    .detail-box.flow { border-left: 4px solid var(--color-binder); }
+    .detail-box.pros { border-left: 4px solid #10b981; }
+    .detail-box.cons { border-left: 4px solid #ef4444; }
+    .detail-box.flow h4 { color: var(--color-binder); }
+    .detail-box.pros h4 { color: #10b981; }
+    .detail-box.cons h4 { color: #ef4444; }
+    
+    .detail-box ul, .detail-box ol {
+        margin: 0;
+        padding-left: 1.1rem;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    .detail-box li { margin-bottom: 0.4rem; }
+
+    .analogy-simple {
+        background: rgba(var(--color-binder-rgb), 0.05);
+        border: 1px dashed var(--color-binder);
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+    }
+    .analogy-simple p {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--color-ink-soft);
+    }
+
     .combo-box {
         display: flex;
         align-items: center;
@@ -550,6 +706,58 @@ def ucs(graph, start, goal):
     .step-line.highlight { background: var(--color-highlight); padding: 4px 8px; border-radius: 6px; }
     .jug-note { font-size: 0.9rem; color: var(--color-ink-soft); line-height: 1.6; }
     .jug-note ul { padding-left: 1.25rem; margin-top: 0.5rem; }
+
+    .ids-why {
+        background: var(--color-surface-soft);
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid var(--color-line);
+        margin-top: 1rem;
+    }
+    .ids-why h4 {
+        margin-top: 0;
+        color: var(--color-binder);
+        margin-bottom: 0.75rem;
+    }
+    .ids-why p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--color-ink-soft);
+        margin-bottom: 0.75rem;
+    }
+    .memory-note {
+        background: rgba(var(--color-binder-rgb), 0.05);
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        border: 1px dashed var(--color-line);
+    }
+    .memory-note h4 {
+        margin-top: 0;
+        font-size: 0.9rem;
+        color: var(--color-binder);
+        margin-bottom: 0.5rem;
+    }
+    .memory-note p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin: 0;
+        color: var(--color-ink-soft);
+    }
+    .logic-box {
+        background: rgba(var(--color-binder-rgb), 0.03);
+        padding: 1.25rem;
+        border-radius: 12px;
+        border-left: 3px solid var(--color-binder);
+    }
+    .highlight-text {
+        color: var(--color-binder);
+        font-weight: 600;
+        border-top: 1px solid var(--color-line);
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
+    }
+    .ids-why p:last-child { margin-bottom: 0; }
 
     @media (max-width: 768px) {
         .jug-example, .perf-grid, .combo-box { grid-template-columns: 1fr; flex-direction: column; }

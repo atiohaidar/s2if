@@ -24,30 +24,84 @@
     tags={['Metaheuristic', 'EC', 'GA', 'Optimization']}
   />
 
-  <NoteSection title="Definisi">
+  <!-- 1. Definisi & Mindset -->
+  <NoteSection title="Definisi & Mindset">
     <p>
       <strong>Metaheuristic search</strong> adalah pendekatan pencarian dan optimasi untuk masalah
       yang ruang solusinya sangat besar, rumit, atau sulit diselesaikan dengan cara eksak. Tujuannya
       bukan selalu mencari jawaban yang paling sempurna, tetapi mencari
       <strong>solusi yang sangat baik dalam waktu yang masuk akal</strong>.
     </p>
+
+    <div class="meta-explanation">
+      <h4>⭐ Kenapa ada "Meta"-nya?</h4>
+      <p>
+        <strong>Heuristic</strong> adalah strategi untuk mencari solusi (tips spesifik). <br>
+        <strong>Meta</strong> berarti "melampaui" atau "di tingkat yang lebih tinggi".
+      </p>
+      <p class="analogy-text">
+        💡 <strong>Analogi:</strong> Heuristik itu seperti punya <em>"Tips benerin kran"</em>. Metaheuristic itu seperti punya <em>"Metode cara belajar cepat"</em>. Metodenya bisa dipakai untuk belajar apa saja, bukan cuma benerin kran.
+      </p>
+    </div>
+
+    <div class="config-mindset">
+      <div class="mindset-header">⚙️ Mindset: Mencari Konfigurasi Terbaik</div>
+      <p>
+        Berbeda dengan A* yang mencari <strong>jalur (path)</strong>, Metaheuristic lebih banyak digunakan untuk mencari 
+        <strong>konfigurasi (settingan)</strong> terbaik dari suatu masalah.
+      </p>
+      <div class="analogy-card">
+        <strong>Analogi: Modifikasi Mobil Balap</strong>
+        <p>Kamu punya banyak "knob" yang bisa diputar: Level Mesin, Tipe Ban, Tinggi Spoiler, dll. Kamu tidak peduli <em>cara</em> memasangnya, yang kamu mau adalah <strong>kombinasi settingan</strong> yang membuat mobil lari paling kencang.</p>
+      </div>
+    </div>
+  </NoteSection>
+
+  <!-- 2. Genotype vs Phenotype -->
+  <NoteSection title="Genotype vs Phenotype">
+    <p>Sebelum masuk ke cara kerjanya, kita harus paham apa yang kita "utak-atik". Memahami perbedaan antara kode dan wujud nyata solusi adalah kunci utama.</p>
+    
+    <div class="bio-grid">
+      <div class="bio-card genotype">
+        <div class="bio-icon">🧬</div>
+        <h4>Genotype</h4>
+        <p><strong>Bentuk Data Mentah:</strong> Representasi solusi yang dimanipulasi oleh algoritma (mutasi & crossover).</p>
+        <div class="bio-analogy">Analogi: <strong>Resep Masakan</strong> (Instruksi tertulis).</div>
+      </div>
+      <div class="bio-card phenotype">
+        <div class="bio-icon">🎂</div>
+        <h4>Phenotype</h4>
+        <p><strong>Wujud Nyata:</strong> Solusi asli di dunia nyata yang kita nilai kualitasnya (fitness).</p>
+        <div class="bio-analogy">Analogi: <strong>Kue Jadi</strong> (Hasil yang bisa dicicipi).</div>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h4>Contoh: Masalah Rute (TSP)</h4>
+      <ul>
+        <li><strong>Genotype:</strong> Array angka <code>[2, 0, 3, 1]</code>.</li>
+        <li><strong>Phenotype:</strong> Rute Jakarta → Bandung → Surabaya → Semarang.</li>
+        <li><strong>Fitness:</strong> Dihitung berdasarkan total jarak (KM) rute tersebut.</li>
+      </ul>
+    </div>
+
     <Callout type="info">
-      Intinya sederhana: kalau semua kemungkinan solusi terlalu banyak untuk dicek satu per satu,
-      metaheuristic membantu kita mencari solusi bagus dengan strategi yang cerdas dan tidak kaku.
+      <strong>Intinya:</strong> Komputer bekerja di level <strong>Genotype</strong> (ngutak-ngatik kode), tapi kita menilai hasilnya di level <strong>Phenotype</strong> (cek apakah solusinya bagus atau tidak).
     </Callout>
   </NoteSection>
 
-  <NoteSection title="Versi Super Simpel">
+  <!-- 3. Versi Super Simpel -->
+  <NoteSection title="Cara Kerja GA (Versi Super Simpel)">
     <p>
       Kalau dijelaskan dengan bahasa sehari-hari, <strong>Genetic Algorithm</strong> itu mirip
       seperti kita punya banyak jawaban percobaan, lalu:
     </p>
     <ol>
-      <li>cek mana jawaban yang lumayan bagus,</li>
-      <li>ambil beberapa jawaban bagus itu,</li>
-      <li>gabungkan sebagian isinya,</li>
-      <li>ubah sedikit secara acak,</li>
-      <li>ulangi terus sampai hasilnya makin baik.</li>
+      <li>Cek mana jawaban yang lumayan bagus (Fitness).</li>
+      <li>Ambil beberapa jawaban bagus itu (Seleksi).</li>
+      <li>Gabungkan sebagian isinya (Crossover).</li>
+      <li>Ubah sedikit secara acak (Mutasi).</li>
+      <li>Ulangi terus sampai hasilnya makin baik (Generasi).</li>
     </ol>
     <Callout type="tip">
       Analogi sederhananya seperti mencoba banyak resep masakan. Resep yang rasanya lumayan enak
@@ -56,129 +110,50 @@
     </Callout>
   </NoteSection>
 
-  <NoteSection title="Glosarium Mini">
-    <ul>
-      <li><strong>Fitness</strong>: nilai kualitas solusi. Semakin tinggi atau semakin baik nilainya, solusi itu semakin menarik.</li>
-      <li><strong>Kromosom</strong>: bentuk penulisan satu solusi di dalam algoritma.</li>
-      <li><strong>Populasi</strong>: kumpulan banyak solusi yang sedang diuji bersama.</li>
-      <li><strong>Generasi</strong>: satu putaran proses perbaikan solusi.</li>
-      <li><strong>Seleksi</strong>: memilih solusi yang cukup baik untuk dipertahankan atau dijadikan parent.</li>
-      <li><strong>Crossover / Rekombinasi</strong>: menggabungkan dua solusi untuk membuat solusi baru.</li>
-      <li><strong>Mutasi</strong>: perubahan kecil secara acak pada solusi agar pencarian tidak mandek.</li>
-      <li><strong>Diversity</strong>: tingkat keberagaman solusi dalam populasi.</li>
-      <li><strong>Premature convergence</strong>: populasi terlalu cepat mirip semua, sehingga mudah berhenti di solusi lokal.</li>
-    </ul>
-  </NoteSection>
-
-  <NoteSection title="Gambaran Umum Materi">
+  <!-- 4. Evolusi & Genetic Algorithm -->
+  <NoteSection title="Evolutionary Computation & GA">
     <p>
-      Di dunia metaheuristic ada banyak keluarga algoritma, misalnya
-      <strong>Simulated Annealing</strong>, <strong>Tabu Search</strong>,
-      <strong>Ant Colony Optimization</strong>, <strong>Particle Swarm Optimization</strong>, dan
-      <strong>Evolutionary Computation</strong>.
+      <strong>Evolutionary Computation (EC)</strong> adalah pendekatan optimasi yang terinspirasi dari proses
+      evolusi biologis. <strong>Genetic Algorithm (GA)</strong> adalah salah satu teknik paling penting dalam keluarga EC.
     </p>
+    
+    <div class="ga-intro-grid">
+        <div class="intro-card">
+            <h4>Prinsip Utama GA:</h4>
+            <ul>
+                <li><strong>Bekerja dengan populasi</strong>, bukan satu solusi saja.</li>
+                <li><strong>Representasi kromosom</strong>: Setiap solusi ditulis dalam kode.</li>
+                <li><strong>Survival of the Fittest</strong>: Yang bagus yang bertahan.</li>
+            </ul>
+        </div>
+    </div>
+
     <p>
-      Namun, berdasarkan PDF sumber, pembahasan utamanya lebih banyak mengarah ke <strong
-        >Evolutionary Computation (EC)</strong
-      >
-      dan terutama <strong>Genetic Algorithm (GA)</strong>. Jadi halaman ini juga mengikuti fokus
-      tersebut.
+      Di dunia metaheuristic ada banyak keluarga algoritma (Simulated Annealing, Ant Colony, PSO), 
+      namun materi ini berfokus pada GA karena kemampuannya menyelesaikan masalah kompleks seperti routing, penjadwalan, dan peramalan.
     </p>
   </NoteSection>
 
-  <NoteSection title="Apa itu Evolutionary Computation">
-    <p>
-      <strong>Evolutionary Computation</strong> adalah pendekatan optimasi yang terinspirasi dari proses
-      evolusi biologis. Ide dasarnya: kumpulkan banyak calon solusi, nilai kualitasnya, lalu biarkan solusi
-      yang lebih baik punya peluang lebih besar untuk "melahirkan" solusi baru.
-    </p>
-    <ul>
-      <li><strong>Populasi</strong>: sekumpulan calon solusi.</li>
-      <li><strong>Fitness</strong>: ukuran seberapa bagus suatu solusi.</li>
-      <li><strong>Seleksi</strong>: memilih solusi yang layak jadi induk.</li>
-      <li><strong>Rekombinasi</strong>: menggabungkan bagian solusi induk.</li>
-      <li><strong>Mutasi</strong>: perubahan kecil agar pencarian tidak mandek.</li>
-    </ul>
-    <Callout type="tip">
-      Bayangkan kita punya banyak jawaban sementara. Jawaban yang bagus dipertahankan, lalu
-      diperbaiki sedikit demi sedikit sampai kualitas populasi makin meningkat dari generasi ke
-      generasi.
-    </Callout>
-    <Callout type="info">
-      Terjemahan istilah pentingnya: <strong>fitness</strong> berarti nilai kualitas solusi,
-      <strong>seleksi</strong> berarti memilih solusi yang cukup baik, <strong>crossover</strong>
-      berarti menggabungkan dua solusi, dan <strong>mutasi</strong> berarti mengubah sedikit solusi
-      agar muncul variasi baru.
-    </Callout>
+  <!-- 5. Glosarium Mini -->
+  <NoteSection title="Kamus Istilah GA">
+    <div class="glossary-grid">
+      <div class="glossary-item"><strong>Fitness:</strong> Nilai kualitas solusi (Skor).</div>
+      <div class="glossary-item"><strong>Kromosom:</strong> Satu individu/solusi dalam bentuk kode.</div>
+      <div class="glossary-item"><strong>Populasi:</strong> Kumpulan banyak solusi yang sedang diuji.</div>
+      <div class="glossary-item"><strong>Generasi:</strong> Satu putaran/siklus perbaikan.</div>
+      <div class="glossary-item"><strong>Seleksi:</strong> Memilih calon orang tua yang bagus.</div>
+      <div class="glossary-item"><strong>Crossover:</strong> Menggabungkan (kawin silang) dua solusi.</div>
+      <div class="glossary-item"><strong>Mutasi:</strong> Perubahan acak agar tidak mandek.</div>
+    </div>
   </NoteSection>
 
-  <NoteSection title="Fokus Utama: Genetic Algorithm">
-    <p>
-      <strong>Genetic Algorithm</strong> adalah salah satu teknik paling penting dalam keluarga EC. Di
-      materi sumber, bagian GA dibahas jauh lebih detail dibanding algoritma metaheuristic lain.
-    </p>
-    <ul>
-      <li><strong>GA bekerja dengan populasi</strong>, bukan satu solusi saja.</li>
-      <li><strong>Setiap solusi direpresentasikan sebagai kromosom</strong>.</li>
-      <li><strong>Solusi dinilai dengan fitness</strong> untuk melihat mana yang lebih baik.</li>
-      <li><strong>Generasi baru</strong> dibentuk lewat seleksi, rekombinasi, dan mutasi.</li>
-    </ul>
-    <Callout type="tip">
-      Kalau pakai bahasa yang lebih santai: GA itu bukan mencari jawaban terbaik dalam satu kali
-      tebak, tetapi memperbaiki banyak jawaban sedikit demi sedikit sampai ketemu yang semakin bagus.
-    </Callout>
-  </NoteSection>
-
-  <NoteSection title="Representasi Solusi">
-    <p>
-      Salah satu hal penting dalam GA adalah <strong>cara menulis solusi ke dalam kromosom</strong>.
-      Materi sumber menekankan bahwa kualitas representasi sangat mempengaruhi hasil.
-    </p>
-    <ul>
-      <li>
-        <strong>Binary encoding</strong>: cocok untuk solusi yang bisa ditulis sebagai 0 dan 1.
-      </li>
-      <li><strong>Real-valued encoding</strong>: cocok untuk parameter numerik kontinu.</li>
-      <li>
-        <strong>Permutation encoding</strong>: cocok untuk urutan, misalnya rute kunjungan pada TSP.
-      </li>
-    </ul>
-    <Callout type="warning">
-      Kalau representasi kromosomnya kurang tepat, algoritma bisa tetap berjalan tetapi sulit
-      menemukan solusi yang bagus.
-    </Callout>
-  </NoteSection>
-
-  <NoteSection title="Visualisasi Representasi Kromosom">
-    <p>
-      Visualisasi berikut membantu melihat bedanya <strong>genotype</strong> dan
-      <strong>phenotype</strong>. Perhatikan bahwa satu solusi bisa ditulis dengan format berbeda
-      tergantung jenis masalahnya.
-    </p>
-    <Callout type="info">
-      Supaya lebih mudah: <strong>genotype</strong> bisa dianggap sebagai "bentuk data mentah" yang
-      dibaca algoritma, sedangkan <strong>phenotype</strong> adalah arti nyatanya dalam masalah yang
-      sedang kita selesaikan.
-    </Callout>
-    <ChromosomeEncodingVisualizer />
-  </NoteSection>
-
-  <NoteSection title="Alur Kerja GA">
+  <!-- 6. Alur Kerja & Komponen -->
+  <NoteSection title="Siklus Kerja Genetic Algorithm">
     <p>Secara umum, Genetic Algorithm berjalan seperti siklus berikut:</p>
-    <ol>
-      <li>Buat populasi awal secara acak.</li>
-      <li>Hitung fitness setiap individu.</li>
-      <li>Pilih individu yang akan menjadi orang tua.</li>
-      <li>Lakukan rekombinasi untuk menghasilkan anak.</li>
-      <li>Lakukan mutasi kecil pada beberapa anak.</li>
-      <li>Pilih individu yang dipertahankan ke generasi berikutnya.</li>
-      <li>Ulangi sampai kondisi berhenti terpenuhi.</li>
-    </ol>
-
+    
     <CodeBlock
       language="python"
       code={`population = init_population()
-
 while not stop_condition:
     fitness = evaluate(population)
     parents = select_parents(population, fitness)
@@ -187,124 +162,90 @@ while not stop_condition:
     population = survivor_selection(population, children, fitness)`}
     />
 
-    <Callout type="info">
-      Penjelasan mudahnya: GA itu seperti mencoba banyak jawaban, memilih yang menjanjikan, lalu
-      "mengawinkan" dan sedikit "mengubah" jawaban tersebut agar generasi berikutnya punya peluang
-      lebih baik.
-    </Callout>
+    <div class="component-deep-dive">
+        <h4>Komponen Penting:</h4>
+        <ul>
+            <li><strong>Inisialisasi:</strong> Menentukan calon solusi awal (acak).</li>
+            <li><strong>Evaluasi:</strong> Menilai kualitas (Fitness) tiap solusi.</li>
+            <li><strong>Seleksi:</strong> Memilih siapa yang boleh "punya anak".</li>
+            <li><strong>Rekombinasi/Crossover:</strong> Gabungin gen dari dua induk.</li>
+            <li><strong>Mutasi:</strong> Jaga keberagaman solusi (biar gak mandek).</li>
+            <li><strong>Survivor Selection:</strong> Siapa yang lanjut ke generasi depan.</li>
+        </ul>
+    </div>
   </NoteSection>
 
-  <NoteSection title="Visualisasi Crossover dan Mutasi">
+  <!-- 7. Deep Dive: Representasi -->
+  <NoteSection title="Representasi & Encoding">
     <p>
-      Di bawah ini, proses pembentukan anak divisualisasikan langkah demi langkah. Bagian ini
-      membantu melihat lebih jelas <strong>urutan proses</strong> dan
-      <strong>fungsi mutasi</strong> di dalam GA.
+      Bagaimana cara kita menulis solusi ke dalam kromosom? Ini sangat menentukan hasil akhir.
     </p>
-    <Callout type="tip">
-      Baca istilahnya seperti ini: <strong>crossover</strong> = menggabungkan dua parent, dan
-      <strong>mutasi</strong> = mengubah sedikit hasil gabungan agar tidak terlalu kaku.
-    </Callout>
+    <div class="encoding-grid">
+      <div class="e-card">
+        <strong>Binary Encoding</strong>
+        <p>Solusi ditulis sebagai 0 dan 1. Cocok untuk masalah Yes/No.</p>
+      </div>
+      <div class="e-card">
+        <strong>Real-valued Encoding</strong>
+        <p>Solusi ditulis sebagai angka desimal. Cocok untuk parameter matematika.</p>
+      </div>
+      <div class="e-card">
+        <strong>Permutation Encoding</strong>
+        <p>Solusi ditulis sebagai urutan. Cocok untuk rute (TSP).</p>
+      </div>
+    </div>
+    
+    <div class="vis-divider">Visualisasi Jenis Encoding:</div>
+    <ChromosomeEncodingVisualizer />
+  </NoteSection>
+
+  <!-- 8. Visualisasi Proses -->
+  <NoteSection title="Visualisasi: Crossover & Mutasi">
+    <p>
+      Proses pembentukan anak divisualisasikan langkah demi langkah.
+    </p>
     <GACrossoverMutationVisualizer />
-  </NoteSection>
-
-  <NoteSection title="Komponen Penting dalam GA">
-    <ul>
-      <li><strong>Inisialisasi populasi</strong>: menentukan calon solusi awal.</li>
-      <li><strong>Evaluasi fitness</strong>: menilai kualitas tiap solusi.</li>
-      <li><strong>Seleksi orang tua</strong>: memilih solusi yang boleh menghasilkan keturunan.</li>
-      <li><strong>Rekombinasi</strong>: menggabungkan informasi dari dua induk.</li>
-      <li><strong>Mutasi</strong>: menjaga keberagaman solusi.</li>
-      <li>
-        <strong>Seleksi survivor</strong>: menentukan siapa yang bertahan ke generasi selanjutnya.
-      </li>
-    </ul>
-  </NoteSection>
-
-  <NoteSection title="Visualisasi Evolusi Populasi">
-    <p>
-      Genetic Algorithm tidak bekerja pada satu solusi, tetapi pada <strong>sekumpulan solusi</strong>.
-      Visualisasi ini menunjukkan bagaimana nilai fitness terbaik biasanya naik dari generasi ke
-      generasi, sementara diversity perlahan menurun.
-    </p>
-    <Callout type="info">
-      Kalau pembacanya masih baru, cukup pegang dua ide: <strong>fitness naik</strong> berarti solusi
-      membaik, sedangkan <strong>diversity turun terlalu cepat</strong> berarti populasi berisiko
-      jadi terlalu mirip.
-    </Callout>
-    <GAPopulationVisualizer />
-  </NoteSection>
-
-  <NoteSection title="Contoh Kasus dari Sumber">
-    <p>
-      PDF sumber memberi contoh bahwa EC/GA cocok untuk masalah optimasi yang kompleks, misalnya:
-    </p>
-    <ul>
-      <li><strong>TSP atau routing</strong>: mencari urutan kunjungan yang efisien.</li>
-      <li>
-        <strong>Graph bisection</strong>: membagi graf menjadi dua bagian dengan biaya tertentu.
-      </li>
-      <li><strong>8-queens</strong>: menyusun queen agar tidak saling menyerang.</li>
-      <li><strong>Pemotongan bahan</strong>: meminimalkan sisa material.</li>
-      <li><strong>Penjadwalan kuliah</strong>: menyusun jadwal dengan banyak batasan.</li>
-      <li><strong>Peramalan time series</strong>: mencari parameter terbaik untuk prediksi.</li>
-    </ul>
-  </NoteSection>
-
-  <NoteSection title="Visualisasi TSP Sederhana">
-    <p>
-      Salah satu contoh yang dekat dengan materi sumber adalah <strong>TSP/routing</strong>. Visual
-      ini memperlihatkan bagaimana kualitas rute bisa membaik setelah seleksi, crossover, dan mutasi.
-    </p>
     <Callout type="tip">
-      Anggap saja TSP itu tugas mencari urutan kunjungan kota yang paling hemat jarak. Semakin kecil
-      total jaraknya, biasanya semakin baik solusi yang ditemukan.
+        <strong>Ingat:</strong> Crossover adalah "warisan" dari orang tua, Mutasi adalah "variasi baru" agar populasi tidak homogen.
     </Callout>
+  </NoteSection>
+
+  <!-- 9. Evolusi & Contoh Kasus -->
+  <NoteSection title="Evolusi Populasi & Contoh Kasus">
+    <p>
+      GA bekerja pada <strong>sekumpulan solusi</strong>. Lihat bagaimana kualitasnya membaik seiring waktu.
+    </p>
+    <GAPopulationVisualizer />
+    
+    <div class="case-studies">
+        <h4>Contoh Kasus Penggunaan:</h4>
+        <ul>
+            <li><strong>TSP:</strong> Mencari rute terpendek antar kota.</li>
+            <li><strong>Penjadwalan:</strong> Menyusun jadwal kuliah bebas konflik.</li>
+            <li><strong>8-Queens:</strong> Menyusun bidak catur agar tidak saling serang.</li>
+            <li><strong>Optimasi Bisnis:</strong> Pemotongan bahan, peramalan stok, dll.</li>
+        </ul>
+    </div>
     <GATspRouteVisualizer />
   </NoteSection>
 
-  <NoteSection title="Kelebihan dan Kapan Cocok Dipakai">
-    <p>Berdasarkan materi sumber, EC/GA cocok ketika masalah:</p>
-    <ul>
-      <li>sangat kompleks dan sulit dipahami secara matematis,</li>
-      <li>sulit diselesaikan dengan metode konvensional,</li>
-      <li>tidak punya model analitis yang memadai,</li>
-      <li>membutuhkan solusi baik dalam waktu terbatas, meski tidak harus optimum mutlak.</li>
-    </ul>
-  </NoteSection>
-
-  <NoteSection title="Keterbatasan yang Harus Diingat">
-    <p>Genetic Algorithm bukan alat ajaib. Hasilnya sangat dipengaruhi oleh desain algoritmanya.</p>
-    <ul>
-      <li><strong>Representasi kromosom</strong> harus tepat.</li>
-      <li><strong>Fungsi fitness</strong> harus benar-benar mewakili tujuan masalah.</li>
-      <li><strong>Pemilihan operator</strong> rekombinasi dan mutasi harus sesuai.</li>
-      <li>
-        <strong>Setting parameter</strong> seperti ukuran populasi dan laju mutasi perlu hati-hati.
-      </li>
-      <li>
-        <strong>Premature convergence</strong> bisa terjadi ketika populasi terlalu cepat terkunci di
-        solusi lokal.
-      </li>
-    </ul>
+  <!-- 10. Keterbatasan & Penutup -->
+  <NoteSection title="Keterbatasan: Konvergensi Prematur">
     <Callout type="warning">
-      Masalah yang sering muncul adalah <strong>konvergensi prematur</strong>: algoritma terlihat
-      cepat stabil, tetapi ternyata stabil pada solusi lokal, bukan solusi terbaik secara global.
+      Masalah yang sering muncul adalah <strong>konvergensi prematur</strong>: populasi terlalu cepat menjadi mirip semua dan terjebak di solusi lokal.
     </Callout>
-    <Callout type="info">
-      Bahasa sederhananya: semua jawaban dalam populasi terlalu cepat jadi mirip. Akibatnya, algoritma
-      merasa "sudah cukup baik", padahal mungkin masih ada jawaban yang lebih bagus di tempat lain.
-    </Callout>
-    <PrematureConvergenceVisualizer />
-  </NoteSection>
+    
+    <div class="premature-box">
+        <h4>🏘️ Analogi: Kampung Terpencil</h4>
+        <p>Bayangkan sebuah kampung yang isinya itu-itu saja. Nggak ada orang baru, nggak ada ide baru. Kemajuan kampung itu pasti <strong>mandek</strong>.</p>
+    </div>
 
-  <NoteSection title="Ringkasan">
-    <p>
-      Metaheuristic adalah payung besar untuk pencarian solusi pada masalah optimasi yang sulit.
-      Dalam sumber materi ini, fokus pembahasannya adalah <strong>Evolutionary Computation</strong>
-      dan terutama <strong>Genetic Algorithm</strong>, yaitu pendekatan yang meniru ide evolusi
-      untuk memperbaiki kualitas solusi sedikit demi sedikit melalui populasi, seleksi, rekombinasi,
-      dan mutasi.
-    </p>
+    <PrematureConvergenceVisualizer />
+
+    <div class="conclusion-box">
+        <h4>Kapan Pakai GA?</h4>
+        <p>GA cocok ketika masalahnya sangat kompleks, sulit dipahami secara matematis, atau butuh solusi "yang cukup bagus" dalam waktu yang singkat.</p>
+    </div>
   </NoteSection>
 
   <NoteSection title="Kuis Tantangan: Metaheuristic dan GA">
@@ -475,7 +416,7 @@ while not stop_condition:
           ],
           correctIndex: 2,
           explanation:
-            'Itulah kondisi khas saat metaheuristic dan khususnya EC/GA menjadi masuk akal untuk dipakai.',
+            'Itulah kondisi khas saat metaheuristic and khususnya EC/GA menjadi masuk akal untuk dipakai.',
         },
       ]}
     />
@@ -488,6 +429,100 @@ while not stop_condition:
 </article>
 
 <style>
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .bio-card {
+    background: var(--color-surface-soft);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--color-line);
+    text-align: center;
+  }
+  .bio-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .bio-card h4 { margin: 0 0 0.5rem; color: var(--color-binder); }
+  .bio-card p { font-size: 0.85rem; margin-bottom: 1rem; }
+  .bio-analogy { font-size: 0.8rem; font-style: italic; color: var(--color-ink-soft); border-top: 1px solid var(--color-line); padding-top: 0.75rem; }
+
+  .example-box {
+    background: var(--color-surface-elevated);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin: 1rem 0;
+    border-left: 4px solid var(--color-binder);
+  }
+  .example-box h4 { margin-top: 0; font-size: 0.95rem; margin-bottom: 0.75rem; }
+  .example-box ul { margin: 0; padding-left: 1.25rem; font-size: 0.85rem; }
+  .example-box li { margin-bottom: 0.4rem; }
+
+  .vis-divider { margin-top: 2rem; font-weight: bold; color: var(--color-ink-soft); font-size: 0.9rem; }
+
+  .config-mindset {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--color-surface-soft);
+    color: var(--color-ink-strong);
+    border-radius: 16px;
+    border: 1px solid var(--color-line);
+  }
+  .mindset-header { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--color-binder); }
+  .config-mindset p { font-size: 0.9rem; line-height: 1.6; }
+  .analogy-card { 
+    margin-top: 1rem; 
+    padding: 1rem; 
+    background: var(--color-surface-elevated); 
+    border-radius: 10px; 
+    border-left: 4px solid var(--color-binder); 
+  }
+  .analogy-card strong { display: block; margin-bottom: 0.25rem; color: var(--color-binder); }
+  .analogy-card p { margin: 0; font-size: 0.85rem; font-style: italic; color: var(--color-ink-soft); }
+
+  .premature-box {
+    margin: 1rem 0;
+    padding: 1.25rem;
+    background: var(--color-surface-soft);
+    border-radius: 12px;
+    border: 1px solid var(--color-line);
+  }
+  .premature-box h4 { margin-top: 0; color: var(--color-binder); margin-bottom: 0.75rem; }
+  .premature-box p { font-size: 0.85rem; margin-bottom: 0.75rem; }
+  .premature-box ul { margin: 0; padding-left: 1.25rem; font-size: 0.8rem; color: var(--color-ink-soft); }
+  .premature-box li { margin-bottom: 0.3rem; }
+
+  .meta-explanation {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: var(--color-surface-soft);
+    border-radius: 12px;
+    border-left: 4px solid var(--color-binder);
+  }
+  .meta-explanation h4 { margin-top: 0; color: var(--color-binder); margin-bottom: 0.5rem; }
+  .meta-explanation p { font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.5rem; }
+  .analogy-text { font-style: italic; color: var(--color-ink-soft); }
+
+  .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .glossary-item { font-size: 0.85rem; background: var(--color-surface-soft); padding: 0.5rem; border-radius: 6px; }
+
+  .encoding-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .e-card { background: var(--color-surface-soft); padding: 1rem; border-radius: 12px; border: 1px solid var(--color-line); }
+  .e-card strong { color: var(--color-binder); display: block; margin-bottom: 0.25rem; }
+  .e-card p { font-size: 0.8rem; margin: 0; }
+
+  .component-deep-dive { background: var(--color-surface-elevated); padding: 1rem; border-radius: 12px; border-left: 4px solid var(--color-binder); margin-top: 1rem; }
+  .component-deep-dive h4 { margin-top: 0; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .component-deep-dive ul { margin: 0; padding-left: 1.25rem; font-size: 0.85rem; }
+
+  .case-studies { margin-top: 2rem; }
+  .case-studies h4 { color: var(--color-binder); }
+  .case-studies ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .case-studies li { background: var(--color-surface-soft); padding: 0.5rem; border-radius: 6px; list-style: none; font-size: 0.85rem; }
+
+  .conclusion-box { margin-top: 2rem; padding: 1.25rem; background: var(--color-surface-soft); border-radius: 12px; border: 2px dashed var(--color-line); }
+  .conclusion-box h4 { margin-top: 0; }
+
   ol li + li,
   ul li + li {
     margin-top: 0.35rem;

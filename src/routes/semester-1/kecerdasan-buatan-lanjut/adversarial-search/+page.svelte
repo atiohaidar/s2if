@@ -21,6 +21,18 @@
         tags={["Minimax", "Alpha-Beta", "Zero-Sum"]}
     />
 
+    <div class="game-mindset">
+      <div class="mindset-header">🎮 Mindset: Mencari Keputusan Terbaik (Game AI)</div>
+      <p>
+        Kalau A* mencari <strong>jalur</strong> dan GA mencari <strong>konfigurasi</strong>, Adversarial Search mencari 
+        <strong>keputusan (langkah)</strong> terbaik dalam situasi kompetitif.
+      </p>
+      <div class="analogy-card">
+        <strong>Analogi: Main Catur atau SOS</strong>
+        <p>Kamu tidak sendirian. Setiap kamu melangkah, lawanmu akan membalas dengan langkah yang paling menyulitkanmu. Tugasmu adalah mencari langkah yang tetap membuatmu menang (atau minimal tidak kalah) meskipun lawanmu bermain sangat hebat.</p>
+      </div>
+    </div>
+
     <NoteSection title="Definisi & Konsep Dasar">
         <p class="section-intro">
             Pencarian di mana terdapat "musuh" (lawan) yang mencoba menggagalkan kita dengan mengambil langkah yang paling merugikan posisi kita.
@@ -79,8 +91,19 @@
         <MinimaxVisualizer />
         
         <Callout type="warning">
-            <strong>Horizon Effect (Efek Cakrawala):</strong> AI mungkin melihat langkah "makan bidak" itu bagus sekarang, tapi ternyata itu jebakan di kedalaman yang lebih jauh. 
-            <strong>Analogi Oracle:</strong> Fungsi heuristik yang sempurna adalah seperti "Oracle" (peramal) yang bisa memberi tahu siapa pemenang game sejak awal.
+            <strong>Horizon Effect (Penyakit "Buta Jauh"):</strong> 
+            <p>Terjadi karena AI hanya bisa melihat sampai kedalaman tertentu (misal: 3 langkah ke depan). Ia tidak tahu apa yang terjadi di langkah ke-4.</p>
+            <div class="horizon-analogy">
+                <strong>🔦 Analogi Senter:</strong>
+                <p>
+                    Bayangkan kamu di hutan gelap dengan senter yang jangkauannya cuma 5 meter. Kamu melihat "Koin Emas" di jarak 4 meter dan langsung mengejarnya. 
+                    Tapi kamu tidak tahu bahwa di jarak 6 meter (di luar jangkauan senter) ada <b>Jurang Terjal</b>.
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">
+                    AI terjebak karena "buta" terhadap apa yang ada di balik batas cahayanya.
+                </p>
+            </div>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;"><strong>Analogi Oracle:</strong> Fungsi heuristik yang sempurna adalah seperti "Oracle" (Evaluator Heuristik) yang punya senter tak terbatas—bisa melihat sampai akhir permainan sejak awal.</p>
         </Callout>
     </NoteSection>
 
@@ -112,8 +135,26 @@
             </div>
         </div>
 
+        <div class="pruning-logic">
+            <h4>✂️ Kapan Gunting (Pruning) Beraksi?</h4>
+            <p>Pruning terjadi ketika <strong>Alpha (&alpha;) &ge; Beta (&beta;)</strong>. Artinya, pemain di level atas sudah punya pilihan yang lebih baik, sehingga cabang ini tidak perlu dilanjutkan.</p>
+            
+            <div class="logic-grid">
+                <div class="l-card min">
+                    <strong>Di Node MIN</strong>
+                    <p>Jika ditemukan nilai <code>V &le; &alpha;</code></p>
+                    <div class="l-tag">Alpha Cutoff</div>
+                </div>
+                <div class="l-card max">
+                    <strong>Di Node MAX</strong>
+                    <p>Jika ditemukan nilai <code>V &ge; &beta;</code></p>
+                    <div class="l-tag">Beta Cutoff</div>
+                </div>
+            </div>
+        </div>
+
         <div class="simple-breakdown">
-            <p><strong>💡 Analogi Belanja:</strong> Kamu cek Toko A, harga HP Rp5jt. Di Toko B, baru lihat casingnya saja sudah Rp6jt. Kamu gak perlu cek harga chargernya di Toko B, karena sudah pasti totalnya lebih mahal dari Toko A.</p>
+            <p><strong>💡 Analogi Belanja:</strong> Kamu cari HP termurah (MIN). Toko A harganya Rp5jt. Di Toko B, baru tanya casing-nya saja sudah Rp6jt. Kamu gak perlu cek harga baterainya di Toko B, karena totalnya pasti > Rp6jt. <strong>Gunting!</strong></p>
         </div>
 
         <AlphaBetaVisualizer />
@@ -210,9 +251,9 @@
                 },
                 {
                     question: "Apa yang direpresentasikan oleh variabel Beta (β) dalam pruning?",
-                    options: ["Nilai terendah yang dijamin didapat oleh MAX.", "Nilai tertinggi yang dijamin didapat oleh MIN.", "Jumlah node yang sudah dipotong.", "Batas waktu pencarian."],
+                    options: ["Nilai terendah yang dijamin didapat oleh MAX (Batas Bawah).", "Batas atas bagi MAX / Nilai terbaik (terendah) yang dijamin oleh MIN.", "Jumlah node yang sudah dipotong.", "Batas waktu pencarian."],
                     correctIndex: 1,
-                    explanation: "Beta adalah batas atas (pilihan terbaik MIN sejauh ini). Jika skor suatu cabang lebih besar dari Beta, MIN tidak akan pernah memilih jalur tersebut."
+                    explanation: "Beta adalah batas atas. Karena MIN mencari nilai terkecil, maka Beta merepresentasikan nilai 'paling mending' (terendah) yang sudah ditemukan MIN sejauh ini. MIN tidak akan membiarkan MAX mendapat nilai lebih tinggi dari Beta."
                 },
                 {
                     question: "Berapakah poin utility bidak Ster/Queen dalam sistem evaluasi catur standar yang disebutkan di materi?",
@@ -228,9 +269,9 @@
                 },
                 {
                     question: "Pada node MIN, kapan proses pruning (Alpha Cutoff) terjadi?",
-                    options: ["Ketika Alpha >= Beta.", "Ketika Beta <= Alpha.", "Ketika skor node = 0.", "Ketika tidak ada lagi anak node."],
+                    options: ["Ketika Alpha < Beta.", "Ketika Alpha &ge; Beta (atau Beta &le; Alpha).", "Ketika skor node = 0.", "Ketika tidak ada lagi anak node."],
                     correctIndex: 1,
-                    explanation: "Di node MIN, kita mencari nilai terkecil. Jika kita menemukan nilai yang lebih kecil atau sama dengan Alpha (batas MAX di atas), maka MAX pasti sudah punya pilihan lain yang lebih baik, sehingga sisa anak node MIN tidak perlu dicek."
+                    explanation: "Pruning terjadi saat kondisi Alpha &ge; Beta terpenuhi. Di node MIN, ini disebut Alpha Cutoff karena kita memotong cabang berdasarkan batas Alpha yang dikirim dari parent MAX."
                 },
                 {
                     question: "Mengapa move ordering (urutan langkah) sangat penting bagi Alpha-Beta Pruning?",
@@ -301,7 +342,70 @@
 
     .table-footnote { font-size: 0.8rem; color: var(--color-ink-soft); font-style: italic; margin-top: 0.5rem; }
 
+    .pruning-logic {
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: var(--color-surface-soft);
+        border-radius: 16px;
+        border: 2px dashed var(--color-status-error-border, var(--color-accent));
+    }
+    .pruning-logic h4 { margin-top: 0; color: var(--color-binder); margin-bottom: 1rem; }
+    .logic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    .l-card { padding: 1rem; border-radius: 10px; background: var(--color-surface-elevated); border: 1px solid var(--color-line); text-align: center; }
+    .l-card strong { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .l-card p { font-family: var(--font-mono); font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--color-binder); }
+    .l-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; }
+    .l-card.min .l-tag { background: #3b82f6; color: white; }
+    .l-card.max .l-tag { background: #ec4899; color: white; }
+
     @media (max-width: 768px) {
         .game-grid, .ab-vars, .key-concept ul, .concept-boxes, .order-grid { grid-template-columns: 1fr; }
+    }
+
+    .game-mindset {
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: var(--color-surface-soft);
+        color: var(--color-ink-strong);
+        border-radius: 16px;
+        border: 1px solid var(--color-line);
+    }
+    .mindset-header { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--color-binder); }
+    .game-mindset p { font-size: 0.9rem; line-height: 1.6; }
+    .analogy-card { 
+        margin-top: 1rem; 
+        padding: 1rem; 
+        background: var(--color-surface-elevated); 
+        border-radius: 10px; 
+        border-left: 4px solid var(--color-binder); 
+    }
+    .analogy-card strong { display: block; margin-bottom: 0.25rem; color: var(--color-binder); }
+    .analogy-card p { margin: 0; font-size: 0.85rem; font-style: italic; color: var(--color-ink-soft); }
+    .horizon-analogy {
+        margin: 1rem 0;
+        padding: 1.25rem;
+        background: color-mix(in srgb, var(--color-status-warning-soft) 40%, var(--color-surface-elevated));
+        border-radius: 12px;
+        border: 1px solid var(--color-status-warning-border);
+        box-shadow: var(--shadow-sm);
+    }
+    .horizon-analogy strong { 
+        display: flex; 
+        align-items: center; 
+        gap: 0.5rem; 
+        margin-bottom: 0.75rem; 
+        font-size: 1rem; 
+        color: var(--color-status-warning-text, var(--color-binder)); 
+    }
+    .horizon-analogy p { 
+        margin: 0; 
+        font-size: 0.9rem; 
+        line-height: 1.6; 
+        color: var(--color-ink-strong); 
+    }
+    .horizon-analogy b {
+        color: var(--color-status-error-text, #ef4444);
+        text-decoration: underline wavy;
+        text-underline-offset: 4px;
     }
 </style>

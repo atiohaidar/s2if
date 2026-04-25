@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 8,
+    order: 5,
     tags: ['metaheuristic', 'optimasi', 'ec', 'ga'],
     prereq: ['informed-search'],
     renderMode: 'note',

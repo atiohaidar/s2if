@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 7,
+    order: 8,
     tags: ['fuzzy', 'mamdani', 'sugeno'],
     prereq: ['logika-fuzzy'],
     renderMode: 'note',

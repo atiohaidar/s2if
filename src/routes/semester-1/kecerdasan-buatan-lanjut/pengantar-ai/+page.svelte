@@ -43,75 +43,105 @@
 
     <NoteSection title="Definisi AI (4 Kategori)">
         <p class="section-intro">
-            Kecerdasan Buatan dikelompokkan menjadi 4 kategori berdasarkan dimensi 
-            <strong>Berpikir vs Bertindak</strong> dan <strong>Manusiawi vs Rasional</strong>:
+            Kecerdasan Buatan biasanya dikelompokkan menjadi 4 kotak besar. Kuncinya ada pada dua pertanyaan: 
+            <em>Apakah fokusnya ke Cara Berpikir atau Cara Bertindak?</em> dan 
+            <em>Apakah acuannya Manusia atau Rasionalitas (Logika Ideal)?</em>
         </p>
         
         <div class="def-grid">
             <div class="def-card">
                 <div class="card-icon"><ThemeIcon name="ai-brain" size={24} /></div>
                 <h3>Thinking Humanly</h3>
-                <p>"Upaya membuat komputer berpikir... mesin dengan pikiran, dalam arti sepenuhnya dan harfiah." (Haugeland, '85)</p>
+                <p>Mencoba meniru proses kognitif otak manusia (misal: bagaimana kita belajar atau memecahkan masalah).</p>
                 <span class="focus-tag">Model Kognitif</span>
-            </div>
-            <div class="def-card">
-                <div class="card-icon"><ThemeIcon name="ai-scale" size={24} /></div>
-                <h3>Thinking Rationally</h3>
-                <p>"Studi tentang komputasi yang memungkinkan untuk mempersepsikan, menalar, dan bertindak." (Winston, '92)</p>
-                <span class="focus-tag">Hukum Logika</span>
             </div>
             <div class="def-card">
                 <div class="card-icon"><ThemeIcon name="ai-user" size={24} /></div>
                 <h3>Acting Humanly</h3>
-                <p>"Seni menciptakan mesin yang melakukan fungsi yang membutuhkan kecerdasan bila dilakukan oleh orang." (Kurzweil, '90)</p>
+                <p>Tidak peduli cara kerjanya, yang penting hasilnya terlihat natural seperti manusia (Contoh: Chatbot yang asik diajak ngobrol).</p>
                 <span class="focus-tag">Turing Test</span>
+            </div>
+            <div class="def-card">
+                <div class="card-icon"><ThemeIcon name="ai-scale" size={24} /></div>
+                <h3>Thinking Rationally</h3>
+                <p>Menggunakan hukum logika yang kaku. Jika A=B dan B=C, maka A=C. Fokus pada kebenaran logis.</p>
+                <span class="focus-tag">Hukum Logika</span>
             </div>
             <div class="def-card">
                 <div class="card-icon"><ThemeIcon name="ai-bot" size={24} /></div>
                 <h3>Acting Rationally</h3>
-                <p>"Cabang ilmu komputer yang berkaitan dengan otomatisasi perilaku cerdas." (Luger & Stubblefield, '93)</p>
+                <p>Melakukan tindakan yang memberikan hasil paling optimal (terbaik) sesuai tujuan, meski caranya tidak mirip manusia.</p>
                 <span class="focus-tag">Rational Agent</span>
             </div>
         </div>
+
+        <Callout type="tip">
+            <strong>Analogi Gampang:</strong>
+            <ul>
+                <li><strong>Thinking Humanly:</strong> Bikin robot yang punya "otak" dan "perasaan" kayak manusia.</li>
+                <li><strong>Acting Humanly:</strong> Bikin robot yang outputnya (omongan/gerakan) bisa menipu orang sehingga dikira manusia.</li>
+                <li><strong>Thinking Rationally:</strong> Bikin sistem yang super pintar matematika dan logika tanpa celah.</li>
+                <li><strong>Acting Rationally:</strong> Bikin sistem yang selalu ngambil keputusan paling menguntungkan/tercepat.</li>
+            </ul>
+        </Callout>
     </NoteSection>
 
-    <NoteSection title="Deep Dive: Turing Test & The Imitation Game">
+    <NoteSection title="Deep Dive: Turing Test (Uji Turing)">
         <div class="turing-section">
             <div class="turing-header">
                 <div class="turing-badge">Konsep 1950</div>
                 <p>
-                    Banyak yang bertanya: <em>"Bagaimana mungkin ada uji percakapan teks di tahun 1950 saat komputer masih sebesar ruangan dan belum ada Generative AI?"</em>
+                    Banyak yang bingung: <em>"Gimana caranya ngetes kecerdasan komputer di tahun 1950 pas belum ada ChatGPT?"</em>
                 </p>
             </div>
             
             <div class="turing-grid">
                 <div class="turing-box">
-                    <h4>The Imitation Game</h4>
+                    <h4>Apa Itu Turing Test?</h4>
                     <p>
-                        Alan Turing merancang uji ini sebagai eksperimen pemikiran (thought experiment) untuk menjawab pertanyaan <strong>"Can machines think?"</strong>. Ia membayangkan sebuah sekat di mana seorang interogator berkomunikasi via teks (teletype) dengan dua pihak: manusia dan mesin.
+                        Bayangkan ini seperti <strong>"Blind Taste Test"</strong> tapi untuk kecerdasan. Ada seorang penilai (interogator) yang dipisah tembok dengan dua subjek: <strong>Satu Manusia</strong> dan <strong>Satu Mesin</strong>.
+                    </p>
+                    <p>
+                        Si penilai cuma bisa tanya-tanya lewat chat teks (teletype). Kalau setelah tanya jawab si penilai <strong>nggak bisa bedain</strong> mana yang manusia dan mana yang mesin, berarti mesin itu <strong>Lolos Turing Test</strong>.
                     </p>
                 </div>
                 <div class="turing-box">
-                    <h4>Kenapa Teks?</h4>
+                    <h4>Total Turing Test</h4>
                     <p>
-                        Turing sengaja memilih teks untuk menghindari bias fisik (suara atau penampilan). Fokusnya murni pada <strong>kapasitas intelektual</strong> dan kemampuan menalar, bukan kemampuan meniru fisik manusia.
+                        Ini adalah versi "Advanced". Kalau Turing Test biasa cuma lewat teks, di <strong>Total Turing Test</strong> si penilai juga bisa ngasih objek fisik atau ngeliat gerakan si mesin lewat video.
+                    </p>
+                    <p>
+                        Biar lolos uji ini, mesin nggak cuma butuh "otak" buat jawab chat, tapi juga butuh:
+                    </p>
+                    <ul class="sub-list">
+                        <li><strong>Computer Vision:</strong> Buat "melihat" dan mengenali objek di depannya.</li>
+                        <li><strong>Robotics:</strong> Buat bergerak dan memanipulasi benda fisik.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="turing-comparison">
+                <div class="turing-box">
+                    <h4>Kenapa Harus Lewat Teks (Standard)?</h4>
+                    <p>
+                        Alan Turing sengaja milih teks supaya kita nggak teralihkan sama penampilan fisik. Kalau mesinnya berbentuk robot cantik atau suaranya merdu, penilaian kita bakal bias. Turing mau ngetes <strong>otaknya</strong>, bukan fisiknya.
                     </p>
                 </div>
             </div>
 
             <Callout type="info">
-                <strong>Requirement untuk Lolos Turing Test:</strong>
-                <p>Meskipun belum ada teknologi canggih saat itu, Turing merumuskan bahwa mesin membutuhkan 4 hal dasar:</p>
+                <strong>Senjata yang Dibutuhkan Mesin:</strong>
+                <p>Biar bisa "nipu" penilai dan dikira manusia, mesin minimal harus punya 4 skill ini:</p>
                 <ul class="req-list">
-                    <li><strong>Natural Language Processing:</strong> Untuk berkomunikasi dalam bahasa alami.</li>
-                    <li><strong>Knowledge Representation:</strong> Untuk menyimpan informasi yang diketahui.</li>
-                    <li><strong>Automated Reasoning:</strong> Untuk menjawab pertanyaan & menarik kesimpulan.</li>
-                    <li><strong>Machine Learning:</strong> Untuk beradaptasi dengan situasi baru.</li>
+                    <li><strong>NLP:</strong> Biar bisa ngobrol pake bahasa manusia yang luwes.</li>
+                    <li><strong>Knowledge:</strong> Biar punya wawasan buat jawab pertanyaan.</li>
+                    <li><strong>Reasoning:</strong> Biar bisa mikir dan narik kesimpulan dari obrolan.</li>
+                    <li><strong>Learning:</strong> Biar bisa belajar hal baru selama ngobrol.</li>
                 </ul>
             </Callout>
 
             <p class="turing-footer">
-                Turing Test bukan tentang "kebenaran" jawaban, tapi tentang <strong>"kemiripan"</strong> dengan perilaku manusia. ELIZA (1966) adalah program pertama yang mencoba ini hanya dengan pencocokan pola sederhana.
+                <strong>Intinya:</strong> Turing Test bukan ngetes apakah jawabannya "bener" atau "pinter matematika", tapi apakah mesin itu bisa <strong>bertingkah (acting)</strong> semirip mungkin dengan manusia.
             </p>
         </div>
     </NoteSection>
@@ -141,38 +171,51 @@
         <div class="timeline">
             <div class="timeline-item">
                 <span class="year">1951</span>
-                <strong>Awal Mula</strong>
-                <p>UNIVAC I: Komputer digital pertama untuk bisnis, berhasil memprediksi pemilu AS 1952.</p>
+                <strong>Awal Mula: UNIVAC I</strong>
+                <p>Komputer digital pertama untuk bisnis, berhasil memprediksi pemilu AS 1952 secara akurat.</p>
             </div>
             <div class="timeline-item">
                 <span class="year">1952 - 1969</span>
-                <strong>Early Development</strong>
-                <p>General Problem Solver (Newell & Simon), LISP (McCarthy), Mark I Perceptron (Rosenblatt), dan ELIZA chatbot.</p>
+                <strong>Early Development (Era Keemasan Awal)</strong>
+                <p>
+                    • 1956: <strong>Dartmouth Conference</strong>. Istilah <em>"Artificial Intelligence"</em> resmi dicetuskan oleh <strong>John McCarthy</strong>.<br/>
+                    • General Problem Solver (Newell & Simon).<br/>
+                    • 1958: <strong>LISP</strong> dikembangkan oleh McCarthy sebagai bahasa pemrograman khusus AI.<br/>
+                    • Mark I Perceptron (Rosenblatt) dan ELIZA chatbot.<br/>
+                    • 1968: Hype AI lewat film <em>2001: A Space Odyssey</em>.
+                </p>
             </div>
             <div class="timeline-item winter">
                 <span class="year">1966 - 1974</span>
-                <strong>1st AI Winter</strong>
+                <strong>1st AI Winter (Perkembangan Lambat)</strong>
                 <p>Keterbatasan struktur dasar dan kegagalan pada masalah kompleks menyebabkan penghentian pendanaan besar-besaran.</p>
             </div>
             <div class="timeline-item">
                 <span class="year">1969 - 1979</span>
                 <strong>Knowledge-based Systems</strong>
-                <p>Era dominasi sistem berbasis pengetahuan dan logika formal sebelum akhirnya melambat kembali.</p>
+                <p>Era dominasi sistem berbasis pengetahuan dan logika formal.</p>
             </div>
             <div class="timeline-item">
                 <span class="year">1980 - 1988</span>
                 <strong>Era Industri & Expert Systems</strong>
-                <p>AI mulai masuk ke industri (robot pabrik, sistem pakar). Kembalinya Jaringan Syaraf Tiruan lewat Back-Propagation (1986).</p>
+                <p>AI masuk industri (robot pabrik, sistem pakar). 1986: Kembalinya Jaringan Syaraf Tiruan lewat algoritma <strong>Back-Propagation</strong>.</p>
             </div>
             <div class="timeline-item winter">
                 <span class="year">1990-an</span>
                 <strong>2nd AI Winter & Era Ekstraksi Fitur</strong>
-                <p>Keterbatasan data dan daya komputasi. Fokus bergeser ke teknik ekstraksi fitur manual sebelum revolusi Deep Learning.</p>
+                <p>Keterbatasan data, daya komputasi, dan munculnya masalah <strong>Vanishing Gradient</strong>. Fokus bergeser ke teknik ekstraksi fitur manual.</p>
             </div>
             <div class="timeline-item highlight">
                 <span class="year">2006 - Sekarang</span>
                 <strong>Revolusi Deep Learning & AI Boom</strong>
-                <p>Geoff Hinton mengoptimalkan Deep Learning (2006). IBM Watson menang Jeopardy (2011), AlphaGo (2016), OpenAI Dota 2 (2017-2019), hingga maraknya AI Art & Generative AI.</p>
+                <p>
+                    • 2006: Geoff Hinton mengoptimalkan Deep Learning (AutoEncoder, RBM).<br/>
+                    • 2011: IBM Watson menang Jeopardy.<br/>
+                    • 2015: AI mengalahkan akurasi manusia di ImageNet.<br/>
+                    • 2016: AlphaGo mengalahkan Master Go.<br/>
+                    • 2017-2019: AI menang di Poker pro dan OpenAI Dota 2.<br/>
+                    • 2018: Lukisan AI terjual senilai <strong>$432,000</strong>.
+                </p>
             </div>
         </div>
     </NoteSection>
@@ -634,6 +677,18 @@
     .turing-box p {
         font-size: 0.9rem;
         line-height: 1.6;
+    }
+    .sub-list {
+        margin: 0.75rem 0 0 0;
+        padding-left: 1.25rem;
+        font-size: 0.85rem;
+        color: var(--color-ink-soft);
+    }
+    .sub-list li {
+        margin-bottom: 0.4rem;
+    }
+    .turing-comparison {
+        margin-top: 1.5rem;
     }
     .req-list {
         margin-top: 1rem;
