@@ -88,9 +88,7 @@
 
   let index = $state(0);
   const current = $derived(generations[index]);
-  const maxFitness = Math.max(
-    ...generations.flatMap((generation) => generation.individuals.map((item) => item.fitness)),
-  );
+  const maxFitness = Math.max(...generations.flatMap((generation) => generation.individuals.map((item) => item.fitness)));
 
   function next() {
     index = Math.min(generations.length - 1, index + 1);
@@ -166,8 +164,7 @@
   </div>
 
   <div class="note-box">
-    <strong>Interpretasi:</strong>
-    {current.note}
+    <strong>Interpretasi:</strong> {current.note}
   </div>
 </div>
 

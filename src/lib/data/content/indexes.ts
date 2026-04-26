@@ -7,6 +7,12 @@ export const semesterIndexes: SemesterIndex[] = [
         title: 'Semester 1',
         order: 1,
     },
+    {
+        id: 'luar-perkuliahan',
+        slug: 'luar-perkuliahan',
+        title: 'Luar Perkuliahan',
+        order: 99,
+    },
 ];
 
 export const subjectIndexes: SubjectIndex[] = [
@@ -53,5 +59,38 @@ export const subjectIndexes: SubjectIndex[] = [
         status: 'wip',
         order: 4,
         tags: ['software-engineering', 'paper', 'critical-thinking'],
+    },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'bahasa-inggris',
+        slug: 'bahasa-inggris',
+        title: 'Bahasa Inggris',
+        icon: 'subject-bahasa-inggris',
+        summary: 'Materi grammar, tenses, dan pemahaman teks bahasa Inggris.',
+        status: 'done',
+        order: 1,
+        tags: ['english', 'grammar', 'toefl'],
+    },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'toefl-preparation',
+        slug: 'toefl-preparation',
+        title: 'TOEFL Preparation',
+        icon: 'subject-toefl-preparation',
+        summary: 'Strategi dan latihan soal untuk persiapan ujian TOEFL.',
+        status: 'wip',
+        order: 2,
+        tags: ['toefl', 'english', 'test'],
+    },
+    {
+        semesterId: 'luar-perkuliahan',
+        id: 'permobilan',
+        slug: 'permobilan',
+        title: 'Permobilan',
+        icon: 'subject-permobilan',
+        summary: 'Catatan hobi dan pengetahuan seputar dunia otomotif.',
+        status: 'wip',
+        order: 3,
+        tags: ['car', 'automotive', 'hobby'],
     },
 ];

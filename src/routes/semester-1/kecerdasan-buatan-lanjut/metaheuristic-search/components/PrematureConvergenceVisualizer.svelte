@@ -51,8 +51,8 @@
     <section class="panel">
       <span class="label">{current.title}</span>
       <p class="helper-text">
-        <strong>Premature convergence</strong> artinya populasi terlalu cepat menjadi mirip semua, sehingga
-        algoritma kehilangan variasi untuk mencoba arah solusi lain.
+        <strong>Premature convergence</strong> artinya populasi terlalu cepat menjadi mirip semua,
+        sehingga algoritma kehilangan variasi untuk mencoba arah solusi lain.
       </p>
       <div class="population">
         {#each current.individuals as genes, index}
