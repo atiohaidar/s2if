@@ -269,9 +269,9 @@
                 },
                 {
                     question: "Pada node MIN, kapan proses pruning (Alpha Cutoff) terjadi?",
-                    options: ["Ketika Alpha < Beta.", "Ketika Alpha &ge; Beta (atau Beta &le; Alpha).", "Ketika skor node = 0.", "Ketika tidak ada lagi anak node."],
+                    options: ["Ketika Alpha < Beta.", "Ketika Alpha ≥ Beta (atau Beta ≤ Alpha).", "Ketika skor node = 0.", "Ketika tidak ada lagi anak node."],
                     correctIndex: 1,
-                    explanation: "Pruning terjadi saat kondisi Alpha &ge; Beta terpenuhi. Di node MIN, ini disebut Alpha Cutoff karena kita memotong cabang berdasarkan batas Alpha yang dikirim dari parent MAX."
+                    explanation: "Pruning terjadi saat kondisi Alpha ≥ Beta terpenuhi. Di node MIN, ini disebut Alpha Cutoff karena kita memotong cabang berdasarkan batas Alpha yang dikirim dari parent MAX."
                 },
                 {
                     question: "Mengapa move ordering (urutan langkah) sangat penting bagi Alpha-Beta Pruning?",

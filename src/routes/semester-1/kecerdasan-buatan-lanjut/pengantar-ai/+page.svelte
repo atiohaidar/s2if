@@ -220,6 +220,43 @@
         </div>
     </NoteSection>
 
+    <NoteSection title="Hall of Fame: Tokoh Kunci AI">
+        <p>Di balik kecanggihan AI saat ini, ada tokoh-tokoh visioner yang meletakkan batu pertamanya. Berikut adalah para "Bapak AI" yang wajib kamu kenal:</p>
+        
+        <div class="hall-grid">
+            <div class="hall-card">
+                <div class="hall-title">Bapak Ilmu Komputer & AI Teoretis</div>
+                <h4>Alan Turing</h4>
+                <p>Meletakkan fondasi lewat <em>Turing Test</em> dan konsep mesin cerdas yang bisa belajar sendiri (1950).</p>
+            </div>
+            <div class="hall-card gold">
+                <div class="hall-title">Bapak AI (Pencetus Istilah)</div>
+                <h4>John McCarthy</h4>
+                <p>Mengorganisir Dartmouth Conference (1956) dan menciptakan bahasa pemrograman <strong>LISP</strong> yang jadi standar AI selama puluhan tahun.</p>
+            </div>
+            <div class="hall-card">
+                <div class="hall-title">Bapak Sistem Logika</div>
+                <h4>Newell & Simon</h4>
+                <p>Menciptakan <em>Logic Theorist</em> dan <em>General Problem Solver</em>, program pertama yang bisa "berpikir" logis seperti manusia.</p>
+            </div>
+            <div class="hall-card">
+                <div class="hall-title">Pelopor Jaringan Syaraf</div>
+                <h4>Marvin Minsky</h4>
+                <p>Salah satu pendiri MIT AI Lab dan penulis buku <em>Perceptrons</em> yang sangat berpengaruh pada awal riset neural networks.</p>
+            </div>
+            <div class="hall-card">
+                <div class="hall-title">Bapak Perceptron</div>
+                <h4>Frank Rosenblatt</h4>
+                <p>Menciptakan <strong>Perceptron</strong> pada tahun 1957, yang merupakan cikal bakal dari semua arsitektur Deep Learning modern saat ini.</p>
+            </div>
+            <div class="hall-card highlight">
+                <div class="hall-title">Bapak Deep Learning Modern</div>
+                <h4>Geoffrey Hinton</h4>
+                <p>Menemukan algoritma <em>Backpropagation</em> modern yang membuat AI bisa belajar dari data raksasa secara akurat.</p>
+            </div>
+        </div>
+    </NoteSection>
+
     <NoteSection title="Aplikasi AI Modern">
         <div class="app-grid">
             <div class="app-category">
@@ -718,5 +755,55 @@
         .overview-grid, .tech-grid, .analogy-grid, .turing-grid, .req-list {
             grid-template-columns: 1fr;
         }
+    }
+
+    .hall-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    .hall-card {
+        background: var(--color-surface-soft);
+        padding: 1.5rem;
+        border-radius: 20px;
+        border: 1px solid var(--color-line);
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    .hall-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-binder);
+        box-shadow: 0 10px 30px -10px rgba(var(--color-binder-rgb), 0.2);
+    }
+    .hall-card.gold {
+        border-color: #fbbf24;
+        background: rgba(251, 191, 36, 0.05);
+    }
+    .hall-card.highlight {
+        border-color: #6366f1;
+        background: rgba(99, 102, 241, 0.05);
+    }
+    .hall-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: var(--color-ink-soft);
+        margin-bottom: 0.5rem;
+    }
+    .hall-card.gold .hall-title { color: #d97706; }
+    .hall-card.highlight .hall-title { color: #4f46e5; }
+    
+    .hall-card h4 {
+        margin: 0 0 0.75rem;
+        font-size: 1.25rem;
+        color: var(--color-binder);
+    }
+    .hall-card p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin: 0;
+        color: var(--color-ink-soft);
     }
 </style>

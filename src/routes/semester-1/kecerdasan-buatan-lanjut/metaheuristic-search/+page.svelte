@@ -199,7 +199,57 @@ while not stop_condition:
     <ChromosomeEncodingVisualizer />
   </NoteSection>
 
-  <!-- 8. Visualisasi Proses -->
+  <!-- 8. Deep Dive: Metode Seleksi (Parent Selection) -->
+  <NoteSection title="Deep Dive: Metode Seleksi">
+    <p>
+      Bagaimana cara kita memilih "orang tua" (parents) untuk menghasilkan keturunan? 
+      Ada beberapa strategi populer yang sering digunakan:
+    </p>
+
+    <div class="selection-grid">
+      <!-- Roulette Wheel -->
+      <div class="selection-card">
+        <div class="sel-header">
+          <span class="sel-icon">🎡</span>
+          <h4>Roulette Wheel Selection</h4>
+        </div>
+        <p>Setiap individu mendapat "potongan kue" di roda sesuai nilai fitnessnya. Semakin tinggi fitness, semakin lebar potongannya, dan semakin besar peluang terpilih.</p>
+        <div class="sel-example">📝 <strong>Contoh:</strong> Jika total fitness populasi adalah 100, dan Individu A punya fitness 70, maka A punya <strong>70% peluang</strong> untuk terpilih berkali-kali.</div>
+        <div class="sel-analogy">💡 <strong>Analogi:</strong> Roda keberuntungan di pasar malam. Hadiah yang mahal (fitness tinggi) punya slot yang lebih lebar di roda.</div>
+      </div>
+
+      <!-- Tournament Selection -->
+      <div class="selection-card">
+        <div class="sel-header">
+          <span class="sel-icon">⚔️</span>
+          <h4>Tournament Selection</h4>
+        </div>
+        <p>Pilih beberapa individu secara acak (misal 3), lalu adu fitness mereka. Pemenangnya (yang fitnessnya paling tinggi) resmi jadi orang tua.</p>
+        <div class="sel-example">📝 <strong>Contoh:</strong> Kita ambil 3 orang acak dari 100 orang. Meskipun ada yang sangat jago di luar sana, yang penting kita hanya mengadu 3 orang yang kita ambil tadi.</div>
+        <div class="sel-analogy">💡 <strong>Analogi:</strong> Audisi pencarian bakat. Juri memanggil 3 orang ke panggung, lalu pilih yang suaranya paling bagus di antara mereka.</div>
+      </div>
+
+      <!-- Rank Selection -->
+      <div class="selection-card">
+        <div class="sel-header">
+          <span class="sel-icon">🏆</span>
+          <h4>Rank Selection</h4>
+        </div>
+        <p>Semua individu diurutkan dari yang terbaik sampai terburuk. Peluang dipilih ditentukan berdasarkan <strong>peringkat</strong>, bukan nilai fitness asli.</p>
+        <div class="sel-analogy">💡 <strong>Analogi:</strong> Beasiswa peringkat. Juara 1 pasti dapat porsi lebih banyak, tidak peduli apakah nilainya beda tipis atau beda jauh dengan juara 2.</div>
+      </div>
+    </div>
+
+    <div class="elitism-box">
+      <div class="elitism-header">✨ Bonus Konsep: Elitism</div>
+      <p>
+        Kadang kita tidak mau kehilangan "Si Juara" di generasi sekarang karena proses crossover/mutasi yang acak. 
+        <strong>Elitism</strong> adalah cara langsung meng-copy individu terbaik ke generasi berikutnya tanpa diubah sedikitpun.
+      </p>
+    </div>
+  </NoteSection>
+
+  <!-- 9. Visualisasi Proses -->
   <NoteSection title="Visualisasi: Crossover & Mutasi">
     <p>
       Proses pembentukan anak divisualisasikan langkah demi langkah.
@@ -522,6 +572,68 @@ while not stop_condition:
 
   .conclusion-box { margin-top: 2rem; padding: 1.25rem; background: var(--color-surface-soft); border-radius: 12px; border: 2px dashed var(--color-line); }
   .conclusion-box h4 { margin-top: 0; }
+
+  .selection-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .selection-card {
+    background: var(--color-surface-soft);
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid var(--color-line);
+  }
+  .sel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .sel-icon { font-size: 1.5rem; }
+  .selection-card h4 { margin: 0; color: var(--color-binder); font-size: 1.05rem; }
+  .selection-card p { font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem; }
+  .sel-analogy {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--color-ink-soft);
+    padding: 0.75rem;
+    background: var(--color-surface-elevated);
+    border-radius: 8px;
+  }
+  .sel-example {
+    font-size: 0.8rem;
+    color: var(--color-ink-strong);
+    padding: 0.75rem;
+    background: rgba(var(--color-binder-rgb), 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border: 1px dashed var(--color-binder);
+  }
+
+  .elitism-box {
+    background: linear-gradient(135deg, var(--color-surface-soft) 0%, var(--color-surface-elevated) 100%);
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid var(--color-binder);
+    position: relative;
+    overflow: hidden;
+  }
+  .elitism-header {
+    font-weight: 800;
+    color: var(--color-binder);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .elitism-box p { font-size: 0.85rem; margin: 0; line-height: 1.5; }
+
+  @media (min-width: 768px) {
+    .selection-grid { grid-template-columns: 1fr 1fr; }
+    .selection-card:first-child { grid-column: span 2; }
+  }
 
   ol li + li,
   ul li + li {
