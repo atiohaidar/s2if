@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 2,
+    order: 3,
     tags: ['svm', 'klasifikasi', 'kernel', 'margin'],
     prereq: ['regresi-linear'],
     renderMode: 'note',
