@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint scripts tests src/lib/data/content --ext .ts",
     "format:check": "prettier --check .",
-    "test:tools": "tsx --test \"tests/scripts/**/*.test.ts\"",
+    "test:tools": "tsx --test tests/scripts/*.test.ts",
     "validate:content": "tsx scripts/validate-content.ts",
     "sync:indexes": "tsx scripts/sync-indexes.ts",
     "create:topic": "tsx scripts/create-topic.ts",
