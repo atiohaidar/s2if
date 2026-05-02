@@ -70,12 +70,22 @@
         </p>
 
         <CodeBlock
-            language="python"
-            filename="count_frequency.py"
-            code={`def build_frequency(A, K):
-    C = [0] * (K + 1)
-    for value in A:
-        C[value] += 1
+            language="text"
+            filename="count_frequency.txt"
+            code={`Kamus:
+    A : array of integer
+    K, value : integer
+    C : array [0..K] of integer
+
+Algoritma function build_frequency(A, K) -> array:
+    for value <- 0 to K do
+        C[value] <- 0
+    end for
+
+    for each value in A do
+        C[value] <- C[value] + 1
+    end for
+
     return C`}
         />
 
@@ -118,13 +128,18 @@ Jadi C = [1, 2, 3, 1]`}
         <MathBlock latex={"P[0]=A[0], \\quad P[k]=P[k-1]+A[k]\\ (k>0)"} />
 
         <CodeBlock
-            language="python"
-            filename="build_prefix_sum.py"
-            code={`def build_prefix_sum(A):
-    P = [0] * len(A)
-    P[0] = A[0]
-    for i in range(1, len(A)):
-        P[i] = P[i - 1] + A[i]
+            language="text"
+            filename="build_prefix_sum.txt"
+            code={`Kamus:
+    A : array of integer
+    P : array of integer
+    i : integer
+
+Algoritma function build_prefix_sum(A) -> array:
+    P[0] <- A[0]
+    for i <- 1 to length(A) - 1 do
+        P[i] <- P[i - 1] + A[i]
+    end for
     return P`}
         />
 
@@ -213,35 +228,36 @@ A[1..3] = [1, 3, 2], jumlah = 6 (sama)`}
         <CountingSortVisualizer />
 
         <CodeBlock
-            language="python"
-            filename="counting_sort.py"
-            code={`def counting_sort(A, K):
-    C = [0] * (K + 1)      # Array frekuensi, ukuran K+1
-    B = [0] * len(A)       # Array hasil terurut
+            language="text"
+            filename="counting_sort.txt"
+            code={`Kamus:
+    A : array of integer
+    K, i, value : integer
+    C : array [0..K] of integer
+    B : array of integer
 
-    # TAHAP 1: Hitung frekuensi setiap nilai
-    # Untuk setiap elemen di A, tambah counter di C sesuai nilai elemen
-    for value in A:
-        C[value] += 1
-    # Contoh: jika A=[3,1,2,3,0,1], maka C=[1,2,1,2]
+Algoritma function counting_sort(A, K) -> array:
+    // TAHAP 1: Hitung frekuensi setiap nilai
+    for i <- 0 to K do
+        C[i] <- 0
+    end for
+    for each value in A do
+        C[value] <- C[value] + 1
+    end for
 
-    # TAHAP 2: Ubah C menjadi frekuensi kumulatif
-    # C[i] sekarang menyatakan: "banyak elemen <= i"
-    for i in range(1, K + 1):
-        C[i] += C[i - 1]
-    # Contoh: dari C=[1,2,1,2] jadi C=[1,3,4,6]
+    // TAHAP 2: Ubah C menjadi frekuensi kumulatif
+    // C[i] sekarang menyatakan: "banyak elemen <= i"
+    for i <- 1 to K do
+        C[i] <- C[i] + C[i - 1]
+    end for
 
-    # TAHAP 3: Tempatkan elemen ke posisi final di array B
-    # Iterasi MUNDUR dari belakang array A agar stabilitas terjaga
-    # (elemen yang muncul belakangan akan ditempatkan ke posisi lebih kanan)
-    for i in range(len(A) - 1, -1, -1):
-        value = A[i]           # Ambil elemen dari belakang
-        C[value] -= 1          # Kurangi counter untuk elemen ini
-        B[C[value]] = value    # Tempatkan di posisi hasil (C[value] jadi indeks)
-    # Contoh: A=[3,1,2,3,0,1] -> proses mundur:
-    #   i=5: nilai 1, C[1]=2 -> B[2]=1, C[1] jadi 1
-    #   i=4: nilai 0, C[0]=0 -> B[0]=0, C[0] jadi 0
-    #   ... dst sampai array B terisi terurut
+    // TAHAP 3: Tempatkan elemen ke posisi final
+    // Iterasi MUNDUR agar stabilitas terjaga
+    for i <- length(A) - 1 down to 0 do
+        value <- A[i]
+        C[value] <- C[value] - 1
+        B[C[value]] <- value
+    end for
 
     return B`}
         />
@@ -431,18 +447,26 @@ remainder 2 muncul 2 kali -> C(2,2)=1 pasangan
 total ans = 4`}
         />
         <CodeBlock
-            language="python"
-            filename="latihan1_subarray_divisible.py"
-            code={`def count_subarray_divisible(A, M):
-    freq = [0] * M
-    freq[0] = 1  # prefix kosong: sisa 0 sudah ada sekali sebelum baca data
-    pref = 0      # prefix sum berjalan
-    ans = 0       # jumlah subarray valid yang sudah ditemukan
+            language="text"
+            filename="latihan1_subarray_divisible.txt"
+            code={`Kamus:
+    A : array of integer
+    M, pref, ans, x : integer
+    freq : array [0..M-1] of integer
 
-    for x in A:
-        pref = (pref + x) % M   # ambil sisa modulo karena hanya itu yang penting
-        ans += freq[pref]       # semua prefix sebelumnya dengan sisa sama membentuk subarray valid
-        freq[pref] += 1         # catat bahwa sisa ini sudah muncul satu kali lagi
+Algoritma function count_subarray_divisible(A, M) -> integer:
+    for x <- 0 to M - 1 do
+        freq[x] <- 0
+    end for
+    freq[0] <- 1    // prefix kosong: sisa 0 sudah ada sekali
+    pref <- 0
+    ans <- 0
+
+    for each x in A do
+        pref <- (pref + x) mod M
+        ans <- ans + freq[pref]
+        freq[pref] <- freq[pref] + 1
+    end for
 
     return ans`}
         />
@@ -470,21 +494,32 @@ total ans = 4`}
             <li>Ambil prefix sum dari <code>D</code> untuk mendapatkan <code>A</code> final.</li>
         </ol>
         <CodeBlock
-            language="python"
-            filename="latihan2_difference_array.py"
-            code={`def apply_range_updates(N, updates):
-    D = [0] * (N + 1)
+            language="text"
+            filename="latihan2_difference_array.txt"
+            code={`Kamus:
+    N, i, running : integer
+    L, R, V : integer
+    D : array [0..N] of integer
+    A : array [0..N-1] of integer
+    updates : array of (L, R, V)
 
-    for L, R, V in updates:
-        D[L] += V
-        if R + 1 < N:
-            D[R + 1] -= V
+Algoritma function apply_range_updates(N, updates) -> array:
+    for i <- 0 to N do
+        D[i] <- 0
+    end for
 
-    A = [0] * N
-    running = 0
-    for i in range(N):
-        running += D[i]
-        A[i] = running
+    for each (L, R, V) in updates do
+        D[L] <- D[L] + V
+        if R + 1 < N then
+            D[R + 1] <- D[R + 1] - V
+        end if
+    end for
+
+    running <- 0
+    for i <- 0 to N - 1 do
+        running <- running + D[i]
+        A[i] <- running
+    end for
 
     return A`}
         />

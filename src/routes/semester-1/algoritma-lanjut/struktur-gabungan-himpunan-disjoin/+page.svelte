@@ -90,15 +90,18 @@
         </p>
 
         <CodeBlock
-            language="python"
-            filename="dsu_init.py"
-            code={`# asumsi elemen bernilai 1..n
-induk = [0] * (n + 1)
-peringkat = [0] * (n + 1)
+            language="text"
+            filename="dsu_init.txt"
+            code={`Kamus:
+    n, i : integer
+    induk : array [1..n] of integer
+    peringkat : array [1..n] of integer
 
-for i in range(1, n + 1):
-    induk[i] = i
-    peringkat[i] = 0`}
+Algoritma procedure makeSetAll(n):
+    for i <- 1 to n do
+        induk[i] <- i
+        peringkat[i] <- 0
+    end for`}
         />
 
         <p>
@@ -114,31 +117,36 @@ for i in range(1, n + 1):
         </p>
 
         <CodeBlock
-            language="python"
-            filename="dsu_find_union.py"
-            code={`def find(x):
-    if induk[x] != x:
-        induk[x] = find(induk[x])   # path compression
+            language="text"
+            filename="dsu_find_union.txt"
+            code={`Kamus:
+    x, y, rx, ry : integer
+
+Algoritma function find(x) -> integer:
+    if induk[x] != x then
+        induk[x] <- find(induk[x])   // path compression
+    end if
     return induk[x]
 
+Algoritma function union_set(x, y) -> boolean:
+    rx <- find(x)
+    ry <- find(y)
 
-def union_set(x, y):
-    rx = find(x)
-    ry = find(y)
+    if rx = ry then
+        return false
+    end if
 
-    if rx == ry:
-        return False
+    // union by rank
+    if peringkat[rx] < peringkat[ry] then
+        induk[rx] <- ry
+    else if peringkat[rx] > peringkat[ry] then
+        induk[ry] <- rx
+    else
+        induk[ry] <- rx
+        peringkat[rx] <- peringkat[rx] + 1
+    end if
 
-    # union by rank
-    if peringkat[rx] < peringkat[ry]:
-        induk[rx] = ry
-    elif peringkat[rx] > peringkat[ry]:
-        induk[ry] = rx
-    else:
-        induk[ry] = rx
-        peringkat[rx] += 1
-
-    return True`}
+    return true`}
         />
 
         <Callout type="tip" title="Intuisi cepat">
@@ -183,15 +191,22 @@ def union_set(x, y):
         </ol>
 
         <CodeBlock
-            language="python"
-            filename="kruskal_core.py"
-            code={`# edges: list of (w, u, v), sudah di-sort naik berdasarkan w
-mst = []
-for w, u, v in edges:
-    if union_set(u, v):
-        mst.append((w, u, v))
+            language="text"
+            filename="kruskal_core.txt"
+            code={`Kamus:
+    edges : array of (w, u, v), terurut naik berdasarkan w
+    mst : array of (w, u, v)
+    w, u, v : integer
 
-# untuk graf dengan n simpul, MST valid jika jumlah edge terpilih = n - 1`}
+Algoritma:
+    mst <- array kosong
+    for each (w, u, v) in edges do
+        if union_set(u, v) then
+            tambahkan (w, u, v) ke mst
+        end if
+    end for
+
+    // MST valid jika jumlah edge terpilih = n - 1`}
         />
     </NoteSection>
 

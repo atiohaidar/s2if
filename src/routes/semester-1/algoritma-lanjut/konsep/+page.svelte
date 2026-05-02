@@ -219,16 +219,23 @@
             </Callout>
         </details>
         <CodeBlock
-            language="python"
-            filename="find_max_example.py"
-            code={`def find_max(nums):
-    if not nums:
-        return None
+            language="text"
+            filename="find_max_example.txt"
+            code={`Kamus:
+    nums : array of integer
+    max_now, x : integer
 
-    max_now = nums[0]
-    for x in nums[1:]:
-        if x > max_now:
-            max_now = x
+Algoritma function find_max(nums) -> integer:
+    if length(nums) = 0 then
+        return null
+    end if
+
+    max_now <- nums[0]
+    for each x in nums[1..akhir] do
+        if x > max_now then
+            max_now <- x
+        end if
+    end for
     return max_now`}
         />
         <p>
@@ -254,13 +261,19 @@
         </ol>
 
         <CodeBlock
-            language="python"
-            filename="count_positive.py"
-            code={`def count_positive(nums):
-    count = 0
-    for x in nums:
-        if x > 0:
-            count += 1
+            language="text"
+            filename="count_positive.txt"
+            code={`Kamus:
+    nums : array of integer
+    count, x : integer
+
+Algoritma function count_positive(nums) -> integer:
+    count <- 0
+    for each x in nums do
+        if x > 0 then
+            count <- count + 1
+        end if
+    end for
     return count`}
         />
         <p>
@@ -287,12 +300,18 @@
         </ol>
 
         <CodeBlock
-            language="python"
-            filename="linear_search_trace.py"
-            code={`def linear_search(arr, target):
-    for i in range(len(arr)):
-        if arr[i] == target:
+            language="text"
+            filename="linear_search_trace.txt"
+            code={`Kamus:
+    arr : array of integer
+    target, i : integer
+
+Algoritma function linear_search(arr, target) -> integer:
+    for i <- 0 to length(arr) - 1 do
+        if arr[i] = target then
             return i
+        end if
+    end for
     return -1`}
         />
 
@@ -357,11 +376,15 @@
         </ol>
 
         <CodeBlock
-            language="python"
-            filename="factorial_recursive.py"
-            code={`def factorial(n):
-    if n == 0:
+            language="text"
+            filename="factorial_recursive.txt"
+            code={`Kamus:
+    n : integer
+
+Algoritma function factorial(n) -> integer:
+    if n = 0 then
         return 1
+    end if
     return n * factorial(n - 1)`}
         />
 
@@ -406,23 +429,28 @@
         </ul>
 
         <CodeBlock
-            language="python"
-            filename="patterns.py"
-            code={`# 1) Berurutan -> O(n)
-for i in range(n):
-    pass
-for j in range(n):
-    pass
+            language="text"
+            filename="patterns_complexity.txt"
+            code={`// 1) Berurutan -> O(n)
+for i <- 0 to n - 1 do
+    // proses
+end for
+for j <- 0 to n - 1 do
+    // proses
+end for
 
-# 2) Bersarang -> O(n^2)
-for i in range(n):
-    for j in range(n):
-        pass
+// 2) Bersarang -> O(n^2)
+for i <- 0 to n - 1 do
+    for j <- 0 to n - 1 do
+        // proses
+    end for
+end for
 
-# 3) Dibagi dua terus -> O(log n)
-k = n
-while k > 1:
-    k //= 2`}
+// 3) Dibagi dua terus -> O(log n)
+k <- n
+while k > 1 do
+    k <- k div 2
+end while`}
         />
 
         <Callout type="warning" title="Salah paham umum">

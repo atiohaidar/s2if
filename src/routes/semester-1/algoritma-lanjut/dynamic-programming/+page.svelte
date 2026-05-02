@@ -6,6 +6,8 @@
     import CodeBlock from "$lib/components/CodeBlock.svelte";
     import MathBlock from "$lib/components/MathBlock.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
+    import CoinChangeAnimation from "./components/CoinChangeAnimation.svelte";
+    import LCSAnimation from "./components/LCSAnimation.svelte";
 
     const dpQuiz = [
         {
@@ -225,11 +227,15 @@
         <MathBlock latex={fibRecurrence} />
 
         <CodeBlock
-            language="python"
-            filename="fib_biasa_rekursif.py"
-            code={`def fib_biasa(n):
-    if n <= 1:
+            language="text"
+            filename="fib_rekursif_polos.txt"
+            code={`Kamus:
+    n : integer
+
+Algoritma function fib_biasa(n) -> integer:
+    if n <= 1 then
         return n
+    end if
     return fib_biasa(n - 1) + fib_biasa(n - 2)`}
         />
 
@@ -248,32 +254,41 @@
         </ul>
 
         <CodeBlock
-            language="python"
-            filename="fib_top_down.py"
-            code={`memo = {}
+            language="text"
+            filename="fib_top_down.txt"
+            code={`Kamus:
+    memo : array of integer (diinisialisasi -1)
+    n : integer
 
-def fib_top_down(n):
-    if n <= 1:
+Algoritma function fib_top_down(n) -> integer:
+    if n <= 1 then
         return n
-    if n in memo:
+    end if
+    if memo[n] != -1 then
         return memo[n]
-    memo[n] = fib_top_down(n - 1) + fib_top_down(n - 2)
+    end if
+    memo[n] <- fib_top_down(n - 1) + fib_top_down(n - 2)
     return memo[n]`}
         />
 
         <CodeBlock
-            language="python"
-            filename="fib_bottom_up.py"
-            code={`def fib_bottom_up(n):
-    if n <= 1:
+            language="text"
+            filename="fib_bottom_up.txt"
+            code={`Kamus:
+    n, i : integer
+    f : array [0..n] of integer
+
+Algoritma function fib_bottom_up(n) -> integer:
+    if n <= 1 then
         return n
+    end if
 
-    f = [0] * (n + 1)
-    f[0] = 0
-    f[1] = 1
+    f[0] <- 0
+    f[1] <- 1
 
-    for i in range(2, n + 1):
-        f[i] = f[i - 1] + f[i - 2]
+    for i <- 2 to n do
+        f[i] <- f[i - 1] + f[i - 2]
+    end for
 
     return f[n]`}
         />
@@ -312,13 +327,18 @@ def fib_top_down(n):
             subproblem yang sama jadi dihitung berulang-ulang.
         </p>
         <CodeBlock
-            language="python"
-            filename="naik_tangga_rekursif_polos.py"
-            code={`def cara_naik_tangga(n):
-    if n == 0:
+            language="text"
+            filename="naik_tangga_rekursif.txt"
+            code={`Kamus:
+    n : integer
+
+Algoritma function cara_naik_tangga(n) -> integer:
+    if n = 0 then
         return 1
-    if n == 1:
+    end if
+    if n = 1 then
         return 1
+    end if
     return cara_naik_tangga(n - 1) + cara_naik_tangga(n - 2)`}
         />
         <ul>
@@ -349,40 +369,51 @@ def fib_top_down(n):
         </Callout>
 
         <CodeBlock
-            language="python"
-            filename="naik_tangga_top_down_memo.py"
-            code={`def cara_naik_tangga_top_down(n):
-    memo = {}
+            language="text"
+            filename="naik_tangga_top_down.txt"
+            code={`Kamus:
+    n, i : integer
+    memo : array of integer (diinisialisasi -1)
 
-    def solve(i):
-        if i == 0:
-            return 1
-        if i == 1:
-            return 1
-        if i in memo:
-            return memo[i]
+Algoritma function cara_naik_tangga_top_down(n) -> integer:
+    return solve(n)
 
-        memo[i] = solve(i - 1) + solve(i - 2)
+Algoritma function solve(i) -> integer:
+    if i = 0 then
+        return 1
+    end if
+    if i = 1 then
+        return 1
+    end if
+    if memo[i] != -1 then
         return memo[i]
+    end if
 
-    return solve(n)`}
+    memo[i] <- solve(i - 1) + solve(i - 2)
+    return memo[i]`}
         />
 
         <CodeBlock
-            language="python"
-            filename="naik_tangga_bottom_up.py"
-            code={`def cara_naik_tangga_bottom_up(n):
-    if n == 0:
-        return 1
-    if n == 1:
-        return 1
+            language="text"
+            filename="naik_tangga_bottom_up.txt"
+            code={`Kamus:
+    n, i : integer
+    dp : array [0..n] of integer
 
-    dp = [0] * (n + 1)
-    dp[0] = 1
-    dp[1] = 1
+Algoritma function cara_naik_tangga_bottom_up(n) -> integer:
+    if n = 0 then
+        return 1
+    end if
+    if n = 1 then
+        return 1
+    end if
 
-    for i in range(2, n + 1):
-        dp[i] = dp[i - 1] + dp[i - 2]
+    dp[0] <- 1
+    dp[1] <- 1
+
+    for i <- 2 to n do
+        dp[i] <- dp[i - 1] + dp[i - 2]
+    end for
 
     return dp[n]`}
         />
@@ -468,20 +499,40 @@ def fib_top_down(n):
             <li><strong>Basis</strong>: <code>dp[0] = 0</code>.</li>
             <li><strong>Kompleksitas</strong>: <code>O(target x jumlahKoin)</code>.</li>
         </ul>
+
+        <Callout type="tip" title="Visualisasi Interaktif">
+            Jalankan animasi berikut untuk melihat bagaimana tabel DP terisi satu per satu. Perhatikan koin mana yang dicoba dan kenapa hasilnya berubah (atau tidak).
+        </Callout>
+
+        <CoinChangeAnimation />
+
         <CodeBlock
-            language="python"
-            filename="coin_change_bottom_up.py"
-            code={`def solve_coin_change(target, coins):
-    INF = 10**9
-    dp = [INF] * (target + 1)
-    dp[0] = 0
+            language="text"
+            filename="coin_change_bottom_up.txt"
+            code={`Kamus:
+    target, x : integer
+    coins : array of integer
+    dp : array [0..target] of integer
+    INF : integer <- 999999999
 
-    for x in range(1, target + 1):
-        for c in coins:
-            if x - c >= 0:
-                dp[x] = min(dp[x], dp[x - c] + 1)
+Algoritma function solve_coin_change(target, coins) -> integer:
+    for x <- 0 to target do
+        dp[x] <- INF
+    end for
+    dp[0] <- 0
 
-    return dp[target] if dp[target] != INF else -1`}
+    for x <- 1 to target do
+        for each c in coins do
+            if (x - c >= 0) and (dp[x - c] + 1 < dp[x]) then
+                dp[x] <- dp[x - c] + 1
+            end if
+        end for
+    end for
+
+    if dp[target] = INF then
+        return -1
+    end if
+    return dp[target]`}
         />
 
         <Callout type="info" title="Alur baca tabel DP untuk coin change">
@@ -571,6 +622,13 @@ def fib_top_down(n):
             Problem: dari dua string A dan B, cari panjang subsekuen sama terpanjang.
             Subsekuen tidak harus bersebelahan, tapi urutan harus tetap.
         </p>
+
+        <Callout type="tip" title="Visualisasi Interaktif">
+            Lihat bagaimana tabel LCS diisi cell per cell. Warna hijau = karakter cocok (diagonal), kuning = tidak cocok (ambil max atas/kiri).
+        </Callout>
+
+        <LCSAnimation />
+
         <ul>
             <li>
                 <strong>State</strong>: <code>dp[i][j]</code> = panjang LCS dari
@@ -584,18 +642,38 @@ def fib_top_down(n):
         </ul>
         <MathBlock latex={lcsMismatch} />
         <CodeBlock
-            language="python"
-            filename="lcs_bottom_up.py"
-            code={`def solve_lcs(a, b):
-    n, m = len(a), len(b)
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
+            language="text"
+            filename="lcs_bottom_up.txt"
+            code={`Kamus:
+    n, m, i, j : integer
+    a, b : string
+    dp : array [0..n][0..m] of integer
 
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if a[i - 1] == b[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+Algoritma function solve_lcs(a, b) -> integer:
+    n <- length(a)
+    m <- length(b)
+
+    // Inisialisasi baris 0 dan kolom 0 dengan 0
+    for i <- 0 to n do
+        dp[i][0] <- 0
+    end for
+    for j <- 0 to m do
+        dp[0][j] <- 0
+    end for
+
+    for i <- 1 to n do
+        for j <- 1 to m do
+            if a[i] = b[j] then
+                dp[i][j] <- 1 + dp[i - 1][j - 1]
+            else
+                if dp[i - 1][j] > dp[i][j - 1] then
+                    dp[i][j] <- dp[i - 1][j]
+                else
+                    dp[i][j] <- dp[i][j - 1]
+                end if
+            end if
+        end for
+    end for
 
     return dp[n][m]`}
         />
@@ -685,15 +763,23 @@ def fib_top_down(n):
         </Callout>
 
         <CodeBlock
-            language="python"
-            filename="fib_bottom_up_o1.py"
-            code={`def fib_bottom_up_o1(n):
-    if n <= 1:
-        return n
+            language="text"
+            filename="fib_bottom_up_o1.txt"
+            code={`Kamus:
+    n, i, a, b, temp : integer
 
-    a, b = 0, 1
-    for _ in range(2, n + 1):
-        a, b = b, a + b
+Algoritma function fib_bottom_up_o1(n) -> integer:
+    if n <= 1 then
+        return n
+    end if
+
+    a <- 0
+    b <- 1
+    for i <- 2 to n do
+        temp <- a + b
+        a <- b
+        b <- temp
+    end for
 
     return b`}
         />
@@ -704,16 +790,29 @@ def fib_top_down(n):
         </p>
         <MathBlock latex={knapsackTransition} />
         <CodeBlock
-            language="python"
-            filename="knapsack_one_row.py"
-            code={`def knapsack_one_row(weights, values, capacity):
-    dp = [0] * (capacity + 1)
+            language="text"
+            filename="knapsack_one_row.txt"
+            code={`Kamus:
+    n, i, w, capacity, w_item, v_item : integer
+    weights, values : array of integer
+    dp : array [0..capacity] of integer
 
-    for i in range(len(weights)):
-        w_item = weights[i]
-        v_item = values[i]
-        for w in range(capacity, w_item - 1, -1):
-            dp[w] = max(dp[w], dp[w - w_item] + v_item)
+Algoritma function knapsack_one_row(weights, values, capacity) -> integer:
+    for w <- 0 to capacity do
+        dp[w] <- 0
+    end for
+
+    n <- length(weights)
+    for i <- 0 to n - 1 do
+        w_item <- weights[i]
+        v_item <- values[i]
+        // Iterasi MUNDUR agar item hanya dipakai sekali
+        for w <- capacity down to w_item do
+            if dp[w - w_item] + v_item > dp[w] then
+                dp[w] <- dp[w - w_item] + v_item
+            end if
+        end for
+    end for
 
     return dp[capacity]`}
         />

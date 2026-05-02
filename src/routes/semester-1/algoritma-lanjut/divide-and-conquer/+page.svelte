@@ -7,6 +7,7 @@
     import Quiz from "$lib/components/Quiz.svelte";
     import MathBlock from "$lib/components/MathBlock.svelte";
     import QuickSortVisualizer from "./components/QuickSortVisualizer.svelte";
+    import BinarySearchAnimation from "./components/BinarySearchAnimation.svelte";
 
     const week5Quiz = [
         {
@@ -108,25 +109,32 @@ T(n) &= T\left(\frac{n}{2}\right)+c\\
         </Callout>
         <QuickSortVisualizer />
         <CodeBlock
-            language="python"
-            filename="quicksort_partition_sederhana.py"
-            code={`def partition(arr, low, high):
-    pivot = arr[high]
-    i = low - 1
+            language="text"
+            filename="quicksort_partition.txt"
+            code={`Kamus:
+    arr : array of integer
+    low, high, i, j, pivot, pi, temp : integer
 
-    for j in range(low, high):
-        if arr[j] <= pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
+Algoritma function partition(arr, low, high) -> integer:
+    pivot <- arr[high]
+    i <- low - 1
 
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    for j <- low to high - 1 do
+        if arr[j] <= pivot then
+            i <- i + 1
+            temp <- arr[i]; arr[i] <- arr[j]; arr[j] <- temp
+        end if
+    end for
+
+    temp <- arr[i + 1]; arr[i + 1] <- arr[high]; arr[high] <- temp
     return i + 1
 
-def quicksort(arr, low, high):
-    if low < high:
-        pi = partition(arr, low, high)
+Algoritma procedure quicksort(arr, low, high):
+    if low < high then
+        pi <- partition(arr, low, high)
         quicksort(arr, low, pi - 1)
-        quicksort(arr, pi + 1, high)`}
+        quicksort(arr, pi + 1, high)
+    end if`}
         />
         <p>
             Inti invariant-nya: setelah partisi selesai, posisi pivot sudah final untuk
@@ -223,20 +231,28 @@ def quicksort(arr, low, high):
 
     <NoteSection title="Contoh Implementasi Pruning: Binary Search">
         <CodeBlock
-            language="python"
-            filename="binary_search.py"
-            code={`def binary_search(arr, target):
-    left, right = 0, len(arr) - 1
+            language="text"
+            filename="binary_search.txt"
+            code={`Kamus:
+    arr : array of integer
+    target, left, right, mid : integer
 
-    while left <= right:
-        mid = (left + right) // 2
+Algoritma function binary_search(arr, target) -> integer:
+    left <- 0
+    right <- length(arr) - 1
 
-        if arr[mid] == target:
+    while left <= right do
+        mid <- (left + right) div 2
+
+        if arr[mid] = target then
             return mid
-        if arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
+        end if
+        if arr[mid] < target then
+            left <- mid + 1
+        else
+            right <- mid - 1
+        end if
+    end while
 
     return -1`}
         />
@@ -244,33 +260,56 @@ def quicksort(arr, low, high):
             Pada setiap iterasi, setengah ruang pencarian langsung dibuang. Ini adalah
             bentuk pruning paling sederhana dan sangat efektif.
         </p>
+
+        <Callout type="tip" title="Coba Interaktif!">
+            Pilih angka target, lalu klik Next untuk lihat bagaimana elemen yang tidak mungkin berisi jawaban langsung dibuang (pruning) setiap langkah.
+        </Callout>
+
+        <BinarySearchAnimation />
     </NoteSection>
 
     <NoteSection title="Contoh Implementasi DnC: Merge Sort">
         <CodeBlock
-            language="python"
-            filename="merge_sort.py"
-            code={`def merge_sort(arr):
-    if len(arr) <= 1:
+            language="text"
+            filename="merge_sort.txt"
+            code={`Kamus:
+    arr, left, right, result : array of integer
+    mid, i, j, k : integer
+
+Algoritma function merge_sort(arr) -> array:
+    if length(arr) <= 1 then
         return arr
+    end if
 
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+    mid <- length(arr) div 2
+    left <- merge_sort(arr[0..mid-1])
+    right <- merge_sort(arr[mid..akhir])
 
-    result = []
-    i = j = 0
+    // Merge dua array terurut
+    i <- 0; j <- 0; k <- 0
+    result <- array kosong
 
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
+    while (i < length(left)) and (j < length(right)) do
+        if left[i] <= right[j] then
+            result[k] <- left[i]
+            i <- i + 1
+        else
+            result[k] <- right[j]
+            j <- j + 1
+        end if
+        k <- k + 1
+    end while
 
-    result.extend(left[i:])
-    result.extend(right[j:])
+    // Salin sisa elemen
+    while i < length(left) do
+        result[k] <- left[i]
+        i <- i + 1; k <- k + 1
+    end while
+    while j < length(right) do
+        result[k] <- right[j]
+        j <- j + 1; k <- k + 1
+    end while
+
     return result`}
         />
         <p>
@@ -286,18 +325,25 @@ def quicksort(arr, low, high):
             mungkin berisi jawaban.
         </p>
         <CodeBlock
-            language="python"
-            filename="quickselect.py"
-            code={`def quickselect(arr, low, high, k):
-    if low == high:
+            language="text"
+            filename="quickselect.txt"
+            code={`Kamus:
+    arr : array of integer
+    low, high, k, pi : integer
+
+Algoritma function quickselect(arr, low, high, k) -> integer:
+    if low = high then
         return arr[low]
+    end if
 
-    pi = partition(arr, low, high)
+    pi <- partition(arr, low, high)
 
-    if pi == k:
+    if pi = k then
         return arr[pi]
-    if k < pi:
+    end if
+    if k < pi then
         return quickselect(arr, low, pi - 1, k)
+    end if
     return quickselect(arr, pi + 1, high, k)`}
         />
         <p>
@@ -320,19 +366,26 @@ def quicksort(arr, low, high):
             <li><code>T T T F F F</code>: cari true terakhir.</li>
         </ul>
         <CodeBlock
-            language="python"
-            filename="lower_bound.py"
-            code={`def lower_bound(arr, target):
-    low, high = 0, len(arr)
-    ans = high
+            language="text"
+            filename="lower_bound.txt"
+            code={`Kamus:
+    arr : array of integer
+    target, low, high, mid, ans : integer
 
-    while low < high:
-        mid = low + (high - low) // 2
-        if arr[mid] >= target:
-            ans = mid
-            high = mid
-        else:
-            low = mid + 1
+Algoritma function lower_bound(arr, target) -> integer:
+    low <- 0
+    high <- length(arr)
+    ans <- high
+
+    while low < high do
+        mid <- low + (high - low) div 2
+        if arr[mid] >= target then
+            ans <- mid
+            high <- mid
+        else
+            low <- mid + 1
+        end if
+    end while
 
     return ans`}
         />
@@ -348,27 +401,37 @@ def quicksort(arr, low, high):
             latex={"\\text{TotalProduk}(T)=\\sum_{i=1}^{N} \\left\\lfloor\\frac{T}{k_i}\\right\\rfloor"}
         />
         <CodeBlock
-            language="python"
-            filename="factory_schedule.py"
-            code={`def enough(time, machines, target):
-    total = 0
-    for k in machines:
-        total += time // k
-        if total >= target:
-            return True
-    return False
+            language="text"
+            filename="factory_schedule.txt"
+            code={`Kamus:
+    machines : array of integer
+    target, time, total, k : integer
+    low, high, mid, ans : integer
 
-def min_time(machines, target):
-    low, high = 1, 10**18
-    ans = high
+Algoritma function enough(time, machines, target) -> boolean:
+    total <- 0
+    for each k in machines do
+        total <- total + (time div k)
+        if total >= target then
+            return true
+        end if
+    end for
+    return false
 
-    while low <= high:
-        mid = low + (high - low) // 2
-        if enough(mid, machines, target):
-            ans = mid
-            high = mid - 1
-        else:
-            low = mid + 1
+Algoritma function min_time(machines, target) -> integer:
+    low <- 1
+    high <- 10^18
+    ans <- high
+
+    while low <= high do
+        mid <- low + (high - low) div 2
+        if enough(mid, machines, target) then
+            ans <- mid
+            high <- mid - 1
+        else
+            low <- mid + 1
+        end if
+    end while
 
     return ans`}
         />
@@ -380,17 +443,22 @@ def min_time(machines, target):
             pemangkasan bit pada eksponen, kita dapat O(log b).
         </p>
         <CodeBlock
-            language="python"
-            filename="binary_exponentiation.py"
-            code={`def fast_power(a, b):
-    result = 1
-    base = a
+            language="text"
+            filename="binary_exponentiation.txt"
+            code={`Kamus:
+    a, b, result, base : integer
 
-    while b > 0:
-        if b & 1:
-            result *= base
-        base *= base
-        b >>= 1
+Algoritma function fast_power(a, b) -> integer:
+    result <- 1
+    base <- a
+
+    while b > 0 do
+        if (b mod 2) = 1 then
+            result <- result * base
+        end if
+        base <- base * base
+        b <- b div 2
+    end while
 
     return result`}
         />
