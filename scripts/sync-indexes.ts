@@ -87,7 +87,11 @@ async function discoverRouteStructure(): Promise<
 > {
     const routesDir = path.resolve(process.cwd(), 'src', 'routes');
     const semesterDirs = (await readdir(routesDir, { withFileTypes: true }))
-        .filter((entry) => entry.isDirectory() && entry.name.startsWith('semester-'))
+        .filter(
+            (entry) =>
+                entry.isDirectory() &&
+                (entry.name.startsWith('semester-') || entry.name === 'luar-perkuliahan'),
+        )
         .map((entry) => entry.name)
         .sort();
 

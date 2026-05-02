@@ -29,6 +29,7 @@
         Scale,
         Shield,
         ShieldAlert,
+        Sparkles,
         SunMedium,
         Trash2,
         TriangleAlert,
@@ -78,6 +79,8 @@
     <Pickaxe size={size} strokeWidth={2} />
 {:else if name === "subject-keamanan-informasi"}
     <Shield size={size} strokeWidth={2} />
+{:else if name === "subject-vibe-coding"}
+    <Sparkles size={size} strokeWidth={2} />
 {:else if name === "callout-tip"}
     <Lightbulb size={size} strokeWidth={2} />
 {:else if name === "callout-warning"}

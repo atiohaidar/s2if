@@ -9,6 +9,8 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
+    tags: ['binary-search-tree', 'data-structure', 'tree'],
+    prereq: [],
     renderMode: 'note'
 };
 
