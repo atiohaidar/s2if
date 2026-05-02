@@ -389,7 +389,7 @@ end function
       <CodeBlock
         code={nodeStructCode}
         language="algorithm"
-        title="Algoritma 1: Struktur Simpul BST"
+        filename="Algoritma 1: Struktur Simpul BST"
       />
     </Callout>
   </NoteSection>
@@ -402,14 +402,14 @@ end function
         >overhead</em
       > rekursi.
     </p>
-    <CodeBlock code={searchCode} language="algorithm" title="Algoritma Pencarian" />
+    <CodeBlock code={searchCode} language="algorithm" filename="Algoritma Pencarian" />
 
     <h3 style="margin-top: 2rem;">Minimum & Maximum</h3>
     <p>
       Mencari nilai terkecil sangat mudah: cukup telusuri anak kiri sejauh mungkin. Sebaliknya untuk
       nilai terbesar, telusuri anak kanan.
     </p>
-    <CodeBlock code={minMaxCode} language="algorithm" title="Mencari Nilai Ekstrem" />
+    <CodeBlock code={minMaxCode} language="algorithm" filename="Mencari Nilai Ekstrem" />
 
     <h3 style="margin-top: 2rem;">Successor (Penerus)</h3>
     <p>
@@ -431,7 +431,7 @@ end function
       tidak, ia adalah leluhur terendah yang mana <code>x</code> berada di sub-pohon kirinya.
     </p>
     <BSTSuccessorVisualizer />
-    <CodeBlock code={successorCode} language="algorithm" title="Mencari Successor" />
+    <CodeBlock code={successorCode} language="algorithm" filename="Mencari Successor" />
 
     <h3 style="margin-top: 2rem;">Penyisipan (Insertion)</h3>
     <p>Penyisipan memerlukan pencarian posisi induk yang tepat terlebih dahulu.</p>
@@ -439,10 +439,10 @@ end function
     <CodeBlock
       code={searchParentCode}
       language="algorithm"
-      title="Algoritma 4: Pencarian Induk BST"
+      filename="Algoritma 4: Pencarian Induk BST"
     />
     <div style="margin-top: 1rem;"></div>
-    <CodeBlock code={insertCode} language="algorithm" title="Algoritma 5: Penyisipan Elemen BST" />
+    <CodeBlock code={insertCode} language="algorithm" filename="Algoritma 5: Penyisipan Elemen BST" />
 
     <h3 style="margin-top: 2rem;">Penghapusan (Deletion)</h3>
     <p>
@@ -451,11 +451,11 @@ end function
     <CodeBlock
       code={updateIndukCode}
       language="algorithm"
-      title="Algoritma 7: Update Induk Simpul"
+      filename="Algoritma 7: Update Induk Simpul"
     />
     <div style="margin-top: 1rem;"></div>
     <BSTDeleteVisualizer />
-    <CodeBlock code={deleteCode} language="algorithm" title="Algoritma 6: Penghapusan Simpul" />
+    <CodeBlock code={deleteCode} language="algorithm" filename="Algoritma 6: Penghapusan Simpul" />
 
     <h3 style="margin-top: 2rem;">Penelusuran (Traversal)</h3>
     <p>
@@ -549,7 +549,7 @@ end function
     <AVLRotationVisualizer />
 
     <h3 style="margin-top: 2rem;">Implementasi Rotasi</h3>
-    <CodeBlock code={rotationCode} language="algorithm" title="Kode Rotasi AVL" />
+    <CodeBlock code={rotationCode} language="algorithm" filename="Kode Rotasi AVL" />
 
     <h3 style="margin-top: 2rem;">Analisis Tinggi (Teorema Fibonacci)</h3>
     <p>
@@ -588,7 +588,7 @@ end function
     <CodeBlock
       code={rankSearchCode}
       language="algorithm"
-      title="Algoritma 9: Pencarian Peringkat ke-k"
+      filename="Algoritma 9: Pencarian Peringkat ke-k"
     />
 
     <h3 style="margin-top: 2rem;">Lowest Common Ancestor (LCA)</h3>

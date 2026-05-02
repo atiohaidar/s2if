@@ -1,4 +1,4 @@
-import type { TopicManifest } from '$lib/data/content';
+import type { TopicManifest } from '$lib/data/content/types';
 
 const manifest: TopicManifest = {
     id: 'bedah-soal-bst-inversion-count',
@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'soal',
     track: 'bedah-soal',
     status: 'done',
-    order: 14,
+    order: 16,
     tags: ['bst', 'inversion-count', 'augmented-bst', 'soal-latihan'],
     prereq: ['binary-search-tree'],
     renderMode: 'note',

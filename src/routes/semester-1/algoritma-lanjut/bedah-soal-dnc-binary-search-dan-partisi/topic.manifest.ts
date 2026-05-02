@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'praktek',
     track: 'bedah-soal',
     status: 'done',
-    order: 11,
+    order: 12,
     tags: ['bedah-soal', 'dnc', 'binary-search', 'partition', 'quicksort'],
     prereq: ['week-5-dnc-pruning'],
     renderMode: 'note',

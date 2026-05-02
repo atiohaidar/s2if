@@ -274,10 +274,10 @@ Total inversi = 5 ✓
         <p>Sebelum coding, mari kita trace manual kedua contoh agar benar-benar paham:</p>
 
         <h3>Contoh 1: [3, 1, 2]</h3>
-        <CodeBlock code={traceExample1} language="text" title="Tracing Contoh 1" />
+        <CodeBlock code={traceExample1} language="text" filename="Tracing Contoh 1" />
 
         <h3 style="margin-top: 2rem;">Contoh 2: [2, 3, 8, 6, 1]</h3>
-        <CodeBlock code={traceExample2} language="text" title="Tracing Contoh 2" />
+        <CodeBlock code={traceExample2} language="text" filename="Tracing Contoh 2" />
 
         <Callout type="tip" title="Tips Tracing">
             <p>
@@ -294,7 +294,7 @@ Total inversi = 5 ✓
             Jika <code>A[i] &gt; A[j]</code> dan <code>i &lt; j</code>, tambahkan 1 ke penghitung.
         </p>
 
-        <CodeBlock code={bruteForceCode} language="python" title="Solusi Brute Force — O(n²)" />
+        <CodeBlock code={bruteForceCode} language="python" filename="Solusi Brute Force — O(n²)" />
 
         <Callout type="warning" title="Kenapa Tidak Cukup?">
             <p>
@@ -323,7 +323,7 @@ Total inversi = 5 ✓
             </div>
         </div>
 
-        <CodeBlock code={bstAugmentedCode} language="algorithm" title="Pseudocode: Augmented BST untuk Inversion Count" />
+        <CodeBlock code={bstAugmentedCode} language="algorithm" filename="Pseudocode: Augmented BST untuk Inversion Count" />
 
         <Callout type="warning" title="Masalah Praktis BST Murni">
             <p>
@@ -342,11 +342,11 @@ Total inversi = 5 ✓
             dari elemen bagian kanan, maka semua sisa elemen di bagian kiri juga membentuk inversi.</strong>
         </p>
 
-        <CodeBlock code={mergeSortTrace} language="text" title="Trace Merge Sort pada [2, 3, 8, 6, 1]" />
+        <CodeBlock code={mergeSortTrace} language="text" filename="Trace Merge Sort pada [2, 3, 8, 6, 1]" />
 
         <div style="margin-top: 1.5rem;"></div>
 
-        <CodeBlock code={mergeSortCode} language="python" title="Solusi Merge Sort — O(n log n)" />
+        <CodeBlock code={mergeSortCode} language="python" filename="Solusi Merge Sort — O(n log n)" />
 
         <Callout type="tip" title="Mengapa Merge Sort Bekerja?">
             <p>
@@ -365,7 +365,7 @@ Total inversi = 5 ✓
             Idenya mirip dengan Augmented BST: proses dari kanan ke kiri, hitung berapa elemen yang sudah diproses yang nilainya lebih kecil.
         </p>
 
-        <CodeBlock code={bitCode} language="python" title="Solusi BIT / Fenwick Tree — O(n log n)" />
+        <CodeBlock code={bitCode} language="python" filename="Solusi BIT / Fenwick Tree — O(n log n)" />
 
         <Callout type="info" title="Apa itu Koordinat Kompresi?">
             <p>

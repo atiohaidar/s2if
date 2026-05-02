@@ -39,27 +39,30 @@
 
         if (node.right !== undefined) {
             currSteps.push({ idx: targetIdx, log: `Punya anak kanan (${nodes[node.right].val}). Suksesor adalah NILAI MINIMUM di sub-pohon kanan.`, isFinal: false });
-            let curr = node.right;
+            let curr: number | undefined = node.right;
             while (curr !== undefined) {
-                currSteps.push({ idx: curr, log: `Cek ${nodes[curr].val}...`, isFinal: false });
-                if (nodes[curr].left !== undefined) {
-                    curr = nodes[curr].left;
+                const cIdx: number = curr;
+                currSteps.push({ idx: cIdx, log: `Cek ${nodes[cIdx].val}...`, isFinal: false });
+                if (nodes[cIdx].left !== undefined) {
+                    curr = nodes[cIdx].left;
                 } else {
-                    currSteps.push({ idx: curr, log: `Ketemu! Suksesor adalah ${nodes[curr].val}.`, isFinal: true });
+                    currSteps.push({ idx: cIdx, log: `Ketemu! Suksesor adalah ${nodes[cIdx].val}.`, isFinal: true });
                     break;
                 }
             }
         } else {
             currSteps.push({ idx: targetIdx, log: `Tidak punya anak kanan. Naik ke atas (parent) mencari belokan kanan pertama.`, isFinal: false });
-            let curr = targetIdx;
-            let p = nodes[curr].parent;
+            let curr: number = targetIdx;
+            let p: number | undefined = nodes[curr].parent;
             while (p !== undefined && nodes[p].right === curr) {
-                currSteps.push({ idx: p, log: `${nodes[curr].val} adalah anak KANAN dari ${nodes[p].val}. Naik lagi...`, isFinal: false });
-                curr = p;
-                p = nodes[p].parent;
+                const pIdx: number = p;
+                currSteps.push({ idx: pIdx, log: `${nodes[curr].val} adalah anak KANAN dari ${nodes[pIdx].val}. Naik lagi...`, isFinal: false });
+                curr = pIdx;
+                p = nodes[pIdx].parent;
             }
             if (p !== undefined) {
-                currSteps.push({ idx: p, log: `${nodes[curr].val} adalah anak KIRI dari ${nodes[p].val}. Ketemu! Suksesor adalah ${nodes[p].val}.`, isFinal: true });
+                const pIdx: number = p;
+                currSteps.push({ idx: pIdx, log: `${nodes[curr].val} adalah anak KIRI dari ${nodes[pIdx].val}. Ketemu! Suksesor adalah ${nodes[pIdx].val}.`, isFinal: true });
             } else {
                 currSteps.push({ idx: -1, log: `Sudah sampai akar dan tidak ada lagi. Simpul ini adalah nilai terbesar (tidak punya suksesor).`, isFinal: true });
             }

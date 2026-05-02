@@ -1,4 +1,4 @@
-export type TopicType = 'catatan' | 'visual' | 'praktek';
+export type TopicType = 'catatan' | 'visual' | 'praktek' | 'soal';
 export type TopicTrack = 'materi' | 'bedah-soal';
 export type TopicStatus = 'done' | 'wip' | 'todo';
 export type RenderMode = 'note' | 'interactive' | 'mixed';

@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'wip',
-    order: 12,
+    order: 9,
     tags: ['dynamic-programming', 'memoization', 'tabulation', 'lcs', 'knapsack'],
     prereq: ['konsep', 'branch-and-bound'],
     renderMode: 'mixed',

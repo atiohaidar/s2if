@@ -189,7 +189,7 @@ def lcs_recursive(A, B, n, m):
             <li><strong>i = 10</strong>: Ambil koin 4+3+3 atau 4+4+2 → <strong>3 koin</strong>.</li>
         </ul>
 
-        <CodeBlock code={codeSnippet} language="cpp" title="Implementasi C++" />
+        <CodeBlock code={codeSnippet} language="cpp" filename="Implementasi C++" />
     </NoteSection>
 
     <NoteSection title="Studi Kasus: Longest Common Subsequence (LCS)">
@@ -272,12 +272,12 @@ def lcs_recursive(A, B, n, m):
             <div class="code-column">
                 <h4>Cara Biasa (Rekursif)</h4>
                 <p>Mudah ditulis, tapi "boros" waktu karena menghitung hal yang sama berulang kali.</p>
-                <CodeBlock code={recursiveLcsCode} language="python" title="Recursive LCS (Slow)" />
+                <CodeBlock code={recursiveLcsCode} language="python" filename="Recursive LCS (Slow)" />
             </div>
             <div class="code-column">
                 <h4>Cara Dynamic Programming</h4>
                 <p>Menggunakan tabel memori agar jauh lebih cepat dan efisien.</p>
-                <CodeBlock code={pythonLcsCode} language="python" title="DP LCS (Fast & Full)" />
+                <CodeBlock code={pythonLcsCode} language="python" filename="DP LCS (Fast & Full)" />
             </div>
         </div>
         

@@ -8,8 +8,11 @@
     import InsertionSortAnimation from "./components/InsertionSortAnimation.svelte";
     import MergeSortAnimation from "./components/MergeSortAnimation.svelte";
     import QuickSortAnimation from "./components/QuickSortAnimation.svelte";
+    import QuickSortHoareAnimation from "./components/QuickSortHoareAnimation.svelte";
     import HeapSortAnimation from "./components/HeapSortAnimation.svelte";
     import CountingSortAnimation from "./components/CountingSortAnimation.svelte";
+    import SelectionSortAnimation from "./components/SelectionSortAnimation.svelte";
+    import BubbleSortAnimation from "./components/BubbleSortAnimation.svelte";
 
     const materiQuiz = [
         {
@@ -104,21 +107,30 @@
             <li>Kompleksitas waktu tetap kuadratik untuk rata-rata dan worst case.</li>
         </ul>
 
+        <p><strong>Simulasi Visual:</strong></p>
+        <SelectionSortAnimation />
+
         <CodeBlock
-            language="python"
-            filename="selection_sort.py"
-            code={`def selection_sort(arr):
-    a = arr[:]
-    n = len(a)
+            language="text"
+            filename="selection_sort.txt"
+            code={`Kamus:
+    n, i, j, min_idx, temp : integer
+    arr : array [0..N-1] of integer
 
-    for i in range(n - 1):
-        min_idx = i
-        for j in range(i + 1, n):
-            if a[j] < a[min_idx]:
-                min_idx = j
-        a[i], a[min_idx] = a[min_idx], a[i]
-
-    return a`}
+Algoritma:
+    n <- length(arr)
+    for i <- 0 to n - 2 do
+        min_idx <- i
+        for j <- i + 1 to n - 1 do
+            if arr[j] < arr[min_idx] then
+                min_idx <- j
+            end if
+        end for
+        
+        temp <- arr[i]
+        arr[i] <- arr[min_idx]
+        arr[min_idx] <- temp
+    end for`}
         />
 
         <CodeBlock
@@ -157,21 +169,34 @@ dst.`}
         <p><strong>Kelebihan:</strong> sangat mudah divisualisasikan untuk pemula.</p>
         <p><strong>Kekurangan:</strong> lambat untuk data besar karena banyak perbandingan dan swap.</p>
 
+        <p><strong>Simulasi Visual:</strong></p>
+        <BubbleSortAnimation />
+
         <CodeBlock
-            language="python"
-            filename="bubble_sort.py"
-            code={`def bubble_sort(arr):
-    a = arr[:]
-    n = len(a)
-    for i in range(n):
-        swapped = False
-        for j in range(0, n - i - 1):
-            if a[j] > a[j + 1]:
-                a[j], a[j + 1] = a[j + 1], a[j]
-                swapped = True
-        if not swapped:
+            language="text"
+            filename="bubble_sort.txt"
+            code={`Kamus:
+    n, i, j, temp : integer
+    swapped : boolean
+    arr : array [0..N-1] of integer
+
+Algoritma:
+    n <- length(arr)
+    for i <- 0 to n - 1 do
+        swapped <- false
+        for j <- 0 to n - i - 2 do
+            if arr[j] > arr[j + 1] then
+                temp <- arr[j]
+                arr[j] <- arr[j + 1]
+                arr[j + 1] <- temp
+                swapped <- true
+            end if
+        end for
+        
+        if not swapped then
             break
-    return a`}
+        end if
+    end for`}
         />
 
         <CodeBlock
@@ -201,18 +226,25 @@ Output: [1, 2, 4, 5]`}
         <InsertionSortAnimation />
 
         <CodeBlock
-            language="python"
-            filename="insertion_sort.py"
-            code={`def insertion_sort(arr):
-    a = arr[:]
-    for i in range(1, len(a)):
-        key = a[i]
-        j = i - 1
-        while j >= 0 and a[j] > key:
-            a[j + 1] = a[j]
-            j -= 1
-        a[j + 1] = key
-    return a`}
+            language="text"
+            filename="insertion_sort.txt"
+            code={`Kamus:
+    n, i, j, key : integer
+    arr : array [0..N-1] of integer
+
+Algoritma:
+    n <- length(arr)
+    for i <- 1 to n - 1 do
+        key <- arr[i]
+        j <- i - 1
+        
+        while (j >= 0) and (arr[j] > key) do
+            arr[j + 1] <- arr[j]
+            j <- j - 1
+        end while
+        
+        arr[j + 1] <- key
+    end for`}
         />
 
         <CodeBlock
@@ -242,39 +274,47 @@ Output: [5, 6, 11, 12, 13]`}
         <MergeSortAnimation />
 
         <CodeBlock
-            language="python"
-            filename="merge_sort.py"
-            code={`def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
+            language="text"
+            filename="merge_sort.txt"
+            code={`Kamus:
+    mid, i, j, k : integer
+    left, right, result : array of integer
 
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+Algoritma function merge_sort(arr) -> array:
+    if length(arr) <= 1 then
+        return arr
+    end if
+
+    mid <- length(arr) div 2
+    left <- merge_sort(arr[0 .. mid-1])
+    right <- merge_sort(arr[mid .. length(arr)-1])
     return merge(left, right)
 
+Algoritma function merge(left, right) -> array:
+    i <- 0; j <- 0; k <- 0
+    result <- array kosong berukuran length(left) + length(right)
+    
+    while (i < length(left)) and (j < length(right)) do
+        if left[i] <= right[j] then
+            result[k] <- left[i]
+            i <- i + 1
+        else
+            result[k] <- right[j]
+            j <- j + 1
+        end if
+        k <- k + 1
+    end while
 
-def merge(left, right):
-    result = []
-    i = j = 0
-    # Looping utama berhenti jika SALAH SATU array habis duluan.
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
+    // Tim penyapu bersih sisa elemen
+    while i < length(left) do
+        result[k] <- left[i]
+        i <- i + 1; k <- k + 1
+    end while
 
-    # Tim penyapu bersih: Memasukkan sisa elemen yang belum terambil
-    # (Hanya salah satu dari while ini yang akan berjalan)
-    while i < len(left):
-        result.append(left[i])
-        i += 1
-
-    while j < len(right):
-        result.append(right[j])
-        j += 1
+    while j < length(right) do
+        result[k] <- right[j]
+        j <- j + 1; k <- k + 1
+    end while
 
     return result`}
         />
@@ -285,6 +325,12 @@ def merge(left, right):
 
         <Callout type="tip" title="Bagaimana array Kiri dan Kanan dipastikan selalu terurut?">
             Fungsi <code>merge</code> mensyaratkan kedua array input sudah terurut. Lalu bagaimana cara memastikannya? Algoritma ini membelah array terus-menerus sampai ukurannya tersisa <strong>1 elemen</strong> (<code>if len(arr) &lt;= 1</code>). Secara logika, array berisi 1 elemen sudah pasti terurut sempurna! Dari kepingan-kepingan terkecil inilah proses penggabungan bergerak mundur perlahan ke atas menjadi ukuran 2, 4, 8, dan seterusnya.
+        </Callout>
+
+        <Callout type="info" title="Rahasia Kecepatan: Apa untungnya menggabungkan array yang sudah terurut?">
+            Keuntungannya luar biasa besar pada efisiensi jumlah perbandingan.<br/><br/>
+            Bayangkan dua barisan angka <strong>acak</strong>: <code>[18, 15, 17]</code> dan <code>[16, 19, 11]</code>. Untuk mencari nilai terkecil dan menyusun ulang keduanya, kita harus mengecek semua angka berulang kali karena nilai terkecil bisa bersembunyi di posisi manapun. Ini sangat lambat dan memakan waktu <code>O(N²)</code>.<br/><br/>
+            Tapi, bayangkan jika kelompoknya <strong>sudah terurut</strong>: <code>[15, 17, 18]</code> dan <code>[11, 16, 19]</code>. Karena sudah terurut, kita <strong>pasti tahu</strong> bahwa elemen terkecil masing-masing kelompok ada di posisi paling depan! Kita cukup membandingkan yang terdepan saja (<code>15 vs 11</code>). Ambil yang terkecil (11), lalu lanjut membandingkan pemenang selanjutnya (<code>15 vs 16</code>). Karena kita hanya melirik setiap elemen bergeser maju tepat <strong>satu kali</strong>, proses penggabungan ini menjadi sangat cepat <code>O(N)</code>. Itulah rahasia ajaib dibalik Divide and Conquer!
         </Callout>
 
         <CodeBlock
@@ -303,10 +349,10 @@ Output: [3, 9, 10, 27, 38, 43, 82]`}
         </ol>
     </NoteSection>
 
-    <NoteSection title="5) Quick Sort">
+    <NoteSection title="5A) Quick Sort (Lomuto Partition)">
         <p>
-            <strong>Konsep:</strong> pilih pivot, partisi elemen kecil di kiri dan besar di kanan,
-            lalu rekursif ke dua sisi.
+            <strong>Konsep:</strong> pilih pivot (biasanya ujung kanan), partisi elemen kecil ke kiri,
+            dengan pointer pencari (j) bergerak searah dari kiri ke kanan.
         </p>
         <p><strong>Kelebihan:</strong> sangat cepat di praktik rata-rata, in-place.</p>
         <p><strong>Kekurangan:</strong> jika pivot buruk berulang, bisa turun ke <code>O(n^2)</code>.</p>
@@ -315,29 +361,39 @@ Output: [3, 9, 10, 27, 38, 43, 82]`}
         <QuickSortAnimation />
 
         <CodeBlock
-            language="python"
-            filename="quick_sort.py"
-            code={`def quick_sort(arr):
-    a = arr[:]
-    _quick_sort(a, 0, len(a) - 1)
-    return a
+            language="text"
+            filename="quick_sort_lomuto.txt"
+            code={`Kamus Utama:
+    data : array of integer
+    n : integer
 
+Algoritma Utama:
+    data <- [10, 7, 8, 9, 1, 5]
+    n <- length(data)
+    quick_sort(data, 0, n - 1)
 
-def _quick_sort(a, low, high):
-    if low < high:
-        p = partition(a, low, high)
-        _quick_sort(a, low, p - 1)
-        _quick_sort(a, p + 1, high)
+Kamus Prosedur/Fungsi:
+    low, high, p, pivot, i, j, temp : integer
 
+Algoritma procedure quick_sort(a, low, high):
+    if low < high then
+        p <- partition(a, low, high)
+        quick_sort(a, low, p - 1)
+        quick_sort(a, p + 1, high)
+    end if
 
-def partition(a, low, high):
-    pivot = a[high]
-    i = low - 1
-    for j in range(low, high):
-        if a[j] <= pivot:
-            i += 1
-            a[i], a[j] = a[j], a[i]
-    a[i + 1], a[high] = a[high], a[i + 1]
+Algoritma function partition(a, low, high) -> integer:
+    pivot <- a[high]
+    i <- low - 1
+    
+    for j <- low to high - 1 do
+        if a[j] <= pivot then
+            i <- i + 1
+            temp <- a[i]; a[i] <- a[j]; a[j] <- temp
+        end if
+    end for
+    
+    temp <- a[i + 1]; a[i + 1] <- a[high]; a[high] <- temp
     return i + 1`}
         />
 
@@ -356,6 +412,69 @@ Output: [1, 5, 7, 8, 9, 10]`}
         </ul>
     </NoteSection>
 
+    <NoteSection title="5B) Quick Sort (Hoare Partition)">
+        <p>
+            <strong>Konsep:</strong> Menggunakan teknik partisi dua arah. Memiliki pointer di kiri dan kanan yang bergerak ke tengah. Lebih efisien dalam jumlah pertukaran (swap) dibanding Lomuto, sehingga sering digunakan di implementasi standar dan diajarkan di kelas kampus lanjutan.
+        </p>
+
+        <p><strong>Simulasi Visual:</strong></p>
+        <QuickSortHoareAnimation />
+
+        <CodeBlock
+            language="text"
+            filename="quick_sort_hoare.txt"
+            code={`Kamus Utama:
+    data : array of integer
+    n : integer
+
+Algoritma Utama:
+    data <- [10, 7, 8, 9, 1, 5]
+    n <- length(data)
+    quick_sort_hoare(data, 0, n - 1)
+
+Kamus Prosedur/Fungsi:
+    low, high, p, pivot, l, r, temp : integer
+
+Algoritma procedure quick_sort_hoare(a, low, high):
+    if low < high then
+        p <- partition_hoare(a, low, high)
+        quick_sort_hoare(a, low, p - 1)
+        quick_sort_hoare(a, p + 1, high)
+    end if
+
+Algoritma function partition_hoare(a, low, high) -> integer:
+    pivot <- a[low]
+    l <- low + 1
+    r <- high
+    
+    while true do
+        while (l <= r) and (a[l] <= pivot) do
+            l <- l + 1
+        end while
+        
+        while (l <= r) and (a[r] > pivot) do
+            r <- r - 1
+        end while
+        
+        if l <= r then
+            temp <- a[l]; a[l] <- a[r]; a[r] <- temp
+            l <- l + 1
+            r <- r - 1
+        else
+            break
+        end if
+    end while
+    
+    temp <- a[low]; a[low] <- a[r]; a[r] <- temp
+    return r`}
+        />
+
+        <Callout type="info" title="Analogi Hoare Partition: Dua Satpam Saling Mendekat">
+            Bayangkan ada dua satpam. Satpam Kiri (<code>l</code>) jalan pelan ke kanan bertugas menahan <strong>"angka yang salah baris karena terlalu besar"</strong>. Satpam Kanan (<code>r</code>) jalan pelan ke kiri menahan <strong>"angka yang salah baris karena terlalu kecil"</strong>.<br/><br/>
+            Ketika Satpam Kiri menemukan angka besar, dia berhenti. Dia menunggu sampai Satpam Kanan juga menemukan angka kecil. Saat dua-duanya sudah menemukan "pelanggar", mereka saling melempar/menukar silang angka tersebut! Proses ini diulang terus sampai kedua satpam bertemu/bersilangan di tengah lapangan. Di titik pertemuan itulah sang Pivot (Patokan) akhirnya ditempatkan!
+        </Callout>
+    </NoteSection>
+
     <NoteSection title="6) Heap Sort">
         <p>
             <strong>Konsep:</strong> ubah array menjadi <strong>max-heap</strong>, lalu
@@ -368,35 +487,39 @@ Output: [1, 5, 7, 8, 9, 10]`}
         <HeapSortAnimation />
 
         <CodeBlock
-            language="python"
-            filename="heap_sort.py"
-            code={`def heap_sort(arr):
-    a = arr[:]
-    n = len(a)
+            language="text"
+            filename="heap_sort.txt"
+            code={`Kamus:
+    n, i, end, largest, left, right, temp : integer
 
-    for i in range(n // 2 - 1, -1, -1):
+Algoritma procedure heap_sort(a):
+    n <- length(a)
+
+    for i <- (n div 2) - 1 down to 0 do
         heapify(a, n, i)
+    end for
 
-    for end in range(n - 1, 0, -1):
-        a[0], a[end] = a[end], a[0]
+    for end <- n - 1 down to 1 do
+        temp <- a[0]; a[0] <- a[end]; a[end] <- temp
         heapify(a, end, 0)
+    end for
 
-    return a
+Algoritma procedure heapify(a, n, i):
+    largest <- i
+    left <- 2 * i + 1
+    right <- 2 * i + 2
 
+    if (left < n) and (a[left] > a[largest]) then
+        largest <- left
+    end if
+    if (right < n) and (a[right] > a[largest]) then
+        largest <- right
+    end if
 
-def heapify(a, n, i):
-    largest = i
-    left = 2 * i + 1
-    right = 2 * i + 2
-
-    if left < n and a[left] > a[largest]:
-        largest = left
-    if right < n and a[right] > a[largest]:
-        largest = right
-
-    if largest != i:
-        a[i], a[largest] = a[largest], a[i]
-        heapify(a, n, largest)`}
+    if largest != i then
+        temp <- a[i]; a[i] <- a[largest]; a[largest] <- temp
+        heapify(a, n, largest)
+    end if`}
         />
 
         <CodeBlock
@@ -427,21 +550,32 @@ Output: [5, 6, 7, 11, 12, 13]`}
         <CountingSortAnimation />
 
         <CodeBlock
-            language="python"
-            filename="counting_sort.py"
-            code={`def counting_sort(arr):
-    if not arr:
-        return []
+            language="text"
+            filename="counting_sort.txt"
+            code={`Kamus:
+    max_val, i, j, k : integer
+    count, output : array of integer
 
-    max_val = max(arr)
-    count = [0] * (max_val + 1)
+Algoritma function counting_sort(arr) -> array:
+    if length(arr) = 0 then
+        return arr
+    end if
 
-    for x in arr:
-        count[x] += 1
+    max_val <- cari nilai maksimum di arr
+    count <- array of integer ukuran max_val + 1, diisi 0
+    
+    for i <- 0 to length(arr) - 1 do
+        count[arr[i]] <- count[arr[i]] + 1
+    end for
 
-    output = []
-    for value, freq in enumerate(count):
-        output.extend([value] * freq)
+    output <- array kosong
+    k <- 0
+    for i <- 0 to max_val do
+        for j <- 1 to count[i] do
+            output[k] <- i
+            k <- k + 1
+        end for
+    end for
 
     return output`}
         />
@@ -492,12 +626,19 @@ Output: [1, 2, 2, 3, 3, 4, 8]`}
         <p><strong>Kekurangan:</strong> lambat untuk data besar.</p>
 
         <CodeBlock
-            language="python"
-            filename="linear_search.py"
-            code={`def linear_search(arr, target):
-    for i, value in enumerate(arr):
-        if value == target:
+            language="text"
+            filename="linear_search.txt"
+            code={`Kamus:
+    i, target : integer
+    arr : array of integer
+
+Algoritma function linear_search(arr, target) -> integer:
+    for i <- 0 to length(arr) - 1 do
+        if arr[i] = target then
             return i
+        end if
+    end for
+    
     return -1`}
         />
 
@@ -526,19 +667,26 @@ Output: 2`}
         <p><strong>Kekurangan:</strong> tidak bisa langsung dipakai di data acak.</p>
 
         <CodeBlock
-            language="python"
-            filename="binary_search.py"
-            code={`def binary_search(arr, target):
-    low, high = 0, len(arr) - 1
+            language="text"
+            filename="binary_search.txt"
+            code={`Kamus:
+    low, high, mid, target : integer
+    arr : array of integer
 
-    while low <= high:
-        mid = (low + high) // 2
-        if arr[mid] == target:
+Algoritma function binary_search(arr, target) -> integer:
+    low <- 0
+    high <- length(arr) - 1
+
+    while low <= high do
+        mid <- (low + high) div 2
+        if arr[mid] = target then
             return mid
-        if arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
+        else if arr[mid] < target then
+            low <- mid + 1
+        else
+            high <- mid - 1
+        end if
+    end while
 
     return -1`}
         />

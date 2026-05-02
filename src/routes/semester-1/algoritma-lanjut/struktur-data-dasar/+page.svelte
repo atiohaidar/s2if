@@ -5,6 +5,13 @@
     import BackLink from "$lib/components/BackLink.svelte";
     import Callout from "$lib/components/Callout.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
+    import HeapifyDownAnimation from "./components/HeapifyDownAnimation.svelte";
+    import BuildMinHeapAnimation from "./components/BuildMinHeapAnimation.svelte";
+    import DataStructureVisuals from "./components/DataStructureVisuals.svelte";
+    import StackDemo from "./components/StackDemo.svelte";
+    import QueueDemo from "./components/QueueDemo.svelte";
+    import LinkedListDemo from "./components/LinkedListDemo.svelte";
+    import TreeDemo from "./components/TreeDemo.svelte";
 
     const strukturDataQuiz = [
         {
@@ -156,53 +163,10 @@
     <NoteSection title="Ilustrasi Cepat: Bentuk dan Pola">
         <p>
             Kalau kamu suka belajar lewat visual, bagian ini merangkum bentuk dasar tiap struktur data.
-            Tujuannya supaya kamu tidak cuma hafal nama, tapi juga langsung kebayang alur datanya.
+            Tujuannya supaya kamu tidak cuma hafal nama, tapi juga langsung kebayang bentuk dan alur datanya secara interaktif.
         </p>
 
-        <CodeBlock
-            language="text"
-            filename="visual-cheatsheet.txt"
-            code={`STACK (LIFO)
-bottom -> [10] -> [20] -> [30] <- top
-
-QUEUE (FIFO)
-front -> [A] -> [B] -> [C] <- back
-
-LINKED LIST
-head -> [7|next] -> [9|next] -> [12|null]
-
-HASH TABLE
-bucket 0: -
-bucket 1: [andi: 88]
-bucket 2: [budi: 91] -> [cici: 95]
-
-GRAPH (adjacency list)
-1: 2, 4
-2: 1, 3
-3: 2
-4: 1`}
-        />
-
-        <CodeBlock
-            language="text"
-            filename="heap_and_tree.txt"
-            code={`BINARY TREE
-        8
-       / \\
-      3  10
-     / \\   \\
-    1   6   14
-
-MIN-HEAP
-        1
-       / \\
-      3   6
-     / \\  /
-    8  10 9
-
-ARRAY REPRESENTATION HEAP
-[1, 3, 6, 8, 10, 9]`}
-        />
+        <DataStructureVisuals />
 
         <Callout type="tip" title="Cara baca cepat">
             Stack dan queue dibaca dari arah ujungnya. Linked list dibaca dengan pointer. Tree dan heap
@@ -223,28 +187,22 @@ ARRAY REPRESENTATION HEAP
             <li>DFS iteratif dan simulasi rekursi.</li>
         </ul>
 
+        <StackDemo />
+
         <CodeBlock
             language="text"
-            filename="stack_visual.txt"
-            code={`push(10) -> [10]
-push(20) -> [10, 20]
-push(30) -> [10, 20, 30]
-pop()    -> [10, 20]
+            filename="stack_pseudocode.txt"
+            code={`Kamus:
+    stack : array of integer
+    last, top_val : integer
 
-top selalu ada di elemen paling kanan`}
-        />
+Algoritma:
+    push(stack, 10)
+    push(stack, 20)
+    push(stack, 30)
 
-        <CodeBlock
-            language="python"
-            filename="stack_example.py"
-            code={`stack = []
-
-stack.append(10)   # push
-stack.append(20)   # push
-stack.append(30)   # push
-
-last = stack.pop() # 30
-top = stack[-1]    # 20`}
+    last <- pop(stack)      // 30
+    top_val <- top(stack)   // 20`}
         />
 
         <Callout type="warning" title="Kesalahan umum">
@@ -266,29 +224,22 @@ top = stack[-1]    # 20`}
             <li>BFS pada graph/tree.</li>
         </ul>
 
+        <QueueDemo />
+
         <CodeBlock
             language="text"
-            filename="queue_visual.txt"
-            code={`enqueue(A) -> front [A]
-enqueue(B) -> front [A] [B]
-enqueue(C) -> front [A] [B] [C] back
-dequeue()   -> front [B] [C] back
+            filename="queue_pseudocode.txt"
+            code={`Kamus:
+    q : queue of string
+    first, front_val : string
 
-elemen keluar dari depan, bukan dari belakang`}
-        />
+Algoritma:
+    enqueue(q, "A")
+    enqueue(q, "B")
+    enqueue(q, "C")
 
-        <CodeBlock
-            language="python"
-            filename="queue_example.py"
-            code={`from collections import deque
-
-q = deque()
-q.append("A")      # enqueue
-q.append("B")
-q.append("C")
-
-first = q.popleft() # dequeue -> "A"
-front = q[0]        # "B"`}
+    first <- dequeue(q)     // "A"
+    front_val <- front(q)   // "B"`}
         />
     </NoteSection>
 
@@ -308,16 +259,7 @@ front = q[0]        # "B"`}
             <li>Overhead memori untuk pointer.</li>
         </ul>
 
-        <CodeBlock
-            language="text"
-            filename="linked_list_visual.txt"
-            code={`head
-  |
-  v
-[7|next] -> [9|next] -> [12|null]
-
-akses data ke-3 berarti melangkah dari head satu per satu`}
-        />
+        <LinkedListDemo />
 
         <Callout type="info" title="Kompleksitas singkat">
             Akses elemen ke-i biasanya O(n), sedangkan insert di head O(1).
@@ -342,29 +284,7 @@ akses data ke-3 berarti melangkah dari head satu per satu`}
             <li><strong>Balanced Tree</strong> (AVL/Red-Black): tinggi dijaga agar operasi tetap cepat.</li>
         </ul>
 
-        <CodeBlock
-            language="text"
-            filename="tree_terms.txt"
-            code={`root = node paling atas
-leaf = node tanpa anak
-parent = node di atas
-child = node di bawah
-
-contoh relasi:
-8 adalah parent dari 3 dan 10`}
-        />
-
-        <CodeBlock
-            language="text"
-            filename="tree_example.txt"
-            code={`        8
-       / \\
-      3  10
-     / \\   \\
-    1   6   14
-
-Inorder traversal -> 1, 3, 6, 8, 10, 14`}
-        />
+        <TreeDemo />
 
         <Callout type="tip" title="Koneksi ke sorting/searching">
             Inorder traversal pada BST menghasilkan urutan naik.
@@ -469,16 +389,23 @@ Kompleksitas: O(log n)`}
         <CodeBlock
             language="text"
             filename="heap_insert_pseudocode.txt"
-            code={`procedure HEAP_INSERT_MIN(heap, x):
-    append x to heap
-    i <- last index
+            code={`Kamus:
+    i, p, temp : integer
+    heap : array of integer
 
-    while i > 0:
-        p <- floor((i - 1) / 2)
-        if heap[p] <= heap[i]:
+Algoritma procedure HEAP_INSERT_MIN(heap, x):
+    tambahkan x ke akhir array heap
+    i <- length(heap) - 1
+
+    while i > 0 do
+        p <- (i - 1) div 2
+        if heap[p] <= heap[i] then
             break
-        swap(heap[p], heap[i])
-        i <- p`}
+        end if
+        
+        temp <- heap[p]; heap[p] <- heap[i]; heap[i] <- temp
+        i <- p
+    end while`}
         />
 
         <p><strong>Operasi 2: Extract-min / Extract-max (bubble down / sift down)</strong></p>
@@ -511,35 +438,44 @@ Kompleksitas: O(log n)`}
         <CodeBlock
             language="text"
             filename="heap_extract_pseudocode.txt"
-            code={`procedure HEAP_EXTRACT_MIN(heap):
-    if heap is empty:
+            code={`Kamus:
+    minValue, n, left, right, smallest, temp : integer
+    heap : array of integer
+
+Algoritma function HEAP_EXTRACT_MIN(heap) -> integer:
+    if length(heap) = 0 then
         return ERROR
+    end if
 
     minValue <- heap[0]
-    heap[0] <- heap[last]
-    remove last element
+    heap[0] <- heap[length(heap) - 1]
+    hapus elemen terakhir dari heap
 
     HEAPIFY_DOWN_MIN(heap, 0)
     return minValue
 
-procedure HEAPIFY_DOWN_MIN(heap, i):
+Algoritma procedure HEAPIFY_DOWN_MIN(heap, i):
     n <- length(heap)
 
-    while true:
+    while true do
         left <- 2 * i + 1
         right <- 2 * i + 2
         smallest <- i
 
-        if left < n and heap[left] < heap[smallest]:
+        if (left < n) and (heap[left] < heap[smallest]) then
             smallest <- left
-        if right < n and heap[right] < heap[smallest]:
+        end if
+        if (right < n) and (heap[right] < heap[smallest]) then
             smallest <- right
+        end if
 
-        if smallest = i:
+        if smallest = i then
             break
+        end if
 
-        swap(heap[i], heap[smallest])
-        i <- smallest`}
+        temp <- heap[i]; heap[i] <- heap[smallest]; heap[smallest] <- temp
+        i <- smallest
+    end while`}
         />
 
         <Callout type="info" title="HEAPIFY_DOWN_MIN itu ngapain?">
@@ -555,6 +491,10 @@ procedure HEAPIFY_DOWN_MIN(heap, i):
             Efek akhirnya: elemen yang terlalu besar "melorot" ke bawah sampai ketemu posisi yang benar.
         </Callout>
 
+        <h4 style="margin-top: 1.5rem; color: var(--color-ink);">Visualisasi Animasi Heapify Down</h4>
+        <p>Coba mainkan animasi di bawah ini untuk melihat bagaimana elemen <strong>7</strong> (yang dipindahkan ke root untuk menggantikan nilai extract-min) <em>melorot</em> ke bawah pada Min-Heap mencari posisinya yang benar.</p>
+        <HeapifyDownAnimation />
+
         <p><strong>Operasi 3: Peek</strong></p>
         <ul>
             <li>Min-heap: nilai minimum selalu di root (index 0).</li>
@@ -565,9 +505,14 @@ procedure HEAPIFY_DOWN_MIN(heap, i):
         <CodeBlock
             language="text"
             filename="heap_peek_pseudocode.txt"
-            code={`procedure HEAP_PEEK(heap):
-    if heap is empty:
+            code={`Kamus:
+    heap : array of integer
+
+Algoritma function HEAP_PEEK(heap) -> integer:
+    if length(heap) = 0 then
         return ERROR
+    end if
+    
     return heap[0]`}
         />
 
@@ -576,6 +521,15 @@ procedure HEAPIFY_DOWN_MIN(heap, i):
             Cara efisien bukan insert satu-satu, tapi heapify dari node non-leaf paling kanan ke root.
             Itulah kenapa <code>build-heap</code> bisa O(n), bukan O(n log n).
         </p>
+
+        <Callout type="info" title="Kenapa loop-nya mulai dari bawah (floor(n/2) - 1)? Kenapa tidak dari root?">
+            <strong>1. Kenapa mulai dari <code>floor(n/2) - 1</code>?</strong><br/>
+            Setengah elemen terakhir di dalam array adalah <strong>node daun (leaf)</strong>, alias node yang nggak punya anak sama sekali. Sebuah node tanpa anak sudah pasti merupakan Heap yang valid. Jadi, kita bisa mem-<em>bypass</em> mereka dan mulai dari <strong>node pertama yang memiliki anak</strong> dari belakang (yaitu <code>floor(n/2) - 1</code>).<br/><br/>
+
+            <strong>2. Kenapa harus mundur (dari bawah ke atas), kok nggak langsung dari root (0)?</strong><br/>
+            Syarat mutlak agar fungsi <code>heapify-down(i)</code> berhasil adalah: <strong>kedua sub-tree (anak kiri dan kanan) dari node <code>i</code> HARUS sudah berupa Heap yang valid</strong>. <br/>
+            Kalau kita mulai dari root (0), anak-anaknya masih acak-acakan (belum jadi Heap). Tapi kalau kita mulai dari bawah, kita sedang membangun pondasi Heap yang valid perlahan-lahan ke atas. Saat giliran root diproses, kita yakin 100% kalau anak kiri dan kanannya sudah beres duluan.
+        </Callout>
 
         <CodeBlock
             language="text"
@@ -594,23 +548,36 @@ Kompleksitas build-heap: O(n)`}
         <CodeBlock
             language="text"
             filename="build_heap_pseudocode.txt"
-            code={`procedure BUILD_MIN_HEAP(heap):
+            code={`Kamus:
+    n, i : integer
+    heap : array of integer
+
+Algoritma procedure BUILD_MIN_HEAP(heap):
     n <- length(heap)
-    for i <- floor(n / 2) - 1 down to 0:
+    for i <- (n div 2) - 1 down to 0 do
         HEAPIFY_DOWN_MIN(heap, i)
+    end for
+    
     return heap`}
         />
 
+        <h4 style="margin-top: 1.5rem; color: var(--color-ink);">Visualisasi Animasi Build Min-Heap</h4>
+        <p>Lihat bagaimana <code>build-heap</code> bekerja dengan memulai iterasi dari node non-leaf paling kanan, lalu memanggil <code>heapify-down</code> hingga mencapai root.</p>
+        <BuildMinHeapAnimation />
+
         <CodeBlock
-            language="python"
-            filename="heap_example.py"
-            code={`import heapq
+            language="text"
+            filename="heap_usage.txt"
+            code={`Kamus:
+    data : array of integer
+    smallest : integer
 
-data = [9, 1, 7, 3, 6]
-heapq.heapify(data)        # build min-heap, O(n)
+Algoritma:
+    data <- [9, 1, 7, 3, 6]
+    BUILD_MIN_HEAP(data)            // O(n)
 
-heapq.heappush(data, 2)    # O(log n)
-smallest = heapq.heappop(data)  # O(log n), nilai terkecil keluar`}
+    HEAP_INSERT_MIN(data, 2)        // O(log n)
+    smallest <- HEAP_EXTRACT_MIN(data) // O(log n)`}
         />
 
         <Callout type="info" title="Use case populer">
@@ -639,14 +606,19 @@ bucket 2 menyimpan collision, misalnya:
         />
 
         <CodeBlock
-            language="python"
-            filename="hash_table_example.py"
-            code={`score = {}
-score["andi"] = 88
-score["budi"] = 91
+            language="text"
+            filename="hash_table.txt"
+            code={`Kamus:
+    score : hash table (map) of string -> integer
+    exists : boolean
+    nilai : integer
 
-exists = "andi" in score   # O(1) rata-rata
-nilai = score.get("budi")`}
+Algoritma:
+    score["andi"] <- 88
+    score["budi"] <- 91
+
+    exists <- ("andi" in score)    // O(1)
+    nilai <- score["budi"]         // 91`}
         />
     </NoteSection>
 
@@ -679,56 +651,81 @@ jadi kita simpan tetangganya dalam daftar`}
         <CodeBlock
             language="text"
             filename="graph_add_edge_pseudocode.txt"
-            code={`procedure ADD_EDGE_UNDIRECTED(adj, u, v):
-    if u not in adj:
-        adj[u] <- empty list
-    if v not in adj:
-        adj[v] <- empty list
+            code={`Kamus:
+    adj : hash table/array of list
+    u, v : node
 
-    append v to adj[u]
-    append u to adj[v]`}
+Algoritma procedure ADD_EDGE_UNDIRECTED(adj, u, v):
+    if u tidak ada di adj then
+        adj[u] <- list kosong
+    end if
+    if v tidak ada di adj then
+        adj[v] <- list kosong
+    end if
+
+    tambahkan v ke akhir adj[u]
+    tambahkan u ke akhir adj[v]`}
         />
 
         <CodeBlock
             language="text"
             filename="graph_bfs_pseudocode.txt"
-            code={`procedure BFS(adj, start):
-    visited <- empty set
-    q <- empty queue
+            code={`Kamus:
+    adj : array/hash table of list
+    visited : set of node
+    q : queue of node
+    start, u, v : node
 
-    add start to visited
+Algoritma procedure BFS(adj, start):
+    visited <- set kosong
+    q <- queue kosong
+
+    tambahkan start ke visited
     enqueue(q, start)
 
-    while q is not empty:
+    while q tidak kosong do
         u <- dequeue(q)
-        process(u)
+        proses node u
 
-        for each v in adj[u]:
-            if v not in visited:
-                add v to visited
-                enqueue(q, v)`}
+        for each v in adj[u] do
+            if v tidak ada di visited then
+                tambahkan v ke visited
+                enqueue(q, v)
+            end if
+        end for
+    end while`}
         />
 
         <CodeBlock
             language="text"
             filename="graph_dfs_iterative_pseudocode.txt"
-            code={`procedure DFS_ITERATIVE(adj, start):
-    visited <- empty set
-    st <- empty stack
+            code={`Kamus:
+    adj : array/hash table of list
+    visited : set of node
+    st : stack of node
+    start, u, v : node
+
+Algoritma procedure DFS_ITERATIVE(adj, start):
+    visited <- set kosong
+    st <- stack kosong
 
     push(st, start)
 
-    while st is not empty:
+    while st tidak kosong do
         u <- pop(st)
-        if u in visited:
+        if u ada di visited then
             continue
+        end if
 
-        add u to visited
-        process(u)
+        tambahkan u ke visited
+        proses node u
 
-        for each v in reverse(adj[u]):
-            if v not in visited:
-                push(st, v)`}
+        for each v in reverse(adj[u]) do
+            if v tidak ada di visited then
+                push(st, v)
+            end if
+        end for
+    end while`}
         />
 
         <Callout type="tip" title="Algoritma yang sering dipakai">

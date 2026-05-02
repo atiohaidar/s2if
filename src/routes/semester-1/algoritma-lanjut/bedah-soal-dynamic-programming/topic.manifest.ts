@@ -1,4 +1,4 @@
-import type { TopicManifest } from '$lib/data/content';
+import type { TopicManifest } from '$lib/data/content/types';
 
 const manifest: TopicManifest = {
     id: 'bedah-soal-dynamic-programming',
@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'soal',
     track: 'bedah-soal',
     status: 'done',
-    order: 13,
+    order: 15,
     tags: ['dynamic-programming', 'coin-change', 'soal-latihan'],
     prereq: ['dynamic-programming'],
     renderMode: 'note',

@@ -57,6 +57,8 @@
     <ChartColumn size={size} strokeWidth={2} />
 {:else if name === "topic-praktek"}
     <Code2 size={size} strokeWidth={2} />
+{:else if name === "topic-soal"}
+    <NotebookPen size={size} strokeWidth={2} />
 {:else if name === "subject-algoritma"}
     <Calculator size={size} strokeWidth={2} />
 {:else if name === "subject-machine-learning"}

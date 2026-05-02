@@ -79,7 +79,9 @@
 
     root.descendants().forEach(d => {
         // Kita simpan koordinat x dan y yang sudah dihitung D3
-        nodePositions[d.data.id] = { x: d.x + margin.left, y: d.y + margin.top };
+        const x = (d.x ?? 0) + margin.left;
+        const y = (d.y ?? 0) + margin.top;
+        nodePositions[d.data.id] = { x, y };
         adjacency[d.data.id] = d.children ? d.children.map(c => c.data.id) : [];
         if (d.parent) {
             treeEdges.push([d.parent.data.id, d.data.id]);

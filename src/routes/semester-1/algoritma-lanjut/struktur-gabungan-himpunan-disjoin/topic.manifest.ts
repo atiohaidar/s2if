@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'wip',
-    order: 5,
+    order: 6,
     tags: ['dsu', 'union-find', 'kruskal', 'connected-components'],
     prereq: ['konsep'],
     renderMode: 'note',

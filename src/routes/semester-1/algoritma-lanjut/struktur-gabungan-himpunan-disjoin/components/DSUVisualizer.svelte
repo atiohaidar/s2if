@@ -8,6 +8,17 @@
 
     const nodes: NodeId[] = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
+    const nodePositions: Record<NodeId, {x: number, y: number}> = {
+        a: {x: 250, y: 150},
+        b: {x: 220, y: 220},
+        c: {x: 150, y: 250},
+        d: {x: 80, y: 220},
+        e: {x: 50, y: 150},
+        f: {x: 80, y: 80},
+        g: {x: 150, y: 50},
+        h: {x: 220, y: 80}
+    };
+
     const operations: Operation[] = [
         { kind: "union", x: "a", y: "e" },
         { kind: "union", x: "d", y: "g" },
@@ -222,6 +233,46 @@
 
     <div class="message">{message}</div>
 
+    <div class="visual-graph-container">
+        <svg viewBox="0 0 300 300" class="dsu-svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="22" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-link)" />
+                </marker>
+            </defs>
+            <!-- Edges -->
+            {#each nodes as node}
+                {#if parent[node] !== node}
+                    {@const start = nodePositions[node]}
+                    {@const end = nodePositions[parent[node]]}
+                    <line 
+                        x1={start.x} y1={start.y} 
+                        x2={end.x} y2={end.y} 
+                        stroke="var(--color-link)" 
+                        stroke-width="2" 
+                        marker-end="url(#arrowhead)" 
+                        class="edge-anim" 
+                    />
+                {/if}
+            {/each}
+            <!-- Nodes -->
+            {#each nodes as node}
+                {@const pos = nodePositions[node]}
+                <circle 
+                    cx={pos.x} cy={pos.y} r="16" 
+                    fill={parent[node] === node ? "var(--color-status-success-soft)" : "var(--color-surface)"} 
+                    stroke={parent[node] === node ? "var(--color-status-success-border)" : "var(--color-binder)"} 
+                    stroke-width="2" 
+                    class="node-circle-anim"
+                />
+                <text x={pos.x} y={pos.y + 4} text-anchor="middle" font-size="12px" font-weight="bold" fill="var(--color-ink)">{node}</text>
+                {#if parent[node] === node}
+                    <text x={pos.x} y={pos.y - 20} text-anchor="middle" font-size="10px" fill="var(--color-ink-muted)">root (r:{rank[node]})</text>
+                {/if}
+            {/each}
+        </svg>
+    </div>
+
     <div class="grid-wrap">
         <table class="state-table">
             <thead>
@@ -337,6 +388,31 @@
     .grid-wrap {
         overflow-x: auto;
         margin-bottom: 0.75rem;
+    }
+
+    .visual-graph-container {
+        display: flex;
+        justify-content: center;
+        background: var(--color-paper);
+        border: 1px solid var(--color-line);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    .dsu-svg {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        overflow: visible;
+    }
+
+    .edge-anim {
+        transition: all 0.4s ease-in-out;
+    }
+
+    .node-circle-anim {
+        transition: fill 0.3s, stroke 0.3s;
     }
 
     .state-table {

@@ -9,7 +9,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 2.5,
+    order: 2,
     tags: ['struktur-data', 'stack', 'heap', 'tree', 'queue'],
     prereq: ['konsep'],
     renderMode: 'note',
