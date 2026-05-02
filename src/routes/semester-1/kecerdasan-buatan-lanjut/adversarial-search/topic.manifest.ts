@@ -3,7 +3,7 @@ import type { TopicManifest } from '$lib/data/content';
 const manifest: TopicManifest = {
     id: 'adversarial-search',
     slug: 'adversarial-search',
-    title: 'Adversarial Search',
+    title: 'Adversarial Search (Game AI)',
     summary: 'Minimax dan alpha-beta pruning untuk pengambilan keputusan kompetitif.',
     type: 'catatan',
     track: 'materi',

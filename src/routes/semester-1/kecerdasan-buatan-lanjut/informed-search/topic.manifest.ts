@@ -3,7 +3,7 @@ import type { TopicManifest } from '$lib/data/content';
 const manifest: TopicManifest = {
     id: 'informed-search',
     slug: 'informed-search',
-    title: 'Informed Search (Heuristic Search)',
+    title: 'Informed (Heuristic) Search',
     summary: 'Pencarian berbasis heuristic untuk efisiensi eksplorasi ruang solusi.',
     type: 'catatan',
     track: 'materi',

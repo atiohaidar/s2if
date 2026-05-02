@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 2,
+    order: 1,
     tags: ['konsep', 'kompleksitas', 'rekursi'],
     prereq: [],
     renderMode: 'note',

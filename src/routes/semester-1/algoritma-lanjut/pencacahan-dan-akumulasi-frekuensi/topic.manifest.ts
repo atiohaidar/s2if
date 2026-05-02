@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'wip',
-    order: 4,
+    order: 16,
     tags: ['counting', 'prefix-sum', 'counting-sort', 'range-query'],
     prereq: ['konsep'],
     renderMode: 'note',
