@@ -61,6 +61,17 @@ export const subjectIndexes: SubjectIndex[] = [
         tags: ['vibe-coding', 'ai-assisted', 'prompt-engineering'],
     },
     {
+        semesterId: 'luar-perkuliahan',
+        id: 'microsoft-automation',
+        slug: 'microsoft-automation',
+        title: 'Microsoft Automation',
+        icon: 'subject-microsoft-automation',
+        summary: 'Belajar dasar Power Automate dan ekosistem otomasi Microsoft untuk meningkatkan produktivitas.',
+        status: 'todo',
+        order: 5,
+        tags: ['microsoft', 'automation', 'power-automate'],
+    },
+    {
         semesterId: 'semester-1',
         id: 'algoritma-lanjut',
         slug: 'algoritma-lanjut',

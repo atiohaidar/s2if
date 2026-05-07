@@ -34,6 +34,7 @@
         Trash2,
         TriangleAlert,
         User,
+        Workflow,
         X,
     } from "lucide-svelte";
 
@@ -83,6 +84,8 @@
     <Shield size={size} strokeWidth={2} />
 {:else if name === "subject-vibe-coding"}
     <Sparkles size={size} strokeWidth={2} />
+{:else if name === "subject-microsoft-automation"}
+    <Workflow size={size} strokeWidth={2} />
 {:else if name === "callout-tip"}
     <Lightbulb size={size} strokeWidth={2} />
 {:else if name === "callout-warning"}
