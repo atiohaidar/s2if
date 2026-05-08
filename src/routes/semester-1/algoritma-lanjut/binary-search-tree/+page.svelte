@@ -380,16 +380,50 @@ end function
 
     <BSTSearchVisualizer />
 
-    <Callout type="warning" title="Struktur Simpul">
+    <Callout type="warning" title="Bedah Isi Simpul (Node Structure)">
       <p>
-        Untuk mendukung operasi seperti <em>Successor</em> atau <em>Deletion</em> yang efisien,
-        simpul biasanya menyimpan pointer ke <code>parent</code> (induk). Berikut adalah struktur data
-        simpul menurut Diktat:
+        Kenapa simpul di DAL punya banyak variabel? Karena kita ingin melakukan operasi 
+        yang lebih canggih daripada sekadar mencari angka. Berikut adalah kegunaan masing-masing:
       </p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Variabel</th>
+              <th>Kegunaan Utama</th>
+              <th>Dipakai di...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>induk (parent)</code></td>
+              <td>Menyimpan alamat "Bapak" dari simpul ini. Memudahkan navigasi <strong>ke atas</strong>.</td>
+              <td>Mencari Successor, Deletion.</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>Jumlah total seluruh simpul yang ada di bawahnya (termasuk dirinya sendiri).</td>
+              <td>Mencari elemen terkecil ke-k (Rank Search).</td>
+            </tr>
+            <tr>
+              <td><code>tinggi (height)</code></td>
+              <td>Menyimpan tinggi sub-pohon saat ini untuk cek keseimbangan.</td>
+              <td><strong>AVL Tree</strong> (Self-balancing).</td>
+            </tr>
+            <tr>
+              <td><code>prioritas</code></td>
+              <td>Nilai acak yang diberikan saat node dibuat agar pohon tetap acak/seimbang.</td>
+              <td><strong>Treap</strong> (Tree + Heap).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <CodeBlock
         code={nodeStructCode}
         language="algorithm"
-        filename="Algoritma 1: Struktur Simpul BST"
+        filename="Algoritma 1: Struktur Simpul BST Lengkap"
       />
     </Callout>
   </NoteSection>

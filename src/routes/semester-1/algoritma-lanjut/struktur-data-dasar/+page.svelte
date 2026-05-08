@@ -801,6 +801,12 @@ Algoritma procedure BUILD(node, left, right):
     end if`}
         />
 
+        <Callout type="info" title="Apa maksud dari 'right - left = 1'?">
+            Karena kita menggunakan rentang <strong>setengah terbuka [left, right)</strong>, kondisi <code>right - left = 1</code> berarti rentang tersebut hanya mencakup <strong>tepat satu elemen</strong>. 
+            <br/><br/>
+            Contoh: Jika <code>left = 2</code> dan <code>right = 3</code>, maka rentangnya adalah <code>[2, 3)</code> yang isinya hanya indeks <code>2</code>. Ini menandakan kita telah sampai di <strong>simpul daun (leaf node)</strong>, sehingga kita bisa langsung mengambil nilai dari array asli.
+        </Callout>
+
         <h4 style="margin-top: 1.5rem; color: var(--color-ink);">Representasi Array (Flattened Tree)</h4>
         <p>
             Meskipun secara logika kita membayangkannya sebagai pohon, di memori Segment Tree disimpan dalam array linear tunggal. Untuk array asli berukuran <MathBlock displayMode={false} latex={String.raw`N`} />, kita biasanya menyiapkan array tree berukuran <MathBlock displayMode={false} latex={String.raw`4N`} /> untuk keamanan.

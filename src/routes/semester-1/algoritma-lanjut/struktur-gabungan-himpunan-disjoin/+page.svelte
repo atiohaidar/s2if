@@ -54,6 +54,17 @@
 </svelte:head>
 
 <article class="note-article">
+    <NoteSection title="💡 Intuisi Sederhana (Sistem 1)">
+        <Callout type="tip" title="Analogi: Suku dan Kepala Suku">
+            <p>Bayangkan ada beberapa orang yang awalnya tidak saling kenal. Setiap orang adalah <strong>Kepala Suku</strong> bagi dirinya sendiri.</p>
+            <ul>
+                <li><strong>Find(X):</strong> Bertanya "Siapa Kepala Suku besarmu?". Kamu akan terus bertanya ke atas sampai menemukan orang yang menjawab "Aku bosnya".</li>
+                <li><strong>Union(A, B):</strong> Dua suku sepakat bergabung. Salah satu Kepala Suku harus <strong>tunduk</strong> dan mengakui Kepala Suku lainnya sebagai bos baru.</li>
+            </ul>
+            <p><strong>Tujuannya cuma satu:</strong> Mengetahui apakah dua orang berada di Suku yang sama atau tidak dalam waktu yang sangat singkat.</p>
+        </Callout>
+    </NoteSection>
+
     <NoteHeader
         title="Struktur Gabungan Himpunan Disjoin (DSU)"
         date="16 April 2026"
@@ -108,6 +119,23 @@ Algoritma procedure makeSetAll(n):
             Inisialisasi di atas setara dengan <code>makeSetAll(n)</code>, yaitu setiap
             elemen awalnya berada pada himpunan terpisah.
         </p>
+
+        <Callout type="tip" title="Contoh Kondisi Awal (n=5)">
+            <p>Bayangkan kita punya 5 elemen (indeks 0 sampai 4). Sebelum ada operasi <code>union</code> apapun, datanya adalah:</p>
+            <CodeBlock
+                language="text"
+                filename="initial_state.txt"
+                code={`Elemen:    0      1      2      3      4
+------------------------------------------
+induk:   [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]
+rank:    [ 0 ]  [ 0 ]  [ 0 ]  [ 0 ]  [ 0 ]
+
+Keterangan:
+- induk[i] = i: Setiap elemen adalah AKAR (root) bagi dirinya sendiri.
+- peringkat[i] = 0: Tinggi pohon masih minimal (hanya 1 node).`}
+            />
+            <p>Pada tahap ini, kita punya <strong>5 himpunan terpisah</strong>. Tidak ada elemen yang terhubung satu sama lain.</p>
+        </Callout>
     </NoteSection>
 
     <NoteSection title="3) Operasi Dasar DSU">
@@ -153,6 +181,79 @@ Algoritma function union_set(x, y) -> boolean:
             Path compression membuat jalur simpul ke akar makin pendek setelah operasi
             find. Union by rank mencegah pohon tumbuh tinggi sejak awal.
         </Callout>
+
+        <div class="trace-example" style="background: var(--color-surface-soft); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--color-line); margin-top: 1.5rem;">
+            <h4 style="margin-top: 0; color: var(--color-primary);">🔍 Contoh Trace: find(4)</h4>
+            <p>Bayangkan struktur pohon kita sedang seperti ini (tanda <code>&rarr;</code> berarti "nunjuk ke induk"):</p>
+            <p style="font-family: var(--font-mono); text-align: center; font-weight: bold; font-size: 1.1rem;">
+                4 &rarr; 2 &rarr; 0 (Akar)
+            </p>
+            <p>Isi array <code>induk</code> saat ini:</p>
+            <ul>
+                <li><code>induk[4] = 2</code></li>
+                <li><code>induk[2] = 0</code></li>
+                <li><code>induk[0] = 0</code> (Akar ditandai dengan menunjuk dirinya sendiri)</li>
+            </ul>
+
+            <h5 style="margin-bottom: 0.5rem;">Langkah-langkah <code>find(4)</code>:</h5>
+            <ol>
+                <li>Cek 4: "Siapa indukku?" -> Jawab: <strong>2</strong>. (Panggil <code>find(2)</code>)</li>
+                <li>Cek 2: "Siapa indukku?" -> Jawab: <strong>0</strong>. (Panggil <code>find(0)</code>)</li>
+                <li>Cek 0: "Siapa indukku?" -> Jawab: <strong>0</strong>. "Oh, aku Akarnya!" (Return <strong>0</strong>)</li>
+            </ol>
+
+            <Callout type="warning" title="⚡ Efek Path Compression">
+                <p>Saat fungsi selesai (<em>backtracking</em>), algoritma melakukan update langsung:</p>
+                <ul>
+                    <li><code>induk[2]</code> di-set jadi <strong>0</strong> (tetap).</li>
+                    <li><code>induk[4]</code> di-set jadi <strong>0</strong> (tadi 2).</li>
+                </ul>
+                <p><strong>Hasil Akhir:</strong> 4 sekarang langsung menunjuk ke 0. Lain kali kamu panggil <code>find(4)</code>, jawabannya cuma 1 langkah!</p>
+            </Callout>
+        </div>
+
+        <div class="union-cases" style="background: var(--color-surface-soft); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--color-line); margin-top: 1.5rem;">
+            <h4 style="margin-top: 0; color: var(--color-primary);">🤝 3 Skenario Penting Union(x, y)</h4>
+            <p>Saat menggabungkan dua elemen, DSU sebenarnya menggabungkan <strong>Akar</strong> mereka (<code>rx</code> dan <code>ry</code>).</p>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                <div style="border-left: 4px solid #ef4444; padding-left: 1rem;">
+                    <strong>Kasus 1: Peringkat (Rank) Berbeda</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.25rem;">
+                        Akar dengan rank lebih rendah harus tunduk ke yang lebih tinggi. 
+                        <strong>Hasil:</strong> Rank root yang baru TIDAK bertambah.
+                    </p>
+                    <code style="font-size: 0.8rem;">if rank[rx] &lt; rank[ry]: induk[rx] = ry</code>
+                </div>
+
+                <div style="border-left: 4px solid #3b82f6; padding-left: 1rem;">
+                    <strong>Kasus 2: Peringkat (Rank) Sama</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.25rem;">
+                        Bebas pilih salah satu jadi bos. Tapi karena tingginya sama, sekarang pohonnya jadi lebih tinggi 1 tingkat.
+                        <strong>Hasil:</strong> Rank root yang baru BERTAMBAH +1.
+                    </p>
+                    <code style="font-size: 0.8rem;">induk[ry] = rx; rank[rx] += 1;</code>
+                </div>
+
+                <div style="border-left: 4px solid #10b981; padding-left: 1rem;">
+                    <strong>Kasus 3: Akar Sudah Sama (find(x) == find(y))</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.25rem;">
+                        Berarti <code>x</code> dan <code>y</code> sudah satu kelompok. Tidak ada yang berubah.
+                        <strong>Penting:</strong> Di soal graf, ini tandanya ditemukan <strong>SIKLUS</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <Callout type="warning" title="🚨 Kenapa Harus Akar ke Akar?">
+                <p>
+                    Kita <strong>tidak pernah</strong> menggabungkan elemen langsung ke "anak" atau elemen di tengah jalur. 
+                    Kita selalu cari Akarnya dulu (<code>rx</code> dan <code>ry</code>). 
+                </p>
+                <p style="font-size: 0.9rem;">
+                    Kalau kita asal gabung ke anak, struktur pohon bisa berantakan dan operasi <code>find</code> berikutnya jadi sangat lambat. DSU yang efisien selalu menjaga agar "Bos Besar" lah yang membuat keputusan.
+                </p>
+            </Callout>
+        </div>
     </NoteSection>
 
     <NoteSection title="4) Visualisasi Interaktif DSU">

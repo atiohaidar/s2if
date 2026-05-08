@@ -8,6 +8,7 @@
     import Quiz from "$lib/components/Quiz.svelte";
     import CountingSortVisualizer from "./components/CountingSortVisualizer.svelte";
     import SubarrayModuloVisualizer from "./components/SubarrayModuloVisualizer.svelte";
+    import KthElementVisualizer from "./components/KthElementVisualizer.svelte";
 
     const modulQuiz = [
         {
@@ -312,36 +313,101 @@ pakai offset: idx = value - 5
 
     <NoteSection title="5) Rank Query dan Median dari Kumulatif Frekuensi">
         <p>
-            Jika <code>C</code> sudah kumulatif:
+            Jika kita sudah memiliki array frekuensi kumulatif <code>C</code> (di mana <code>C[i]</code> adalah jumlah elemen <code>&le; i</code>), kita bisa menjawab query statistik dengan sangat cepat.
         </p>
-        <ul>
-            <li>Jumlah elemen yang lebih kecil dari <code>x</code> adalah <code>C[x-1]</code>.</li>
-            <li>
-                Median bisa dicari dengan mencari nilai terkecil <code>x</code>
-                yang memenuhi <code>C[x] &gt;= ceil(N/2)</code>.
-            </li>
-        </ul>
+
+        <h3>A. Query Rank (Berapa banyak elemen &lt; x?)</h3>
         <p>
-            Karena <code>C</code> monotonik naik, pencarian median bisa dilakukan
-            dengan binary search di domain nilai.
+            Operasi ini sangat sederhana: jumlah elemen yang nilainya lebih kecil dari <code>x</code> 
+            adalah nilai akumulasi tepat sebelum <code>x</code>.
         </p>
+        <CodeBlock
+            language="text"
+            filename="pseudocode_rank.txt"
+            code={`Algoritma function get_rank(x, C):
+    if x <= 0 then
+        return 0
+    else
+        return C[x - 1]`}
+        />
+
+        <h3>B. Query K-th Element (Mencari Median)</h3>
+        <p>
+            Untuk mencari <strong>Median</strong>, kita perlu mencari nilai <code>x</code> yang menempati urutan ke-<code>N/2</code>. 
+            Secara umum, ini adalah mencari nilai <code>x</code> terkecil sehingga <code>C[x] &ge; k</code>.
+        </p>
+        
+        <div class="explanation-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
+            <div class="explanation-card" style="background: var(--color-surface-soft); padding: 1rem; border-radius: 8px;">
+                <h4 style="margin-top: 0;">Cara 1: Linear Scan — O(K)</h4>
+                <p style="font-size: 0.9rem;">Iterasi dari indeks 0 sampai ketemu nilai yang memenuhi syarat. Cocok jika K kecil.</p>
+            </div>
+            <div class="explanation-card" style="background: var(--color-surface-soft); padding: 1rem; border-radius: 8px;">
+                <h4 style="margin-top: 0;">Cara 2: Binary Search — O(log K)</h4>
+                <p style="font-size: 0.9rem;">Karena array kumulatif <code>C</code> pasti terurut naik, kita bisa pakai Binary Search untuk cari nilai target.</p>
+            </div>
+        </div>
 
         <CodeBlock
             language="text"
-            filename="contoh_rank_dan_median.txt"
-            code={`Pakai frekuensi kumulatif dari contoh counting sort:
-C = [1, 3, 4, 6]
-N = 6
+            filename="pseudocode_kth_element.txt"
+            code={`// Mencari nilai data yang berada di urutan ke-k
+Algoritma function find_kth(k, C, K):
+    low <- 0
+    high <- K
+    ans <- K
 
-Rank query:
-Jumlah elemen < 3 adalah C[2] = 4
-(yaitu 0, 1, 1, 2)
+    while low <= high do
+        mid <- (low + high) / 2
+        if C[mid] >= k then
+            ans <- mid      // Simpan kandidat, coba cari yang lebih kecil
+            high <- mid - 1
+        else
+            low <- mid + 1
+        end if
+    end while
 
-Median:
-Posisi median = ceil(N/2) = ceil(6/2) = 3
-Cari x terkecil dengan C[x] >= 3 -> x = 1
-Jadi median (versi bawah) = 1`}
+    return ans
+
+// Untuk mencari median N data:
+median <- find_kth(ceil(N/2), C, K)`}
         />
+
+        <Callout type="tip" title="Contoh Trace">
+            <p>Data: <code>[0, 1, 1, 2, 3, 3]</code>, maka <code>C = [1, 3, 4, 6]</code>, <code>N = 6</code>.</p>
+            <p>Cari median (elemen ke-3): <code>find_kth(3, C, 3)</code></p>
+            <ul>
+                <li>Cek <code>mid=1</code>: <code>C[1]=3</code>. Karena <code>3 &ge; 3</code>, <code>ans=1</code>, <code>high=0</code>.</li>
+                <li>Cek <code>mid=0</code>: <code>C[0]=1</code>. Karena <code>1 &lt; 3</code>, <code>low=1</code>.</li>
+                <li>Selesai. Jawabannya <strong>1</strong>.</li>
+            </ul>
+        </Callout>
+
+        <Callout type="tip" title="Visualisasi Interaktif: Mencari Elemen ke-k">
+            <p>
+                Gunakan visualizer di bawah untuk melihat bagaimana Binary Search bekerja pada array kumulatif. 
+                Pilih nilai <strong>k</strong> (misal k=5 untuk median dari 10 data), lalu tekan langkah berikutnya.
+            </p>
+        </Callout>
+
+        <KthElementVisualizer />
+
+        <div class="explanation-box" style="background: var(--color-surface-soft); padding: 1.5rem; border-radius: 10px; margin-top: 1rem; border: 1px solid var(--color-line);">
+            <h4 style="margin-top: 0; color: var(--color-primary);">📌 Memahami Variabel Kunci</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 1rem;">
+                    <strong>k (Target):</strong> Posisi urutan yang dicari (contoh: k=5 berarti kita cari data urutan ke-5). 
+                    Dalam median, k adalah <MathBlock latex="N/2" displayMode={false} />.
+                </li>
+                <li>
+                    <strong>indeks / ans (Hasil):</strong> Mewakili <strong>Nilai Data</strong> itu sendiri. 
+                    Kita mencari indeks terkecil yang frekuensi kumulatifnya sudah mencakup target <code>k</code>.
+                </li>
+            </ul>
+            <p style="font-size: 0.9rem; font-style: italic; opacity: 0.8;">
+                Ingat: Di array frekuensi, <strong>indeks adalah nilai datanya</strong>, sedangkan <strong>isi array adalah jumlah kemunculannya</strong>.
+            </p>
+        </div>
     </NoteSection>
 
     <NoteSection title="6) Kapan Teknik Ini Dipakai?">
