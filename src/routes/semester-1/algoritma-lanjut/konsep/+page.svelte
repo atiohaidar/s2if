@@ -426,6 +426,10 @@ Algoritma function factorial(n) -> integer:
                 Pemangkasan setengah per langkah biasanya:
                 <MathBlock displayMode={false} latex={"O(\\log n)"} />
             </li>
+            <li>
+                Rekursi yang bercabang dua (eksponensial):
+                <MathBlock displayMode={false} latex={"O(2^n)"} />
+            </li>
         </ul>
 
         <CodeBlock
@@ -450,7 +454,12 @@ end for
 k <- n
 while k > 1 do
     k <- k div 2
-end while`}
+end while
+
+// 4) Rekursi bercabang dua -> O(2^n)
+function fib(n):
+    if n <= 1 then return n
+    return fib(n-1) + fib(n-2)`}
         />
 
         <Callout type="warning" title="Salah paham umum">

@@ -86,6 +86,8 @@
     <Sparkles size={size} strokeWidth={2} />
 {:else if name === "subject-microsoft-automation"}
     <Workflow size={size} strokeWidth={2} />
+{:else if name === "subject-metodologi-riset"}
+    <PenLine size={size} strokeWidth={2} />
 {:else if name === "callout-tip"}
     <Lightbulb size={size} strokeWidth={2} />
 {:else if name === "callout-warning"}

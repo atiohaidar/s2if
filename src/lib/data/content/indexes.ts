@@ -115,4 +115,15 @@ export const subjectIndexes: SubjectIndex[] = [
         order: 4,
         tags: ['software-engineering', 'paper', 'critical-thinking'],
     },
+    {
+        semesterId: 'semester-1',
+        id: 'metodologi-riset',
+        slug: 'metodologi-riset',
+        title: 'Metodologi Riset',
+        icon: 'subject-metodologi-riset',
+        summary: 'Dasar-dasar penelitian, perumusan hipotesis, dan metode ilmiah dalam ilmu komputer.',
+        status: 'wip',
+        order: 5,
+        tags: ['research', 'hypothesis', 'scientific-method'],
+    },
 ];

@@ -10,6 +10,7 @@
     import HeapifyDownAnimation from "../struktur-data-dasar/components/HeapifyDownAnimation.svelte";
     import BuildMinHeapAnimation from "../struktur-data-dasar/components/BuildMinHeapAnimation.svelte";
     import HeapSortAnimation from "../macam-macam-sorting-dan-searching/components/HeapSortAnimation.svelte";
+    import BuildSegmentTreeAnimation from "./components/BuildSegmentTreeAnimation.svelte";
 
     const quizQuestions = [
         {
@@ -102,8 +103,20 @@ procedure build(node, left, right)
     // Gabungkan hasil (Bisa diganti min/max tergantung kebutuhan)
     Tree[node] := Tree[2*node + 1] + Tree[2*node + 2]
   end if
-end procedure`}
+end procedure
+
+procedure mainBuild()
+  Data := [10, 2, 7, 6, 12, 5, 4, 8]
+  N := length(Data)
+  
+  // Membangun pohon dari rentang [0, N)
+  // Dimulai dari node 0 (akar)
+  build(0, 0, N)
+end procedure`}`}
         />
+
+        <p><strong>Simulasi Visual Proses Build:</strong></p>
+        <BuildSegmentTreeAnimation />
 
         <h4>Algoritma 2: Point Update (Update 1 Elemen)</h4>
         <CodeBlock
@@ -258,7 +271,30 @@ end procedure`}
         </Callout>
     </NoteSection>
 
-    <NoteSection title="4. Latihan (Eksplorasi)">
+    <NoteSection title="4. Algoritma Utama (Main Procedure)">
+        <p>
+            Berikut adalah contoh bagaimana seluruh fungsi di atas dirangkai dalam satu alur program untuk mengurutkan data:
+        </p>
+        <CodeBlock
+            language="text"
+            filename="pseudocode_main_heap.txt"
+            code={`procedure main()
+  // 1. Siapkan data acak di dalam array Heap
+  Heap := [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
+  heapSize := length(Heap)
+
+  print("Kondisi Awal: ", Heap)
+
+  // 2. Jalankan HeapSort
+  heapSort()
+
+  // 3. Hasil akhir data akan terurut secara ascending
+  print("Hasil Terurut: ", Heap)
+end procedure`}
+        />
+    </NoteSection>
+
+    <NoteSection title="5. Latihan (Eksplorasi)">
         <p>Di akhir diktat Modul 2, terdapat beberapa kasus untuk dipecahkan:</p>
         <ul>
             <li><strong>Range Minimum Query (RMQ):</strong> Memodifikasi fungsi Sum di Segment Tree agar menjadi pencari nilai Minimum (gunakan <code>&infin;</code> saat berada di luar rentang).</li>
@@ -267,7 +303,7 @@ end procedure`}
         </ul>
     </NoteSection>
 
-    <NoteSection title="5. Cek Pemahaman">
+    <NoteSection title="6. Cek Pemahaman">
         <Quiz questions={quizQuestions} />
     </NoteSection>
 
