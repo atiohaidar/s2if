@@ -13,6 +13,7 @@
   import CountingSortAnimation from './components/CountingSortAnimation.svelte';
   import SelectionSortAnimation from './components/SelectionSortAnimation.svelte';
   import BubbleSortAnimation from './components/BubbleSortAnimation.svelte';
+  import LomutoPartitionVisualizer from './components/LomutoPartitionVisualizer.svelte';
 
   const materiQuiz = [
     {
@@ -402,19 +403,52 @@ Algoritma procedure quick_sort(a, low, high):
     end if
 
 Algoritma function partition(a, low, high) -> integer:
-    pivot <- a[high]
-    i <- low - 1
+    pivot <- a[high]         // Pilih elemen terakhir sebagai patokan (pivot)
+    i <- low - 1            // i menandai batas akhir kelompok angka "kecil"
     
+    // Scan dari kiri ke kanan (kecuali pivot itu sendiri)
     for j <- low to high - 1 do
+        // Jika ketemu angka yang lebih kecil/sama dengan pivot
         if a[j] <= pivot then
-            i <- i + 1
+            i <- i + 1      // Perluas area kelompok "kecil"
+            // Tukar angka tersebut ke depan agar terkumpul di kiri
             temp <- a[i]; a[i] <- a[j]; a[j] <- temp
         end if
     end for
     
+    // Terakhir, tukar pivot ke posisi i+1 agar ia berada di tengah
+    // Hasil: Kelompok kiri (<= pivot) | Pivot | Kelompok kanan (> pivot)
     temp <- a[i + 1]; a[i + 1] <- a[high]; a[high] <- temp
-    return i + 1`}
+    return i + 1            // Beritahu posisi final pivot`}
     />
+
+    <Callout type="info" title="Kenapa harus (p - 1) dan (p + 1)?">
+      Mungkin kamu bertanya: <em>"Kenapa indeks p tidak ikut dimasukkan lagi ke rekursi?"</em><br /><br />
+      Jawabannya: Karena setelah dipartisi, <strong>Pivot (indeks p) sudah berada di posisi yang benar-benar final</strong>. 
+      Ia tidak akan pernah berpindah lagi meskipun seluruh array sudah terurut sempurna. 
+      Jadi, kita cukup mengurutkan sisa angka di "halaman kiri" (<code>low</code> sampai <code>p-1</code>) 
+      dan "halaman kanan" (<code>p+1</code> sampai <code>high</code>) saja. 
+      Melewatkan <code>p</code> membuat algoritma lebih cepat dan mencegah risiko <em>infinite loop</em>.
+    </Callout>
+
+    <Callout type="warning" title="Penting: Memahami low < high">
+      Kondisi ini adalah <strong>Rem Darurat</strong> rekursi. 
+      Ia memastikan kita hanya memproses kelompok yang masih berisi <strong>minimal 2 angka</strong>. 
+      Jika kelompok tinggal 1 angka (<code>low == high</code>), berarti angka tersebut sudah 
+      terurut dan rekursi harus berhenti agar tidak terjadi <em>infinite loop</em> (Stack Overflow).
+    </Callout>
+
+    <Callout type="tip" title="Analogi Pointer i: Sang Penjaga Batas">
+      Agar tidak bingung, bayangkan <strong>i</strong> sebagai seorang <strong>Penjaga Batas</strong> wilayah angka kecil:
+      <ul>
+        <li>Ia mencatat sampai mana "wilayah" angka yang lebih kecil dari pivot.</li>
+        <li>Awalnya ia berdiri di luar array (<code>low - 1</code>) karena belum ada wilayah yang terbentuk.</li>
+        <li>Setiap kali <strong>j</strong> menemukan angka kecil, <strong>i</strong> maju satu langkah untuk memperluas wilayahnya, lalu angka tersebut ditukar ke posisi <strong>i</strong>.</li>
+      </ul>
+    </Callout>
+
+    <p><strong>Trace Langkah Partition (Lomuto):</strong></p>
+    <LomutoPartitionVisualizer />
 
     <CodeBlock
       language="text"
@@ -424,6 +458,14 @@ Output: [1, 5, 7, 8, 9, 10]`}
     />
 
     <p><strong>Kompleksitas dan cara mencari:</strong></p>
+    <Callout type="info" title="Kenapa Quick Sort tidak 'boros' seperti Selection Sort?">
+      Meskipun sama-sama menaruh angka di posisi benar "satu per satu", ada perbedaan besar:<br /><br />
+      <strong>Selection Sort</strong> menghabiskan banyak tenaga untuk mencari angka terkecil di seluruh sisa array yang besar. 
+      Sedangkan <strong>Quick Sort</strong> menggunakan strategi <em>Divide & Conquer</em>. 
+      Setiap kali satu pivot diletakkan, masalah besar langsung <strong>terbelah menjadi dua masalah kecil</strong>. 
+      Hanya butuh sedikit langkah pembelahan (log n) sampai seluruh array terurut, 
+      sehingga jauh lebih hemat waktu dibanding algoritma kuadratik biasa.
+    </Callout>
     <ul>
       <li>Average/best: <code>O(n log n)</code> (partisi relatif seimbang).</li>
       <li>Worst: <code>O(n^2)</code> (partisi sangat tidak seimbang).</li>
@@ -464,31 +506,51 @@ Algoritma procedure quick_sort_hoare(a, low, high):
     end if
 
 Algoritma function partition_hoare(a, low, high) -> integer:
-    pivot <- a[low]
-    l <- low + 1
-    r <- high
+    pivot <- a[low]          // Ambil elemen pertama sebagai pivot
+    l <- low + 1            // Pointer kiri bergerak ke kanan
+    r <- high               // Pointer kanan bergerak ke kiri
     
     while true do
+        // Cari angka di kiri yang "terlalu besar" (> pivot)
         while (l <= r) and (a[l] <= pivot) do
             l <- l + 1
         end while
         
+        // Cari angka di kanan yang "terlalu kecil" (<= pivot)
         while (l <= r) and (a[r] > pivot) do
             r <- r - 1
         end while
         
         if l <= r then
+            // Tukar kedua angka yang salah posisi tadi
             temp <- a[l]; a[l] <- a[r]; a[r] <- temp
             l <- l + 1
             r <- r - 1
         else
+            // Jika pointer sudah bersilangan, partisi selesai
             break
         end if
     end while
     
+    // Tukar pivot ke posisi r (titik temu)
     temp <- a[low]; a[low] <- a[r]; a[r] <- temp
-    return r`}
+    return r                // r adalah posisi final pivot`}
     />
+
+    <Callout type="warning" title="Kenapa harus l <- l + 1 dan r <- r - 1?">
+      Ini adalah langkah krusial untuk mencegah <strong>Infinite Loop</strong>. 
+      Setelah kita menukar dua angka yang "salah baris", posisi <code>l</code> dan <code>r</code> sekarang berisi angka yang sudah benar posisinya. 
+      Jika kita tidak memajukan mereka secara manual, algoritma mungkin akan terus menukar angka yang sama berulang-ulang (terutama jika ada angka yang nilainya sama dengan pivot). 
+      Jadi, kita langsung menyuruh mereka "maju ke kandidat berikutnya".
+    </Callout>
+
+    <Callout type="info" title="Kenapa Pivot ditukar dengan a[r]?">
+      Mungkin kamu bingung: <em>"Kan r baru saja dikurangi 1, kok masih aman buat ditukar?"</em><br /><br />
+      Jawabannya: Karena saat loop berhenti, <strong>indeks r adalah batas terakhir wilayah angka kecil</strong>. 
+      Apapun angka di <code>a[r]</code>, ia dijamin <code>&lt;= pivot</code>. 
+      Dengan menukar Pivot (<code>a[low]</code>) dengan <code>a[r]</code>, kita menempatkan pivot di posisi yang tepat sehingga 
+      wilayah kirinya tetap angka-angka kecil dan wilayah kanannya angka-angka besar.
+    </Callout>
 
     <Callout type="info" title="Analogi Hoare Partition: Dua Satpam Saling Mendekat">
       Bayangkan ada dua satpam. Satpam Kiri (<code>l</code>) jalan pelan ke kanan bertugas menahan
