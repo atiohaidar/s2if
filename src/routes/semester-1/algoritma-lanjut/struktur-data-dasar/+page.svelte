@@ -859,6 +859,16 @@ Algoritma procedure UPDATE(node, left, right, idx, val):
     end if`}
         />
 
+        <Callout type="tip" title="Memahami Parameter UPDATE">
+            Sangat penting untuk membedakan index mana yang merujuk ke mana:
+            <ul>
+                <li><strong><code>node</code></strong>: Index milik <strong>Segment Tree</strong> (digunakan untuk mengakses <code>tree[node]</code>).</li>
+                <li><strong><code>idx</code></strong>: Index milik <strong>Array Asli</strong> yang ingin diubah (target update).</li>
+                <li><strong><code>left</code> & <code>right</code></strong>: Rentang index <strong>Array Asli</strong> yang dicakup oleh node saat ini.</li>
+            </ul>
+            Jadi, <code>idx</code>, <code>left</code>, dan <code>right</code> semuanya merujuk pada <strong>indeks array asli</strong>, sedangkan <code>node</code> merujuk pada <strong>posisi simpul di dalam pohon (array tree)</strong>.
+        </Callout>
+
         <h4 style="margin-top: 1.5rem; color: var(--color-ink);">Segment Tree vs Heap: Apa Bedanya?</h4>
         <p>
             Keduanya sama-masing bisa direpresentasikan dalam array dan berbentuk pohon biner, tapi tujuannya berbeda jauh:
@@ -908,9 +918,33 @@ Algoritma procedure UPDATE(node, left, right, idx, val):
         </p>
         <ul>
             <li>Jika rentang simpul <strong>sepenuhnya di luar</strong> rentang kueri, <strong>abaikan</strong> dan kembali (return 0 atau nilai netral lainnya).</li>
-            <li>Jika rentang simpul <strong>sepenuhnya di dalam</strong> rentang kueri, <strong>ambil nilainya</strong> dan jangan kunjungi anaknya.</li>
+            <li>Jika rentang simpul <strong>sepenuhnya di dalam</strong> rentang kueri, <strong>ambil nilainya</strong> dan jangan kunjungi anaknya (inilah yang membuatnya cepat).</li>
             <li>Jika rentang simpul <strong>hanya sebagian menutupi</strong> rentang kueri, <strong>pecah</strong> ke anak kiri dan anak kanan.</li>
         </ul>
+
+        <CodeBlock
+            language="text"
+            filename="st_query_pseudocode.txt"
+            code={`Algoritma:
+    // Contoh: Mencari jumlah nilai dari index 2 sampai 5 [2, 6)
+    hasil <- QUERY(node=0, left=0, right=n, qL=2, qR=6)
+
+Algoritma function QUERY(node, left, right, qL, qR) -> integer:
+    if qL <= left and right <= qR then
+        // Kasus 1: Rentang simpul sepenuhnya di dalam rentang kueri
+        return tree[node]
+    
+    if right <= qL or qR <= left then
+        // Kasus 2: Rentang simpul sepenuhnya di luar rentang kueri
+        return 0
+    
+    // Kasus 3: Rentang simpul tumpang tindih sebagian
+    mid <- (left + right) div 2
+    sum_kiri <- QUERY(2*node + 1, left, mid, qL, qR)
+    sum_kanan <- QUERY(2*node + 2, mid, right, qL, qR)
+    
+    return sum_kiri + sum_kanan`}
+        />
         
         <SegmentTreeVisualizer />
     </NoteSection>
