@@ -16,7 +16,7 @@
 
     let stack = $state(['A']);
     let visited = $state(new Set(['A']));
-    let activeNode = $state(null);
+    let activeNode = $state<string | null>(null);
     let stepDescription = $state("Klik 'Mulai' atau 'Next Step' untuk melihat simulasi DFS.");
     let isRunning = $state(false);
 
@@ -36,7 +36,7 @@
         }
 
         isRunning = true;
-        const u = stack.pop();
+        const u = stack.pop()!;
         activeNode = u;
         
         const neighbors = edges
@@ -44,7 +44,7 @@
             .map(e => e.target)
             .reverse(); // Reverse to process in a more intuitive order for stack
 
-        let addedNodes = [];
+        let addedNodes: string[] = [];
         neighbors.forEach(v => {
             if (!visited.has(v)) {
                 visited.add(v);

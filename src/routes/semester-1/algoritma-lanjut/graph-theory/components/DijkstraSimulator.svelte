@@ -16,11 +16,11 @@
         { source: 'D', target: 'E', weight: 2 }
     ];
 
-    let distances = $state({ A: 0, B: Infinity, C: Infinity, D: Infinity, E: Infinity });
-    let parents = $state({});
-    let queue = $state([{ id: 'A', dist: 0 }]);
-    let processed = $state(new Set());
-    let activeNode = $state(null);
+    let distances = $state<Record<string, number>>({ A: 0, B: Infinity, C: Infinity, D: Infinity, E: Infinity });
+    let parents = $state<Record<string, string>>({});
+    let queue = $state<{id: string, dist: number}[]>([{ id: 'A', dist: 0 }]);
+    let processed = $state(new Set<string>());
+    let activeNode = $state<string | null>(null);
     let stepDescription = $state("Klik 'Next Step' untuk melihat proses Dijkstra mencari jalur terpendek dari A.");
 
     function reset() {
@@ -41,7 +41,7 @@
 
         // Sort queue by distance (Priority Queue behavior)
         queue.sort((a, b) => a.dist - b.dist);
-        const u = queue.shift();
+        const u = queue.shift()!;
         
         if (processed.has(u.id)) {
             nextStep();
@@ -52,7 +52,7 @@
         processed.add(u.id);
 
         const neighbors = edges.filter(e => e.source === u.id);
-        let updates = [];
+        let updates: string[] = [];
 
         neighbors.forEach(edge => {
             const v = edge.target;

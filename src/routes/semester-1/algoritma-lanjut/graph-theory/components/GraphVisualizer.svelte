@@ -29,6 +29,8 @@
         highlightedNodes?: Set<string>;
         activeNode?: string | null;
         instanceId?: string;
+        nodeLabels?: Record<string, any>;
+        highlightedEdges?: Set<string>;
     }
 
     let { 
@@ -44,8 +46,14 @@
         highlightedEdges = new Set()
     }: Props = $props();
 
-    let simulationNodes = $state(nodes.map(n => ({ ...n })));
-    let simulationLinks = $state(edges.map(e => ({ ...e })));
+    let simulationNodes = $state<Node[]>([]);
+    let simulationLinks = $state<any[]>([]);
+
+    $effect.pre(() => {
+        simulationNodes = nodes.map(n => ({ ...n }));
+        simulationLinks = edges.map(e => ({ ...e }));
+    });
+
     let svgElement: SVGSVGElement;
     const RADIUS = 22;
 
@@ -170,7 +178,8 @@
 
         <g class="nodes">
             {#each simulationNodes as node}
-                <g class="node-group" style="cursor: grab">
+                {#if node.x !== undefined && node.y !== undefined}
+                    <g class="node-group" style="cursor: grab">
                     <circle 
                         cx={node.x} cy={node.y} r={RADIUS} 
                         fill={getNodeColor(node)} 
@@ -201,6 +210,7 @@
                         </text>
                     {/if}
                 </g>
+                {/if}
             {/each}
         </g>
     </svg>

@@ -16,8 +16,8 @@
 
     let queue = $state(['A']);
     let visited = $state(new Set(['A']));
-    let processed = $state(new Set());
-    let activeNode = $state(null);
+    let processed = $state(new Set<string>());
+    let activeNode = $state<string | null>(null);
     let stepDescription = $state("Klik 'Mulai' atau 'Next Step' untuk melihat simulasi BFS.");
     let isRunning = $state(false);
 
@@ -38,7 +38,7 @@
         }
 
         isRunning = true;
-        const u = queue.shift();
+        const u = queue.shift()!;
         activeNode = u;
         processed.add(u);
         
@@ -46,7 +46,7 @@
             .filter(e => e.source === u)
             .map(e => e.target);
 
-        let addedNodes = [];
+        let addedNodes: string[] = [];
         neighbors.forEach(v => {
             if (!visited.has(v)) {
                 visited.add(v);

@@ -57,7 +57,7 @@
     <NoteHeader
         title="Teori Graf dan Algoritma Dasar"
         date="07 Mei 2026"
-        status="completed"
+        status="done"
         tags={["DAL", "Graph", "BFS", "DFS", "Dijkstra"]}
     />
 
@@ -653,7 +653,7 @@ proc Initialize(G, s)
         display: grid;
     }
     @media (min-width: 768px) {
-        .grid-cols-2 {
+        .md\:grid-cols-2 {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
@@ -701,7 +701,7 @@ proc Initialize(G, s)
     .border-l-red-500 { border-left-color: #ff3b30; }
     .mt-2 { margin-top: 0.5rem; }
     @media (min-width: 768px) {
-        .grid-cols-3 {
+        .md\:grid-cols-3 {
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
     }

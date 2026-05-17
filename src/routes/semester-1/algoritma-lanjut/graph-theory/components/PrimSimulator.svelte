@@ -16,9 +16,9 @@
         { source: 'D', target: 'E', weight: 2 }
     ];
 
-    let mstEdges = $state(new Set());
-    let visited = $state(new Set(['A']));
-    let activeNode = $state(null);
+    let mstEdges = $state(new Set<string>());
+    let visited = $state(new Set<string>(['A']));
+    let activeNode = $state<string | null>(null);
     let totalWeight = $state(0);
     let stepDescription = $state("Klik 'Next Step' untuk melihat proses Prim membangun Minimum Spanning Tree (MST).");
 
@@ -38,7 +38,7 @@
         }
 
         // Find the cheapest edge connecting a visited node to an unvisited node
-        let cheapest = null;
+        let cheapest: {source: string, target: string, weight: number} | null = null;
         let minWeight = Infinity;
 
         edges.forEach(edge => {
