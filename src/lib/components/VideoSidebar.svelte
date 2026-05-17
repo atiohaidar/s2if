@@ -35,6 +35,7 @@
     let isPlaying = $state(false);
     let autoScrollEnabled = $state(true);
     let trackInterval: ReturnType<typeof setInterval> | null = null;
+    let chapterListRef: HTMLUListElement | null = $state(null);
 
     const playerContainerId = `yt-player-${videoId}`;
 
@@ -118,9 +119,21 @@
         if (!player || !playerReady || typeof player.getCurrentTime !== 'function') return;
         try {
             const t = player.getCurrentTime();
+            let newIdx = activeChapterIdx;
             for (let i = chapters.length - 1; i >= 0; i--) {
-                if (t >= chapters[i].seconds) { activeChapterIdx = i; break; }
+                if (t >= chapters[i].seconds) { newIdx = i; break; }
             }
+            
+            if (newIdx !== activeChapterIdx) {
+                activeChapterIdx = newIdx;
+                if (browser && chapterListRef) {
+                    const activeLi = chapterListRef.children[activeChapterIdx] as HTMLElement;
+                    if (activeLi) {
+                        activeLi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }
+
             // Dispatch tick event for bidirectional sync
             if (browser && isOpen) {
                 document.dispatchEvent(new CustomEvent('video-tick', {
@@ -239,9 +252,12 @@
         {#if chapters.length > 0}
             <div class="chapter-list">
                 <span class="chapter-list-title">CHAPTER TIMELINE</span>
-                <ul>
+                <ul bind:this={chapterListRef}>
                     {#each chapters as chapter, i}
-                        <li class:active={i === activeChapterIdx && playerReady}>
+                        <li 
+                            class:active={i === activeChapterIdx && playerReady}
+                            class:passed={i < activeChapterIdx && playerReady}
+                        >
                             <button class="chapter-btn" onclick={() => handleChapterClick(chapter.seconds)}>
                                 <span class="chapter-dot"></span>
                                 <span class="chapter-time">{chapter.time}</span>
@@ -434,15 +450,26 @@
         margin: 0;
         padding: 0;
     }
-    .chapter-list li { position: relative; }
+    .chapter-list li { 
+        position: relative; 
+        margin: 0;
+        padding: 0;
+    }
     .chapter-list li::before {
         content: '';
         position: absolute;
-        left: 1.45rem;
+        left: 1.625rem;
         top: 0;
         bottom: 0;
         width: 2px;
         background: var(--color-line, #e0d6c2);
+        z-index: 0;
+    }
+    .chapter-list li.passed::before {
+        background: var(--color-binder, #8b4513);
+    }
+    .chapter-list li.active::before {
+        background: linear-gradient(to bottom, var(--color-binder, #8b4513) 50%, var(--color-line, #e0d6c2) 50%);
     }
     .chapter-list li:first-child::before { top: 50%; }
     .chapter-list li:last-child::before { bottom: 50%; }
@@ -450,40 +477,59 @@
     .chapter-btn {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         width: 100%;
-        padding: 0.4rem 1rem;
+        padding: 0.6rem 1rem;
         background: none;
         border: none;
         cursor: pointer;
         text-align: left;
-        transition: background 0.15s;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         font-family: inherit;
+        border-radius: 8px;
+        margin: 0 0.25rem;
+        width: calc(100% - 0.5rem);
     }
-    .chapter-btn:hover { background: var(--color-surface-soft, #f7f3eb); }
+    .chapter-btn:hover { 
+        background: var(--color-surface-soft, #f7f3eb); 
+        transform: translateX(2px);
+    }
 
     .chapter-dot {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
         border: 2px solid var(--color-line, #e0d6c2);
         background: var(--color-surface, #fffdf7);
         flex-shrink: 0;
         z-index: 1;
-        transition: all 0.2s;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .chapter-btn:hover .chapter-dot {
+        border-color: var(--color-binder, #8b4513);
+        transform: scale(1.2);
+    }
+    
+    @keyframes pulse-playing {
+        0% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.3); }
+        70% { box-shadow: 0 0 0 6px rgba(139, 69, 19, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0); }
+    }
+
     li.active .chapter-dot {
         background: var(--color-binder, #8b4513);
         border-color: var(--color-binder, #8b4513);
-        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+        transform: scale(1.2);
+        animation: pulse-playing 2s infinite cubic-bezier(0.66, 0, 0, 1);
     }
 
     .chapter-time {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         font-weight: 700;
         color: var(--color-binder, #8b4513);
         font-variant-numeric: tabular-nums;
-        min-width: 32px;
+        min-width: 36px;
+        transition: color 0.2s;
     }
     .chapter-name {
         font-size: 0.78rem;

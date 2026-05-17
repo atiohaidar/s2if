@@ -2,6 +2,7 @@
     import "../app.css";
     import Sidebar from "$lib/components/Sidebar.svelte";
     import NotesPanel from "$lib/components/NotesPanel.svelte";
+    import InlineAnnotator from "$lib/components/InlineAnnotator.svelte";
     import { browser } from "$app/environment";
     import { onDestroy, onMount } from "svelte";
 
@@ -302,6 +303,7 @@
 
     <!-- Notes Panel (Right side) -->
     <NotesPanel bind:isOpen={notesOpen} onToggle={toggleNotes} />
+    <InlineAnnotator />
 </div>
 
 <style>

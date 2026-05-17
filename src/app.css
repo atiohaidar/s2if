@@ -603,6 +603,61 @@ code:not(pre code) {
 	transform: scale(0.95);
 }
 
+/* ===== Inline Annotations (Highlight & Comment System) ===== */
+
+/* Base highlight mark */
+.inline-highlight {
+	cursor: pointer;
+	border-radius: 3px;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+	padding: 0.05em 0;
+	transition: filter 0.2s ease, box-shadow 0.2s ease;
+	position: relative;
+}
+
+.inline-highlight:hover {
+	filter: brightness(0.92);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+/* Color variants */
+.highlight-yellow { background: rgba(241, 196, 15, 0.35); }
+.highlight-blue   { background: rgba(52, 152, 219, 0.25); }
+.highlight-green  { background: rgba(39, 174, 96, 0.25); }
+.highlight-purple { background: rgba(155, 89, 182, 0.25); }
+.highlight-red    { background: rgba(231, 76, 60, 0.2); }
+
+:root[data-theme='dark'] .highlight-yellow { background: rgba(241, 196, 15, 0.25); }
+:root[data-theme='dark'] .highlight-blue   { background: rgba(52, 152, 219, 0.2); }
+:root[data-theme='dark'] .highlight-green  { background: rgba(39, 174, 96, 0.2); }
+:root[data-theme='dark'] .highlight-purple { background: rgba(155, 89, 182, 0.2); }
+:root[data-theme='dark'] .highlight-red    { background: rgba(231, 76, 60, 0.18); }
+
+/* Has-comment indicator dot */
+.inline-highlight[data-has-comment="true"]::after {
+	content: '';
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 6px;
+	height: 6px;
+	background: var(--color-binder);
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+/* Pulse animation when scrolling to a highlight */
+@keyframes highlight-pulse {
+	0%   { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.4); }
+	50%  { box-shadow: 0 0 0 6px rgba(139, 69, 19, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0); }
+}
+
+.inline-highlight.pulse {
+	animation: highlight-pulse 0.8s ease-out 2;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
