@@ -6,6 +6,7 @@
     import CodeBlock from "$lib/components/CodeBlock.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
     import VideoSidebar from "$lib/components/VideoSidebar.svelte";
+    import VideoSyncArticle from "$lib/components/VideoSyncArticle.svelte";
     import { HelpCircle, Play } from "lucide-svelte";
 
     const videoBaseUrl = "https://www.youtube.com/watch?v=Ex0nhOPzLIs";
@@ -34,6 +35,18 @@
         { title: 'Demo Latent Space', time: '43:05', seconds: 2585 },
         { title: 'Pengalaman DIVISIO', time: '46:48', seconds: 2808 },
         { title: 'Ringkasan', time: '48:35', seconds: 2915 },
+    ];
+
+    const sectionMap = [
+        { id: 'pendahuluan', startSeconds: 3, endSeconds: 177 },
+        { id: 'teknik-unsupervised', startSeconds: 178, endSeconds: 577 },
+        { id: 'apa-itu-autoencoder', startSeconds: 578, endSeconds: 861 },
+        { id: 'cnn-autoencoder', startSeconds: 862, endSeconds: 923 },
+        { id: 'use-cases', startSeconds: 924, endSeconds: 1816 },
+        { id: 'intrinsic-space', startSeconds: 1817, endSeconds: 2145 },
+        { id: 'realita', startSeconds: 2146, endSeconds: 2230 },
+        { id: 'vae', startSeconds: 2231, endSeconds: 2807 },
+        { id: 'brain-beats-brawn', startSeconds: 2808, endSeconds: 2999 },
     ];
 
     /**
@@ -106,6 +119,8 @@
         Catatan ini disusun berdasarkan talk <strong>Christoph Henkelmann</strong> (CTO &amp; Founder, Divisio) berjudul <em>"Unsupervised Learning with Autoencoders"</em>. Video lengkap tersedia di: <a href="https://www.youtube.com/watch?v=Ex0nhOPzLIs&t=648s" target="_blank" rel="noopener noreferrer">YouTube — Unsupervised Learning with Autoencoders</a>.
     </Callout>
 
+    <VideoSyncArticle {sectionMap}>
+    <div data-section-id="pendahuluan">
     <NoteSection title="Pendahuluan: Supervised vs Unsupervised Learning">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -148,7 +163,9 @@
             Namun, perlu diingat: unsupervised learning bukanlah peluru perak (silver bullet) yang menyelesaikan semua masalah. Tidak ada keajaiban gratis — teknik ini memiliki trade-off tersendiri yang akan kita bahas di bagian akhir.
         </Callout>
     </NoteSection>
+    </div>
 
+    <div data-section-id="teknik-unsupervised">
     <NoteSection title="Teknik Unsupervised Lainnya: Clustering & Separation">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -186,7 +203,9 @@
             Autoencoders bisa dianggap sebagai versi <em>deep learning</em> dari teknik separation ini — keduanya sama-sama mencari representasi berdimensi rendah dari data, tetapi Autoencoders mampu menangkap hubungan non-linear yang jauh lebih kompleks.
         </Callout>
     </NoteSection>
+    </div>
 
+    <div data-section-id="apa-itu-autoencoder">
     <NoteSection title="Apa itu Autoencoder?">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -276,7 +295,9 @@
             Kesimpulan penting: semakin tidak biasa sebuah gambar dibandingkan data latih, semakin buruk rekonstruksinya. Fakta inilah yang membuka pintu ke berbagai <em>use case</em> yang sangat berguna!
         </Callout>
     </NoteSection>
+    </div>
 
+    <div data-section-id="cnn-autoencoder">
     <NoteSection title="CNN Autoencoder & Transpose Convolution">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -320,7 +341,9 @@ decoder = nn.Sequential(
 )`}
         />
     </NoteSection>
+    </div>
 
+    <div data-section-id="use-cases">
     <NoteSection title="5 Use Cases Utama Autoencoders">
         <p>
             Autoencoder terlihat sederhana, tetapi konsep kompresi dan rekonstruksi ini membuka pintu ke berbagai fungsi yang sangat kuat. Menariknya, setiap use case melibatkan "membuang" sebagian dari autoencoder:
@@ -481,7 +504,9 @@ decoder = nn.Sequential(
             Decoder telah belajar merekonstruksi input berdasarkan latent vector. Jika kita memberikan <strong>vektor buatan baru</strong> ke Decoder, ia akan menghasilkan data baru. Masukkan vektor yang tepat, dan tiba-tiba Decoder akan menghasilkan gambar angka 7 yang realistis.
         </p>
     </NoteSection>
+    </div>
 
+    <div data-section-id="intrinsic-space">
     <NoteSection title="Intrinsic Space dan Dimension">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -530,6 +555,7 @@ decoder = nn.Sequential(
             Dalam autoencoder yang sempurna, setiap neuron di bottleneck akan <strong>merepresentasikan informasi yang bermakna</strong>. Kita bisa "membaca" state permainan langsung dari neuron-neuron bottleneck. Normalnya neural network adalah "black box" — kita tidak tahu apa yang dilakukan setiap neuron. Tapi pada autoencoder ideal, setiap neuron bottleneck menceritakan sesuatu yang berguna.
         </Callout>
     </NoteSection>
+    </div>
 
     <NoteSection title="Implementasi Sederhana dengan PyTorch">
         <p>
@@ -578,6 +604,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         />
     </NoteSection>
 
+    <div data-section-id="realita">
     <NoteSection title="Realita di Dunia Nyata: Fitur yang Tersebar">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -599,7 +626,9 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
             Masalah fitur yang tersebar inilah yang menjadi salah satu motivasi utama dikembangkannya <strong>Variational Autoencoder (VAE)</strong>, yang secara elegan memaksa fitur-fitur untuk lebih terpisah satu sama lain.
         </p>
     </NoteSection>
+    </div>
 
+    <div data-section-id="vae">
     <NoteSection title="Variational Autoencoder (VAE)">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -676,7 +705,9 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
             Setelah beberapa menit eksplorasi, ia menemukan sekitar <strong>10 dead neurons</strong> dari total 32. Karena 32 - 10 = 22, ini mengkonfirmasi bahwa <strong>dimensi intrinsik MNIST adalah sekitar 20</strong> — persis seperti estimasi teoretis! Dengan cara ini kita bisa menentukan dimensi intrinsik suatu masalah cukup dengan mengamati VAE.
         </p>
     </NoteSection>
+    </div>
 
+    <div data-section-id="brain-beats-brawn">
     <NoteSection title="Pengalaman di Dunia Nyata: Brain Beats Brawn">
         <div class="section-meta-timestamps">
             <span class="meta-label">Materi Video:</span>
@@ -701,6 +732,9 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
             Namun satu hal yang harus diingat: unsupervised learning <strong>lebih sulit</strong> daripada supervised training. Modelnya lebih <em>fickle</em> (rewel/sensitif), lebih sulit menemukan konfigurasi parameter yang tepat. Classifier supervised sederhana yang sudah dibangun ribuan kali dan konfigurasinya sudah diketahui bekerja, <strong>jauh lebih mudah</strong> dibandingkan menemukan autoencoder yang tepat untuk masalah yang belum pernah dipecahkan sebelumnya. Tidak ada makan siang gratis!
         </Callout>
     </NoteSection>
+    </div>
+
+    </VideoSyncArticle>
 
     <NoteSection title="Glosarium Istilah Utama">
         <p>
@@ -855,6 +889,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 </article>
 
 <VideoSidebar bind:this={videoSidebar} videoId="Ex0nhOPzLIs" {chapters} />
+
 
 <style>
     /* Styling tambahan untuk visual konsep */
@@ -1014,4 +1049,5 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         margin-left: 0.5rem;
         font-size: 0.7rem;
     }
+
 </style>

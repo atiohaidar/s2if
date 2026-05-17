@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy, tick } from 'svelte';
     import { browser } from '$app/environment';
-    import { X, Play, Pause, MonitorPlay } from 'lucide-svelte';
+    import { X, Play, Pause, MonitorPlay, Scroll } from 'lucide-svelte';
 
     /**
      * VideoSidebar — Reusable collapsible sidebar with an embedded YouTube player
@@ -33,6 +33,7 @@
     let initialized = $state(false);
     let activeChapterIdx = $state(0);
     let isPlaying = $state(false);
+    let autoScrollEnabled = $state(true);
     let trackInterval: ReturnType<typeof setInterval> | null = null;
 
     const playerContainerId = `yt-player-${videoId}`;
@@ -118,9 +119,14 @@
         try {
             const t = player.getCurrentTime();
             for (let i = chapters.length - 1; i >= 0; i--) {
-                if (t >= chapters[i].seconds) { activeChapterIdx = i; return; }
+                if (t >= chapters[i].seconds) { activeChapterIdx = i; break; }
             }
-            activeChapterIdx = 0;
+            // Dispatch tick event for bidirectional sync
+            if (browser && isOpen) {
+                document.dispatchEvent(new CustomEvent('video-tick', {
+                    detail: { seconds: t, autoScroll: autoScrollEnabled }
+                }));
+            }
         } catch { /* player not ready */ }
     }
 
@@ -210,6 +216,24 @@
                 </span>
             </div>
         {/if}
+
+        <!-- Auto-scroll toggle -->
+        <div class="sync-toggle">
+            <label class="toggle-label">
+                <Scroll size={13} />
+                <span>Auto-scroll catatan</span>
+                <button
+                    class="toggle-switch"
+                    class:active={autoScrollEnabled}
+                    onclick={() => autoScrollEnabled = !autoScrollEnabled}
+                    role="switch"
+                    aria-checked={autoScrollEnabled}
+                    aria-label="Toggle auto-scroll catatan"
+                >
+                    <span class="toggle-knob"></span>
+                </button>
+            </label>
+        </div>
 
         <!-- Chapter timeline -->
         {#if chapters.length > 0}
@@ -468,6 +492,51 @@
     li.active .chapter-name {
         font-weight: 700;
         color: var(--color-ink-strong, #2c1810);
+    }
+
+    /* ── Sync Toggle ── */
+    .sync-toggle {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--color-line, #e0d6c2);
+    }
+    .toggle-label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--color-ink-muted, #8a7a6a);
+        cursor: pointer;
+    }
+    .toggle-label span { flex: 1; }
+    .toggle-switch {
+        position: relative;
+        width: 34px;
+        height: 18px;
+        border-radius: 999px;
+        background: var(--color-line, #d4c9b6);
+        border: none;
+        cursor: pointer;
+        transition: background 0.25s;
+        flex-shrink: 0;
+        padding: 0;
+    }
+    .toggle-switch.active {
+        background: var(--color-binder, #8b4513);
+    }
+    .toggle-knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform 0.25s;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .toggle-switch.active .toggle-knob {
+        transform: translateX(16px);
     }
 
     /* ── Responsive ── */
