@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'praktek',
     track: 'bedah-soal',
     status: 'done',
-    order: 14,
+    order: 18,
     tags: ['bedah-soal', 'graph', 'bfs', 'python'],
     prereq: ['graph-theory'],
     renderMode: 'note',

@@ -112,7 +112,7 @@ procedure mainBuild()
   // Membangun pohon dari rentang [0, N)
   // Dimulai dari node 0 (akar)
   build(0, 0, N)
-end procedure`}`}
+end procedure`}
         />
 
         <p><strong>Simulasi Visual Proses Build:</strong></p>

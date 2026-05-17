@@ -247,7 +247,7 @@
         return snaps;
     }
 
-    let snapshots = $state<Snapshot[]>(simulate(selectedAlgo, startCity, goalCity));
+    let snapshots = $derived(simulate(selectedAlgo, startCity, goalCity));
     let step = $state(0);
     let isPlaying = $state(false);
     let playbackSpeed = $state(600);
@@ -270,7 +270,7 @@
         return s;
     })());
 
-    function restart() { stop(); snapshots = simulate(selectedAlgo, startCity, goalCity); step = 0; }
+    function restart() { stop(); step = 0; }
     function stop() { if (timer) clearInterval(timer); isPlaying = false; }
     function reset() { stop(); step = 0; }
     function next() { if (step < maxStep) step++; else stop(); }

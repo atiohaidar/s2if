@@ -52,7 +52,7 @@
         return steps;
     }
 
-    let allSteps = $state<SearchStep[]>(computeSearch(targetVal));
+    let allSteps = $derived(computeSearch(targetVal));
     let step = $state(0);
     let currentStep = $state<SearchStep | null>(null);
     let message = $state("Klik 'Next' untuk mulai Binary Search. Perhatikan bagaimana setengah array dibuang (pruning) setiap langkah!");
@@ -82,7 +82,6 @@
     }
 
     function reset() {
-        allSteps = computeSearch(targetVal);
         step = 0;
         currentStep = null;
         message = "Klik 'Next' untuk mulai Binary Search.";

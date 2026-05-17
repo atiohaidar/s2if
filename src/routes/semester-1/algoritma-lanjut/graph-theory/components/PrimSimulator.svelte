@@ -41,7 +41,7 @@
         let cheapest: {source: string, target: string, weight: number} | null = null;
         let minWeight = Infinity;
 
-        edges.forEach(edge => {
+        for (const edge of edges) {
             const uVisited = visited.has(edge.source);
             const vVisited = visited.has(edge.target);
 
@@ -51,7 +51,7 @@
                     cheapest = edge;
                 }
             }
-        });
+        }
 
         if (cheapest) {
             const nextNode = visited.has(cheapest.source) ? cheapest.target : cheapest.source;

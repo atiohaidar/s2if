@@ -5,7 +5,9 @@
     import Callout from "$lib/components/Callout.svelte";
     import CodeBlock from "$lib/components/CodeBlock.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
-    import { HelpCircle } from "lucide-svelte";
+    import { HelpCircle, Play } from "lucide-svelte";
+
+    const videoBaseUrl = "https://www.youtube.com/watch?v=Ex0nhOPzLIs";
 
     const quizQuestions = [
         {
@@ -62,6 +64,15 @@
     </Callout>
 
     <NoteSection title="Pendahuluan: Supervised vs Unsupervised Learning">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=0m3s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 0:03 Intro
+            </a>
+            <a href="{videoBaseUrl}&t=2m58s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 2:58 Unsupervised Training
+            </a>
+        </div>
         <p>
             Semua contoh dalam materi ini menggunakan dataset <strong>MNIST</strong> (<em>Modified National Institute of Standards and Technology</em>) — kumpulan 60.000 gambar training dan 10.000 gambar test berupa angka tulisan tangan berukuran 28 × 28 piksel grayscale. MNIST adalah <em>hello world</em>-nya neural network karena sudah sangat familiar, memberikan hasil cepat, dan bisa dijalankan di laptop biasa.
         </p>
@@ -96,6 +107,15 @@
     </NoteSection>
 
     <NoteSection title="Teknik Unsupervised Lainnya: Clustering & Separation">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=4m38s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 4:38 Clustering
+            </a>
+            <a href="{videoBaseUrl}&t=6m10s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 6:10 Separation Techniques
+            </a>
+        </div>
         <p>
             Sebelum masuk ke Autoencoders, penting untuk memahami dua keluarga teknik unsupervised lainnya yang sering dipakai di industri:
         </p>
@@ -125,6 +145,21 @@
     </NoteSection>
 
     <NoteSection title="Apa itu Autoencoder?">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=7m23s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 7:23 Konsep Autoencoder
+            </a>
+            <a href="{videoBaseUrl}&t=11m25s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 11:25 The Bottleneck
+            </a>
+            <a href="{videoBaseUrl}&t=12m57s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 12:57 Rekonstruksi vs Blur
+            </a>
+            <a href="{videoBaseUrl}&t=14m22s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 14:22 Kesalahan Rekonstruksi
+            </a>
+        </div>
         <p>
             <strong>Autoencoder</strong> adalah arsitektur neural network yang dirancang untuk mereproduksi atau merekonstruksi inputnya sendiri pada bagian output. Jadi secara sederhana, target output dari jaringan ini adalah input itu sendiri (<code>Y = X</code>).
         </p>
@@ -200,6 +235,15 @@
     </NoteSection>
 
     <NoteSection title="CNN Autoencoder & Transpose Convolution">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=9m38s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 9:38 CNN Autoencoder
+            </a>
+            <a href="{videoBaseUrl}&t=10m9s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 10:09 Transpose Convolution
+            </a>
+        </div>
         <p>
             Untuk data berbasis gambar, arsitektur <strong>Convolutional Neural Network (CNN)</strong> jauh lebih efektif daripada jaringan fully-connected biasa. CNN Autoencoder menggunakan layer konvolusi pada bagian Encoder dan layer <strong>Transpose Convolution</strong> pada bagian Decoder.
         </p>
@@ -239,7 +283,12 @@ decoder = nn.Sequential(
             Autoencoder terlihat sederhana, tetapi konsep kompresi dan rekonstruksi ini membuka pintu ke berbagai fungsi yang sangat kuat. Menariknya, setiap use case melibatkan "membuang" sebagian dari autoencoder:
         </p>
 
-        <h3>1. Anomaly Detection (Deteksi Anomali)</h3>
+        <h3>
+            1. Anomaly Detection (Deteksi Anomali)
+            <a href="{videoBaseUrl}&t=15m24s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 15:24
+            </a>
+        </h3>
         <p>
             Use case pertama langsung memanfaatkan fakta bahwa gambar tidak biasa menghasilkan rekonstruksi yang buruk.
         </p>
@@ -249,11 +298,14 @@ decoder = nn.Sequential(
         <ol>
             <li>Latih Autoencoder menggunakan data tidak berlabel sampai konvergen. Biarkan model belajar merekonstruksi data normal.</li>
             <li>Catat <strong>reconstruction error maksimal</strong> yang ditemui pada seluruh data training. Pada eksperimen MNIST, error maksimal yang tercatat adalah <strong>0.04</strong> (menggunakan L2 error).</li>
-            <li>Bawa autoencoder ke produksi. Setiap data baru yang masuk, feed ke autoencoder dan hitung reconstruction error-nya.</li>
+            <li>Bawa autoencoder ke produksi. Setiap data baru yang masuk, feed to autoencoder dan hitung reconstruction error-nya.</li>
             <li>Jika error melebihi threshold (> 0.04), tandai data tersebut sebagai <strong>anomali</strong>.</li>
         </ol>
         <p>
-            <strong>Eksperimen nyata:</strong> Christoph Henkelmann menggambar beberapa gambar buatan tangan dan memasukkannya ke autoencoder MNIST yang sudah dilatih:
+            <strong>Eksperimen nyata:</strong> Christoph Henkelmann menggambar beberapa gambar buatan tangan dan memasukkannya ke autoencoder MNIST yang sudah dilatih
+            <a href="{videoBaseUrl}&t=16m43s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 16:43 Demo Anomali
+            </a>:
         </p>
         <ul>
             <li>Simbol <strong>Sigma (Σ)</strong> → rekonstruksi rusak total, error <strong>0.10</strong> (jauh di atas threshold 0.04).</li>
@@ -273,7 +325,12 @@ decoder = nn.Sequential(
             </ul>
         </Callout>
 
-        <h3>2. Denoising Autoencoder (Pembersihan Noise)</h3>
+        <h3>
+            2. Denoising Autoencoder (Pembersihan Noise)
+            <a href="{videoBaseUrl}&t=18m55s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 18:55
+            </a>
+        </h3>
         <p>
             Variasi menarik: kali ini input dan output <em>tidak persis sama</em>. Kita menambahkan noise pada input, tetapi melatih model untuk merekonstruksi gambar <strong>asli yang bersih</strong>.
         </p>
@@ -289,7 +346,12 @@ decoder = nn.Sequential(
             </ol>
         </Callout>
 
-        <h3>3. Pre-training dan Transfer Learning (Semi-supervised)</h3>
+        <h3>
+            3. Pre-training dan Transfer Learning (Semi-supervised)
+            <a href="{videoBaseUrl}&t=20m37s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 20:37
+            </a>
+        </h3>
         <p>
             Ini adalah bagian favorit dari presentasi — teknik yang <strong>benar-benar menghemat uang</strong> di industri nyata.
         </p>
@@ -314,6 +376,11 @@ decoder = nn.Sequential(
         </p>
 
         <Callout type="info" title="Studi Kasus Nyata: BERT di Perusahaan Divisio">
+            <div style="margin-bottom: 0.75rem;">
+                <a href="{videoBaseUrl}&t=23m35s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                    <Play size={10} /> 23:35 BERT & Divisio Case Study
+                </a>
+            </div>
             <p>
                 <strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) — meskipun jarang orang menganggapnya sebagai autoencoder, secara teknis BERT adalah sebuah <strong>denoising autoencoder</strong> dengan arsitektur yang jauh lebih kompleks.
             </p>
@@ -335,7 +402,12 @@ decoder = nn.Sequential(
             </p>
         </Callout>
 
-        <h3>4. Similarity Detection (Deteksi Kemiripan)</h3>
+        <h3>
+            4. Similarity Detection (Deteksi Kemiripan)
+            <a href="{videoBaseUrl}&t=26m51s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 26:51
+            </a>
+        </h3>
         <p>
             Kali ini kita melatih autoencoder seperti biasa, lalu <strong>membuang Decoder</strong> dan <strong>tidak menempelkan apa pun</strong>. Lebih sederhana daripada transfer training.
         </p>
@@ -353,7 +425,12 @@ decoder = nn.Sequential(
             Tahukah Anda? Begitulah cara chatbot mencocokan <em>intent</em> pengguna. Mereka menggunakan embedding vector dan menghitung jarak antar-vektor untuk menentukan apakah kalimat pengguna cocok dengan intent tertentu.
         </Callout>
 
-        <h3>5. Generative Autoencoder dan Latent Space Exploration</h3>
+        <h3>
+            5. Generative Autoencoder dan Latent Space Exploration
+            <a href="{videoBaseUrl}&t=29m12s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={10} /> 29:12
+            </a>
+        </h3>
         <p>
             Kali ini kita melakukan kebalikannya: <strong>buang Encoder</strong>, sisakan hanya Decoder. Lucu — setiap kali kita membuang sesuatu dari autoencoder, justru semakin berguna!
         </p>
@@ -363,6 +440,18 @@ decoder = nn.Sequential(
     </NoteSection>
 
     <NoteSection title="Intrinsic Space dan Dimension">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=30m17s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 30:17 Intrinsic Dimension
+            </a>
+            <a href="{videoBaseUrl}&t=32m15s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 32:15 Pac-Man Intrinsic Space
+            </a>
+            <a href="{videoBaseUrl}&t=34m50s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 34:50 Ideal Bottleneck
+            </a>
+        </div>
         <p>
             Konsep ini terdengar sangat <em>science fiction</em>, tapi sebenarnya jauh lebih sederhana dari yang dibayangkan.
         </p>
@@ -447,6 +536,12 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     </NoteSection>
 
     <NoteSection title="Realita di Dunia Nyata: Fitur yang Tersebar">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=35m46s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 35:46 Realita Penyebaran Fitur
+            </a>
+        </div>
         <p>
             Dalam contoh ideal (seperti analogi game Pac-man), kita membayangkan setiap neuron di bottleneck merepresentasikan satu informasi spesifik yang bermakna (misalnya neuron ke-1 = sisa nyawa, neuron ke-5 = posisi X Pac-man). Namun di dunia nyata, <strong>hal ini hampir tidak pernah terjadi</strong>.
         </p>
@@ -463,6 +558,18 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     </NoteSection>
 
     <NoteSection title="Variational Autoencoder (VAE)">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=37m11s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 37:11 Konsep VAE
+            </a>
+            <a href="{videoBaseUrl}&t=41m4s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 41:04 Kelebihan VAE
+            </a>
+            <a href="{videoBaseUrl}&t=43m5s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 43:05 Demo Interaktif Latent Space
+            </a>
+        </div>
         <p>
             Pada Autoencoder klasik, ruang laten (latent space) seringkali tidak beraturan dan tidak mulus. Ada wilayah-wilayah kosong — jika kita memasukkan vektor dari wilayah tersebut, Decoder akan menghasilkan output yang rusak dan tidak masuk akal. Ini terjadi karena autoencoder klasik hanya meminimalkan <em>reconstruction loss</em>.
         </p>
@@ -528,6 +635,15 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     </NoteSection>
 
     <NoteSection title="Pengalaman di Dunia Nyata: Brain Beats Brawn">
+        <div class="section-meta-timestamps">
+            <span class="meta-label">Materi Video:</span>
+            <a href="{videoBaseUrl}&t=46m48s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 46:48 Pengalaman DIVISIO
+            </a>
+            <a href="{videoBaseUrl}&t=48m35s" target="_blank" rel="noopener noreferrer" class="timestamp-badge">
+                <Play size={12} /> 48:35 Ringkasan & Penutup
+            </a>
+        </div>
         <p>
             Berdasarkan pengalaman Christoph Henkelmann dan timnya di perusahaan AI Divisio, berikut rangkuman pengalaman menggunakan unsupervised learning di industri:
         </p>
@@ -801,5 +917,56 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     
     .baby-trigger:hover::before {
         opacity: 1;
+    }
+
+    /* Video Timestamp Badges & Containers */
+    .section-meta-timestamps {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding: 0.35rem 0.75rem;
+        background: var(--color-surface-soft);
+        border: 1px solid var(--color-line);
+        border-radius: 20px;
+        width: fit-content;
+    }
+
+    .meta-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--color-ink-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 0.25rem;
+    }
+
+    .timestamp-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        background: var(--color-status-info-soft);
+        border: 1px solid var(--color-callout-info-border);
+        color: var(--color-binder);
+        padding: 0.15rem 0.55rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: all 0.2s ease-in-out;
+        vertical-align: middle;
+    }
+
+    .timestamp-badge:hover {
+        background: var(--color-binder);
+        color: var(--color-surface) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 .timestamp-badge {
+        margin-left: 0.5rem;
+        font-size: 0.7rem;
     }
 </style>

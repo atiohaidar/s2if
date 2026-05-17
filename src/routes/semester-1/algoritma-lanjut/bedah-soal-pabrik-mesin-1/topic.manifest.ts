@@ -10,7 +10,7 @@ const manifest: TopicManifest = {
     status: 'done',
     order: 13,
     tags: ['bedah-soal', 'binary-search', 'optimasi'],
-    prereq: ['week-5-dnc-pruning'],
+    prereq: ['divide-and-conquer'],
     renderMode: 'note',
 };
 

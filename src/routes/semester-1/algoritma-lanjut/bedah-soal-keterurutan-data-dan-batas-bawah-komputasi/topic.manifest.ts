@@ -10,7 +10,7 @@ const manifest: TopicManifest = {
     status: 'done',
     order: 14,
     tags: ['bedah-soal', 'sorting', 'lower-bound', 'kompleksitas'],
-    prereq: ['branch-and-bound'],
+    prereq: ['batas-bawah-komputasi'],
     renderMode: 'note',
 };
 

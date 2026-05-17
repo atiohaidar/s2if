@@ -7,7 +7,7 @@ const manifest: TopicManifest = {
     summary: 'Pengenalan graf, struktur data graf (Adjacency Matrix/List), serta algoritma penelusuran (BFS/DFS), Shortest Path, dan Minimum Spanning Tree.',
     type: 'catatan',
     track: 'materi',
-    status: 'completed',
+    status: 'done',
     order: 17,
     tags: ['Graph', 'BFS', 'DFS', 'Dijkstra', 'MST'],
     prereq: [],

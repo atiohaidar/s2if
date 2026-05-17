@@ -3,7 +3,7 @@ import type { TopicManifest } from '$lib/data/content';
 const manifest: TopicManifest = {
     id: 'divide-and-conquer',
     slug: 'divide-and-conquer',
-    title: 'Divide and Conquer',
+    title: 'Divide and Conquer & Pemangkasan',
     summary: 'Pembahasan strategi DnC dan pruning lengkap dengan visualizer serta kuis latihan.',
     type: 'catatan',
     track: 'materi',

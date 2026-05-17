@@ -10,7 +10,7 @@ const manifest: TopicManifest = {
     status: 'wip',
     order: 9,
     tags: ['dynamic-programming', 'memoization', 'tabulation', 'lcs', 'knapsack'],
-    prereq: ['konsep', 'branch-and-bound'],
+    prereq: ['konsep', 'divide-and-conquer'],
     renderMode: 'mixed',
 };
 
