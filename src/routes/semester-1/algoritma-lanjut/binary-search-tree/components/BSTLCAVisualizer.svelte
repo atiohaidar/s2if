@@ -80,12 +80,12 @@
     <div class="viz-header">
         <h4>🤝 Visualisasi Lowest Common Ancestor (LCA)</h4>
         <div class="viz-controls">
-            <label>u:</label>
-            <select bind:value={u} disabled={isPlaying}>
+            <label for="u-select">u:</label>
+            <select id="u-select" bind:value={u} disabled={isPlaying}>
                 {#each nodes as n}<option value={n.val}>{n.val}</option>{/each}
             </select>
-            <label>v:</label>
-            <select bind:value={v} disabled={isPlaying}>
+            <label for="v-select">v:</label>
+            <select id="v-select" bind:value={v} disabled={isPlaying}>
                 {#each nodes as n}<option value={n.val}>{n.val}</option>{/each}
             </select>
             <button class="viz-btn primary" onclick={findLCA} disabled={isPlaying}>▶ Cari LCA</button>

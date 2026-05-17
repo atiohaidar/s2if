@@ -302,6 +302,7 @@
     font-family: var(--font-body);
     font-weight: 800;
     background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-muted) 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.05em;
@@ -342,10 +343,6 @@
     }
   }
 
-  .title-sub .dot {
-    color: var(--color-accent);
-  }
-
   .subtitle {
     font-size: 1.35rem;
     color: var(--color-ink);
@@ -353,56 +350,6 @@
     margin: 2rem 0 2rem;
     line-height: 1.6;
     max-width: 600px;
-  }
-
-  /* Hero Search */
-  .hero-search {
-    width: 100%;
-    max-width: 500px;
-    margin-bottom: 3rem;
-  }
-
-  .search-input-wrapper {
-    display: flex;
-    align-items: center;
-    background: var(--color-surface-elevated);
-    border: 2px solid var(--color-line);
-    border-radius: 16px;
-    padding: 0.5rem 0.5rem 0.5rem 1.25rem;
-    gap: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .search-input-wrapper:focus-within {
-    border-color: var(--color-binder);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-  }
-
-  .search-input-wrapper input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--color-ink);
-    outline: none;
-  }
-
-  .search-input-wrapper button {
-    background: var(--color-binder);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-
-  .search-input-wrapper button:hover {
-    opacity: 0.9;
   }
 
   .highlight-alt {
@@ -643,50 +590,6 @@
     border: 1px dashed var(--color-line);
   }
 
-  /* Quick Stats */
-  .quick-stats {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    margin-top: 4rem;
-    background: var(--color-surface-elevated);
-    padding: 2rem;
-    border-radius: 24px;
-    border: 1px solid var(--color-line);
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .stat-value {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--color-binder);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    opacity: 0.6;
-    margin-top: 0.25rem;
-  }
-
-  .stat-divider {
-    width: 1px;
-    height: 40px;
-    background: var(--color-line);
-  }
-
   /* Semester Overview */
   .semester-overview {
     margin-bottom: 6rem;
@@ -723,54 +626,6 @@
     gap: 1.5rem;
   }
 
-  /* Browse All */
-  .browse-all {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: var(--color-ink);
-    color: var(--color-ink-light);
-    border-radius: 32px;
-    margin-bottom: 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .browse-all::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle at 20% 30%, var(--color-line) 0%, transparent 50%);
-    opacity: 0.1;
-    pointer-events: none;
-  }
-
-  .browse-content h3 {
-    color: var(--color-ink-light);
-    margin: 1.5rem 0 1rem;
-    font-size: 2rem;
-  }
-  .browse-content p {
-    opacity: 0.6;
-    margin-bottom: 2.5rem;
-    font-size: 1.1rem;
-  }
-
-  .catalog-btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: var(--color-surface-elevated);
-    color: var(--color-ink);
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-  }
-
-  .catalog-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-
   /* Footer */
   .main-footer {
     margin-top: 4rem;
@@ -792,9 +647,6 @@
     font-weight: 800;
   }
 
-  .footer-brand h4 span {
-    color: var(--color-accent);
-  }
   .footer-brand p {
     opacity: 0.7;
     max-width: 300px;
@@ -852,10 +704,6 @@
       grid-row: span 1;
       grid-column: span 2;
     }
-    .quick-stats {
-      gap: 1.5rem;
-      padding: 1.5rem;
-    }
   }
 
   @media (max-width: 768px) {
@@ -866,9 +714,6 @@
       flex-direction: column;
       width: 100%;
       max-width: 300px;
-    }
-    .hero-search {
-      padding: 0 1rem;
     }
     .bento-grid {
       grid-template-columns: 1fr;
@@ -881,15 +726,6 @@
     .feature-3 {
       flex-direction: column;
       text-align: center;
-    }
-    .quick-stats {
-      flex-direction: column;
-      gap: 2rem;
-      width: 100%;
-    }
-    .stat-divider {
-      width: 40px;
-      height: 1px;
     }
     .section-header h2 {
       font-size: 2.25rem;

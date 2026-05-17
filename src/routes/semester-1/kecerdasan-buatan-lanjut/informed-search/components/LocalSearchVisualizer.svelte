@@ -16,10 +16,10 @@
 
     let ballX = 50;
     let ballY = getY(ballX);
-    let temp = 100;
-    let isRunning = false;
-    let iteration = 0;
-    let status = "Klik Start untuk Simulasi";
+    let temp = $state(100);
+    let isRunning = $state(false);
+    let iteration = $state(0);
+    let status = $state("Klik Start untuk Simulasi");
 
     function reset() {
         ballX = 50 + Math.random() * 50;
@@ -176,10 +176,10 @@
             <span class="status-text">{status}</span>
         </div>
         <div class="controls">
-            <button on:click={start} disabled={isRunning}>
+            <button onclick={start} disabled={isRunning}>
                 <ThemeIcon name="play" size={14} /> Start
             </button>
-            <button on:click={reset} disabled={isRunning}>
+            <button onclick={reset} disabled={isRunning}>
                 <ThemeIcon name="refresh" size={14} /> Reset
             </button>
         </div>

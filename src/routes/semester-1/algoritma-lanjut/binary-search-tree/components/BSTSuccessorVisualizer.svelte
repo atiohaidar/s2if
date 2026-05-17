@@ -99,8 +99,8 @@
     <div class="viz-header">
         <h4>⏭️ Visualisasi Successor (Penerus)</h4>
         <div class="viz-controls">
-            <label>Cari suksesor dari:</label>
-            <select bind:value={targetIdx} disabled={isPlaying} onchange={reset}>
+            <label for="successor-select">Cari suksesor dari:</label>
+            <select id="successor-select" bind:value={targetIdx} disabled={isPlaying} onchange={reset}>
                 {#each nodes as n, i}<option value={i}>{n.val}</option>{/each}
             </select>
             <button class="viz-btn primary" onclick={findSuccessor} disabled={isPlaying}>▶ Cari</button>

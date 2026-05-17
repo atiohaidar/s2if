@@ -1,5 +1,4 @@
 <script lang="ts">
-  export let arr = [10, 7, 8, 9, 1, 5];
   
   // Simulation of Lomuto Partition for the given array
   const steps = [

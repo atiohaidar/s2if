@@ -539,8 +539,6 @@ while not stop_condition:
   }
   .premature-box h4 { margin-top: 0; color: var(--color-binder); margin-bottom: 0.75rem; }
   .premature-box p { font-size: 0.85rem; margin-bottom: 0.75rem; }
-  .premature-box ul { margin: 0; padding-left: 1.25rem; font-size: 0.8rem; color: var(--color-ink-soft); }
-  .premature-box li { margin-bottom: 0.3rem; }
 
   .meta-explanation {
     margin-top: 1.5rem;

@@ -50,6 +50,11 @@
         message = `Mencari nilai data ke-${k} (Median dari 10 data)`;
     }
 
+    function setMedian() {
+        k = 5;
+        start();
+    }
+
     function nextStep() {
         if (finished) return;
 

@@ -106,7 +106,7 @@
     }
 </script>
 
-<svelte:window on:mouseup={handleGlobalUp} on:mousemove={handleMouseMove} />
+<svelte:window onmouseup={handleGlobalUp} onmousemove={handleMouseMove} />
 
 <div class="viz-container">
     <div class="header">
@@ -151,16 +151,18 @@
                 r={draggingIdx === i ? 8 : 6}
                 class="point"
                 class:active={draggingIdx === i}
-                on:mousedown={() => handleMouseDown(i)}
+                role="button"
+                tabindex="0"
+                onmousedown={() => handleMouseDown(i)}
             />
         {/each}
     </svg>
 
     <div class="controls">
-        <button on:click={() => setPreset('perfect')}>Perfect Positive</button>
-        <button on:click={() => setPreset('pos')}>Strong Positive</button>
-        <button on:click={() => setPreset('neg')}>Strong Negative</button>
-        <button on:click={() => setPreset('none')}>Random</button>
+        <button onclick={() => setPreset('perfect')}>Perfect Positive</button>
+        <button onclick={() => setPreset('pos')}>Strong Positive</button>
+        <button onclick={() => setPreset('neg')}>Strong Negative</button>
+        <button onclick={() => setPreset('none')}>Random</button>
     </div>
     <p class="hint">Geser titik-titik di atas untuk melihat perubahan nilai r secara real-time.</p>
 </div>

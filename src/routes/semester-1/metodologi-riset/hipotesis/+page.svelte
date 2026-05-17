@@ -122,7 +122,7 @@
       <li><strong>Efisiensi Waktu:</strong> Dapat diuji dalam jangka waktu yang masuk akal.</li>
     </ul>
 
-    <Callout type="important" title="Falsifiability (Keterbukaan untuk Disanggah)">
+    <Callout type="warning" title="Falsifiability (Keterbukaan untuk Disanggah)">
       Dalam metode ilmiah, <strong>falsifiability</strong> adalah bagian krusial. Agar sebuah klaim dianggap ilmiah, harus ada kemungkinan bahwa klaim tersebut dapat dibuktikan salah melalui eksperimen atau observasi.
     </Callout>
   </NoteSection>
