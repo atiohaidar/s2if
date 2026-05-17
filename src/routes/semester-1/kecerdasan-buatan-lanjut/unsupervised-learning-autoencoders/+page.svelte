@@ -5,9 +5,52 @@
     import Callout from "$lib/components/Callout.svelte";
     import CodeBlock from "$lib/components/CodeBlock.svelte";
     import Quiz from "$lib/components/Quiz.svelte";
+    import VideoSidebar from "$lib/components/VideoSidebar.svelte";
     import { HelpCircle, Play } from "lucide-svelte";
 
     const videoBaseUrl = "https://www.youtube.com/watch?v=Ex0nhOPzLIs";
+
+    let videoSidebar: VideoSidebar;
+
+    const chapters = [
+        { title: 'Intro', time: '0:03', seconds: 3 },
+        { title: 'Unsupervised Training', time: '2:58', seconds: 178 },
+        { title: 'CNN Autoencoders', time: '9:38', seconds: 578 },
+        { title: 'The Bottleneck', time: '11:25', seconds: 685 },
+        { title: 'Even More Examples', time: '14:22', seconds: 862 },
+        { title: 'Anomaly Detection', time: '15:24', seconds: 924 },
+        { title: 'Anomaly Demo', time: '16:43', seconds: 1003 },
+        { title: 'Denoising', time: '18:55', seconds: 1135 },
+        { title: 'Pre-training', time: '20:37', seconds: 1237 },
+        { title: 'BERT & Divisio', time: '23:35', seconds: 1415 },
+        { title: 'Similarity Detection', time: '26:51', seconds: 1611 },
+        { title: 'Generative AE', time: '29:12', seconds: 1752 },
+        { title: 'Intrinsic Space', time: '30:17', seconds: 1817 },
+        { title: 'Pac-Man Space', time: '32:15', seconds: 1935 },
+        { title: 'Ideal Bottleneck', time: '34:50', seconds: 2090 },
+        { title: 'Realita Fitur Tersebar', time: '35:46', seconds: 2146 },
+        { title: 'VAE', time: '37:11', seconds: 2231 },
+        { title: 'Kelebihan VAE', time: '41:04', seconds: 2464 },
+        { title: 'Demo Latent Space', time: '43:05', seconds: 2585 },
+        { title: 'Pengalaman DIVISIO', time: '46:48', seconds: 2808 },
+        { title: 'Ringkasan', time: '48:35', seconds: 2915 },
+    ];
+
+    /**
+     * Event delegation: intercept clicks on any .timestamp-badge link,
+     * parse the YouTube ?t= parameter, and seek the embedded player instead.
+     */
+    function handleTimestampClick(event: MouseEvent) {
+        const badge = (event.target as HTMLElement).closest('.timestamp-badge') as HTMLAnchorElement | null;
+        if (!badge) return;
+        const href = badge.getAttribute('href') ?? '';
+        const match = href.match(/t=(\d+)m(\d+)s/);
+        if (match) {
+            event.preventDefault();
+            const totalSeconds = parseInt(match[1]) * 60 + parseInt(match[2]);
+            videoSidebar?.seekTo(totalSeconds);
+        }
+    }
 
     const quizQuestions = [
         {
@@ -51,7 +94,7 @@
     <meta name="description" content="Catatan kuliah komprehensif mengenai konsep Unsupervised Learning menggunakan Autoencoders, arsitektur bottleneck, 5 use cases utama, dan Variational Autoencoders (VAEs)." />
 </svelte:head>
 
-<article class="note-article">
+<article class="note-article" onclick={handleTimestampClick}>
     <NoteHeader
         title="Unsupervised Learning dengan Autoencoders"
         date="17 Mei 2026"
@@ -810,6 +853,8 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         label="Kembali ke Kecerdasan Buatan Lanjut"
     />
 </article>
+
+<VideoSidebar bind:this={videoSidebar} videoId="Ex0nhOPzLIs" {chapters} />
 
 <style>
     /* Styling tambahan untuk visual konsep */

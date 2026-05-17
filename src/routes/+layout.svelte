@@ -158,11 +158,22 @@
 
         document.addEventListener("keydown", handleKeydown);
         window.addEventListener("resize", handleResize);
+
+        // Coordinate with VideoSidebar: close NotesPanel when video opens
+        const handleVideoSidebar = (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (detail?.open && notesOpen) {
+                notesOpen = false;
+            }
+        };
+        document.addEventListener('videosidebar', handleVideoSidebar);
+
         detachKeydownListener = () => {
             document.removeEventListener("keydown", handleKeydown);
         };
         detachResizeListener = () => {
             window.removeEventListener("resize", handleResize);
+            document.removeEventListener('videosidebar', handleVideoSidebar);
         };
     });
 
@@ -228,6 +239,9 @@
 
     function toggleNotes() {
         notesOpen = !notesOpen;
+        if (notesOpen && browser) {
+            document.dispatchEvent(new CustomEvent('notespanel-open'));
+        }
     }
 
     function toggleTheme() {
@@ -345,6 +359,13 @@
 
         .notes-open .main-content {
             margin-right: var(--notes-width, 320px);
+        }
+    }
+
+    /* Video sidebar pushes content too (attribute set on body by VideoSidebar component) */
+    @media (min-width: 769px) {
+        :global(body[data-video-sidebar-open]) .main-content {
+            margin-right: 340px;
         }
     }
 
