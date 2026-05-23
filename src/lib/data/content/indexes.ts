@@ -72,6 +72,17 @@ export const subjectIndexes: SubjectIndex[] = [
         tags: ['microsoft', 'automation', 'power-automate'],
     },
     {
+        semesterId: 'luar-perkuliahan',
+        id: 'dalam-proses',
+        slug: 'dalam-proses',
+        title: 'Dalam Proses',
+        icon: 'subject-dalam-proses',
+        summary: 'Materi tentang cara belajar, motivasi, dan bagaimana kita berproses dalam kehidupan.',
+        status: 'todo',
+        order: 6,
+        tags: ['learning', 'motivation', 'mindset', 'process'],
+    },
+    {
         semesterId: 'semester-1',
         id: 'algoritma-lanjut',
         slug: 'algoritma-lanjut',

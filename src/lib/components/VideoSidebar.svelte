@@ -94,7 +94,7 @@
             if (!el) { setTimeout(createPlayer, 100); return; }
             player = new win.YT.Player(playerContainerId, {
                 videoId,
-                playerVars: { playsinline: 1, rel: 0, modestbranding: 1 },
+                playerVars: { playsinline: 1, rel: 0, modestbranding: 1, origin: window.location.origin },
                 events: {
                     onReady: () => { playerReady = true; },
                     onStateChange: (e: any) => { isPlaying = e.data === 1; }
@@ -204,6 +204,9 @@
                 <MonitorPlay size={16} />
                 Video Presentasi
             </h3>
+            <button class="close-btn" onclick={close} aria-label="Tutup panel video">
+                <X size={16} />
+            </button>
         </div>
 
         <!-- Player -->
@@ -589,5 +592,6 @@
     @media (max-width: 768px) {
         .video-sidebar { width: 100vw; }
         .video-fab { top: auto; bottom: 1.5rem; right: 1rem; border-radius: 10px; transform: none; }
+        .video-fab.open { display: none; }
     }
 </style>

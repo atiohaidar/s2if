@@ -266,6 +266,8 @@
 
     function handleClickOutside(e: MouseEvent) {
         const target = e.target as HTMLElement;
+        if (!document.documentElement.contains(target)) return;
+
         if (showComment && !target.closest('.ann-comment-popover') && !target.closest('mark.inline-highlight')) {
             showComment = false;
             activeAnnotationId = null;
@@ -553,6 +555,7 @@
 
     .ann-comment-input {
         width: 100%;
+        box-sizing: border-box;
         border: 1px solid var(--color-line, #ddd);
         border-radius: 8px;
         padding: 8px 10px;
@@ -576,6 +579,16 @@
         color: var(--color-ink, #333);
         margin: 0 0 8px 0;
         white-space: pre-wrap;
+        max-height: 250px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+    .ann-comment-body::-webkit-scrollbar {
+        width: 4px;
+    }
+    .ann-comment-body::-webkit-scrollbar-thumb {
+        background: var(--color-line, #ddd);
+        border-radius: 4px;
     }
 
     .ann-comment-actions {

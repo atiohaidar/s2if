@@ -12,6 +12,7 @@
         ChartColumn,
         Check,
         Code2,
+        Compass,
         Copy,
         Calculator,
         FileText,
@@ -86,6 +87,8 @@
     <Sparkles size={size} strokeWidth={2} />
 {:else if name === "subject-microsoft-automation"}
     <Workflow size={size} strokeWidth={2} />
+{:else if name === "subject-dalam-proses"}
+    <Compass size={size} strokeWidth={2} />
 {:else if name === "subject-metodologi-riset"}
     <PenLine size={size} strokeWidth={2} />
 {:else if name === "callout-tip"}
