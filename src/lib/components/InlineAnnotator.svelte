@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/state";
     import { browser } from "$app/environment";
+    import { beforeNavigate } from "$app/navigation";
     import { onMount, onDestroy } from "svelte";
     import { Copy, MessageSquarePlus, Palette, Trash2, PenLine, X } from "lucide-svelte";
 
@@ -58,7 +59,7 @@
     }
 
     function getArticleContainer(): HTMLElement | null {
-        return document.querySelector('.note-article') || document.querySelector('.notebook-page');
+        return document.querySelector('.note-article');
     }
 
     // --- Text node utilities ---
@@ -124,15 +125,20 @@
     function applyAllAnnotations() {
         const container = getArticleContainer();
         if (!container) return;
+
+        const existingMarks = container.querySelectorAll('mark.inline-highlight');
+        if (annotations.length === 0 && existingMarks.length === 0) {
+            return;
+        }
+
         // Remove existing marks first
-        container.querySelectorAll('mark.inline-highlight').forEach(m => {
+        existingMarks.forEach(m => {
             const parent = m.parentNode;
             if (!parent) return;
             while (m.firstChild) parent.insertBefore(m.firstChild, m);
             parent.removeChild(m);
         });
-        // Normalize text nodes
-        container.normalize();
+
         // Apply each annotation
         for (const ann of annotations) {
             const textNodes = getTextNodes(container);
@@ -284,6 +290,18 @@
         clearTimeout(selectionTimer);
         selectionTimer = setTimeout(handleSelectionChange, 150);
     }
+
+    beforeNavigate(() => {
+        const container = getArticleContainer();
+        if (!container) return;
+
+        container.querySelectorAll('mark.inline-highlight').forEach(m => {
+            const parent = m.parentNode;
+            if (!parent) return;
+            while (m.firstChild) parent.insertBefore(m.firstChild, m);
+            parent.removeChild(m);
+        });
+    });
 
     onMount(() => {
         loadAnnotations();

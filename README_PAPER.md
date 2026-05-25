@@ -271,6 +271,17 @@ body {
     width: 48%; /* Menempati kolom kiri saja */
 }
 
+/* Styling inline code blocks agar serasi dengan kertas putih */
+.ieee-page code {
+    font-family: Consolas, Monaco, "Courier New", Courier, monospace !important;
+    background-color: #f4f4f4 !important;
+    color: #222222 !important;
+    padding: 1px 4px !important;
+    border-radius: 3px !important;
+    border: 1px solid #dddddd !important;
+    font-size: 9pt !important;
+}
+
 /* Penyesuaian Media Cetak (Print & PDF Export) */
 @media print {
     body {
@@ -301,15 +312,14 @@ body {
 <div class="ieee-subtitle">A SvelteKit-Powered Static Platform Integrating Bidirectional Video-to-Text Sync and Persistent Client-Side Text Annotation</div>
 
 <!-- ================= BLOK PENULIS (GRID 2 KOLOM KUSTOM) ================= -->
-<div class="ieee-authors-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 600px; margin: 0 auto 24px auto;">
+<div class="ieee-authors-grid" style="grid-template-columns: repeat(1, 1fr); max-width: 600px; margin: 0 auto 24px auto;">
  
  
    <div class="ieee-author">
     <div class="ieee-author-name"><b>Tio Haidar Hanif</b></div>
     <div class="ieee-author-aff">
-      School Of Computing, Telkom University<br>
       Bandung, Indonesia<br>
-      tio.haidar@student.telkomuniversity.ac.id
+        atiohaidar@gmail.com
     </div>
   </div>
 </div>
@@ -361,15 +371,6 @@ Technically, once a highlight color is chosen, the annotator retrieves the exact
 ### A. Manifest-Driven Topic Discovery
 Rather than relying on database queries or slow runtime lookups, the platform uses a manifest-driven architecture. Every topic directory (e.g., `src/routes/[semester]/[subject]/[slug]`) contains a `topic.manifest.ts` file declaring structural metadata (slug, title, summary, prereq, tags, order, type, renderMode). At build time, SvelteKit utilizes Vite's eager glob pattern scanner `import.meta.glob` to inspect these manifests in a single pass (`discovery.ts`), dynamically constructing the curriculum hierarchy and global indexes in-memory.
 
-<div class="ieee-figure-container">
-    <div class="ieee-figure-placeholder" style="background-color: #faf7f0; color: #8b4513; border: 1.5px dashed #8b4513; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Times New Roman', serif; box-sizing: border-box; padding: 10px;">
-        <span style="font-weight: bold; font-size: 9.5pt; text-align: center; margin-bottom: 6px;">[ S2IF NOTEBOOK ARCHITECTURE FLOW ]</span>
-        <span style="font-size: 7.5pt; font-style: italic; text-align: center; line-height: 1.35; max-width: 100%; word-break: break-word;">
-            routes/*/*/*/topic.manifest.ts<br>➔ import.meta.glob<br>➔ In-Memory Curriculum Index
-        </span>
-    </div>
-    <div class="ieee-figure-caption"><i>Fig. 1.</i>  Conceptual manifest-driven topic discovery pipeline of S2IF Notebook, showing static compile-time file globbing and catalog index generation.</div>
-</div>
 
 ### B. Automated CLI Validation Engine
 Maintaining data integrity across multiple academic topics can be error-prone. S2IF Notebook employs a robust, custom validation pipeline (`validate-content.ts` and `sync-indexes.ts`) executing key checks:
