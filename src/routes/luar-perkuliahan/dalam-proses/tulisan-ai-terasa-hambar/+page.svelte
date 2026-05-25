@@ -62,7 +62,7 @@
   />
 </svelte:head>
 
-<article class="note-article" onclick={handleTimestampClick}>
+<article class="note-article">
   <NoteHeader
     title="Tulisan AI Terasa Hambar: Pentingnya Purpose dalam Narasi"
     date="25 Mei 2026"
@@ -90,7 +90,7 @@
             href="{videoBaseUrl}&t=0m3s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 0:03 Intro
           </a>
@@ -98,7 +98,7 @@
             href="{videoBaseUrl}&t=1m29s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 1:29 Eksperimen Kelas
           </a>
@@ -138,7 +138,7 @@
             href="{videoBaseUrl}&t=3m8s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 3:08 Brand & Karakter Media
           </a>
@@ -178,7 +178,7 @@
             href="{videoBaseUrl}&t=4m33s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 4:33 Riset MIT
           </a>
@@ -186,7 +186,7 @@
             href="{videoBaseUrl}&t=6m35s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 6:35 Cognitive Debt
           </a>
@@ -229,7 +229,7 @@
             href="{videoBaseUrl}&t=8m24s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 8:24 Positive Bias pada AI
           </a>
@@ -237,7 +237,7 @@
             href="{videoBaseUrl}&t=9m17s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 9:17 Tulisan Tanpa Analisis
           </a>
@@ -245,7 +245,7 @@
             href="{videoBaseUrl}&t=10m0s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 10:00 Perspektif yang Homogen
           </a>
@@ -287,7 +287,7 @@
             href="{videoBaseUrl}&t=10m47s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 10:47 Keindahan Narasi Otentik
           </a>
@@ -314,7 +314,7 @@
             href="{videoBaseUrl}&t=13m19s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 13:19 Bahaya Model Collapse
           </a>
@@ -322,7 +322,7 @@
             href="{videoBaseUrl}&t=14m53s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 14:53 Logika Template AI
           </a>
@@ -330,7 +330,7 @@
             href="{videoBaseUrl}&t=15m37s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 15:37 The Great Flattening
           </a>
@@ -396,7 +396,7 @@
             href="{videoBaseUrl}&t=18m49s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 18:49 Solusi Dialektika
           </a>
@@ -404,7 +404,7 @@
             href="{videoBaseUrl}&t=20m7s"
             target="_blank"
             rel="noopener noreferrer"
-            class="timestamp-badge"
+            class="timestamp-badge" onclick={handleTimestampClick}
           >
             <Play size={12} /> 20:07 Wisdom & Personality
           </a>
@@ -493,8 +493,5 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  h3 .timestamp-badge {
-    margin-left: 0.5rem;
-    font-size: 0.7rem;
-  }
+
 </style>
