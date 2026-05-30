@@ -59,7 +59,7 @@
         <span>Mulai Belajar</span>
         <ThemeIcon name="arrow-right" size={18} />
         <svg class="scribble-circle" viewBox="0 0 200 60" preserveAspectRatio="none">
-          <path d="M10,30 Q50,5 100,30 T190,30 Q150,55 100,30 T10,30" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M15,15 C50,6 150,4 185,12 C198,15 196,42 182,48 C145,54 55,56 18,48 C5,45 2,18 25,12 C60,4 140,8 180,18 C192,21 190,39 178,44 C148,49 58,49 25,44" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </a>
       <a class="secondary-btn" href="{base}/catalog">Buka Katalog</a>
@@ -377,9 +377,10 @@
   }
 
   .primary-btn {
+    position: relative;
     padding: 1rem 2rem;
     background: var(--color-binder);
-    color: var(--color-surface-elevated);
+    color: #ffffff;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 700;
@@ -390,7 +391,12 @@
     box-shadow: 0 4px 0 var(--color-ink-strong);
   }
 
+  .primary-btn:visited {
+    color: #ffffff;
+  }
+
   .primary-btn:hover {
+    color: #ffffff;
     transform: translateY(-4px);
     box-shadow: 0 8px 0 var(--color-ink-strong);
   }
@@ -412,12 +418,12 @@
   }
 
   .primary-btn .scribble-circle path {
-    stroke-dasharray: 600;
-    stroke-dashoffset: 600;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
   }
 
   .primary-btn:hover .scribble-circle {
-    opacity: 0.6;
+    opacity: 0.85;
   }
 
   .primary-btn:hover .scribble-circle path {
@@ -455,6 +461,10 @@
   .secondary-btn:hover {
     background: var(--color-surface-soft);
     border-color: var(--color-binder);
+  }
+
+  :global([data-theme='dark']) .secondary-btn {
+    color: var(--color-ink-light);
   }
 
   /* Bento Grid */
