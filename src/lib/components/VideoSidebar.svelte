@@ -2,6 +2,7 @@
     import { onMount, onDestroy, tick } from 'svelte';
     import { browser } from '$app/environment';
     import { X, Play, Pause, MonitorPlay, Scroll } from 'lucide-svelte';
+    import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
     /**
      * VideoSidebar — Reusable collapsible sidebar with an embedded YouTube player
@@ -37,7 +38,11 @@
     let trackInterval: ReturnType<typeof setInterval> | null = null;
     let chapterListRef: HTMLUListElement | null = $state(null);
 
-    const playerContainerId = `yt-player-${videoId}`;
+    let isDetached = $state(false);
+    let popoutWindow: Window | null = null;
+    let syncChannel: BroadcastChannel | null = null;
+
+    const playerContainerId = $derived(`yt-player-${videoId}`);
 
     /* ── Coordinate with NotesPanel ── */
     function notifyLayout(open: boolean) {
@@ -66,6 +71,11 @@
     }
 
     export function seekTo(seconds: number) {
+        if (isDetached && syncChannel) {
+            syncChannel.postMessage({ type: 'seekTo', seconds });
+            return;
+        }
+
         if (!isOpen) open();
         const attempt = () => {
             if (player && playerReady) {
@@ -79,6 +89,72 @@
     }
 
     /* ── Internal ── */
+
+    function closePopoutOnUnload() {
+        popoutWindow?.close();
+    }
+
+    function popoutVideo() {
+        isDetached = true;
+        close(); // Tutup panel sidebar agar catatan melebar penuh
+        
+        if (browser) {
+            // Simpan chapters ke sessionStorage agar bisa diakses oleh popup
+            sessionStorage.setItem('popout-chapters-' + videoId, JSON.stringify(chapters));
+            
+            popoutWindow = window.open(
+                `/video-popout?videoId=${videoId}`,
+                `VideoPopout-${videoId}`,
+                'width=850,height=600,menubar=no,toolbar=no,location=no,status=no'
+            );
+
+            // DETECT POPUP BLOCKER
+            if (!popoutWindow || popoutWindow.closed || typeof popoutWindow.closed === 'undefined') {
+                isDetached = false;
+                alert("Browser memblokir jendela baru. Mohon izinkan pop-up untuk situs ini di URL bar ↗️");
+                return;
+            }
+
+            // AUTO CLOSE ON PARENT UNLOAD
+            window.addEventListener('beforeunload', closePopoutOnUnload);
+
+            // Inisialisasi BroadcastChannel komunikasi (Namespaced by videoId!)
+            if (!syncChannel) {
+                syncChannel = new BroadcastChannel('s2if-video-sync-' + videoId);
+                syncChannel.onmessage = (event) => {
+                    if (event.data.type === 'tick') {
+                        // Teruskan ke notes component lewat custom event yang sudah ada!
+                        document.dispatchEvent(new CustomEvent('video-tick', {
+                            detail: { seconds: event.data.seconds, autoScroll: autoScrollEnabled }
+                        }));
+                    }
+                };
+            }
+
+            // Monitor penutupan pop-out window
+            const checkClosed = setInterval(() => {
+                if (!popoutWindow || popoutWindow.closed) {
+                    clearInterval(checkClosed);
+                    reattachVideo();
+                }
+            }, 1000);
+        }
+    }
+
+    function reattachVideo() {
+        isDetached = false;
+        if (popoutWindow) {
+            popoutWindow.close();
+            popoutWindow = null;
+        }
+        if (syncChannel) {
+            syncChannel.close();
+            syncChannel = null;
+        }
+        if (browser) {
+            window.removeEventListener('beforeunload', closePopoutOnUnload);
+        }
+    }
 
     function initOnFirstOpen() {
         if (!browser || initialized) return;
@@ -144,7 +220,9 @@
     }
 
     function handleChapterClick(seconds: number) {
-        if (player && playerReady) {
+        if (isDetached && syncChannel) {
+            syncChannel.postMessage({ type: 'seekTo', seconds });
+        } else if (player && playerReady) {
             player.seekTo(seconds, true);
             player.playVideo();
         }
@@ -174,7 +252,12 @@
 
     onDestroy(() => {
         if (trackInterval) clearInterval(trackInterval);
+        if (syncChannel) {
+            syncChannel.close();
+            syncChannel = null;
+        }
         if (browser) {
+            window.removeEventListener('beforeunload', closePopoutOnUnload);
             document.removeEventListener('notespanel-open', handleNotesPanelEvent);
             document.body.removeAttribute('data-video-sidebar-open');
         }
@@ -204,14 +287,32 @@
                 <MonitorPlay size={16} />
                 Video Presentasi
             </h3>
-            <button class="close-btn" onclick={close} aria-label="Tutup panel video">
-                <X size={16} />
-            </button>
+            <div style="display: flex; gap: 0.35rem; align-items: center;">
+                <button 
+                    class="close-btn" 
+                    onclick={popoutVideo} 
+                    title="Lepas video ke jendela baru (Dual-Monitor)"
+                    aria-label="Lepas video ke jendela baru"
+                >
+                    <ThemeIcon name="popout" size={14} />
+                </button>
+                <button class="close-btn" onclick={close} aria-label="Tutup panel video">
+                    <X size={16} />
+                </button>
+            </div>
         </div>
 
         <!-- Player -->
         <div class="player-wrapper">
-            {#if initialized}
+            {#if isDetached}
+                <div class="detached-placeholder">
+                    <MonitorPlay size={32} />
+                    <span>Video diputar di jendela luar 📺</span>
+                    <button class="reattach-btn" onclick={reattachVideo}>
+                        Gabungkan Kembali
+                    </button>
+                </div>
+            {:else if initialized}
                 <div id={playerContainerId} class="player-embed"></div>
             {:else}
                 <div class="player-placeholder">
@@ -399,6 +500,48 @@
         background: #1a1a1a;
     }
     .player-placeholder :global(svg) { color: #888; }
+
+    .detached-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        color: #fff;
+        background: #111;
+        font-size: 0.8rem;
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .detached-placeholder :global(svg) {
+        color: var(--color-binder, #8b4513);
+        animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .reattach-btn {
+        background: var(--color-binder, #8b4513);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 0.35rem 0.8rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .reattach-btn:hover {
+        background: var(--color-ink, #2c1810);
+        transform: translateY(-1px);
+    }
 
     /* ── Mini Controls ── */
     .mini-controls {

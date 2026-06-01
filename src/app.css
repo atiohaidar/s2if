@@ -64,7 +64,7 @@
 	--color-callout-danger-text: #721c24;
 
 	/* Typography - Improved Scale */
-	--font-handwriting: 'Caveat', 'Patrick Hand', cursive;
+	--font-handwriting: 'Patrick Hand', 'Caveat', cursive;
 	--font-body: 'Inter', system-ui, sans-serif;
 	--font-mono: 'JetBrains Mono', monospace;
 

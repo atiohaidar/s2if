@@ -5,6 +5,7 @@
     import InlineAnnotator from "$lib/components/InlineAnnotator.svelte";
     import { browser } from "$app/environment";
     import { onDestroy, onMount } from "svelte";
+    import { page } from "$app/state";
 
     let { children } = $props();
     const sidebarDesktopKey = "s2if-sidebar-open-desktop";
@@ -16,9 +17,9 @@
     let theme = $state<"light" | "dark">("light");
     let mounted = $state(false);
     let previousSidebarOpen = false;
-    let sidebarToggleEl: HTMLButtonElement | null = null;
-    let sidebarEl: HTMLElement | null = null;
-    let mainContentEl: HTMLElement | null = null;
+    let sidebarToggleEl = $state<HTMLButtonElement | null>(null);
+    let sidebarEl = $state<HTMLElement | null>(null);
+    let mainContentEl = $state<HTMLElement | null>(null);
     let detachKeydownListener: (() => void) | null = null;
     let detachResizeListener: (() => void) | null = null;
 
@@ -252,59 +253,63 @@
     }
 </script>
 
-<div
-    class="app-container"
-    class:sidebar-open={sidebarOpen}
-    class:notes-open={notesOpen}
->
-    <!-- Sidebar Toggle Button -->
-    <button
-        bind:this={sidebarToggleEl}
-        class="sidebar-toggle"
-        onclick={toggleSidebar}
-        aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
-        aria-expanded={sidebarOpen}
-        aria-controls="primary-sidebar"
+{#if page.url.pathname.includes('-popout')}
+    {@render children()}
+{:else}
+    <div
+        class="app-container"
+        class:sidebar-open={sidebarOpen}
+        class:notes-open={notesOpen}
     >
-        <span class="sidebar-toggle-icon" aria-hidden="true">{sidebarOpen ? "◀" : "▶"}</span>
-        <span class="sidebar-toggle-label">{sidebarOpen ? "Tutup" : "Navigasi"}</span>
-    </button>
-
-    {#if sidebarOpen}
+        <!-- Sidebar Toggle Button -->
         <button
-            class="sidebar-backdrop"
-            onclick={closeSidebar}
-            aria-label="Tutup sidebar"
-            tabindex="-1"
-        ></button>
-    {/if}
+            bind:this={sidebarToggleEl}
+            class="sidebar-toggle"
+            onclick={toggleSidebar}
+            aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+            aria-expanded={sidebarOpen}
+            aria-controls="primary-sidebar"
+        >
+            <span class="sidebar-toggle-icon" aria-hidden="true">{sidebarOpen ? "◀" : "▶"}</span>
+            <span class="sidebar-toggle-label">{sidebarOpen ? "Tutup" : "Navigasi"}</span>
+        </button>
 
-    <!-- Sidebar Navigation -->
-    <aside
-        bind:this={sidebarEl}
-        id="primary-sidebar"
-        class="sidebar"
-        class:open={sidebarOpen}
-        aria-hidden={!sidebarOpen}
-        inert={!sidebarOpen}
-        aria-label="Navigasi utama"
-        onclick={handleSidebarClick}
-    >
-        <Sidebar theme={theme} onToggleTheme={toggleTheme} />
-    </aside>
+        {#if sidebarOpen}
+            <button
+                class="sidebar-backdrop"
+                onclick={closeSidebar}
+                aria-label="Tutup sidebar"
+                tabindex="-1"
+            ></button>
+        {/if}
 
-    <!-- Main Content Area -->
-    <main bind:this={mainContentEl} class="main-content">
-        <div class="notebook-page">
-            <div class="margin-line"></div>
-            {@render children()}
-        </div>
-    </main>
+        <!-- Sidebar Navigation -->
+        <aside
+            bind:this={sidebarEl}
+            id="primary-sidebar"
+            class="sidebar"
+            class:open={sidebarOpen}
+            aria-hidden={!sidebarOpen}
+            inert={!sidebarOpen}
+            aria-label="Navigasi utama"
+            onclick={handleSidebarClick}
+        >
+            <Sidebar theme={theme} onToggleTheme={toggleTheme} />
+        </aside>
 
-    <!-- Notes Panel (Right side) -->
-    <NotesPanel bind:isOpen={notesOpen} onToggle={toggleNotes} />
-    <InlineAnnotator />
-</div>
+        <!-- Main Content Area -->
+        <main bind:this={mainContentEl} class="main-content">
+            <div class="notebook-page">
+                <div class="margin-line"></div>
+                {@render children()}
+            </div>
+        </main>
+
+        <!-- Notes Panel (Right side) -->
+        <NotesPanel bind:isOpen={notesOpen} onToggle={toggleNotes} />
+        <InlineAnnotator />
+    </div>
+{/if}
 
 <style>
     .app-container {

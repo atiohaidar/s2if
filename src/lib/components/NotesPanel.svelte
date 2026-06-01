@@ -26,9 +26,12 @@
     interface Props {
         isOpen?: boolean;
         onToggle?: () => void;
+        overridePathname?: string;
     }
 
-    let { isOpen = $bindable(false), onToggle }: Props = $props();
+    let { isOpen = $bindable(false), onToggle, overridePathname }: Props = $props();
+
+    const activePathname = $derived(overridePathname || page.url.pathname);
 
     let notes = $state("");
     let isSaving = $state(false);
@@ -36,11 +39,16 @@
     let feedback = $state("");
     let feedbackTone = $state<"info" | "success" | "error">("info");
     let previousOpen = false;
-    let toggleButtonEl: HTMLButtonElement | null = null;
-    let editorHostEl: HTMLDivElement | null = null;
-    let importInputEl: HTMLInputElement | null = null;
+    let toggleButtonEl = $state<HTMLButtonElement | null>(null);
+    let editorHostEl = $state<HTMLDivElement | null>(null);
+    let importInputEl = $state<HTMLInputElement | null>(null);
     let editorView: EditorView | null = null;
     let isFullscreen = $state(false);
+    let popoutWindow: Window | null = null;
+
+    function closePopoutOnUnload() {
+        popoutWindow?.close();
+    }
     let editorMode = $state<"notes" | "code">("notes");
     
     // Resize states
@@ -56,11 +64,11 @@
 
     const languageCompartment = new Compartment();
 
-    // Get storage key based on current page path
-    const storageKey = $derived(`s2if-notes:${page.url.pathname}`);
-    const modeKey = $derived(`s2if-notes-mode:${page.url.pathname}`);
-    const languageKey = $derived(`s2if-notes-language:${page.url.pathname}`);
-    const panelId = $derived(`notes-panel-${page.url.pathname.replace(/[^a-zA-Z0-9]+/g, "-")}`);
+    // Get storage key based on active page path
+    const storageKey = $derived(`s2if-notes:${activePathname}`);
+    const modeKey = $derived(`s2if-notes-mode:${activePathname}`);
+    const languageKey = $derived(`s2if-notes-language:${activePathname}`);
+    const panelId = $derived(`notes-panel-${activePathname.replace(/[^a-zA-Z0-9]+/g, "-")}`);
     const typingRate = $derived.by(() => {
         typingMeterTick;
 
@@ -470,6 +478,26 @@
         }
     }
 
+    function popoutNotes() {
+        closePanel();
+        if (browser) {
+            popoutWindow = window.open(
+                `/notes-popout?pathname=${encodeURIComponent(activePathname)}`,
+                `NotesPopout-${activePathname.replace(/[^a-zA-Z0-9]/g, "")}`,
+                "width=650,height=800,menubar=no,toolbar=no,location=no,status=no"
+            );
+
+            // DETECT POPUP BLOCKER
+            if (!popoutWindow || popoutWindow.closed || typeof popoutWindow.closed === 'undefined') {
+                setFeedback("Browser memblokir jendela baru. Mohon izinkan pop-up untuk situs ini di URL bar ↗️", "error");
+                return;
+            }
+
+            // AUTO CLOSE ON PARENT UNLOAD
+            window.addEventListener('beforeunload', closePopoutOnUnload);
+        }
+    }
+
     function toggleEditorMode() {
         editorMode = editorMode === "notes" ? "code" : "notes";
 
@@ -502,7 +530,7 @@
 
         const payload = {
             version: 1,
-            pagePath: page.url.pathname,
+            pagePath: activePathname,
             exportedAt: new Date().toISOString(),
             notes,
         };
@@ -510,7 +538,7 @@
             type: "application/json",
         });
 
-        const safePageName = (page.url.pathname.split("/").pop() || "beranda")
+        const safePageName = (activePathname.split("/").pop() || "beranda")
             .replace(/[^a-zA-Z0-9-]/g, "-")
             .toLowerCase();
         const url = URL.createObjectURL(blob);
@@ -560,7 +588,7 @@
 
             if (
                 typeof parsed.pagePath === "string" &&
-                parsed.pagePath !== page.url.pathname
+                parsed.pagePath !== activePathname
             ) {
                 setFeedback(
                     "Catatan diimport dari halaman lain, periksa kembali isinya.",
@@ -581,6 +609,9 @@
 
     onDestroy(() => {
         clearTimeout(saveTimeout);
+        if (browser) {
+            window.removeEventListener('beforeunload', closePopoutOnUnload);
+        }
     });
 
     function handleGlobalKeydown(event: KeyboardEvent) {
@@ -616,6 +647,7 @@
 <svelte:window onkeydown={handleGlobalKeydown} />
 
 <!-- Toggle Button (Right side) -->
+{#if !overridePathname}
 <button
     bind:this={toggleButtonEl}
     class="notes-toggle"
@@ -628,6 +660,7 @@
 >
     <ThemeIcon name={isOpen ? "close" : "note"} size={20} />
 </button>
+{/if}
 
 <!-- Notes Panel -->
 <aside
@@ -636,11 +669,13 @@
     class:open={isOpen}
     class:fullscreen={isFullscreen}
     class:is-resizing={isResizing}
+    class:is-popout={!!overridePathname}
     style="--panel-width: {panelWidth}px;"
     aria-label="Panel catatan pribadi"
     aria-hidden={!isOpen}
 >
-    {#if !isFullscreen}
+    {#if !isFullscreen && !overridePathname}
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <div 
             class="resize-handle" 
             onmousedown={startResize} 
@@ -652,12 +687,22 @@
     <div class="notes-header">
         <div class="notes-header-main">
             <h3 id="notes-panel-title"><ThemeIcon name="note" size={18} /> Catatan Pribadi</h3>
-            <span class="page-indicator" title={page.url.pathname}>
-                {page.url.pathname.split("/").pop() || "Beranda"}
+            <span class="page-indicator" title={activePathname}>
+                {activePathname.split("/").pop() || "Beranda"}
             </span>
         </div>
 
         <div class="notes-header-actions">
+            {#if !overridePathname}
+                <button
+                    class="icon-btn popout-btn"
+                    onclick={popoutNotes}
+                    title="Lepas catatan ke jendela baru (Dual-Monitor)"
+                >
+                    <ThemeIcon name="popout" size={16} />
+                </button>
+            {/if}
+
             <button
                 class="icon-btn mode-btn"
                 onclick={toggleEditorMode}
@@ -676,13 +721,15 @@
                 <ThemeIcon name={isFullscreen ? "minimize" : "maximize"} size={16} />
             </button>
 
-            <button
-                class="icon-btn close-btn"
-                onclick={closePanel}
-                title="Tutup catatan"
-            >
-                <ThemeIcon name="close" size={16} />
-            </button>
+            {#if !overridePathname}
+                <button
+                    class="icon-btn close-btn"
+                    onclick={closePanel}
+                    title="Tutup catatan"
+                >
+                    <ThemeIcon name="close" size={16} />
+                </button>
+            {/if}
         </div>
     </div>
 
@@ -851,6 +898,16 @@
         display: flex;
         flex-direction: column;
         box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .notes-panel.is-popout {
+        position: static !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100vh !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border-left: none !important;
     }
 
     .notes-panel.open {

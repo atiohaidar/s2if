@@ -37,6 +37,7 @@
         User,
         Workflow,
         X,
+        ExternalLink,
     } from "lucide-svelte";
 
     interface Props {
@@ -139,6 +140,8 @@
     <User size={size} strokeWidth={2} />
 {:else if name === "ai-bot"}
     <Bot size={size} strokeWidth={2} />
+{:else if name === "popout"}
+    <ExternalLink size={size} strokeWidth={2} />
 {/if}
 
 <style>

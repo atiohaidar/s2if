@@ -810,15 +810,7 @@
     color: var(--color-ink);
   }
 
-  .box-icon {
-    color: var(--color-binder);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
 
-  .highlight-box.success-box .box-icon {
-    color: var(--color-status-done-start);
-  }
 
   /* 4. Quote Cards */
   .quote-card {
@@ -1043,7 +1035,7 @@
     align-items: flex-start;
   }
 
-  .book-icon {
+  :global(.book-icon) {
     flex-shrink: 0;
     opacity: 0.9;
   }
