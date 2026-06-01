@@ -20,7 +20,7 @@
     { title: 'Mengatasi Rasa Gugup', time: '5:25', seconds: 325 },
     { title: 'Menjaga Relasi (Intensi & Waktu)', time: '6:22', seconds: 382 },
     { title: 'Meningkatkan Skill Komunikasi', time: '8:02', seconds: 482 },
-    { title: 'Pesan Penting: Tetap Humble', time: '8:57', seconds: 537 }
+    { title: 'Pesan Penting: Tetap Humble', time: '8:57', seconds: 537 },
   ];
 
   const sectionMap = [
@@ -32,12 +32,12 @@
     { id: 'mengatasi-gugup', startSeconds: 325, endSeconds: 381 },
     { id: 'menjaga-relasi', startSeconds: 382, endSeconds: 481 },
     { id: 'pentingnya-komunikasi', startSeconds: 482, endSeconds: 536 },
-    { id: 'humble-jangan-sombong', startSeconds: 537, endSeconds: 700 }
+    { id: 'humble-jangan-sombong', startSeconds: 537, endSeconds: 700 },
   ];
 
   function handleTimestampClick(event: MouseEvent) {
     const badge = (event.target as HTMLElement).closest(
-      '.timestamp-badge'
+      '.timestamp-badge',
     ) as HTMLAnchorElement | null;
     if (!badge) return;
     const href = badge.getAttribute('href') ?? '';
@@ -67,8 +67,11 @@
   />
 
   <Callout type="info" title="Sumber Referensi">
-    Catatan premium ini dirangkum berdasarkan sharing pengalaman praktis yang sangat berharga mengenai seni berkomunikasi yang efektif. Video lengkap dapat Anda tonton langsung di
-    <a href={videoBaseUrl} target="_blank" rel="noopener noreferrer">YouTube: Cara Ngobrol yang Enak</a>.
+    Catatan ini dirangkum berdasarkan sharing pengalaman praktis yang sangat berharga mengenai seni
+    berkomunikasi yang efektif. Video lengkap dapat Anda tonton langsung di
+    <a href={videoBaseUrl} target="_blank" rel="noopener noreferrer"
+      >YouTube: Cara Ngobrol yang Enak</a
+    >.
   </Callout>
 
   <VideoSyncArticle {sectionMap}>
@@ -88,13 +91,16 @@
           </a>
         </div>
         <p>
-          Banyak orang bertanya-tanya, apakah ada rumus pasti atau resep rahasia untuk bisa mengobrol dengan nyaman dan membuat lawan bicara merasa dihargai? 
-          Meskipun kemampuan berkomunikasi sering dianggap sebagai bakat lahiriah, sebenarnya siapa pun dapat melatih dan meningkatkan keterampilan sosial ini berdasarkan pengalaman praktis sehari-hari.
+          Banyak orang bertanya-tanya, apakah ada rumus pasti atau resep rahasia untuk bisa
+          mengobrol dengan nyaman dan membuat lawan bicara merasa dihargai? Meskipun kemampuan
+          berkomunikasi sering dianggap sebagai bakat lahiriah, sebenarnya siapa pun dapat melatih
+          dan meningkatkan keterampilan sosial ini berdasarkan pengalaman praktis sehari-hari.
         </p>
         <div class="highlight-box">
           <Sparkles size={18} class="box-icon" />
           <p>
-            Komunikasi sejati bukanlah tentang pamer kepintaran atau mendominasi panggung obrolan. Esensinya terletak pada kenyamanan bersama, saling menghormati, dan koneksi yang tulus.
+            Komunikasi sejati bukanlah tentang pamer kepintaran atau mendominasi panggung obrolan.
+            Esensinya terletak pada kenyamanan bersama, saling menghormati, dan koneksi yang tulus.
           </p>
         </div>
       </NoteSection>
@@ -116,18 +122,32 @@
           </a>
         </div>
         <p>
-          Langkah pertama dan yang paling krusial dalam membangun obrolan yang berkualitas adalah <strong>belajar mendengar</strong> dan memberikan <strong>space (ruang)</strong> kepada lawan bicara.
+          Langkah pertama dan yang paling krusial dalam membangun obrolan yang berkualitas adalah <strong
+            >belajar mendengar</strong
+          >
+          dan memberikan <strong>space (ruang)</strong> kepada lawan bicara.
         </p>
         <div class="quote-card">
           <p>
-            "Conversation itu baru namanya 'flow' kalau kita ngasih ruang buat orang lain ngomong. Kalau dikit-dikit langsung di-cut, alurnya akan putus."
+            "Conversation itu baru namanya 'flow' kalau kita ngasih ruang buat orang lain ngomong.
+            Kalau dikit-dikit langsung di-cut, alurnya akan putus."
           </p>
         </div>
         <p>Ada beberapa hal yang perlu kita latih untuk memberi ruang dalam percakapan:</p>
         <ul>
-          <li><strong>Mengerem Keinginan Memotong:</strong> Tahan diri dari keinginan menyela, membantah, atau langsung menimpal pembicaraan saat orang lain sedang bercerita, meskipun kita merasa sudah mengetahui informasi tersebut.</li>
-          <li><strong>Dengarkan Sampai Selesai:</strong> Biarkan lawan bicara menuntaskan kalimatnya sebelum kita memberikan tanggapan atau opini.</li>
-          <li><strong>Hadir Sepenuhnya:</strong> Fokuskan perhatian pada apa yang mereka bagikan, bukan sibuk menyusun balasan di kepala kita sendiri.</li>
+          <li>
+            <strong>Mengerem Keinginan Memotong:</strong> Tahan diri dari keinginan menyela, membantah,
+            atau langsung menimpal pembicaraan saat orang lain sedang bercerita, meskipun kita merasa
+            sudah mengetahui informasi tersebut.
+          </li>
+          <li>
+            <strong>Dengarkan Sampai Selesai:</strong> Biarkan lawan bicara menuntaskan kalimatnya sebelum
+            kita memberikan tanggapan atau opini.
+          </li>
+          <li>
+            <strong>Hadir Sepenuhnya:</strong> Fokuskan perhatian pada apa yang mereka bagikan, bukan
+            sibuk menyusun balasan di kepala kita sendiri.
+          </li>
         </ul>
       </NoteSection>
     </div>
@@ -148,7 +168,8 @@
           </a>
         </div>
         <p>
-          Kita harus menyadari dengan siapa kita sedang berbicara. Mengenali status, hubungan, dan konteks lawan bicara akan menentukan bagaimana kita membawakan diri di depan mereka.
+          Kita harus menyadari dengan siapa kita sedang berbicara. Mengenali status, hubungan, dan
+          konteks lawan bicara akan menentukan bagaimana kita membawakan diri di depan mereka.
         </p>
 
         <div class="role-grid">
@@ -157,7 +178,10 @@
               <User size={18} />
               <h4>Berbicara dengan Tim / Karyawan</h4>
             </div>
-            <p>Tunjukkan sisi ketegasan yang mendidik demi profesionalisme kerja, namun tetap jaga kesopanan dan integritas hubungan kerja.</p>
+            <p>
+              Tunjukkan sisi ketegasan yang mendidik demi profesionalisme kerja, namun tetap jaga
+              kesopanan dan integritas hubungan kerja.
+            </p>
           </div>
 
           <div class="role-card card-leader">
@@ -165,12 +189,18 @@
               <Award size={18} />
               <h4>Berbicara dengan Pemimpin / CEO Hebat</h4>
             </div>
-            <p>Tunjukkan rasa hormat (respect) yang tulus dan bersikap sopan. Namun, **hindari sikap 'peres' (memuji berlebihan secara palsu)** atau minder. Berbicaralah dengan rasa percaya diri yang tenang.</p>
+            <p>
+              Tunjukkan rasa hormat (respect) yang tulus dan bersikap sopan. Namun, **hindari sikap
+              'peres' (memuji berlebihan secara palsu)** atau minder. Berbicaralah dengan rasa
+              percaya diri yang tenang.
+            </p>
           </div>
         </div>
 
         <Callout type="tip" title="Prinsip Kesetaraan Sosial">
-          Sehebat apa pun seseorang, jika kita menghadapinya dengan sopan, hormat, namun tanpa kepura-puraan (peres), kita sedang membangun hubungan interpersonal yang sehat dan saling menguntungkan (mutual benefit).
+          Sehebat apa pun seseorang, jika kita menghadapinya dengan sopan, hormat, namun tanpa
+          kepura-puraan (peres), kita sedang membangun hubungan interpersonal yang sehat dan saling
+          menguntungkan (mutual benefit).
         </Callout>
       </NoteSection>
     </div>
@@ -191,16 +221,24 @@
           </a>
         </div>
         <p>
-          Cara kita menyajikan kata-kata sangat mempengaruhi persepsi orang lain terhadap tingkat kematangan diri kita. Belajarlah berbicara dengan <strong>tempo yang lebih santai</strong> dan terkontrol.
+          Cara kita menyajikan kata-kata sangat mempengaruhi persepsi orang lain terhadap tingkat
+          kematangan diri kita. Belajarlah berbicara dengan <strong>tempo yang lebih santai</strong> dan
+          terkontrol.
         </p>
         <div class="comparison-box">
           <div class="comp-item negative">
             <h5>❌ Intonasi Reaktif & Terburu-buru</h5>
-            <p>Terlihat tergesa-gesa, terlalu heboh, atau emosional. Biasanya mencerminkan kepanikan, kurangnya jam terbang sosial, atau kecenderungan bersikap defensif secara instan.</p>
+            <p>
+              Terlihat tergesa-gesa, terlalu heboh, atau emosional. Biasanya mencerminkan kepanikan,
+              kurangnya jam terbang sosial, atau kecenderungan bersikap defensif secara instan.
+            </p>
           </div>
           <div class="comp-item positive">
             <h5>✅ Semangat Namun Tetap Tenang</h5>
-            <p>Menjaga antusiasme obrolan tetapi diiringi intonasi yang tenang dan teratur. Pembawaan ini memberikan kesan matang, bijak, dan meyakinkan bagi lawan bicara.</p>
+            <p>
+              Menjaga antusiasme obrolan tetapi diiringi intonasi yang tenang dan teratur. Pembawaan
+              ini memberikan kesan matang, bijak, dan meyakinkan bagi lawan bicara.
+            </p>
           </div>
         </div>
       </NoteSection>
@@ -222,12 +260,29 @@
           </a>
         </div>
         <p>
-          Sensitivitas sosial adalah kemampuan menangkap sinyal emosi lawan bicara dan menyelaraskan topik obrolan kita.
+          Sensitivitas sosial adalah kemampuan menangkap sinyal emosi lawan bicara dan menyelaraskan
+          topik obrolan kita.
         </p>
         <ul>
-          <li><strong>Tanggap Terhadap Kondisi Lawan Bicara:</strong> Jika lawan bicara sedang bercerita tentang kesulitannya (misal: bisnisnya sedang turun), jangan malah membalas dengan menceritakan kesuksesan finansial pribadi Anda yang kontradiktif. Berikan dorongan semangat (encouragement) terlebih dahulu.</li>
-          <li><strong>Gunakan 'Intro' Sebelum Menanyakan Hal Sensitif:</strong> Jika memang perlu menanyakan topik yang agak pribadi, sampaikan pengantar sopan terlebih dahulu, seperti: <em>"Gua mau nanya tentang hal ini, tapi kalau lu merasa sensitif atau gak nyaman buat jawab, santai aja ya..."</em></li>
-          <li><strong>Jangan Mengorek 'Dapur' Orang Lain:</strong> Hindari pertanyaan yang tidak etis mengenai rahasia internal bisnis, urusan dapur usaha orang lain, atau hal-hal privasi yang tidak pantas ditanyakan pada pertemuan kasual.</li>
+          <li>
+            <strong>Tanggap Terhadap Kondisi Lawan Bicara:</strong> Jika lawan bicara sedang bercerita
+            tentang kesulitannya (misal: bisnisnya sedang turun), jangan malah membalas dengan menceritakan
+            kesuksesan finansial pribadi Anda yang kontradiktif. Berikan dorongan semangat (encouragement)
+            terlebih dahulu.
+          </li>
+          <li>
+            <strong>Gunakan 'Intro' Sebelum Menanyakan Hal Sensitif:</strong> Jika memang perlu
+            menanyakan topik yang agak pribadi, sampaikan pengantar sopan terlebih dahulu, seperti:
+            <em
+              >"Gua mau nanya tentang hal ini, tapi kalau lu merasa sensitif atau gak nyaman buat
+              jawab, santai aja ya..."</em
+            >
+          </li>
+          <li>
+            <strong>Jangan Mengorek 'Dapur' Orang Lain:</strong> Hindari pertanyaan yang tidak etis mengenai
+            rahasia internal bisnis, urusan dapur usaha orang lain, atau hal-hal privasi yang tidak pantas
+            ditanyakan pada pertemuan kasual.
+          </li>
         </ul>
       </NoteSection>
     </div>
@@ -248,11 +303,17 @@
           </a>
         </div>
         <p>
-          Seringkali kita merasa gugup atau canggung saat berinteraksi dengan orang penting atau lingkungan baru. Cara terbaik mematahkannya adalah dengan mengadopsi <strong>mindset profesionalisme</strong>.
+          Seringkali kita merasa gugup atau canggung saat berinteraksi dengan orang penting atau
+          lingkungan baru. Cara terbaik mematahkannya adalah dengan mengadopsi <strong
+            >mindset profesionalisme</strong
+          >.
         </p>
         <Callout type="info" title="Contoh Kasus">
-          Saat Anda berada di dunia kerja, jika atasan meminta Anda untuk memimpin meeting penting bersama supplier besar, Anda tidak bisa beralasan "Saya malu Pak, saya introvert." 
-          Tuntutan profesional memaksa kita menepis rasa malu demi menjalankan tanggung jawab. Begitu pula dalam kehidupan bersosialisasi, posisikan interaksi sosial sebagai bagian dari proses pendewasaan diri kita yang harus dihadapi dengan berani.
+          Saat Anda berada di dunia kerja, jika atasan meminta Anda untuk memimpin meeting penting
+          bersama supplier besar, Anda tidak bisa beralasan "Saya malu Pak, saya introvert."
+          Tuntutan profesional memaksa kita menepis rasa malu demi menjalankan tanggung jawab.
+          Begitu pula dalam kehidupan bersosialisasi, posisikan interaksi sosial sebagai bagian dari
+          proses pendewasaan diri kita yang harus dihadapi dengan berani.
         </Callout>
       </NoteSection>
     </div>
@@ -273,19 +334,27 @@
           </a>
         </div>
         <p>
-          Menjaga relasi jangka panjang bukanlah perkara instan. Kita perlu melakukan filter yang bijak untuk menentukan mana relasi yang sejalan dengan nilai-nilai hidup kita (worth maintaining). Jika sudah terfilter, rawatlah menggunakan dua pilar utama:
+          Menjaga relasi jangka panjang bukanlah perkara instan. Kita perlu melakukan filter yang
+          bijak untuk menentukan mana relasi yang sejalan dengan nilai-nilai hidup kita (worth
+          maintaining). Jika sudah terfilter, rawatlah menggunakan dua pilar utama:
         </p>
         <div class="pilar-container">
           <div class="pilar-card pilar-intensi">
             <h5>1. Intensi (Intent)</h5>
             <p>
-              Saat bertemu dengan teman atau rekan kerja, datanglah dengan intensi yang tulus untuk saling mendengar dan bertukar cerita secara wajar. **Jangan datang hanya jika ada maunya saja** (misal: setelah lama menghilang tiba-tiba menghubungi untuk menawarkan jualan/MLM). Ketulusan adalah magnet sosial terbaik.
+              Saat bertemu dengan teman atau rekan kerja, datanglah dengan intensi yang tulus untuk
+              saling mendengar dan bertukar cerita secara wajar. **Jangan datang hanya jika ada
+              maunya saja** (misal: setelah lama menghilang tiba-tiba menghubungi untuk menawarkan
+              jualan/MLM). Ketulusan adalah magnet sosial terbaik.
             </p>
           </div>
           <div class="pilar-card pilar-waktu">
             <h5>2. Waktu (Time)</h5>
             <p>
-              Relasi dibangun di atas interaksi. Bahkan relasi bisnis paling profesional pun pada dasarnya adalah hubungan antara manusia dengan manusia (human to human). Sediakan waktu secara rutin untuk mengobrol atau sekadar menanyakan kabar agar hubungan tidak canggung akibat terlalu lama vakum berinteraksi.
+              Relasi dibangun di atas interaksi. Bahkan relasi bisnis paling profesional pun pada
+              dasarnya adalah hubungan antara manusia dengan manusia (human to human). Sediakan
+              waktu secara rutin untuk mengobrol atau sekadar menanyakan kabar agar hubungan tidak
+              canggung akibat terlalu lama vakum berinteraksi.
             </p>
           </div>
         </div>
@@ -308,13 +377,21 @@
           </a>
         </div>
         <p>
-          Apakah setiap orang wajib memiliki kemampuan berbicara yang luar biasa? Mungkin tidak harus menjadi pembicara publik ulung. Namun, <strong>meningkatkan kemampuan berkomunikasi (communication skill) adalah sebuah keharusan mutlak</strong> bagi siapa saja yang ingin berkembang.
+          Apakah setiap orang wajib memiliki kemampuan berbicara yang luar biasa? Mungkin tidak
+          harus menjadi pembicara publik ulung. Namun, <strong
+            >meningkatkan kemampuan berkomunikasi (communication skill) adalah sebuah keharusan
+            mutlak</strong
+          > bagi siapa saja yang ingin berkembang.
         </p>
         <div class="leverage-card">
           <div class="leverage-content">
             <h4>Komunikasi adalah Daya Ungkit (Social Leverage)</h4>
             <p>
-              Kemampuan berkomunikasi dengan lancar, terstruktur, dan meyakinkan membantu kita saat bernegosiasi dengan klien, berkolaborasi dengan rekan kerja, memimpin tim, maupun dalam menjalin kedekatan bersama pasangan hidup dan keluarga. Bahkan bagi seorang introvert sekali pun, interaksi sosial (meski via chat tertulis) tetap memerlukan penyampaian bahasa yang baik dan santun agar tidak menimbulkan kesalahpahaman.
+              Kemampuan berkomunikasi dengan lancar, terstruktur, dan meyakinkan membantu kita saat
+              bernegosiasi dengan klien, berkolaborasi dengan rekan kerja, memimpin tim, maupun
+              dalam menjalin kedekatan bersama pasangan hidup dan keluarga. Bahkan bagi seorang
+              introvert sekali pun, interaksi sosial (meski via chat tertulis) tetap memerlukan
+              penyampaian bahasa yang baik dan santun agar tidak menimbulkan kesalahpahaman.
             </p>
           </div>
         </div>
@@ -337,16 +414,23 @@
           </a>
         </div>
         <p>
-          Puncak dari kecerdasan sosial adalah kemampuan untuk menahan ego pribadi dan senantiasa bersikap rendah hati (humble) dalam setiap kesempatan.
+          Puncak dari kecerdasan sosial adalah kemampuan untuk menahan ego pribadi dan senantiasa
+          bersikap rendah hati (humble) dalam setiap kesempatan.
         </p>
         <div class="humble-warning">
           <CheckCircle size={20} class="warning-icon" />
           <p>
-            <strong>Ingat: Di atas langit ada langit.</strong> Kita tidak pernah tahu latar belakang asli dari orang yang baru saja kita temui. Banyak orang hebat yang mampu membeli barang-barang bernilai miliaran rupiah namun memilih tampil sangat sederhana dan tidak banyak bicara.
+            <strong>Ingat: Di atas langit ada langit.</strong> Kita tidak pernah tahu latar belakang asli
+            dari orang yang baru saja kita temui. Banyak orang hebat yang mampu membeli barang-barang
+            bernilai miliaran rupiah namun memilih tampil sangat sederhana dan tidak banyak bicara.
           </p>
         </div>
         <p>
-          Sifat sombong atau arogan mungkin akan mendatangkan pujian palsu di depan mata Anda karena posisi atau aset yang Anda miliki saat ini. Namun di belakang layar, arogansi tersebut hanya akan mendatangkan ketidaksukaan dari sekeliling Anda. Ketika roda kehidupan berputar ke bawah dan posisi Anda hilang, sikap sombong tersebut dijamin akan meruntuhkan reputasi dan jaringan sosial Anda secara instan.
+          Sifat sombong atau arogan mungkin akan mendatangkan pujian palsu di depan mata Anda karena
+          posisi atau aset yang Anda miliki saat ini. Namun di belakang layar, arogansi tersebut
+          hanya akan mendatangkan ketidaksukaan dari sekeliling Anda. Ketika roda kehidupan berputar
+          ke bawah dan posisi Anda hilang, sikap sombong tersebut dijamin akan meruntuhkan reputasi
+          dan jaringan sosial Anda secara instan.
         </p>
       </NoteSection>
     </div>
@@ -359,7 +443,7 @@
 
 <style>
   /* PREMIUM TYPOGRAPHY & INTEGRATED STYLES FOR THE "CARA NGOBROL" NOTE */
-  
+
   /* 1. Header & Meta Timestamps styling */
   .section-meta-timestamps {
     display: inline-flex;
@@ -410,7 +494,11 @@
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    background: linear-gradient(135deg, var(--color-status-success-soft), var(--color-surface-elevated));
+    background: linear-gradient(
+      135deg,
+      var(--color-status-success-soft),
+      var(--color-surface-elevated)
+    );
     border-left: 4px solid var(--color-status-done-start);
     padding: 1.25rem;
     border-radius: 0 12px 12px 0;
@@ -460,7 +548,9 @@
     border-radius: 10px;
     border: 1px solid var(--color-line);
     background: var(--color-surface-elevated);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .role-card:hover {
@@ -564,7 +654,11 @@
   }
 
   .leverage-card {
-    background: linear-gradient(135deg, var(--color-surface-elevated), var(--color-status-info-soft));
+    background: linear-gradient(
+      135deg,
+      var(--color-surface-elevated),
+      var(--color-status-info-soft)
+    );
     border: 1px dashed var(--color-callout-info-border);
     padding: 1.5rem;
     border-radius: 12px;
@@ -618,7 +712,7 @@
       grid-template-columns: 1fr;
       gap: 1rem;
     }
-    
+
     .highlight-box,
     .quote-card,
     .role-card,
