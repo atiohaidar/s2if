@@ -2,9 +2,10 @@
   import { page } from "$app/state";
   import NotesPanel from "$lib/components/NotesPanel.svelte";
   import { onMount } from "svelte";
+  import { browser } from "$app/environment";
 
   // Get the target pathname from the query string
-  let targetPathname = $derived(page.url.searchParams.get("pathname") || "/");
+  let targetPathname = $derived(browser ? page.url.searchParams.get("pathname") || "/" : "/");
 
   onMount(() => {
     // Set descriptive title for the popout window

@@ -2,8 +2,9 @@
   import { onMount, onDestroy } from "svelte";
   import { page } from "$app/state";
   import { Play, Pause, MonitorPlay, X } from "lucide-svelte";
+  import { browser } from "$app/environment";
 
-  let videoId = $derived(page.url.searchParams.get("videoId") || "");
+  let videoId = $derived(browser ? page.url.searchParams.get("videoId") || "" : "");
   let chapters = $state<Array<{ title: string; time: string; seconds: number }>>([]);
   
   let player: any = $state(null);
