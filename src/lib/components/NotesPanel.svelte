@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import { onDestroy, onMount, untrack } from "svelte";
     import { browser } from "$app/environment";
+    import { base } from "$app/paths";
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
     import { EditorState, Compartment } from "@codemirror/state";
     import {
@@ -482,7 +483,7 @@
         closePanel();
         if (browser) {
             popoutWindow = window.open(
-                `/notes-popout?pathname=${encodeURIComponent(activePathname)}`,
+                `${base}/notes-popout?pathname=${encodeURIComponent(activePathname)}`,
                 `NotesPopout-${activePathname.replace(/[^a-zA-Z0-9]/g, "")}`,
                 "width=650,height=800,menubar=no,toolbar=no,location=no,status=no"
             );

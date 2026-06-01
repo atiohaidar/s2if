@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy, tick } from 'svelte';
     import { browser } from '$app/environment';
+    import { base } from '$app/paths';
     import { X, Play, Pause, MonitorPlay, Scroll } from 'lucide-svelte';
     import ThemeIcon from "$lib/components/ThemeIcon.svelte";
 
@@ -103,7 +104,7 @@
             sessionStorage.setItem('popout-chapters-' + videoId, JSON.stringify(chapters));
             
             popoutWindow = window.open(
-                `/video-popout?videoId=${videoId}`,
+                `${base}/video-popout?videoId=${videoId}`,
                 `VideoPopout-${videoId}`,
                 'width=850,height=600,menubar=no,toolbar=no,location=no,status=no'
             );
