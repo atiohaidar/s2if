@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 11,
+    order: 11.2,
     tags: ['unsupervised', 'autoencoders', 'deep-learning', 'vae'],
     prereq: ['machine-learning'],
     renderMode: 'note',

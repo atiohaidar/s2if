@@ -26,6 +26,9 @@
         margin: 1rem 0;
         overflow-x: auto;
         padding: 0.25rem 0;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .math-block.inline {

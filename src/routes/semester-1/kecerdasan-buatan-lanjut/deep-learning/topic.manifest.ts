@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 10.5,
+    order: 12,
     tags: ['deep-learning', 'neural-network', 'history'],
     prereq: ['machine-learning'],
     renderMode: 'note',

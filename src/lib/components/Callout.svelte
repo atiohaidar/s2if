@@ -44,6 +44,8 @@
 
     .callout-content {
         flex: 1;
+        min-width: 0;
+        max-width: 100%;
     }
 
     .callout.scroll-x .callout-content {

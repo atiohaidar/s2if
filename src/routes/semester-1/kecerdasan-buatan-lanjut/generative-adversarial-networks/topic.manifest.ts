@@ -8,9 +8,9 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 12,
+    order: 14,
     tags: ['unsupervised', 'generative-models', 'gans', 'deep-learning'],
-    prereq: ['unsupervised-learning-autoencoders'],
+    prereq: ['deep-unsupervised-learning'],
     renderMode: 'note',
 };
 

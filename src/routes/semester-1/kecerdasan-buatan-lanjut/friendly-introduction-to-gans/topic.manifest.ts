@@ -8,7 +8,7 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'done',
-    order: 13,
+    order: 14.2,
     tags: ['unsupervised', 'generative-models', 'gans', 'math'],
     prereq: ['generative-adversarial-networks'],
     renderMode: 'note',
