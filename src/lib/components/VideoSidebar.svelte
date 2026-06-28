@@ -734,7 +734,7 @@
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-        .video-sidebar { width: 100vw; }
+        .video-sidebar { width: 100vw; z-index: 200; }
         .video-fab { top: auto; bottom: 1.5rem; right: 1rem; border-radius: 10px; transform: none; }
         .video-fab.open { display: none; }
     }

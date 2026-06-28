@@ -113,7 +113,7 @@
         </div>
         <p>
           Belakangan ini, algoritma media sosial diramaikan oleh perlombaan menguji kecerdasan
-          kognitif atau **IQ (Intelligence Quotient)**. Banyak kreator konten berlomba-lomba
+          kognitif atau <strong>IQ (Intelligence Quotient)</strong>. Banyak kreator konten berlomba-lomba
           memamerkan skor IQ mereka, mulai dari 120 hingga di atas 150. Namun, apakah kecerdasan
           kognitif yang tinggi menjamin kesuksesan sejati dalam kehidupan nyata?
         </p>
@@ -351,7 +351,7 @@
         <p>
           Penelitian dari <strong>MIT</strong> tentang <em>Collective Intelligence</em> memaparkan temuan
           menarik: orang yang sangat pintar secara akademis seringkali memiliki kecenderungan egois untuk
-          **memenangkan argumen**, alih-alih mencoba memahami perspektif lawan bicaranya.
+          <strong>memenangkan argumen</strong>, alih-alih mencoba memahami perspektif lawan bicaranya.
         </p>
 
         <div class="comparison-box">
@@ -515,7 +515,7 @@
 
         <Callout type="tip" title="Kunci Emas: Jangan Baper!">
           Jika orang terdekat memberikan kritik bahwa Anda terlalu banyak memotong pembicaraan atau
-          terkesan menggurui, **tahan ego Anda dan jangan terbawa perasaan (baper)**. Evaluasi
+          terkesan menggurui, <strong>tahan ego Anda dan jangan terbawa perasaan (baper)</strong>. Evaluasi
           tersebut adalah umpan balik berharga (*feedback loop*) yang berfungsi sebagai pemandu arah
           untuk memperbaiki kecerdasan sosial Anda.
         </Callout>
@@ -554,8 +554,8 @@
             <h5>Mendeteksi Sinyal Kebosanan (Teman B)</h5>
             <p>
               Amati perubahan bahasa tubuh mereka (seperti sering melirik ponsel atau melihat ke
-              arah luar). Sadari bahwa ini adalah pertanda jelas Anda harus **berhenti mendominasi
-              obrolan atau segera mengganti topik pembicaraan**.
+              arah luar). Sadari bahwa ini adalah pertanda jelas Anda harus <strong>berhenti mendominasi
+              obrolan atau segera mengganti topik pembicaraan</strong>.
             </p>
           </div>
         </div>
@@ -588,8 +588,8 @@
         <p>
           Kecerdasan akademis yang tinggi barangkali dapat membawa Anda ke gerbang karier yang baik.
           Namun dalam dinamika kehidupan, yang menentukan seberapa jauh Anda dapat melangkah di
-          dalam karier dan bisnis adalah **apakah Anda menyenangkan untuk diajak bekerja sama
-          (asyik)**.
+          dalam karier dan bisnis adalah <strong>apakah Anda menyenangkan untuk diajak bekerja sama
+          (asyik)</strong>.
         </p>
         <div class="quote-card">
           <p>
@@ -651,8 +651,8 @@
             <p>
               Namun, mengapa penonton bersedia menyaksikan video tersebut dari awal hingga akhir
               dengan antusias? Jawabannya bukan karena ia terlihat paling pintar, melainkan karena
-              **ia membawakan pesan tersebut secara asyik, bersahabat, interaktif, dan sama sekali
-              tidak menggurui**. Itulah aplikasi nyata dari Kecerdasan Sosial.
+              <strong>ia membawakan pesan tersebut secara asyik, bersahabat, interaktif, dan sama sekali
+              tidak menggurui</strong>. Itulah aplikasi nyata dari Kecerdasan Sosial.
             </p>
           </div>
         </div>

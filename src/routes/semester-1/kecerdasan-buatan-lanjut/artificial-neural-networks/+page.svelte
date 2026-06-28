@@ -104,7 +104,7 @@
             Di mana <MathBlock latex={b1Symbol} displayMode={false} /> adalah y-intercept (bias) dan <MathBlock latex={b2Symbol} displayMode={false} /> adalah bobot slope (weight). Untuk melatih model, kita menggunakan pendekatan kuadrat terkecil (Least Square Error) untuk meminimalkan fungsi biaya (SSE/MSE) dengan mencari turunan pertamanya. Namun, perhitungan ini menjadi sangat mahal seiring bertambahnya dimensi fitur data.
         </p>
         <p>
-            {"Untuk klasifikasi biner, target $y$ bersifat kategorikal $\{-1, +1\}$. Kita menggunakan fungsi diskriminatif tanda (<em>sign function</em>):"}
+            Untuk klasifikasi biner, target <MathBlock latex="y" displayMode={false} /> bersifat kategorikal <MathBlock latex={String.raw`\{-1, +1\}`} displayMode={false} />. Kita menggunakan fungsi diskriminatif tanda (<em>sign function</em>):
         </p>
         <MathBlock latex={perceptronOutput} />
         <p>
@@ -157,7 +157,7 @@
         <p><strong>Hyperparameter Learning Rate &amp; Monitoring:</strong></p>
         <ul>
             <li><strong>Step size:</strong> Mengontrol seberapa jauh bobot diperbarui. Learning rate adalah hyperparameter paling krusial.</li>
-            <li><strong>Coarse search (pencarian kasar):</strong> Teknik inisialisasi praktis dengan mencoba nilai sangat kecil (misal: $10^{-6}$), mencoba nilai sangat tinggi (misal: $10^{-1}$), kemudian mempersempit (narrowing) pencarian ke area nilai yang stabil.</li>
+            <li><strong>Coarse search (pencarian kasar):</strong> Teknik inisialisasi praktis dengan mencoba nilai sangat kecil (misal: <MathBlock latex={"10^{-6}"} displayMode={false} />), mencoba nilai sangat tinggi (misal: <MathBlock latex={"10^{-1}"} displayMode={false} />), kemudian mempersempit (narrowing) pencarian ke area nilai yang stabil.</li>
             <li><strong>Gap Akurasi Train/Val:</strong> Selisih (gap) antara akurasi training dan akurasi validation mengindikasikan tingkat keparahan overfitting (overfit indicator).</li>
         </ul>
     </NoteSection>
@@ -224,9 +224,9 @@
                 <li>1 hidden layer dengan 3 neuron, matriks bobotnya: <MathBlock latex={matrixW1} displayMode={false} /></li>
                 <li>1 output neuron dengan bobot: <MathBlock latex={matrixW2} displayMode={false} /></li>
             </ul>
-            <p><strong>1. Menghitung Output Hidden Layer ($h$):</strong></p>
+            <p><strong>1. Menghitung Output Hidden Layer (<MathBlock latex="h" displayMode={false} />):</strong></p>
             <MathBlock latex={matrixHCalculation} />
-            <p><strong>2. Menghitung Output Akhir ($y$):</strong></p>
+            <p><strong>2. Menghitung Output Akhir (<MathBlock latex="y" displayMode={false} />):</strong></p>
             <MathBlock latex={matrixYCalculation} />
         </Callout>
 
@@ -285,10 +285,10 @@
                 <strong>Tanh (Hiperbolik Tangen):</strong> <MathBlock latex={String.raw`\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}`} displayMode={false} />. Memetakan output ke rentang $[-1, 1]$. Turunannya: <MathBlock latex={tanhDerivative} displayMode={false} />. Bersifat zero-centered (bagus untuk optimasi), namun masih memiliki masalah di mana gradien tetap mati (saturated) ketika neuron mengalami saturasi di ujung-ujung ekstrem.
             </li>
             <li>
-                <strong>ReLU (Rectified Linear Unit):</strong> $f(z) = \max(0, z)$. Sangat populer karena sederhana, komputasi cepat (hanya thresholding), dan menghindari vanishing gradient untuk input positif.
+                <strong>ReLU (Rectified Linear Unit):</strong> <MathBlock latex="f(z) = \max(0, z)" displayMode={false} />. Sangat populer karena sederhana, komputasi cepat (hanya thresholding), dan menghindari vanishing gradient untuk input positif.
             </li>
             <li>
-                <strong>Leaky ReLU:</strong> $f(z) = \max(0.01z, z)$. Mencegah masalah "dead ReLU" dengan meloloskan gradien kecil kemiringan $0.01$ ketika $z &lt; 0$.
+                <strong>Leaky ReLU:</strong> <MathBlock latex="f(z) = \max(0.01z, z)" displayMode={false} />. Mencegah masalah "dead ReLU" dengan meloloskan gradien kecil kemiringan <MathBlock latex="0.01" displayMode={false} /> ketika <MathBlock latex="z &lt; 0" displayMode={false} />.
             </li>
             <li>
                 <strong>ELU (Exponential Linear Unit):</strong> Menggunakan fungsi eksponensial untuk nilai negatif agar transisi lebih mulus di sekitar nol.

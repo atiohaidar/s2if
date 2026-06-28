@@ -123,11 +123,11 @@
         </p>
         <p><strong>1. Gibbs Sampling:</strong></p>
         <p>
-            Mengingat vektor input $v_0$, kita hitung probabilitas aktivasi tersembunyi $P(h|v)$. Menggunakan nilai $h$ yang didapat, kita rekonstruksi input baru menggunakan $P(v|h)$. Proses diulang sebanyak $k$ kali hingga diperoleh rekonstruksi akhir $v_k$.
+            Mengingat vektor input <MathBlock latex="v_0" displayMode={false} />, kita hitung probabilitas aktivasi tersembunyi <MathBlock latex="P(h|v)" displayMode={false} />. Menggunakan nilai <MathBlock latex="h" displayMode={false} /> yang didapat, kita rekonstruksi input baru menggunakan <MathBlock latex="P(v|h)" displayMode={false} />. Proses diulang sebanyak <MathBlock latex="k" displayMode={false} /> kali hingga diperoleh rekonstruksi akhir <MathBlock latex="v_k" displayMode={false} />.
         </p>
         <p><strong>2. Contrastive Divergence (CD-k):</strong></p>
         <p>
-            Matriks bobot diperbarui berdasarkan perbedaan produk luar (outer product) probabilitas aktivasi visible-hidden awal ($v_0$ &amp; $h_0$) dengan hasil rekonstruksi ke-k ($v_k$ &amp; $h_k$):
+            Matriks bobot diperbarui berdasarkan perbedaan produk luar (outer product) probabilitas aktivasi visible-hidden awal (<MathBlock latex="v_0" displayMode={false} /> &amp; <MathBlock latex="h_0" displayMode={false} />) dengan hasil rekonstruksi ke-<MathBlock latex="k" displayMode={false} /> (<MathBlock latex="v_k" displayMode={false} /> &amp; <MathBlock latex="h_k" displayMode={false} />):
         </p>
         <MathBlock latex={cdWeightDelta} />
         <p>
@@ -143,7 +143,7 @@
         <ul>
             <li>Lapisan awal mengekstrak fitur tingkat rendah (low-level).</li>
             <li>Lapisan yang lebih tinggi mengekstrak fitur tingkat tinggi (high-level) yang abstrak dan sangat diskriminatif.</li>
-            <li>DRBN bertindak sebagai model **rekayasa fitur otomatis (feature engineering)**. Fitur level tertinggi dari RBM terakhir dapat langsung dimasukkan sebagai input classifier eksternal seperti Naive Bayes atau Decision Tree.</li>
+            <li>DRBN bertindak sebagai model <strong>rekayasa fitur otomatis (feature engineering)</strong>. Fitur level tertinggi dari RBM terakhir dapat langsung dimasukkan sebagai input classifier eksternal seperti Naive Bayes atau Decision Tree.</li>
         </ul>
     </NoteSection>
 

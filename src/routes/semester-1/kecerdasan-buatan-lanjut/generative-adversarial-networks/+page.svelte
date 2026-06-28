@@ -67,7 +67,7 @@
         <ul>
             <li>Generator menerima input acak (noise vector) dan mencoba memetakan ke ruang sampel tiruan. Tujuannya adalah mengelabui Discriminator.</li>
             <li>Discriminator diberikan dua jenis data secara bergantian: data asli dari dataset, dan data tiruan dari Generator. Tujuannya adalah mendeteksi pemalsuan secara akurat.</li>
-            <li>Ini disebut sebagai **Zero-Sum Game**: keuntungan bagi Generator (berhasil menipu) adalah kerugian bagi Discriminator, dan sebaliknya. Jaringan dilatih bersama menggunakan rumusan minimax loss.</li>
+            <li>Ini disebut sebagai <strong>Zero-Sum Game</strong>: keuntungan bagi Generator (berhasil menipu) adalah kerugian bagi Discriminator, dan sebaliknya. Jaringan dilatih bersama menggunakan rumusan minimax loss.</li>
         </ul>
     </NoteSection>
 

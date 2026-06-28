@@ -117,7 +117,7 @@
             <li><strong>Mudah mentransmisikan data:</strong> Pengiriman data melalui internet hampir tidak berbayar (essentially free).</li>
         </ul>
         <p>
-            <strong>Bottom Line:</strong> Karena data melimpah ruah, **analisis data (data analysis)** menjadi kunci utama untuk mengekstrak manfaat dari data tersebut.
+            <strong>Bottom Line:</strong> Karena data melimpah ruah, <strong>analisis data (data analysis)</strong> menjadi kunci utama untuk mengekstrak manfaat dari data tersebut.
         </p>
     </NoteSection>
 

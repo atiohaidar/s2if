@@ -75,10 +75,10 @@
         <p><strong>Formula Ukuran Output Feature Map:</strong></p>
         <MathBlock latex={cnnOutputSize} />
         <ul>
-            <li>$W$: Ukuran input (lebar/tinggi)</li>
-            <li>$K$: Ukuran filter (kernel)</li>
-            <li>$P$: Ukuran padding</li>
-            <li>$S$: Nilai stride</li>
+            <li><MathBlock latex="W" displayMode={false} />: Ukuran input (lebar/tinggi)</li>
+            <li><MathBlock latex="K" displayMode={false} />: Ukuran filter (kernel)</li>
+            <li><MathBlock latex="P" displayMode={false} />: Ukuran padding</li>
+            <li><MathBlock latex="S" displayMode={false} />: Nilai stride</li>
         </ul>
     </NoteSection>
 
@@ -95,7 +95,7 @@
         </p>
         <ul>
             <li><strong>Max Pooling:</strong> Mengambil nilai maksimum dalam jendela filter tertentu (misalnya jendela 2x2 dengan stride 2).</li>
-            <li><strong>Manfaat:</strong> Mengurangi komputasi (jumlah parameter berkurang), meredam noise, dan memberikan sifat **spatial invariance** (kekebalan terhadap pergeseran posisi objek pada gambar).</li>
+            <li><strong>Manfaat:</strong> Mengurangi komputasi (jumlah parameter berkurang), meredam noise, dan memberikan sifat <strong>spatial invariance</strong> (kekebalan terhadap pergeseran posisi objek pada gambar).</li>
         </ul>
     </NoteSection>
 

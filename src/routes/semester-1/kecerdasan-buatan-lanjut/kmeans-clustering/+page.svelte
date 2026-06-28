@@ -155,7 +155,7 @@
         <p><strong>Langkah Kerja Algoritma:</strong></p>
         <ol>
             <li>Tentukan jumlah kluster K.</li>
-            <li>Inisialisasi K centroid secara acak ($c_j$) dari data input.</li>
+            <li>Inisialisasi K centroid secara acak (<MathBlock latex="c_j" displayMode={false} />) dari data input.</li>
             <li><strong>Tahap Asosiasi:</strong> Petakan setiap titik data ke centroid terdekat menggunakan metrik jarak (Euclidean distance).</li>
             <li><strong>Tahap Update:</strong> Hitung ulang posisi centroid baru sebagai rata-rata (mean) dari semua titik data yang terasosiasi dengannya.</li>
             <li>Ulangi langkah 3 dan 4 sampai posisi centroid tidak berubah (konvergen).</li>
@@ -170,10 +170,10 @@
 
     <NoteSection title="5. Simulasi Iterasi K-Means">
         <p>
-            Misalkan kita mengelompokkan 8 data poin ($o_1$ s.d. $o_8$) di ruang 2D dengan K = 2:
+            Misalkan kita mengelompokkan 8 data poin (<MathBlock latex="o_1" displayMode={false} /> s.d. <MathBlock latex="o_8" displayMode={false} />) di ruang 2D dengan <MathBlock latex="K = 2" displayMode={false} />:
         </p>
         <ul>
-            <li><strong>Iterasi 1:</strong> Dua centroid awal $c_1, c_2$ dipilih secara acak. Jarak Euclidean dari setiap objek $o_i$ ke $c_1, c_2$ dihitung. Objek dipetakan ke kluster terdekat. Centroid baru kemudian dihitung sebagai titik rata-rata koordinat tiap anggota kluster.</li>
+            <li><strong>Iterasi 1:</strong> Dua centroid awal <MathBlock latex="c_1, c_2" displayMode={false} /> dipilih secara acak. Jarak Euclidean dari setiap objek <MathBlock latex="o_i" displayMode={false} /> ke <MathBlock latex="c_1, c_2" displayMode={false} /> dihitung. Objek dipetakan ke kluster terdekat. Centroid baru kemudian dihitung sebagai titik rata-rata koordinat tiap anggota kluster.</li>
             <li><strong>Iterasi 2:</strong> Menggunakan centroid baru hasil Iterasi 1, objek diasosiasikan ulang. Karena posisi centroid bergeser, beberapa objek mungkin berpindah kluster. Centroid diperbarui lagi dari koordinat anggota baru.</li>
             <li><strong>Iterasi 3:</strong> Evaluasi keanggotaan dilakukan lagi. Jika tidak ada objek yang berpindah kluster, centroid bernilai sama. Iterasi dihentikan karena konvergen.</li>
         </ul>
@@ -205,8 +205,8 @@
         <p>Mengukur kemiripan suatu objek dengan klusternya sendiri (cohesion) dibanding kluster tetangga terdekat lainnya (separation).</p>
         <MathBlock latex={silhouetteFormula} />
         <ul>
-            <li><MathBlock latex={cohesionSymbol} displayMode={false} />: Rata-rata jarak titik $i$ ke seluruh objek lain di dalam kluster yang sama.</li>
-            <li><MathBlock latex={separationSymbol} displayMode={false} />: Jarak rata-rata terendah dari titik $i$ ke seluruh objek di kluster tetangga terdekat lainnya.</li>
+            <li><MathBlock latex={cohesionSymbol} displayMode={false} />: Rata-rata jarak titik <MathBlock latex="i" displayMode={false} /> ke seluruh objek lain di dalam kluster yang sama.</li>
+            <li><MathBlock latex={separationSymbol} displayMode={false} />: Jarak rata-rata terendah dari titik <MathBlock latex="i" displayMode={false} /> ke seluruh objek di kluster tetangga terdekat lainnya.</li>
         </ul>
         <p><strong>Metrik Evaluasi Lainnya:</strong> Davies–Bouldin index, Dunn Index, Mutual Information, Purity, F-Measure, Jaccard Index.</p>
     </NoteSection>

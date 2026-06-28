@@ -189,10 +189,16 @@
         .topic-nav {
             flex-direction: column;
             align-items: stretch;
+            gap: 0.5rem;
         }
 
         .topic-nav-link {
             max-width: none;
+            justify-content: center;
+        }
+
+        .topic-nav-next {
+            margin-left: 0;
         }
     }
 </style>

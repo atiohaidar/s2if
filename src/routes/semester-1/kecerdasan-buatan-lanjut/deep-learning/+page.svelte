@@ -48,7 +48,7 @@
             <strong>Deep Learning</strong> (Deep Structured Learning) adalah bagian dari metode machine learning yang berbasis pada arsitektur <strong>Artificial Neural Network</strong>.
         </p>
         <p>
-            Kata <strong>"deep"</strong> merujuk pada penggunaan **banyak lapisan (multiple layers)** di dalam jaringan. Jaringan ini memanfaatkan tumpukan lapisan tersembunyi tersebut untuk mengekstrak fitur tingkat tinggi (higher-level features) dari data mentah secara bertahap melalui representasi abstrak.
+            Kata <strong>"deep"</strong> merujuk pada penggunaan <strong>banyak lapisan (multiple layers)</strong> di dalam jaringan. Jaringan ini memanfaatkan tumpukan lapisan tersembunyi tersebut untuk mengekstrak fitur tingkat tinggi (higher-level features) dari data mentah secara bertahap melalui representasi abstrak.
         </p>
         <p><strong>Arsitektur utama Deep Learning meliputi:</strong></p>
         <ul>
@@ -91,7 +91,7 @@
             <li><strong>3 Fully Connected Layers</strong> (lapisan akhir melakukan pemungutan suara klasifikasi).</li>
         </ul>
         <p>
-            Setiap *trainable layer* diikuti oleh fungsi aktivasi non-linear **ReLU**, kecuali lapisan Fully Connected terakhir yang menggunakan fungsi **Softmax** untuk menghasilkan distribusi probabilitas kelas.
+            Setiap *trainable layer* diikuti oleh fungsi aktivasi non-linear <strong>ReLU</strong>, kecuali lapisan Fully Connected terakhir yang menggunakan fungsi <strong>Softmax</strong> untuk menghasilkan distribusi probabilitas kelas.
         </p>
         <p>
             <strong>Lapisan Non-Trainable pada AlexNet (Tanpa Parameter Bobot):</strong>

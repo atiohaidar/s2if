@@ -257,7 +257,7 @@
       <strong>Apple Developer Academy</strong> merupakan inisiatif prestisius untuk mengembangkan talenta ekonomi digital berkelas dunia dalam ekosistem Apple. Kampus akademi di Indonesia tersebar di beberapa lokasi seperti <strong>BINUS BSD Tangerang</strong>, <strong>Universitas Ciputra Surabaya</strong>, <strong>Infinite Learning Batam</strong>, <strong>BINUS Bali</strong>, dan <strong>Central Jakarta</strong>.
     </p>
     <p>
-      Kurikulum intensif selama 10 bulan ini menggunakan metode pembelajaran **Challenge Based Learning (CBL)** yang mendorong kolaborasi multidisipliner (coding, design, dan business). Tujuannya adalah melahirkan developer **T-Shaped**, yaitu individu yang ahli dalam bidang teknis mendalam sekaligus mampu berkomunikasi lintas disiplin.
+      Kurikulum intensif selama 10 bulan ini menggunakan metode pembelajaran <strong>Challenge Based Learning (CBL)</strong> yang mendorong kolaborasi multidisipliner (coding, design, dan business). Tujuannya adalah melahirkan developer <strong>T-Shaped</strong>, yaitu individu yang ahli dalam bidang teknis mendalam sekaligus mampu berkomunikasi lintas disiplin.
     </p>
     <p>Proses seleksi penerimaan peserta terdiri dari tiga tahapan utama:</p>
     <div class="steps-container">
@@ -339,7 +339,7 @@
         <div class="trick-badge">Trik 4</div>
         <h5>Swift Labels: Perhatikan Error!</h5>
         <p>
-          Swift mewajibkan label parameter saat pemanggilan fungsi, misal <code>greet(name: "Aulia")</code>. Pemanggilan tanpa label seperti <code>greet("Aulia")</code> akan menyebabkan **Compile Error**, kecuali deklarasi fungsinya menggunakan wildcard underscore <code>func greet(_ name: String)</code>.
+          Swift mewajibkan label parameter saat pemanggilan fungsi, misal <code>greet(name: "Aulia")</code>. Pemanggilan tanpa label seperti <code>greet("Aulia")</code> akan menyebabkan <strong>Compile Error</strong>, kecuali deklarasi fungsinya menggunakan wildcard underscore <code>func greet(_ name: String)</code>.
         </p>
       </div>
 

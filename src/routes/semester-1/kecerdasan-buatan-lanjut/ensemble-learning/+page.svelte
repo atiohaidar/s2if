@@ -104,26 +104,26 @@
     <NoteSection title="3. Analisis Matematika Akurasi Gabungan">
         <Callout type="tip" title="Studi Kasus 1: Model Identik (Slide 4-8)">
             <p>
-                {"Misalkan kita memiliki 3 model independen identik dengan akurasi masing-masing $p$ untuk klasifikasi biner. Keputusan akhir bernilai benar jika minimal 2 dari 3 model benar."}
+                Misalkan kita memiliki 3 model independen identik dengan akurasi masing-masing <MathBlock latex="p" displayMode={false} /> untuk klasifikasi biner. Keputusan akhir bernilai benar jika minimal 2 dari 3 model benar.
             </p>
-            <p><strong>A. Jika Akurasi Model $p = 70\%$:</strong></p>
+            <p><strong>A. Jika Akurasi Model <MathBlock latex={String.raw`p = 70\%`} displayMode={false} />:</strong></p>
             <MathBlock latex={majorityCorrect} />
             <MathBlock latex={majorityCorrectFormula} />
             <MathBlock latex={majorityCorrectCalc1} />
-            <p><strong>B. Jika Akurasi Model $p = 40\%$:</strong></p>
+            <p><strong>B. Jika Akurasi Model <MathBlock latex={String.raw`p = 40\%`} displayMode={false} />:</strong></p>
             <MathBlock latex={majorityCorrectCalc2} />
-            <p><strong>Formula Umum Akurasi Gabungan ($M$ model):</strong></p>
+            <p><strong>Formula Umum Akurasi Gabungan (<MathBlock latex="M" displayMode={false} /> model):</strong></p>
             <MathBlock latex={majorityGeneralFormula} />
             <p><strong>Hukum Teori Kunci:</strong></p>
             <ul>
-                <li>Jika akurasi model dasar $p &gt; 0.5$, maka menambah jumlah model $M$ akan mendongkrak akurasi gabungan mendekati 100% (contoh: 101 model dengan akurasi 70% menghasilkan akurasi gabungan <strong>99.9%</strong>).</li>
-                <li>Jika akurasi model dasar $p &lt; 0.5$, maka menambah jumlah model $M$ justru menurunkan akurasi gabungan mendekati 0% (contoh: 100 model dengan akurasi 40% menghasilkan akurasi gabungan <strong>0%</strong>).</li>
+                <li>Jika akurasi model dasar <MathBlock latex="p > 0.5" displayMode={false} />, maka menambah jumlah model <MathBlock latex="M" displayMode={false} /> akan mendongkrak akurasi gabungan mendekati 100% (contoh: 101 model dengan akurasi 70% menghasilkan akurasi gabungan <strong>99.9%</strong>).</li>
+                <li>Jika akurasi model dasar <MathBlock latex="p < 0.5" displayMode={false} />, maka menambah jumlah model <MathBlock latex="M" displayMode={false} /> justru menurunkan akurasi gabungan mendekati 0% (contoh: 100 model dengan akurasi 40% menghasilkan akurasi gabungan <strong>0%</strong>).</li>
             </ul>
         </Callout>
 
         <Callout type="tip" title="Studi Kasus 2: Model dengan Akurasi Berbeda (Slide 9-10)">
             <p>
-                Jika model memiliki akurasi berbeda ($P_A, P_B, P_C$), rumus kombinatorika general tidak berlaku. Kita harus menjabarkan seluruh kombinasi keadaan mayoritas suara benar (yaitu: semua 3 benar, atau tepat 2 benar):
+                Jika model memiliki akurasi berbeda (<MathBlock latex="P_A, P_B, P_C" displayMode={false} />), rumus kombinatorika general tidak berlaku. Kita harus menjabarkan seluruh kombinasi keadaan mayoritas suara benar (yaitu: semua 3 benar, atau tepat 2 benar):
             </p>
             <MathBlock latex={diffAccFormula} />
             <p><strong>A. Kasus Model A=80%, B=82%, C=85%:</strong></p>
@@ -138,21 +138,21 @@
 
     <NoteSection title="4. Metode Bagging (Bootstrap Aggregating) &amp; Random Forest">
         <p>
-            Ditemukan oleh Leo Breiman pada 1994, bagging digunakan untuk **mengurangi Variance Error** (mengatasi overfitting). Sangat cocok untuk model yang tidak stabil seperti Decision Tree dan ANN (di mana adanya sedikit perubahan pada data latih akan berpengaruh besar pada model pembelajaran yang dihasilkan).
+            Ditemukan oleh Leo Breiman pada 1994, bagging digunakan untuk <strong>mengurangi Variance Error</strong> (mengatasi overfitting). Sangat cocok untuk model yang tidak stabil seperti Decision Tree dan ANN (di mana adanya sedikit perubahan pada data latih akan berpengaruh besar pada model pembelajaran yang dihasilkan).
         </p>
         <p><strong>Langkah Kerja Bagging:</strong></p>
         <ol>
-            <li>Bangkitkan $r$ subhimpunan data latih baru menggunakan metode **Bootstrap (Random Sampling with Replacement)** dari data sumber secara acak dengan peluang seragam ($1/N$).</li>
-            <li>Latih $r$ model dasar secara paralel dan independen pada masing-masing subhimpunan data.</li>
+            <li>Bangkitkan <MathBlock latex="r" displayMode={false} /> subhimpunan data latih baru menggunakan metode <strong>Bootstrap (Random Sampling with Replacement)</strong> dari data sumber secara acak dengan peluang seragam (<MathBlock latex="1/N" displayMode={false} />).</li>
+            <li>Latih <MathBlock latex="r" displayMode={false} /> model dasar secara paralel dan independen pada masing-masing subhimpunan data.</li>
             <li>Gabungkan prediksi seluruh model. Klasifikasi menggunakan suara terbanyak (Voting), sedangkan Regresi menggunakan nilai rata-rata (Averaging).</li>
         </ol>
 
         <Callout type="info" title="Bukti Matematis Bootstrap Porsi 63.21% (Slide 18)">
             <p>
-                Misalkan terdapat $N$ objek data. Peluang suatu data terpilih dalam satu kali pengambilan acak adalah $1/N$, sehingga peluang untuk tidak terpilih adalah $1 - 1/N$.
+                Misalkan terdapat <MathBlock latex="N" displayMode={false} /> objek data. Peluang suatu data terpilih dalam satu kali pengambilan acak adalah <MathBlock latex="1/N" displayMode={false} />, sehingga peluang untuk tidak terpilih adalah <MathBlock latex="1 - 1/N" displayMode={false} />.
             </p>
             <p>
-                Peluang data tersebut sama sekali tidak terpilih setelah $N$ kali pengambilan berturut-turut adalah:
+                Peluang data tersebut sama sekali tidak terpilih setelah <MathBlock latex="N" displayMode={false} /> kali pengambilan berturut-turut adalah:
             </p>
             <MathBlock latex={bootstrapFormula1} />
             <p>
@@ -207,13 +207,13 @@
 
     <NoteSection title="5. Metode Boosting">
         <p>
-            Diusulkan oleh Robert E. Schapire pada 1990, boosting bekerja secara sekuensial untuk **mengurangi Bias Error** (mengatasi underfitting).
+            Diusulkan oleh Robert E. Schapire pada 1990, boosting bekerja secara sekuensial untuk <strong>mengurangi Bias Error</strong> (mengatasi underfitting).
         </p>
         <p><strong>Langkah Kerja Boosting:</strong></p>
         <ol>
             <li>Dimulai dari melatih model klasifikasi awal yang lemah (weak learner).</li>
-            <li>Lakukan penyamplingan bootstrap objek data secara berurutan sebanyak $T$ kali berdasarkan **pembobotan dinamis**. Objek data yang salah diklasifikasikan oleh model sebelumnya akan diberi bobot (weight) lebih tinggi agar mendapat perhatian lebih di model berikutnya.</li>
-            <li>Gabungkan $T$ model yang dihasilkan menggunakan **Majority Voting dengan pembobotan proporsional terhadap akurasi model**. Model dengan akurasi tertinggi mendapat bobot terbesar, sedangkan model terlemah mendapat bobot terkecil. Contoh algoritma: AdaBoost, Gradient Boosting, XGBoost.</li>
+            <li>Lakukan penyamplingan bootstrap objek data secara berurutan sebanyak <MathBlock latex="T" displayMode={false} /> kali berdasarkan <strong>pembobotan dinamis</strong>. Objek data yang salah diklasifikasikan oleh model sebelumnya akan diberi bobot (weight) lebih tinggi agar mendapat perhatian lebih di model berikutnya.</li>
+            <li>Gabungkan <MathBlock latex="T" displayMode={false} /> model yang dihasilkan menggunakan <strong>Majority Voting dengan pembobotan proporsional terhadap akurasi model</strong>. Model dengan akurasi tertinggi mendapat bobot terbesar, sedangkan model terlemah mendapat bobot terkecil. Contoh algoritma: AdaBoost, Gradient Boosting, XGBoost.</li>
         </ol>
     </NoteSection>
 
@@ -230,9 +230,9 @@
     <NoteSection title="7. Strategi Membangkitkan Base Classifiers">
         <p>Ensemble methods dapat membangkitkan model dasar (base classifiers) dengan beberapa strategi:</p>
         <ul>
-            <li><strong>Sampling Training Examples:</strong> Melatih $k$ model pada $k$ subset yang diambil dari data latih (seperti Bagging).</li>
+            <li><strong>Sampling Training Examples:</strong> Melatih <MathBlock latex="k" displayMode={false} /> model pada <MathBlock latex="k" displayMode={false} /> subset yang diambil dari data latih (seperti Bagging).</li>
             <li><strong>Using Different Learning Models:</strong> Menggunakan semua data latih tetapi menerapkan algoritma pembelajaran yang berbeda-beda untuk setiap model.</li>
-            <li><strong>Sampling Features:</strong> Melatih $k$ model pada $k$ subset fitur yang diambil dari feature space (seperti Random Forest).</li>
+            <li><strong>Sampling Features:</strong> Melatih <MathBlock latex="k" displayMode={false} /> model pada <MathBlock latex="k" displayMode={false} /> subset fitur yang diambil dari feature space (seperti Random Forest).</li>
             <li><strong>Learning "Randomly":</strong> Memasukkan elemen randomness ke dalam prosedur pembelajaran (misalnya inisialisasi bobot acak di ANN).</li>
         </ul>
 

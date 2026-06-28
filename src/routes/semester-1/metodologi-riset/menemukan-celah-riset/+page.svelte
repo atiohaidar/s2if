@@ -668,8 +668,8 @@ Ask:
   <NoteSection title="How Method Innovation Happens">
     <p>
       Inovasi dalam metodologi penelitian tidak selalu berarti menciptakan sesuatu yang 100% baru
-      dari nol. Sering kali, inovasi lahir ketika kamu berhasil **menemukan kelemahan (weakness)
-      pada metodologi yang sudah ada** lalu memperbaikinya.
+      dari nol. Sering kali, inovasi lahir ketika kamu berhasil <strong>menemukan kelemahan (weakness)
+      pada metodologi yang sudah ada</strong> lalu memperbaikinya.
     </p>
 
     <div class="innovation-container">
@@ -728,7 +728,7 @@ Ask:
   <NoteSection title="The Magic: Synthesis & Combination">
     <p>
       Selain memperbaiki kelemahan metode, cara paling ampuh dan instan untuk menemukan celah
-      kebaruan (*novelty*) risetmu adalah dengan **menggabungkan (synthesize) beberapa ide** dari
+      kebaruan (<em>novelty</em>) risetmu adalah dengan <strong>menggabungkan (synthesize) beberapa ide</strong> dari
       paper-paper yang berbeda:
     </p>
 

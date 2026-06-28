@@ -64,37 +64,37 @@
       frame).
     </p>
     <p>
-      Pemrosesan data sekuens membutuhkan mekanisme untuk menyimpan informasi pada suatu waktu ($t$)
-      agar bisa digunakan pada waktu setelahnya ($t+1$). Jaringan standar seperti ANN, CNN, atau DBN
+      Pemrosesan data sekuens membutuhkan mekanisme untuk menyimpan informasi pada suatu waktu (<MathBlock latex="t" displayMode={false} />)
+      agar bisa digunakan pada waktu setelahnya (<MathBlock latex="t+1" displayMode={false} />). Jaringan standar seperti ANN, CNN, atau DBN
       tidak memiliki memori untuk mengingat riwayat data masa lalu.
     </p>
   </NoteSection>
 
   <NoteSection title="2. Konsep Recurrent Neural Network (RNN)">
     <p>
-      RNN adalah arsitektur neural network yang memiliki **koneksi melingkar (loop)** yang
+      RNN adalah arsitektur neural network yang memiliki <strong>koneksi melingkar (loop)</strong> yang
       memungkinkan informasi dikirim dari satu langkah waktu ke langkah berikutnya. RNN bertindak
       seperti salinan berulang dari jaringan yang sama, yang meneruskan memori ke suksesornya.
     </p>
 
     <p><strong>Formulasi Matematis RNN:</strong></p>
-    <p>Untuk setiap time step $t$:</p>
+    <p>Untuk setiap time step <MathBlock latex="t" displayMode={false} />:</p>
     <p><strong>1. Hidden State:</strong> Memori yang menyimpan hasil pemrosesan neuron.</p>
     <MathBlock latex={hiddenStateFormula} />
     <ul>
-      <li>$x_t$: Input pada time step $t$.</li>
+      <li><MathBlock latex="x_t" displayMode={false} />: Input pada time step <MathBlock latex="t" displayMode={false} />.</li>
       <li>
-        {'$s_{t-1}$'}: Hidden state dari time step sebelumnya (bernilai default 0 pada $t=0$).
+        <MathBlock latex={"s_{t-1}"} displayMode={false} />: Hidden state dari time step sebelumnya (bernilai default 0 pada <MathBlock latex="t=0" displayMode={false} />).
       </li>
-      <li>$U$: Bobot untuk input.</li>
-      <li>$W$: Bobot untuk hidden state recurrent.</li>
+      <li><MathBlock latex="U" displayMode={false} />: Bobot untuk input.</li>
+      <li><MathBlock latex="W" displayMode={false} />: Bobot untuk hidden state recurrent.</li>
     </ul>
-    <p><strong>2. Output:</strong> Hasil prediksi pada time step $t$.</p>
+    <p><strong>2. Output:</strong> Hasil prediksi pada time step <MathBlock latex="t" displayMode={false} />.</p>
     <MathBlock latex={outputFormula} />
     <ul>
-      <li>$V$: Bobot untuk output.</li>
+      <li><MathBlock latex="V" displayMode={false} />: Bobot untuk output.</li>
     </ul>
-    <p>Parameter $U, W,$ dan $V$ dibagikan (shared/sama) di setiap langkah waktu.</p>
+    <p>Parameter <MathBlock latex="U, W" displayMode={false} /> dan <MathBlock latex="V" displayMode={false} /> dibagikan (shared/sama) di setiap langkah waktu.</p>
   </NoteSection>
 
   <NoteSection title="3. Pola Arsitektur RNN">
@@ -145,7 +145,7 @@
     <Callout type="danger" title="Vanishing &amp; Exploding Gradients">
       <p>
         Saat menghitung gradien recurrent terhadap hidden state masa lalu, kita melakukan perkalian
-        berulang kali dengan matriks bobot recurrent $W$.
+        berulang kali dengan matriks bobot recurrent <MathBlock latex="W" displayMode={false} />.
       </p>
       <ul>
         <li>
@@ -233,21 +233,21 @@
       Karakter dipetakan menggunakan <strong>One-Hot Encoding</strong> berdimensi 4:
     </p>
     <ul>
-      <li>$h = [1, 0, 0, 0]^T$</li>
-      <li>$e = [0, 1, 0, 0]^T$</li>
-      <li>$l = [0, 0, 1, 0]^T$</li>
-      <li>$o = [0, 0, 0, 1]^T$</li>
+      <li><MathBlock latex="h = [1, 0, 0, 0]^T" displayMode={false} /></li>
+      <li><MathBlock latex="e = [0, 1, 0, 0]^T" displayMode={false} /></li>
+      <li><MathBlock latex="l = [0, 0, 1, 0]^T" displayMode={false} /></li>
+      <li><MathBlock latex="o = [0, 0, 0, 1]^T" displayMode={false} /></li>
     </ul>
 
     <p><strong>B. Tahap Pelatihan (Training Loop):</strong></p>
     <ol>
       <li>
-        Pada time step $t=1$, input $x_1$ adalah "h" ($[1,0,0,0]^T$). Dikalikan dengan bobot {'$W_{xh}$'}
+        Pada time step <MathBlock latex="t=1" displayMode={false} />, input <MathBlock latex="x_1" displayMode={false} /> adalah "h" (<MathBlock latex="[1,0,0,0]^T" displayMode={false} />). Dikalikan dengan bobot <MathBlock latex={"W_{xh}"} displayMode={false} />
         menghasilkan representasi tersembunyi.
       </li>
       <li>
-        Sinyal dilewatkan melalui fungsi aktivasi tanh ke output layer dengan dikalikan bobot {'$W_{ho}$'}
-        menghasilkan skor kelas (misal $[1.0, 2.2, -3.0, 4.1]^T$).
+        Sinyal dilewatkan melalui fungsi aktivasi tanh ke output layer dengan dikalikan bobot <MathBlock latex={"W_{ho}"} displayMode={false} />
+        menghasilkan skor kelas (misal <MathBlock latex="[1.0, 2.2, -3.0, 4.1]^T" displayMode={false} />).
       </li>
       <li>
         Menggunakan fungsi Softmax, model memprediksi probabilitas karakter berikutnya (misal
@@ -255,7 +255,7 @@
       </li>
       <li>
         Selisih prediksi dengan target asli "e" dihitung dengan Cross-Entropy Loss, lalu gradien
-        dirambatkan mundur (BPTT) untuk memperbarui bobot {'$W_{xh}, W_{hh}, W_{hy}, b_h,$'} dan {'$b_y$'}.
+        dirambatkan mundur (BPTT) untuk memperbarui bobot <MathBlock latex={"W_{xh}, W_{hh}, W_{hy}, b_h"} displayMode={false} /> dan <MathBlock latex="b_y" displayMode={false} />.
       </li>
     </ol>
 
@@ -264,12 +264,12 @@
       <li>Input pertama dimasukkan secara manual (yaitu karakter "h").</li>
       <li>Model menghasilkan output prediksi karakter berikutnya (misalnya menebak "e").</li>
       <li>
-        Karakter hasil prediksi "e" tersebut **digunakan langsung sebagai input** untuk langkah
-        waktu berikutnya ($t=2$).
+        Karakter hasil prediksi "e" tersebut <strong>digunakan langsung sebagai input</strong> untuk langkah
+        waktu berikutnya (<MathBlock latex="t=2" displayMode={false} />).
       </li>
       <li>
         Langkah forward pass hidden layer berikutnya menggunakan memori hidden state langkah pertama
-        dikalikan bobot recurrent {'$W_{hh}$'}, diulangi hingga seluruh rangkaian kata selesai
+        dikalikan bobot recurrent <MathBlock latex={"W_{hh}"} displayMode={false} />, diulangi hingga seluruh rangkaian kata selesai
         terbentuk.
       </li>
     </ol>

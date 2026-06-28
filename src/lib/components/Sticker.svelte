@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { STICKER_ICONS } from "$lib/data/constants";
+    import { Check, Hourglass, Circle, Zap } from "lucide-svelte";
 
     interface Props {
         type?: "done" | "wip" | "todo" | "important";
@@ -11,7 +11,17 @@
 </script>
 
 <span class="sticker sticker-{type}" class:small>
-    <span class="sticker-icon">{STICKER_ICONS[type]}</span>
+    <span class="sticker-icon">
+        {#if type === "done"}
+            <Check size={small ? 12 : 14} strokeWidth={3} />
+        {:else if type === "wip"}
+            <Hourglass size={small ? 12 : 14} strokeWidth={2.5} />
+        {:else if type === "todo"}
+            <Circle size={small ? 12 : 14} strokeWidth={2.5} />
+        {:else if type === "important"}
+            <Zap size={small ? 12 : 14} strokeWidth={2.5} />
+        {/if}
+    </span>
     <span class="sticker-text">
         {#if children}
             {@render children()}
@@ -56,7 +66,9 @@
     }
 
     .sticker-icon {
-        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         line-height: 1;
     }
 

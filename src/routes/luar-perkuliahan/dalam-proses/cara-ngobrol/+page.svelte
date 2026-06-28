@@ -190,8 +190,8 @@
               <h4>Berbicara dengan Pemimpin / CEO Hebat</h4>
             </div>
             <p>
-              Tunjukkan rasa hormat (respect) yang tulus dan bersikap sopan. Namun, **hindari sikap
-              'peres' (memuji berlebihan secara palsu)** atau minder. Berbicaralah dengan rasa
+              Tunjukkan rasa hormat (respect) yang tulus dan bersikap sopan. Namun, <strong>hindari sikap
+              'peres' (memuji berlebihan secara palsu)</strong> atau minder. Berbicaralah dengan rasa
               percaya diri yang tenang.
             </p>
           </div>
@@ -343,8 +343,8 @@
             <h5>1. Intensi (Intent)</h5>
             <p>
               Saat bertemu dengan teman atau rekan kerja, datanglah dengan intensi yang tulus untuk
-              saling mendengar dan bertukar cerita secara wajar. **Jangan datang hanya jika ada
-              maunya saja** (misal: setelah lama menghilang tiba-tiba menghubungi untuk menawarkan
+              saling mendengar dan bertukar cerita secara wajar. <strong>Jangan datang hanya jika ada
+              maunya saja</strong> (misal: setelah lama menghilang tiba-tiba menghubungi untuk menawarkan
               jualan/MLM). Ketulusan adalah magnet sosial terbaik.
             </p>
           </div>

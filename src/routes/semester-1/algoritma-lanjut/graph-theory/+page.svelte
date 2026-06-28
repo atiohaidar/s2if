@@ -216,7 +216,7 @@ for each edge e_k connecting (u, v) in E:
             <strong>Karakteristik & Analisis:</strong>
             <ul>
                 <li><strong>Ruang (Space):</strong> Membutuhkan memori sebesar <MathBlock latex={"O(V \\times E)"} displayMode={false} />.</li>
-                <li><strong>Struktur:</strong> Setiap kolom (edge) pasti memiliki tepat **dua angka 1** yang menunjukkan titik awal dan akhir.</li>
+                <li><strong>Struktur:</strong> Setiap kolom (edge) pasti memiliki tepat <strong>dua angka 1</strong> yang menunjukkan titik awal dan akhir.</li>
                 <li><strong>Kegunaan:</strong> Memudahkan operasi yang berfokus pada hubungan antara vertex dan edge secara spesifik.</li>
             </ul>
         </div>
@@ -487,7 +487,7 @@ proc Initialize(G, s)
             <h4>Bagaimana Ia Bekerja?</h4>
             <p class="text-sm italic mb-2"><strong>Analogi Sederhana:</strong> Bayangkan kamu sedang mencari jalan dari rumah ke kampus lewat Google Maps. Ada banyak pilihan jalan, tapi kamu mau pilih yang paling cepat (total waktu paling sedikit). Dijkstra bakal ngecek semua kemungkinan jalan tersebut dan memastikan kamu dapet rute paling "hemat" biaya/waktu.</p>
             <ol>
-                <li><strong>Inisialisasi:</strong> Semua node diberi jarak tak terhingga ($\infty$), kecuali asal yang bernilai 0.</li>
+                <li><strong>Inisialisasi:</strong> Semua node diberi jarak tak terhingga (<MathBlock latex={String.raw`\infty`} displayMode={false} />), kecuali asal yang bernilai 0.</li>
                 <li><strong>Greedy Choice:</strong> Ambil node dengan jarak terkecil dari antrian prioritas (Priority Queue).</li>
                 <li><strong>Relaksasi (Relaxation):</strong> Cek semua tetangga. Jika lewat node saat ini menghasilkan jalur yang lebih pendek, update nilai jarak node tetangga tersebut.</li>
                 <li><strong>Selesai:</strong> Ulangi sampai semua node diproses.</li>
