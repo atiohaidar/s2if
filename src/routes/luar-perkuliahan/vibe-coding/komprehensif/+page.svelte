@@ -47,6 +47,10 @@
         >strategi kolaborasi</strong
       > antara kreativitas manusia dan eksekusi AI.
     </Callout>
+
+    <Callout type="tip" title="Fondasi Berpikir (Must Read)">
+      Sebelum menyelami alur kerja teknis di bawah, sangat disarankan membaca catatan <a href="/luar-perkuliahan/vibe-coding/computational-thinking"><strong>Computational Thinking dalam Vibe Coding</strong></a> untuk memahami cara memformulasikan persoalan ke AI menggunakan 4 pilar (Dekomposisi, Abstraksi, Pengenalan Pola, dan Algoritma).
+    </Callout>
   </NoteSection>
 
   <NoteSection title="1. Filosofi & Mindset Utama">
