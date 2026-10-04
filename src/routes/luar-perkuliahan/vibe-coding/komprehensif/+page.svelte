@@ -305,9 +305,94 @@
 
     <h3>Iterasi "Apa yang Belum?"</h3>
     <p>
-      Gunaka prompt berulang untuk mengecek ketidakkonsistenan. Tanya: <em
+      Gunakan prompt berulang untuk mengecek ketidakkonsistenan. Tanya: <em
         >"Coba cek lagi, apakah ada bagian UI yang belum konsisten?"</em
       >. Terus ulangi sampai AI tidak menemukan lagi hal yang perlu diperbaiki.
+    </p>
+
+    <h3>Pahami Keyword Teknis (Modal Utama Prompting)</h3>
+    <p>
+      Sebagai vibe coder, kita gak harus hafal mati sintaks atau cara nulis algoritma rumit dari nol. Tapi ada satu hal yang <strong>wajib banget kita kuasai: memahami keyword (istilah teknis industri)</strong>. Kenapa? Karena keyword adalah <strong>modal utama prompting</strong> buat meng-unlock kecerdasan AI yang spesifik dan presisi!
+    </p>
+    <p>
+      Ketika kita pakai bahasa awam yang muter-muter, AI bakal ngasih solusi yang umum atau bahkan dangkal. Tapi begitu kita lempar keyword yang tepat, AI langsung mengaktifkan pemahaman domain yang profesional.
+    </p>
+
+    <Callout type="tip" title="Perbandingan: Bahasa Awam vs. Keyword Modal Prompting">
+      <ul>
+        <li>
+          <strong>Kasus Pengujian:</strong> Daripada bilang <em>"tolong cek jangan sampe pas nambah fitur baru, fitur lama malah jadi rusak atau error"</em>, gunakan keyword <strong>"Regression Testing"</strong>. AI langsung tau standar pengujian otomatis dan edge case yang harus dijaga.
+        </li>
+        <li>
+          <strong>Kasus Pencarian Semantik:</strong> Daripada bilang <em>"gimana cara nyari artikel yang maksudnya mirip-mirip padahal katanya beda"</em>, gunakan keyword <strong>"Vector Embeddings"</strong> dan <strong>"Cosine Similarity"</strong>. AI langsung mengarahkan ke solusi arsitektur AI yang tepat (bukan regex biasa).
+        </li>
+        <li>
+          <strong>Kasus Performa Input:</strong> Daripada bilang <em>"tolong atur biar sistem gak ngirim request terus-menerus pas user ngetik di kolom search"</em>, gunakan keyword <strong>"Debouncing / Throttle"</strong>. Solusinya langsung to-the-point dan clean.
+        </li>
+        <li>
+          <strong>Kasus Respon Cepat UI:</strong> Daripada bilang <em>"gimana biar tombol like langsung berubah tanpa nunggu server kelar"</em>, gunakan keyword <strong>"Optimistic UI Update"</strong>.
+        </li>
+      </ul>
+    </Callout>
+
+    <h4>A. Keyword Saat Menyusun PRD (Product Requirements Document)</h4>
+    <p>
+      Ketika menyusun dokumen PRD bareng AI, gunakan istilah-istilah ini agar ruang lingkup (scope) produk terkunci rapat dan AI tidak membuat fitur yang melebar (<em>scope creep</em>):
+    </p>
+    <ul>
+      <li>
+        <strong><code>MVP (Minimum Viable Product)</code></strong>: Mengunci versi paling esensial yang sudah fungsional. Mencegah AI menambahkan fitur bloatware di iterasi awal.
+      </li>
+      <li>
+        <strong><code>User Story</code></strong>: Format standar kebutuhan pengguna: <em>"As a [role], I want to [action] so that [benefit]"</em>. Menjaga fokus AI pada nilai guna, bukan sekadar list fitur teknis.
+      </li>
+      <li>
+        <strong><code>Acceptance Criteria</code></strong>: Syarat konkret kapan sebuah fitur dianggap selesai dan sukses (misal: <em>"Form tidak boleh submit jika password kurang dari 8 karakter"</em>).
+      </li>
+      <li>
+        <strong><code>Out of Scope</code></strong>: Batasan tegas fitur apa yang <em>sengaja tidak dibuat</em> pada versi ini. Ini tameng paling ampuh agar proyek selesai tepat waktu.
+      </li>
+      <li>
+        <strong><code>Edge Cases</code></strong>: Skenario anomali di luar alur normal (misal: bagaimana jika stok barang 0, atau dua user checkout barang terakhir di detik yang sama).
+      </li>
+    </ul>
+
+    <h4>B. Keyword Saat Menata Layout & Struktur UI</h4>
+    <p>
+      Daripada mendeskripsikan letak visual dengan kalimat panjang yang berbelit-belit, gunakan technical keywords ini agar AI langsung memilih struktur CSS/HTML yang presisi dan standar industri:
+    </p>
+    <ul>
+      <li>
+        <strong><code>Hero Section</code></strong>: Area pembuka paling atas halaman web (biasanya berisi headline utama, sub-headline, dan tombol Call to Action/CTA).
+      </li>
+      <li>
+        <strong><code>Above the Fold</code></strong>: Seluruh area layar yang langsung terlihat saat pertama kali halaman dimuat tanpa user perlu melakukan scroll ke bawah.
+      </li>
+      <li>
+        <strong><code>Sticky / Fixed Navbar</code></strong>: Bilah navigasi yang tetap menempel di bagian atas layar meskipun halaman di-scroll ke bawah.
+      </li>
+      <li>
+        <strong><code>Modal / Dialog Overlay</code></strong>: Jendela pop-up di tengah layar yang menggelapkan latar belakang untuk konfirmasi krusial atau formulir fokus.
+      </li>
+      <li>
+        <strong><code>Toast / Snackbar</code></strong>: Notifikasi melayang kecil di sudut layar yang muncul sebentar lalu hilang otomatis (misal: <em>"Data berhasil disimpan!"</em>).
+      </li>
+      <li>
+        <strong><code>Drawer / Off-Canvas Sidebar</code></strong>: Panel navigasi samping yang meluncur keluar (slide-in) saat tombol menu di-tap pada tampilan mobile.
+      </li>
+      <li>
+        <strong><code>Skeleton Loading / Shimmer</code></strong>: Kotak placeholder abu-abu berkedip halus sebagai penampung sementara saat data sedang diambil (pengganti spinner loading konvensional).
+      </li>
+      <li>
+        <strong><code>Responsive Breakpoints</code></strong>: Titik batas ukuran layar (mobile, tablet, desktop) untuk mengatur perubahan tata letak secara adaptif.
+      </li>
+      <li>
+        <strong><code>Accordion</code></strong>: Komponen daftar buka-tutup lipat yang hemat tempat (sangat sering digunakan untuk FAQ atau rincian spesifikasi).
+      </li>
+    </ul>
+
+    <p>
+      <em>Tips Praktis:</em> Setiap kali AI menyebutkan istilah teknis baru yang belum kamu pahami (misal: <code>Idempotency</code>, <code>Rate Limiting</code>, <code>CORS</code>, <code>RAG</code>), <strong>jangan di-skip</strong>! Jadikan itu tabungan vocab kamu. Tanyakan ke AI: <em>"Keyword ini maksudnya apa, dan di situasi kayak gimana istilah ini biasa dipakai?"</em>. Semakin banyak keyword yang kamu kantongi, prompt kamu bakal semakin singkat, tajam, dan hasilnya kelas industri.
     </p>
   </NoteSection>
 
@@ -598,6 +683,10 @@
       Vibe coding yang sukses adalah tentang <strong>percakapan</strong>. Menurutku, semakin sering
       kamu berdiskusi dan mengkritisi AI, semakin tinggi kualitas produk yang kamu hasilkan.
     </p>
+
+    <Callout type="tip" title="Saatnya Praktik Mandiri!">
+      Udah paham filosofi dan strategi prompt-nya? Sekarang saatnya kamu coba buat software kamu sendiri dari nol lewat <a href="/luar-perkuliahan/vibe-coding/praktek-vibe-coding"><strong>Praktek Vibe Coding (Checklist Proyek Mandiri)</strong></a>.
+    </Callout>
   </NoteSection>
 
   <BackLink href="/luar-perkuliahan/vibe-coding" label="Kembali ke Vibe Coding" />
