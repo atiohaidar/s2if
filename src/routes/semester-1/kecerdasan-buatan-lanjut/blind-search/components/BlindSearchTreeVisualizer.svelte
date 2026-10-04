@@ -463,6 +463,7 @@
     const ucsUpdates = $derived(currentSnapshot?.ucsUpdates ?? []);
     const solutionEdgeKeys = $derived(getPathEdgeKeys(currentPath));
     const progressPercentage = $derived((step / (snapshots.length - 1)) * 100);
+    const isStack = $derived(algorithm === "DFS" || algorithm === "DLS" || algorithm === "IDS");
 
     function getPathEdgeKeys(path: NodeId[]) {
         const keys = new Set<string>();
@@ -563,10 +564,10 @@
             </div>
 
             <div class="frontier-panel">
-                <p><strong>{algorithm === "BFS" || algorithm === "BDS" ? "Queue" : algorithm === "DFS" || algorithm === "DLS" || algorithm === "IDS" ? "Stack" : "Priority queue"}:</strong></p>
+                <p><strong>{algorithm === "BFS" || algorithm === "BDS" ? "Queue" : isStack ? "Stack" : "Priority queue"}:</strong></p>
                 {#if frontier.length > 0}
                     <div class="frontier-list">
-                        {#each frontier as item, i}
+                        {#each (isStack ? [...frontier].reverse() : frontier) as item, i}
                             {@const nodeId = item.split("(")[0]}
                             <span 
                                 class="frontier-item" 
@@ -764,7 +765,7 @@
     .frontier-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
     .frontier-item { padding: 0.4rem 0.75rem; background: var(--color-surface-elevated); border: 1px solid var(--color-line); border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
     .frontier-item.is-head { border-color: var(--color-callout-warning-border); background: var(--color-highlight); position: relative; }
-    .frontier-item.is-head::after { content: 'NEXT'; position: absolute; right: 8px; font-size: 10px; color: var(--color-callout-warning-border); }
+    .frontier-item.is-head::after { content: 'TOP / NEXT'; position: absolute; right: 8px; font-size: 10px; color: var(--color-callout-warning-border); }
     .frontier-item.is-hovered { border-color: var(--color-binder); }
 
     .main-canvas { padding: 1.25rem; display: flex; flex-direction: column; justify-content: center; }

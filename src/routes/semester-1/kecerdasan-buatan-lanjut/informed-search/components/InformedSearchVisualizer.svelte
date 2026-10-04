@@ -97,7 +97,6 @@
 
         while (frontier.length > 0) {
             frontier.sort((a, b) => a.f - b.f || a.node.localeCompare(b.node));
-            const ranked = frontier.map(fmt);
             const cur = frontier.shift()!;
             if (visited.has(cur.node)) continue;
 
@@ -116,9 +115,11 @@
             });
 
             if (cur.node === goalNode) {
+                // Sort remaining frontier for display
+                const remainingSorted = [...frontier].sort((a, b) => a.f - b.f || a.node.localeCompare(b.node)).map(fmt);
                 snaps.push({
                     node: cur.node, action: `🎯 Goal H ditemukan!`,
-                    frontier: frontier.map(fmt), visited: [...visited],
+                    frontier: remainingSorted, visited: [...visited],
                     currentPath: path, expandedEdges: [],
                     goalReached: true, nodesExpanded: expandedCount,
                     decision, nodeCosts: currentCosts
@@ -140,10 +141,12 @@
                 }
             });
 
+            // After expanding children, sort the new frontier for display
+            const updatedFrontierSorted = [...frontier].sort((a, b) => a.f - b.f || a.node.localeCompare(b.node)).map(fmt);
             snaps.push({
                 node: cur.node,
                 action: expandedEdges.length > 0 ? `Buka tetangga ${cur.node}.` : `Buntu di ${cur.node}.`,
-                frontier: frontier.map(fmt), visited: [...visited],
+                frontier: updatedFrontierSorted, visited: [...visited],
                 currentPath: path, expandedEdges,
                 goalReached: false, nodesExpanded: expandedCount,
                 decision, nodeCosts: currentCosts
