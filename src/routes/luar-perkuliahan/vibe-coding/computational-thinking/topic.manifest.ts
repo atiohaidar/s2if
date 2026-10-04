@@ -10,7 +10,7 @@ const manifest: TopicManifest = {
     status: 'done',
     order: 2,
     tags: ['vibe-coding', 'computational-thinking', 'mindset', 'problem-solving', 'ai-assisted'],
-    prereq: ['komprehensif'],
+    prereq: ['fundamental-programming'],
     renderMode: 'note',
 };
 

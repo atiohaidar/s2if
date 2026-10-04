@@ -127,6 +127,10 @@
       Waktu kita ngoding atau vibe coding bareng AI, AI itu kan Agen Pemroses Informasi. 
       Biar solusinya bisa jalan dan terstruktur, pola pikir 4 pilar inilah yang kita pakai buat merumuskan masalahnya.
     </p>
+
+    <Callout type="tip" title="Langkah Selanjutnya: Vibe Coding Komprehensif">
+      Pola pikir problem solving udah kebentuk? Saatnya masuk ke alur kerja utuh bareng AI di <a href="/luar-perkuliahan/vibe-coding/komprehensif"><strong>Panduan Komprehensif Vibe Coding</strong></a>.
+    </Callout>
   </NoteSection>
 
   <BackLink href="/luar-perkuliahan/vibe-coding" label="Kembali ke Vibe Coding" />

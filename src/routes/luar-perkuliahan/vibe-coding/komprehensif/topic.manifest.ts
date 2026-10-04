@@ -8,9 +8,9 @@ const manifest: TopicManifest = {
     type: 'catatan',
     track: 'materi',
     status: 'wip',
-    order: 1,
+    order: 3,
     tags: ['vibe-coding', 'ai-assisted', 'prompt-engineering', 'workflow', 'mindset'],
-    prereq: [],
+    prereq: ['computational-thinking'],
     renderMode: 'note',
 };
 
