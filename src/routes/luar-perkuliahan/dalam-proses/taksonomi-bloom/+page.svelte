@@ -14,15 +14,15 @@
   let videoSidebar: VideoSidebar;
 
   const chapters = [
-    { title: 'Intro: Paradoks Belasan Tahun Belajar', time: '0:00', seconds: 0 },
-    { title: 'Level 1: Menghafal (Remembering) & Terminologi Riset', time: '1:43', seconds: 103 },
+    { title: 'Intro: Belajar Belasan Tahun & Ilmu Gak Kepakai', time: '0:00', seconds: 0 },
+    { title: 'Level 1: Menghafal (Remembering) & Jeruk Lemon', time: '1:43', seconds: 103 },
     { title: 'Level 2: Memahami (Understanding) - Tanya Kenapa?', time: '3:21', seconds: 201 },
-    { title: 'Level 3: Mengaplikasikan (Applying) - Thought Experiment', time: '4:04', seconds: 244 },
-    { title: 'Level 4: Menganalisa (Analyzing) - Komparasi SOTA', time: '5:25', seconds: 325 },
-    { title: 'Level 5: Mengevaluasi (Evaluating) - Threats to Validity', time: '6:24', seconds: 384 },
-    { title: 'Level 6: Menciptakan (Creating) - Novel Research Gap', time: '7:21', seconds: 441 },
-    { title: 'Perangkap Riset: Sindrom Loncat Tahap & ATM Dangkal', time: '8:25', seconds: 505 },
-    { title: 'Studi Kasus: Audit Literatur Sebelum Menulis Karya', time: '9:25', seconds: 565 }
+    { title: 'Level 3: Mengaplikasikan (Applying) - Praktik Perasan Lemon', time: '4:04', seconds: 244 },
+    { title: 'Level 4: Menganalisa (Analyzing) - Membanding-bandingkan', time: '5:25', seconds: 325 },
+    { title: 'Level 5: Mengevaluasi (Evaluating) - Kritis Mengukur Limitasi', time: '6:24', seconds: 384 },
+    { title: 'Level 6: Menciptakan (Creating) - Ester-C & Time Capsule', time: '7:21', seconds: 441 },
+    { title: 'Perangkap Belajar: Sindrom Loncat Tahap & Budaya ATM', time: '8:25', seconds: 505 },
+    { title: 'Studi Kasus: Mengapa F15library, Bukan Nulis Buku?', time: '9:25', seconds: 565 }
   ];
 
   const sectionMap = [
@@ -60,52 +60,52 @@
 
   const quizQuestions = [
     {
-      question: 'Mengapa menghafal terminologi dasar (Remembering) tetap krusial saat membaca paper penelitian?',
+      question: 'Menurut pemaparan video, mengapa menghafal (Level 1) tetap dianggap sebagai pondasi yang baik dalam Taksonomi Bloom?',
       options: [
-        'Karena reviewer paper hanya menilai seberapa banyak sitasi yang dihafal',
-        'Karena otak membutuhkan terminologi dan definisi metrik mentah (p-value, precision, baseline) dalam working memory agar pembacaan argumen paper tidak terus-menerus terdistraksi mencari arti kata',
-        'Karena menghafal abstrak sudah cukup untuk memahami metodologi penelitian secara utuh',
-        'Karena peneliti hebat tidak perlu memahami relasi sebab-akibat antar-variabel'
+        'Karena sistem ujian sekolah mewajibkan nilai hafalan tinggi',
+        'Karena menghafal adalah dasar pertama dari pendidikan untuk mengenal fakta awal sebelum bisa memahami atau menganalisis lebih jauh',
+        'Karena orang yang hafal otomatis pasti paham penerapannya',
+        'Karena otak kita sebaiknya hanya difokuskan untuk mengingat rumus'
       ],
       correctIndex: 1,
       explanation:
-        'Menghafal istilah dasar (vocabulary) dan metrik statistik adalah fondasi mental. Tanpa itu, energi kognitif kita akan habis terbuang hanya untuk mengecek glosarium dasar setiap kali membaca satu paragraf paper.'
+        'Di dalam video dijelaskan bahwa menghafal adalah dasar pertamanya pendidikan. Menghafal itu bagus dan penting sebagai pintu masuk, asalkan kita tidak berhenti hanya di level tersebut.'
     },
     {
-      question: 'Ketika kita mereview paper orang lain tanpa mengulang kodingan atau eksperimen lab author, bagaimana tahap "Mengaplikasikan" (Applying) dijalankan?',
+      question: 'Dalam analogi jeruk lemon, pertanyaan manakah yang menandakan seseorang mulai berpindah ke tahap "Memahami" (Level 2)?',
       options: [
-        'Tahap tersebut wajib di-skip karena kita tidak memegang source code asli',
-        'Dengan mengaplikasikan rubrik metodologi ilmiah (validitas internal/eksternal) dan melakukan mental simulation (thought experiment) untuk menguji logika metode author pada skenario edge case hipotetis',
-        'Dengan sekadar menyalin ulang teks kesimpulan paper ke dokumen review kita',
-        'Dengan meminta AI menjalankan kodingan author tanpa mengecek logikanya'
+        'Berapa harga satu kilogram jeruk lemon di pasar?',
+        'Kenapa jeruk lemon mengandung vitamin C dan kenapa vitamin C bagus untuk orang yang imunitasnya rendah?',
+        'Apakah buah kiwi juga mengandung vitamin C sebanyak lemon?',
+        'Bagaimana cara memeras lemon agar airnya tidak muncrat?'
       ],
       correctIndex: 1,
       explanation:
-        'Dalam domain kognitif, Applying tidak selalu berupa aksi fisik menjalankan kode. Kita mengaplikasikan kaidah ilmiah, kriteria validitas riset, serta thought experiment (menguji cara kerja metode author pada kondisi batas atau dataset ekstrem).'
+        'Ciri khas Level 2 (Memahami) adalah berani bertanya "Kenapa?" (Why) di balik fakta yang dihafal, seperti menggali alasan mengapa lemon mengandung vitamin C dan khasiatnya bagi imunitas.'
     },
     {
-      question: 'Apa bahaya terbesar jika seorang mahasiswa/peneliti melompati tahap Menganalisa dan Mengevaluasi saat membaca literatur, lalu langsung mencoba "Menciptakan" (Creating/menulis riset baru)?',
+      question: 'Bagaimana teknologi kapsul Time-Release dan Ester-C lahir sebagai representasi tahap "Menciptakan" (Level 6)?',
       options: [
-        'Riset yang dihasilkan berisiko sekadar ATM dangkal (mengubah sedikit variabel sepele atau sekadar ganti lokasi studi) tanpa kontribusi kebaruan (novelty) yang bermakna',
-        'Paper yang dibuat akan otomatis diterima di konferensi top tier',
-        'Waktu penulisan paper menjadi jauh lebih singkat dan bebas revisi',
-        'Metodologi yang diajukan otomatis bebas dari ancaman validitas (threats to validity)'
-      ],
-      correctIndex: 0,
-      explanation:
-        'Tanpa analisis dekonstruksi dan evaluasi limitasi karya terdahulu, kita tidak tahu di mana celah riset yang sebenarnya. Akhirnya kita hanya menghasilkan inovasi kosmetik (reinventing the broken wheel).'
-    },
-    {
-      question: 'Mengapa Aditia Yudis memilih membangun F15library.com daripada langsung menulis buku baru, dan apa pelajarannya bagi periset akademis?',
-      options: [
-        'Karena menulis buku membutuhkan biaya cetak yang terlalu mahal',
-        'Sebelum mempublikasikan riset baru, penting melakukan systematic literature review untuk memastikan ide kita bukan pengulangan yang sudah dibahas tuntas oleh orang lain dengan lebih baik',
-        'Karena membuat website lebih bergengsi daripada mempublikasikan paper jurnal',
-        'Karena membaca 2.000 buku lebih cepat daripada menulis satu bab penelitian'
+        'Lahir secara kebetulan tanpa melalui riset dan eksperimen',
+        'Lahir dari hasil evaluasi bahwa air perasan lemon terlalu asam untuk penderita maag dan mudah teroksidasi, sehingga dirancang bentuk sediaan baru yang melepaskan vitamin secara bertahap',
+        'Dibuat hanya untuk menaikkan harga jual buah lemon di pasaran',
+        'Dibuat agar orang tidak perlu lagi makan buah-buahan segar'
       ],
       correctIndex: 1,
       explanation:
-        'Sama seperti Aditia yang menahan diri demi mengaudit karya dunia yang sudah ada, seorang peneliti wajib melakukan audit literatur agar tidak membuang waktu meneliti hal yang sudah selesai dipecahkan oleh komunitas ilmiah.'
+        'Menciptakan (Creating) adalah solusi atas evaluasi: penderita maag tidak tahan asam lemon pekat dan vitamin C mudah rusak. Maka dirancang inovasi turunan (Ester-C) dan kapsul time-release yang larut perlahan di lambung.'
+    },
+    {
+      question: 'Mengapa Aditia Yudis memilih membangun F15library.com daripada langsung menulis buku baru saat disuruh audiensnya?',
+      options: [
+        'Karena biaya percetakan buku di Indonesia terlalu mahal',
+        'Karena melalui tahap analisis dan evaluasi, ia menyadari jangan-jangan konsep yang ingin ia tulis sudah pernah ditulis orang lain dengan lebih lengkap, sehingga merangkum 2.000+ buku terbaik dunia jauh lebih bermanfaat',
+        'Karena ia belum memiliki ide tulisan sama sekali',
+        'Karena membuat website lebih cepat selesai daripada menulis satu bab buku'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Sebelum terburu-buru menciptakan (nulis buku), ia menganalisa & mengevaluasi: jika konsepnya sudah ditulis orang lain dengan lebih bagus, ngapain buang waktu menulis hal yang sama persis? Solusi inovatifnya adalah membuat platform rangkuman 15 menit.'
     }
   ];
 </script>
@@ -114,7 +114,7 @@
   <title>Taksonomi Bloom: Dari Menghafal ke Menciptakan - S2IF Notebook</title>
   <meta
     name="description"
-    content="Membedah 6 tingkatan Taksonomi Bloom dalam proses belajar dan konteks membaca/mereview paper penelitian: dari menghafal istilah, thought experiment, evaluasi kritis, hingga menemukan novel research gap."
+    content="Bedah materi Taksonomi Bloom berdasarkan pemaparan Aditia Yudis (GBLK Project): paradoks hafalan belasan tahun sekolah, analogi jeruk lemon di 6 level kognitif, bahaya jebakan ATM tanpa analisis, hingga studi kasus lahirnya F15library.com."
   />
 </svelte:head>
 
@@ -123,22 +123,22 @@
     title="Taksonomi Bloom: Dari Menghafal ke Menciptakan"
     date="23 Oktober 2026"
     status="done"
-    tags={['Taksonomi Bloom', 'Mindset', 'Cara Belajar', 'Paper Review', 'Critical Thinking']}
+    tags={['Taksonomi Bloom', 'Mindset', 'Cara Belajar', 'Inovasi', 'Kreativitas']}
   />
 
   <Callout type="info" title="Sumber Referensi">
-    Catatan ini diadaptasi dari pemaparan inspiratif <strong>Aditia Yudis</strong> (Founder F15library.com) pada video
-    <em>"From Rote Memorization to Creation: How Deep Do You Actually Learn? | GBLK PROJECT #45"</em>.
+    Catatan ini disusun berdasarkan video monolog <strong>Aditia Yudis</strong> pada kanal <em>GBLK PROJECT (#45)</em>:
+    <strong>"From Rote Memorization to Creation: How Deep Do You Actually Learn?"</strong>.
     Video lengkap dapat disimak melalui tautan
     <a href="https://www.youtube.com/watch?v=ImHHBUkFmo8" target="_blank" rel="noopener noreferrer">
       YouTube Aditia Yudis (GBLK PROJECT #45)
-    </a>. Untuk sinkronisasi topik dan bab pembahasan, gunakan panel video yang tersedia.
+    </a>. Gunakan panel video di sebelah kanan untuk menyimak pembahasan secara sinkron.
   </Callout>
 
   <VideoSyncArticle {sectionMap}>
     <!-- Section 1 -->
     <div data-section-id="paradoks-belajar">
-      <NoteSection title="1. Paradoks Belasan Tahun Belajar: Mengapa Hafalan Tidak Cukup?">
+      <NoteSection title="1. Paradoks Belasan Tahun Belajar: Mengapa Semua Ilmu Terasa 'Kagak Kepakai'?">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -148,7 +148,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 0:00 Paradoks Pendidikan & Hafalan
+            <Play size={12} /> 0:00 Belajar Berbelas-belas Tahun
           </a>
           <a
             href="{videoBaseUrl}&t=0m51s"
@@ -157,32 +157,47 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 0:51 Rutinitas Kaku 12+ Tahun
+            <Play size={12} /> 0:51 Rutinitas Sekolah yang Ketat
           </a>
         </div>
 
         <p>
-          Coba tengok kembali perjalanan panjang pendidikan formal kita: dari TK, SD, SMP, SMA, hingga perguruan tinggi. Lebih dari <strong>16 tahun</strong> hidup kita dihabiskan dalam format yang serba terstruktur: bangun pagi, memakai seragam lengkap dengan dasi terikat rapi, meminta izin ke toilet dengan angkat tangan, dan menunggu bunyi lonceng bel pergantian kelas.
+          Bayangkan perjalanan hidup kita sejak kecil: kita hanya diberi jeda hidup bebas dari umur 0 pas lahir sampai umur 3 atau 4 tahun. Masuk umur 5 tahun, kita sudah harus TK, lanjut TKB, lalu langsung masuk SD.
         </p>
 
         <p>
-          Namun, saat memasuki dunia riset pascasarjana atau lingkungan riset terapan di mana kita dihadapkan pada tumpukan paper jurnal bereputasi tinggi, banyak mahasiswa mengeluh: <em>"Kenapa membaca paper ilmiah terasa sangat melelahkan dan sulit menemukan ide riset baru?"</em>
+          Setiap pagi kita datang, berbaris rapi di depan kelas, harus angkat tangan bilang <em>"Bu, izin ke toilet..."</em>, mendengar bunyi lonceng <em>kling-kling-kling</em>, ditegur kalau dasi kurang kencang atau rok di atas lutut. Dan rutinitas serba patuh itu kita jalani selama <strong>12 tahun</strong> penuh (SD, SMP, SMA) dari umur 5 sampai 17 tahun. Setelah lulus dari situ pun kita masih kuliah lagi bertahun-tahun, seakan-akan kita masih kurang belajar.
         </p>
 
-        <Callout type="warning" title="Akar Masalah Kognitif">
-          Masalahnya bukan karena otak kita tidak mampu, melainkan karena selama belasan tahun kita terbiasa dilatih hanya pada tingkatan kognitif paling dasar: <strong>Menghafal (Rote Memorization)</strong>. Di sekolah, kita dinilai dari seberapa tepat mengingat hafalan klasifikasi biologi, rumus baku, atau tanggal prasasti sejarah.
+        <p>
+          Tapi selama belasan tahun belajar itu, kenapa tiba-tiba pas masuk dunia kerja nyata, hampir semua ilmu yang kita pelajari terasa <strong>kagak kepakai</strong>? Apa sih sebenarnya yang salah?
+        </p>
+
+        <Callout type="warning" title="Penyebab Utama">
+          Yang salah adalah selama belasan tahun sekolah (TK, SD, SMP, SMA, hingga kuliah), otak kita <strong>fokus cuma di level pertama pembelajaran: Menghafal</strong>.
         </Callout>
 
         <p>
-          Menghafal adalah fondasi awal yang penting, tetapi tidak akan pernah cukup untuk melakukan <strong>analisis kritis (critical thinking)</strong> atau <strong>peer-review ilmiah</strong>. Di sinilah <strong>Taksonomi Bloom</strong> menjadi kompas penting bagi akademisi dan praktisi untuk melangkah dari sekadar "tahu istilah" menuju "mampu menciptakan kontribusi ilmiah orisinal".
+          Isi memori kita dijejali pertanyaan-pertanyaan hafalan:
+        </p>
+        <ul>
+          <li><em>"Apa bedanya tumbuhan monokotil dan dikotil?"</em></li>
+          <li><em>"Apa bedanya akar serabut dan akar tunggang?"</em></li>
+          <li><em>"Binatang apa saja yang ovipar, vivipar, dan ovovivipar?"</em></li>
+          <li><em>"Apa bedanya kingdom animalia, plantae, dan fungi?"</em></li>
+          <li><em>"Sebutkan prasasti yang ditandatangani pada tahun sekian!"</em></li>
+        </ul>
+
+        <p>
+          Apakah menghafal itu boleh dan bagus? Bagus! Itu memang <strong>dasar pertamanya pendidikan</strong>. Tapi masalahnya, jangan berhenti cuma sampai di situ. Kapan pintarnya otak kita kalau cuma dipakai untuk menghafal? Inilah yang dijelaskan dalam <strong>Taksonomi Bloom</strong> yang memiliki 6 tingkatan belajar.
         </p>
       </NoteSection>
     </div>
 
     <!-- Ringkasan Tabel Taksonomi Bloom -->
-    <NoteSection title="Peta Kognitif: 6 Tingkatan Taksonomi Bloom dalam Konteks Membaca Paper">
+    <NoteSection title="Peta 6 Tingkatan Taksonomi Bloom (Berdasarkan Analogi Jeruk Lemon)">
       <p>
-        Dalam video aslinya, Aditia Yudis mengilustrasikan hierarki kognitif ini menggunakan analogi buah <strong>Jeruk Lemon</strong>. Tabel berikut mengomparasikan analogi lemon tersebut dengan penerapannya saat <strong>membaca, mengkritisi, dan mereview paper penelitian</strong>:
+        Untuk menjelaskan 6 tingkatan kognitif ini secara runut, Aditia Yudis menggunakan studi kasus buah <strong>Jeruk Lemon</strong> hingga lahirnya inovasi farmasi:
       </p>
 
       <div class="table-container">
@@ -190,9 +205,9 @@
           <thead>
             <tr>
               <th style="width: 12%;">Tingkat</th>
-              <th style="width: 18%;">Kategori</th>
-              <th style="width: 32%;">Analogi Jeruk Lemon (Aditia Yudis)</th>
-              <th style="width: 38%;">Penerapan dalam Membaca / Mereview Paper Ilmiah</th>
+              <th style="width: 22%;">Tahapan Kognitif</th>
+              <th style="width: 32%;">Pertanyaan & Tindakan Kunci</th>
+              <th style="width: 34%;">Analogi Jeruk Lemon (Sesuai Script Video)</th>
             </tr>
           </thead>
           <tbody>
@@ -202,10 +217,8 @@
                 <span class="tag-hot">HOT</span>
                 <strong>Menciptakan</strong> (Creating)
               </td>
-              <td>Merancang formula turunan (Ester-C) atau kapsul <em>time-release</em> agar aman bagi penderita maag.</td>
-              <td>
-                <strong>Menemukan Novel Research Gap:</strong> Merumuskan hipotesis lanjutan, merancang modifikasi algoritma/metode baru untuk menambal kelemahan paper yang dibaca, atau menyusun proposal tesis orisinal.
-              </td>
+              <td>Merancang sesuatu yang baru untuk memecahkan masalah hasil evaluasi.</td>
+              <td>Merancang ekstrak lemon menjadi bentuk turunan (<strong>Ester-C</strong> yang tidak asam di lambung) atau kapsul <strong>Time Capsule</strong> yang rilisnya bertahap.</td>
             </tr>
             <tr>
               <td><strong>Level 5</strong></td>
@@ -213,10 +226,8 @@
                 <span class="tag-hot">HOT</span>
                 <strong>Mengevaluasi</strong> (Evaluating)
               </td>
-              <td>Menilai kritis bahwa air perasan lemon terlalu asam untuk lambung sensitif dan vitamin C-nya mudah teroksidasi.</td>
-              <td>
-                <strong>Academic Judgment & Peer-Review:</strong> Mengkritisi ancaman validitas (<em>internal/external validity</em>), menguji apakah bukti empiris cukup kuat mendukung klaim kesimpulan author, serta memberi rekomendasi (Accept/Reject).
-              </td>
+              <td>Mulai mengkritisi kelebihan, kekurangan, dan batas efektivitas.</td>
+              <td>Menilai bahwa perasan lemon efektif, tapi airnya terlalu banyak untuk vitamin C yang sedikit, mudah teroksidasi, dan asamnya bikin sakit maag.</td>
             </tr>
             <tr>
               <td><strong>Level 4</strong></td>
@@ -224,10 +235,8 @@
                 <span class="tag-hot">HOT</span>
                 <strong>Menganalisa</strong> (Analyzing)
               </td>
-              <td>Membandingkan kandungan vitamin C lemon dengan buah lain (kiwi, jambu biji) dan memilah asam sitrat vs askorbat.</td>
-              <td>
-                <strong>Dekonstruksi & Komparasi SOTA:</strong> Membedah kesesuaian data hasil vs klaim author, membandingkan performa metode author dengan model <em>baseline</em>/SOTA terdahulu, serta mendeteksi potensi <em>cherry-picking</em>.
-              </td>
+              <td>Mulai membanding-bandingkan dan membedah struktur.</td>
+              <td>Mempertanyakan: apakah cuma lemon yang ada vitamin C? Apakah ada buah lain? Apakah di dalam lemon cuma ada vitamin C saja?</td>
             </tr>
             <tr>
               <td><strong>Level 3</strong></td>
@@ -235,10 +244,8 @@
                 <span class="tag-lot">LOT</span>
                 <strong>Mengaplikasikan</strong> (Applying)
               </td>
-              <td>Memotong lemon, memeras air sarinya, lalu meminumnya saat flu untuk meningkatkan imunitas tubuh.</td>
-              <td>
-                <strong>Penerapan Framework & Thought Experiment:</strong> Menerapkan rubrik metodologi ilmiah pada teks paper, serta melakukan simulasi mental (menguji bagaimana metode author bekerja pada skenario <em>edge cases</em>/dataset ekstrem).
-              </td>
+              <td>Jangan cuma teori, praktikkan ilmunya secara langsung!</td>
+              <td>Jeruk lemon dibelah, diperas sarinya, lalu diminum sendiri atau diberikan ke orang yang sedang drop imunitasnya.</td>
             </tr>
             <tr>
               <td><strong>Level 2</strong></td>
@@ -246,10 +253,8 @@
                 <span class="tag-lot">LOT</span>
                 <strong>Memahami</strong> (Understanding)
               </td>
-              <td>Memahami alasan kenapa lemon mengandung vitamin C dan kenapa vitamin C melindungi sel imun manusia.</td>
-              <td>
-                <strong>Memahami Alur Argumen Author:</strong> Menangkap <em>research question</em>, latar belakang masalah, landasan teoritis, serta alasan mengapa author memilih metode tersebut dibanding pendekatan konvensional.
-              </td>
+              <td>Mencari alasan sebab-akibat dengan bertanya <em>"Kenapa?"</em>.</td>
+              <td>Bertanya: kenapa lemon mengandung vitamin C? Kenapa vitamin C bagus untuk imunitas tubuh? Kenapa rata-rata buah ber-vitamin C warnanya kekuningan?</td>
             </tr>
             <tr>
               <td><strong>Level 1</strong></td>
@@ -257,10 +262,8 @@
                 <span class="tag-lot">LOT</span>
                 <strong>Menghafal</strong> (Remembering)
               </td>
-              <td>Mengingat ciri fisik lemon: bentuk lonjong, kulit kuning, rasa asam, dan memiliki kandungan vitamin C.</td>
-              <td>
-                <strong>Penguasaan Terminologi Dasar:</strong> Me-recall definisi istilah riset dan metrik statistik (misal: <em>p-value</em>, <em>precision</em>, <em>recall</em>, <em>F1-score</em>, <em>overfitting</em>, <em>sample size</em>, <em>baseline</em>).
-              </td>
+              <td>Mengingat fakta mentah dan karakteristik awal.</td>
+              <td>Menghafal ciri lemon: warnanya kuning, bentuknya oval/lonjong, rasanya asam, dan mengandung nutrisi vitamin C.</td>
             </tr>
           </tbody>
         </table>
@@ -269,7 +272,7 @@
 
     <!-- Section 2 -->
     <div data-section-id="level-1-menghafal">
-      <NoteSection title="2. Level 1: Menghafal (Remembering) — Penguasaan Terminologi Dasar Riset">
+      <NoteSection title="2. Level 1: Menghafal (Remembering) — Analogi Jeruk Lemon">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -279,7 +282,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 1:43 Menghafal sebagai Pondasi
+            <Play size={12} /> 1:43 Menghafal sebagai Langkah Pertama
           </a>
           <a
             href="{videoBaseUrl}&t=2m43s"
@@ -288,27 +291,30 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 2:43 Analogi Jeruk Lemon
+            <Play size={12} /> 2:43 Fakta Dasar Jeruk Lemon
           </a>
         </div>
 
         <p>
-          Ada sebagian akademisi pemula yang sinis terhadap hafalan: <em>"Sekarang kan ada AI dan Google, ngapain ngafal istilah teknis?"</em>.
+          Menghafal adalah fase pembelajaran mendasar yang paling awal. Kalau kita sedang menghafalkan tentang jeruk lemon, apa saja fakta yang kita hafalkan?
         </p>
 
-        <p>
-          Pandangan ini keliru. Aditia Yudis menekankan bahwa <strong>menghafal adalah batu bata pertama</strong>. Bayangkan seorang peneliti membaca paper tentang <em>Deep Learning</em> tetapi tidak hafal apa arti istilah dasar seperti <em>loss function</em>, <em>learning rate</em>, <em>cross-entropy</em>, atau <em>overfitting</em>. Setiap membaca satu kalimat, proses berpikirnya akan terinterupsi karena harus membuka kamus atau bertanya ke AI.
-        </p>
+        <ul>
+          <li>Jeruk lemon itu rasanya asem.</li>
+          <li>Jeruk lemon itu warnanya kuning.</li>
+          <li>Jeruk lemon itu bentuknya oval / lonjong.</li>
+          <li>Jeruk lemon itu mengandung vitamin C.</li>
+        </ul>
 
         <p>
-          Memori kerja (<em>working memory</em>) manusia membutuhkan istilah-istilah dasar ini tersimpan rapi di kepala agar energi kognitif kita bisa difokuskan untuk mencerna alur logika yang jauh lebih rumit.
+          Ketika seseorang bisa menyebutkan fakta-fakta ini saat ditanya, itu artinya dia sedang <strong>menghafal</strong>.
         </p>
       </NoteSection>
     </div>
 
     <!-- Section 3 -->
     <div data-section-id="level-2-memahami">
-      <NoteSection title="3. Level 2: Memahami (Understanding) — Rantai Pertanyaan Kritis 'Kenapa?'">
+      <NoteSection title="3. Level 2: Memahami (Understanding) — Rantai Pertanyaan 'Kenapa?'">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -327,29 +333,34 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 3:41 Menanyakan Alasan di Balik Klaim
+            <Play size={12} /> 3:41 Bertanya 'Kenapa?' Berulang Kali
           </a>
         </div>
 
         <p>
-          Banyak orang hanya membaca abstrak dan kesimpulan paper, lalu mengira dirinya sudah "paham". Di Level 2 Taksonomi Bloom, pemahaman sejati ditandai dengan kemampuan kita mengajukan rantai pertanyaan <strong>"Kenapa?" (Why)</strong> terhadap pilihan metodologi author:
+          Di masyarakat, sering ada kelompok orang yang anti-menghafal dan berkata: <em>"Buat apa hafal kalau tidak paham? Yang penting mah paham intisarinya yang bakal kepakai dalam hidup!"</em>.
+        </p>
+
+        <p>
+          Di Taksonomi Bloom, pemahaman memang berada persis di atas menghafal. Setelah hafal, tingkatan berikutnya adalah <strong>memahami</strong>. Cara menguji apakah kita sudah paham adalah dengan bertanya <strong>"Kenapa?"</strong> berulang kali:
         </p>
 
         <ul>
-          <li><em>Kenapa author memilih arsitektur berbasis Transformer dibanding LSTM untuk dataset sekuensial ini?</em></li>
-          <li><em>Kenapa mereka menggunakan metrik F1-score makro ketimbang akurasi biasa? (Oh, ternyata datasetnya imbalanced).</em></li>
-          <li><em>Kenapa loss function yang digunakan memiliki komponen regularisasi tambahan?</em></li>
+          <li><em>"Kenapa jeruk lemon tadi lu hafal mengandung vitamin C?"</em></li>
+          <li><em>"Kenapa vitamin C bagus untuk orang yang sedang rendah imunitasnya?"</em></li>
+          <li><em>"Kenapa vitamin C bagus?"</em></li>
+          <li><em>"Kenapa rata-rata buah yang mengandung vitamin C warnanya kekuning-kuningan?"</em></li>
         </ul>
 
         <p>
-          Ketika Anda mampu menceritakan kembali inti permasalahan paper dan alasan di balik metodologinya dengan kata-kata sendiri tanpa menyontek teks aslinya, di situlah Anda telah mencapai tingkat <strong>Understanding</strong>.
+          Ketika kita mulai mencari tahu alasan di balik hal-hal tersebut, di situlah kita sedang belajar memahami. Tapi ingat, jangan berhenti cuma sampai paham!
         </p>
       </NoteSection>
     </div>
 
     <!-- Section 4 -->
     <div data-section-id="level-3-mengaplikasikan">
-      <NoteSection title="4. Level 3: Mengaplikasikan (Applying) — Thought Experiment & Uji Skenario">
+      <NoteSection title="4. Level 3: Mengaplikasikan (Applying) — Praktik Langsung Perasan Lemon">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -359,7 +370,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 4:04 Jangan Cuma Teori, Terapkan!
+            <Play size={12} /> 4:04 Jangan Cuma Teori Doang, Lakuin!
           </a>
           <a
             href="{videoBaseUrl}&t=4m26s"
@@ -368,37 +379,32 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 4:26 Praktik Memeras Lemon
+            <Play size={12} /> 4:26 Memeras & Meminum Sari Lemon
           </a>
         </div>
 
         <p>
-          Pertanyaan mendasar yang sering muncul bagi akademisi dan reviewer adalah:
-          <em>"Jika saat mereview paper orang lain kita tidak selalu mengulang kodingan atau mereplikasi eksperimen lab author dari awal, apakah tahap Mengaplikasikan (Applying) ini kita skip?"</em>
+          Setelah menghafal dan memahami, langkah selanjutnya yang semua orang tahu adalah: <strong>dilakukan (dipraktikkan)</strong>! Jangan cuma berhenti di teori di kepala, tapi lakuin dong.
         </p>
 
-        <Callout type="tip" title="Jawabannya: Sama Sekali Tidak Di-Skip!">
-          Dalam domain kognitif, <strong>Applying</strong> tidak harus berarti menulis kode ulang secara fisik. Yang kita aplikasikan adalah <strong>Rubrik Metodologi Ilmiah</strong> dan <strong>Simulasi Mental (Thought Experiment)</strong> terhadap argumen author!
-        </Callout>
+        <p>
+          Bagaimana contoh mengaplikasikannya?
+          Kita belajar bahwa jeruk lemon itu mengandung cairan di dalamnya yang bisa dibelah dan diperas. Air hasil perasan ini namanya sari lemon, dan sari lemon berguna untuk meningkatkan imunitas tubuh.
+        </p>
 
-        <p>Bentuk konkret aplikasi kognitif saat membaca paper:</p>
-        <ol>
-          <li>
-            <strong>Menerapkan Kaidah Ilmiah:</strong> Anda mengaplikasikan kriteria validitas penelitian (seperti pada panduan <a href="/semester-1/tren-perangkat-lunak/mengkritisi-paper-penelitian">mengkritisi paper penelitian</a>). Misalnya menerapkan aturan: <em>"Apakah ukuran sampel N = 30 statistically valid untuk menggeneralisasi perilaku ribuan pengguna sistem?"</em>.
-          </li>
-          <li>
-            <strong>Mental Simulation / Thought Experiment:</strong> Anda menerapkan logika algoritma author pada skenario hipotetis ekstrem (<em>edge cases</em>). Contoh: <em>"Bagaimana jika metode penanganan transaksi yang diajukan ini diterapkan pada jaringan dengan latensi 500 ms atau packet loss 20%? Apakah sistemnya tetap konsisten atau akan deadlock?"</em>.
-          </li>
-          <li>
-            <strong>Menerapkan Standar Uji Komparasi:</strong> Anda menguji apakah parameter pada model pembanding (<em>baseline</em>) diatur secara adil, atau sengaja diset suboptimal agar model usulan author tampak unggul.
-          </li>
-        </ol>
+        <p>
+          Maka kita langsung mempraktikkan teorinya: buah lemon kita belah, kita peras sarinya, kita minum sendiri, atau kita suruh orang yang imunitasnya lagi drop untuk minum air perasan tersebut. Itu namanya <strong>mempraktikkan / mengaplikasikan</strong>.
+        </p>
+
+        <Callout type="tip" title="Catatan dari Video">
+          Aditia Yudis mengingatkan: <em>"Ini gua baru sebut 3 tahap, padahal Taksonomi Bloom ada 6 tahap. Dan kita bahkan di level mengaplikasikan itu aja udah jarang banget, kebanyakan masih mandek di menghafal!"</em>.
+        </Callout>
       </NoteSection>
     </div>
 
     <!-- Section 5 -->
     <div data-section-id="level-4-menganalisa">
-      <NoteSection title="5. Level 4: Menganalisa (Analyzing) — Dekonstruksi Klaim vs Evidence">
+      <NoteSection title="5. Level 4: Menganalisa (Analyzing) — Membanding-bandingkan">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -408,7 +414,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 5:25 Menganalisa & Membandingkan
+            <Play size={12} /> 5:25 Menganalisa Berarti Membandingkan
           </a>
           <a
             href="{videoBaseUrl}&t=5m55s"
@@ -417,29 +423,38 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 5:55 Eksplorasi Alternatif Sumber
+            <Play size={12} /> 5:55 Eksplorasi Alternatif Sumber Vitamin C
           </a>
         </div>
 
         <p>
-          Pada level ini, Anda membedah relasi antar bagian di dalam paper dan melakukan komparasi mendalam dengan literatur lain (<em>State-of-the-Art</em>):
+          Di atas mengaplikasikan atau melakukan, tahap berikutnya adalah <strong>menganalisa</strong>.
         </p>
-
-        <ul>
-          <li><strong>Dekonstruksi Klaim vs. Bukti Empiris:</strong> Apakah klaim fantastis di bagian <em>Conclusion</em> benar-benar didukung oleh data angka pada tabel <em>Results</em>? Ataukah author melakukan <em>overclaim</em>?</li>
-          <li><strong>Komparasi dengan SOTA Terdahulu:</strong> Apakah metode baru ini benar-benar lebih efisien dari paper tahun lalu, atau peningkatannya hanya 0.2% yang sebenarnya masuk dalam rentang standar deviasi (fluktuasi acak)?</li>
-          <li><strong>Pemeriksaan Dataset & Distribusi:</strong> Apakah data yang digunakan representatif untuk kondisi riil, atau dataset sintetis yang sengaja dirancang agar algoritma author mudah berhasil (*cherry-picked*)?</li>
-        </ul>
 
         <p>
-          Seorang reviewer handal tidak menelan mentah-mentah apa yang ditulis author; ia menganalisis anatomi pembuktiannya baris demi baris.
+          Orang yang menganalisa itu cirinya <strong>selalu membandingkan</strong>:
         </p>
+
+        <div class="note-quote-box">
+          <p>
+            "Oke, jeruk lemon tadi saya sudah hafal: bentuknya oval, warnanya kuning, mengandung vitamin C. Saya sudah mulai memahami: vitamin C berguna untuk meningkatkan imunitas tubuh. Saya juga sudah mulai mengaplikasikan: cairannya diperas dan diminum.
+            <strong>Tapi pertanyaan saya: apakah hanya jeruk lemon yang mengandung vitamin C? Apakah ada buah-buahan lain? Apakah hanya buah-buahan yang mengandung vitamin C? Dan apakah hanya ada vitamin C di dalam jeruk lemon?</strong>"
+          </p>
+        </div>
+
+        <p>
+          Di tahap analisa, kita mulai membanding-bandingkan dan mencari tahu:
+        </p>
+        <ul>
+          <li>Ternyata bukan cuma vitamin C yang ada di dalam jeruk lemon.</li>
+          <li>Ternyata vitamin C juga bisa didapatkan dari buah-buahan lain dan berbagai jenis makanan lainnya.</li>
+        </ul>
       </NoteSection>
     </div>
 
     <!-- Section 6 -->
     <div data-section-id="level-5-mengevaluasi">
-      <NoteSection title="6. Level 5: Mengevaluasi (Evaluating) — Menilai 'Threats to Validity' & Kualitas">
+      <NoteSection title="6. Level 5: Mengevaluasi (Evaluating) — Mulai Mengkritisi Solusi">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -449,7 +464,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 6:24 Mengevaluasi & Mengkritisi Solusi
+            <Play size={12} /> 6:24 Mengevaluasi & Mengkritisi
           </a>
           <a
             href="{videoBaseUrl}&t=7m01s"
@@ -458,29 +473,35 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 7:01 Mengidentifikasi Batasan Metodologis
+            <Play size={12} /> 7:01 Kerapuhan & Masalah Jeruk Lemon
           </a>
         </div>
 
         <p>
-          Setelah membedah data di tahap analisa, Anda masuk ke tahap <strong>evaluasi</strong>: memberikan penilaian ilmiah (<em>academic judgment</em>) mengenai validitas, kelebihan, serta kelemahan fatal paper tersebut.
+          Setelah selesai menganalisa dan membandingkan, tahap berikutnya adalah <strong>mengevaluasi</strong>. Mengevaluasi itu gimana? Kita <strong>mulai mengkritisi</strong>:
         </p>
 
-        <p>
-          Poin evaluasi kritis mencakup pengujian terhadap <strong>Threats to Validity</strong>:
-        </p>
         <ol>
-          <li><strong>Internal Validity:</strong> Apakah ada faktor perancu (<em>confounding variables</em>) yang luput dikontrol author sehingga hasil eksperimen menjadi bias?</li>
-          <li><strong>External Validity:</strong> Sejauh mana temuan riset ini dapat digeneralisasi ke skenario dunia nyata, atau hanya berlaku khusus di lingkungan lab author?</li>
-          <li><strong>Construct Validity:</strong> Apakah metrik yang diukur benar-benar merepresentasikan konsep yang ingin diuji? (Misal: mengukur kemudahan memahami kode hanya dari jumlah baris baris program).</li>
-          <li><strong>Kelayakan Publikasi (Decision):</strong> Menilai secara objektif apakah paper ini layak berstatus <em>Accept</em>, <em>Minor/Major Revision</em>, atau <em>Reject</em>.</li>
+          <li>
+            <strong>Volume Cairan Terlalu Banyak:</strong> Jeruk lemon memang efektif, tapi airnya itu terlalu banyak untuk kandungan vitamin C yang sebenarnya cuma sedikit.
+          </li>
+          <li>
+            <strong>Mudah Teroksidasi:</strong> Jeruk lemon akan sangat mudah teroksidasi oleh udara bebas jika dibiarkan dalam bentuk air perasan.
+          </li>
+          <li>
+            <strong>Tidak Ramah Asam Lambung:</strong> Keasaman sari lemon murni sangat berisiko menyakiti lambung orang yang memiliki penyakit maag atau asam lambung.
+          </li>
         </ol>
+
+        <p>
+          Dari hasil perbandingan dan evaluasi ini, kita mulai berpikir: <em>"Berarti vitamin C itu efektif, tapi tidak harus dalam bentuk air perasan buah yang besar. Vitamin C bisa diekstrak!"</em>. Tapi gimana cara mengekstraknya agar tetap aman diminum? Pertanyaan evaluasi ini membawa kita ke level tertinggi.
+        </p>
       </NoteSection>
     </div>
 
     <!-- Section 7 -->
     <div data-section-id="level-6-menciptakan">
-      <NoteSection title="7. Level 6: Menciptakan (Creating) — Merumuskan 'Novel Research Gap'">
+      <NoteSection title="7. Level 6: Menciptakan (Creating) — Lahirnya Ester-C & Time Capsule">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -490,7 +511,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 7:21 Merancang Solusi Baru
+            <Play size={12} /> 7:21 Menciptakan Sesuatu yang Baru
           </a>
           <a
             href="{videoBaseUrl}&t=8m04s"
@@ -499,32 +520,41 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 8:04 Sintesis Inovasi Ilmiah
+            <Play size={12} /> 8:04 Teknologi Kapsul Time-Release
           </a>
         </div>
 
         <p>
-          Tingkat tertinggi Taksonomi Bloom adalah <strong>Menciptakan (Creating / Synthesizing)</strong>.
-          Bagi mahasiswa magister atau peneliti, tahap ini adalah momen ketika kelemahan yang Anda temukan pada tahap evaluasi diubah menjadi <strong>ide penelitian baru (novel research contribution)</strong>.
+          Di level paling tinggi dalam Taksonomi Bloom, kita <strong>menciptakan sesuatu yang baru</strong>.
         </p>
 
-        <p>Contoh konkret transisi dari evaluasi paper menuju penciptaan riset baru:</p>
+        <p>
+          Dari hasil evaluasi tadi, kita merancang solusi inovatif:
+        </p>
+
+        <div class="note-quote-box">
+          <p>
+            <em>"Saya mau merancang bagaimana caranya air jeruk lemon itu bisa diekstrak jadi kapsul yang rasa asamnya tidak menyakiti lambung orang yang punya asam lambung (maag). Jadi gimana caranya orang yang gampang sakit maag tetap bisa minum vitamin C?"</em>
+          </p>
+        </div>
+
+        <p>
+          Dari proses berpikir inilah lahir inovasi produk nyata:
+        </p>
         <ul>
-          <li><em>"Setelah mengevaluasi paper X, saya menemukan bahwa algoritma mereka sangat akurat tapi membutuhkan konsumsi memori GPU yang tidak realistis untuk perangkat mobile."</em></li>
-          <li>
-            <strong>Langkah Creating:</strong> Anda merancang teknik kompresi model (kuantisasi atau pruning) baru yang mempertahankan 98% akurasi paper X namun memangkas kebutuhan RAM hingga 70%. Inilah yang menjadi topik tesis atau paper ilmiah orisinal Anda!
-          </li>
+          <li><strong>Turunan Vitamin C (Ester-C):</strong> Mengubah bentuk vitamin C menjadi turunannya sehingga tidak bersifat asam di lambung.</li>
+          <li><strong>Teknologi Time Capsule:</strong> Kapsul yang di dalamnya berisi butiran-butiran bulat kecil. Ketika masuk ke dalam lambung, pelepasan vitaminnya terjadi pelan-pelan (<em>sustained release</em>) agar lambung tidak kaget, tidak syok oleh asam mendadak, dan tidak memicu rasa sakit.</li>
         </ul>
 
         <p>
-          Inovasi riset yang bernilai tinggi tidak lahir dari lamunan abstrak, melainkan lahir dari hasil evaluasi yang tajam terhadap batas kemampuan penelitian terdahulu.
+          Itulah hasil sejati dari sebuah proses pembelajaran lengkap: dari menghafal, memahami, mempraktikkan, menganalisa, mengevaluasi, hingga menciptakan!
         </p>
       </NoteSection>
     </div>
 
     <!-- Section 8 -->
     <div data-section-id="jebakan-lompat-tahap">
-      <NoteSection title="8. Perangkap Riset: Sindrom Loncat Tahap & Budaya ATM Dangkal">
+      <NoteSection title="8. Perangkap Belajar: Sindrom Loncat Tahap & Terjebak Budaya ATM">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -534,7 +564,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 8:25 Sindrom Loncat Tahap
+            <Play size={12} /> 8:25 Mengapa Orang Kita Gak Kreatif?
           </a>
           <a
             href="{videoBaseUrl}&t=8m55s"
@@ -543,35 +573,31 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 8:55 Jebakan ATM Tanpa Analisis
+            <Play size={12} /> 8:55 Jebakan ATM Tanpa Analisis & Evaluasi
           </a>
         </div>
 
         <p>
-          Aditia Yudis menyoroti kekeliruan umum yang sering melanda proses belajar dan riset: <strong>kebiasaan melompati tahapan</strong>.
+          Jangan heran kenapa banyak orang di sekitar kita sering bingung dan tidak kepikiran ide kreatif. Menurut Aditia Yudis, penyebabnya adalah <strong>kebiasaan belajar yang suka loncat tahap</strong>:
         </p>
 
-        <div class="note-quote-box">
-          <p>
-            Banyak mahasiswa baru membaca judul dan abstrak 1–2 paper (<strong>menghafal</strong>), belum memahami prinsip kerjanya secara mendalam, tapi sudah terburu-buru ingin langsung <strong>menciptakan judul tesis atau paper baru</strong>.
-          </p>
+        <div class="simple-quote">
+          "Lu disuruh hafal dulu. Belum paham, lu udah disuruh praktikin. Habis praktik, lu langsung disuruh bikin yang baru. Ya pantesan aja cuman ATM (Amati, Tiru, Modifikasi) terus! Kapan mau jadi inovasi baru?"
         </div>
 
         <p>
-          Karena melewati tahap <strong>menganalisa</strong> dan <strong>mengevaluasi</strong>, apa yang dihasilkan?
-          Keluaran yang terjadi akhirnya sekadar <strong>ATM (Amati, Tiru, Modifikasi) dangkal</strong>:
+          Banyak orang baru belajar mempraktikkan tutorial, belum sempat <strong>menganalisa</strong>, belum sempat <strong>mengevaluasi</strong> kekurangannya, sudah langsung dituntut bikin inovasi baru.
         </p>
-        <ul>
-          <li>Hanya mengganti lokasi penelitian (misal: paper asli menguji di Rumah Sakit A, kita meniru persis lalu menguji di Rumah Sakit B tanpa ada kebaruan metodologi).</li>
-          <li>Mengganti variabel sepele tanpa menjustifikasi alasan ilmiahnya.</li>
-          <li>Mengulang kesalahan metodologis yang sebenarnya sudah lama diidentifikasi dan ditinggalkan oleh komunitas ilmiah dunia (*reinventing the broken wheel*).</li>
-        </ul>
+
+        <Callout type="warning" title="Inovasi Bukan Tiba-tiba Muncul">
+          Inovasi atau <em>creative thinking</em> itu bukan hasil dari ide yang tiba-tiba berbunyi <em>"dring!"</em> dari langit. Inovasi adalah hasil dari menganalisa dulu dan mempelajari dulu apa yang sudah pernah ada di dunia.
+        </Callout>
       </NoteSection>
     </div>
 
     <!-- Section 9 -->
     <div data-section-id="studi-kasus-f15library">
-      <NoteSection title="9. Studi Kasus F15library: Pentingnya Literature Audit Sebelum Menulis">
+      <NoteSection title="9. Studi Kasus Pribadi Aditia Yudis: Mengapa Membikin F15library.com, Bukan Buku?">
         <div class="section-meta-timestamps">
           <span class="meta-label">Materi Video:</span>
           <a
@@ -581,7 +607,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 9:25 Ajakan Menulis Buku
+            <Play size={12} /> 9:25 Disuruh Bikin Buku
           </a>
           <a
             href="{videoBaseUrl}&t=9m46s"
@@ -590,7 +616,7 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 9:46 Fase Analisis & Evaluasi Literatur
+            <Play size={12} /> 9:46 Analisis: Jangan Tulis Hal yang Sama
           </a>
           <a
             href="{videoBaseUrl}&t=10m14s"
@@ -599,56 +625,64 @@
             class="timestamp-badge"
             onclick={handleTimestampClick}
           >
-            <Play size={12} /> 10:14 Inovasi Berdasarkan Celah Nyata
+            <Play size={12} /> 10:14 Kelahiran F15library.com
           </a>
         </div>
 
         <p>
-          Kisah Aditia Yudis saat menolak langsung menulis buku baru menjadi analogi sempurna bagi dunia akademis:
+          Di penutup videonya, Aditia membagikan contoh nyata saat orang-orang di sekitarnya mendorong dia:
         </p>
 
-        <blockquote class="simple-quote">
-          "Mas Adit kan pintar berbicara dan wawasannya luas, bikin buku dong Mas! Pasti laris kalau Mas Adit yang nulis."
-        </blockquote>
+        <div class="simple-quote">
+          "Mas Adit kan pintar ngomong, bikin buku dong Mas Adit! Pasti bagus deh kalau Mas Adit bikin buku."
+        </div>
 
         <p>
-          Alih-alih langsung tergiur melompat ke tahap <strong>Menciptakan (menulis buku baru)</strong> demi status atau gengsi, Aditia menahan diri dan melakukan <strong>literature audit</strong>:
+          Tapi kenapa bukannya bikin buku, dia malah membuat <strong>F15library.com</strong>?
         </p>
-
-        <ul>
-          <li><strong>Audit Literatur Global:</strong> Jangan-jangan gagasan kepemimpinan dan produktivitas yang ingin ia tulis sebenarnya sudah pernah ditulis oleh para pemikir kaliber dunia dengan riset puluhan tahun yang jauh lebih matang?</li>
-          <li><strong>Pertanyaan Nilai Tambah:</strong> Jika ia memaksakan menulis buku yang sama, apakah karyanya akan lebih baik daripada literatur utama tersebut? Jika tidak, menulis ulang hal yang sama hanyalah pemborosan waktu yang menghasilkan karya redundan.</li>
-          <li><strong>Identifikasi Kebutuhan Riil:</strong> Masalah masyarakat kita bukan kekurangan buku bagus, melainkan keterbatasan waktu membaca dan kendala bahasa pada buku-buku referensi internasional.</li>
-        </ul>
 
         <p>
-          Dari evaluasi tersebut, lahirlah <strong>F15library.com</strong> yang merangkum 2.000+ buku <em>bestseller</em> dunia ke dalam intisari 15 menit berbahasa Indonesia.
+          Banyak orang heran: <em>"Aneh ya Mas Adit, disuruh bikin buku kok malah bikin perpustakaan? Kan bukan karya sendiri kalau perpustakaan..."</em>.
         </p>
 
-        <Callout type="tip" title="Pelajaran Emas bagi Peneliti">
-          Sebelum terburu-buru menulis proposal riset atau draft paper, lakukan <strong>Systematic Literature Review</strong> yang jujur. Pastikan masalah yang ingin Anda teliti memang benar-benar belum selesai dipecahkan oleh peneliti lain, sehingga karya Anda memiliki kebaruan (<em>novelty</em>) dan nilai guna yang nyata.
-        </Callout>
+        <p>
+          Aditia menjelaskan bahwa dia sedang menjalani tahap <strong>menganalisa dan mengevaluasi</strong>:
+        </p>
+
+        <div class="note-quote-box">
+          <p>
+            "Jangan-jangan semua konsep yang mau saya bikin jadi buku itu sebenarnya sudah pernah ditulis orang lain? Ngapain saya tulis dua kali kalau tulisan saya tidak lebih lengkap dan tidak lebih bagus daripada yang pernah mereka tulis? <strong>Sebelum kamu nulis buku, pastiin dulu konsep kamu ini tidak pernah ditulis orang. Kalau enggak, ngapain buang waktu nulis hal yang sama persis?</strong>"
+          </p>
+        </div>
+
+        <p>
+          Karena itulah ia mendirikan <strong>F15library.com</strong>: sebuah tempat di mana lebih dari <strong>2.000 buku bestseller dunia</strong> dirangkum intisarinya agar bisa selesai dibaca dalam waktu 15 menit berbahasa Indonesia. Bahkan disediakan format <em>audiobook</em> gratis tanpa perlu login dan tanpa perlu bikin akun.
+        </p>
+
+        <p>
+          Itulah contoh konkret penerapan Taksonomi Bloom: sebelum terburu-buru menciptakan sesuatu (level 6), lakukan analisa dan evaluasi (level 4 & 5) secara mendalam agar karya yang kita ciptakan benar-benar punya nilai baru!
+        </p>
       </NoteSection>
     </div>
   </VideoSyncArticle>
 
   <!-- Kuis Kilat -->
-  <NoteSection title="Uji Pemahaman: Kuis Kilat Taksonomi Bloom dalam Riset">
+  <NoteSection title="Uji Pemahaman: Kuis Kilat Taksonomi Bloom">
     <p>
-      Uji intuisi kognitif Anda mengenai penerapan Taksonomi Bloom saat membaca dan mengkritisi paper penelitian melalui kuis ringkas berikut:
+      Uji seberapa baik Anda menangkap pesan dari analogi jeruk lemon dan studi kasus Aditia Yudis melalui kuis singkat berikut:
     </p>
-    <Quiz title="Kuis Taksonomi Bloom & Review Paper Ilmiah" questions={quizQuestions} />
+    <Quiz title="Kuis Kilat Taksonomi Bloom (GBLK Project)" questions={quizQuestions} />
   </NoteSection>
 
   <!-- Summary Callout -->
-  <Callout type="tip" title="Checklist Membaca Paper dengan Taksonomi Bloom">
+  <Callout type="tip" title="Pesan Intisari Video">
     <ol>
-      <li><strong>Remembering:</strong> Kuasai terminologi dasar, rumus metrik, dan istilah riset sebelum membaca lebih jauh.</li>
-      <li><strong>Understanding:</strong> Pahami latar belakang masalah, hipotesis, dan alasan pemilihan metodologi author.</li>
-      <li><strong>Applying:</strong> Terapkan rubrik validitas ilmiah dan uji logika author melalui simulasi mental (<em>thought experiment</em>) pada kasus batas.</li>
-      <li><strong>Analyzing:</strong> Bedah kesesuaian antara bukti data pada tabel eksperimen dengan klaim kesimpulan author.</li>
-      <li><strong>Evaluating:</strong> Nilai keterbatasan riset, potensi bias, serta ancaman terhadap validitas (<em>internal & external validity</em>).</li>
-      <li><strong>Creating:</strong> Rumuskan kontribusi kebaruan (<em>novel research gap</em>) dari celah evaluasi tersebut untuk riset atau tesis Anda sendiri.</li>
+      <li><strong>Menghafal itu Bagus:</strong> Menghafal adalah dasar pertama pendidikan, tetapi jangan berhenti hanya di situ.</li>
+      <li><strong>Tanyakan 'Kenapa?':</strong> Masuk ke level pemahaman dengan selalu menggali alasan kausalitas di balik fakta.</li>
+      <li><strong>Praktikkan:</strong> Jangan biarkan ilmu cuma jadi teori di kepala; peras dan aplikasikan sarinya.</li>
+      <li><strong>Bandingkan (Analisa):</strong> Selalu bandingkan dengan alternatif lain agar melihat gambaran yang lebih luas.</li>
+      <li><strong>Kritisi (Evaluasi):</strong> Temukan kelemahan dan keterbatasan solusi yang ada saat ini.</li>
+      <li><strong>Ciptakan Inovasi:</strong> Rancang solusi baru (seperti Ester-C dan kapsul time-release) yang menambal kelemahan dari hasil evaluasi.</li>
     </ol>
   </Callout>
 
